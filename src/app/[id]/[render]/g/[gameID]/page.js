@@ -1,3 +1,4 @@
+'use client'
 import { getAccount, getAllAccount } from "@/api/accounts";
 import { getGame, getGames } from "@/api/getGame";
 import { getAllRenders } from "@/api/renders";
@@ -5,8 +6,6 @@ import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
 import { DisplayWriteup } from "@/components/displayWriteups";
-
-import { fetcher } from "@/utils/fetcher";
 
 export const dynamic = "auto",
   dynamicParams = true,

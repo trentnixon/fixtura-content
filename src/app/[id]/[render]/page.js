@@ -1,3 +1,4 @@
+'use client'
 import { getAccount, getAllAccount } from "@/api/accounts";
 import { getAllRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
