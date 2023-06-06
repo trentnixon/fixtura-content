@@ -18,7 +18,7 @@ export async function generateStaticParams() {
   const renders = await fetcher(`renders`);
 
   return renders.map((render) => ({
-    id: render.id,
+    render: render.id,
   }));
 }
 
