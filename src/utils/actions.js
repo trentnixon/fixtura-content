@@ -1,12 +1,13 @@
 export const FindAccountLabel = (account) => {
+  if (!account?.attributes?.account_type?.data?.attributes?.Name) {
+    return 'Undefined';
+  }
 
-if(account?.attributes?.account_type.data?.attributes.Name === undefined)
-  return 'Undefined'
-
-  return account?.attributes.account_type.data.attributes.Name === "Association"
-    ? account?.attributes.associations.data[0].attributes.Name
-    : account?.attributes.clubs.data[0].attributes.Name;
+  return account.attributes.account_type.data.attributes.Name === "Association"
+    ? account.attributes.associations.data[0]?.attributes?.Name
+    : account.attributes.clubs.data[0]?.attributes?.Name;
 };
+
 
 
 export const DateFromTo = (createdAt) =>{
