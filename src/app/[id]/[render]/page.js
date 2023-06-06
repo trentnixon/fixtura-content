@@ -1,13 +1,8 @@
-import { getSubscriptionTier } from "@/api/SubscriptionTier";
 import { getAccount } from "@/api/accounts";
-import { getAssets } from "@/api/assets";
-import { getAllRenders, getRenders } from "@/api/renders";
+import { getAllRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
-import { FindAccountLabel } from "@/utils/actions";
-
-import { fetcher } from "@/utils/fetcher";
 
 export const dynamic = "auto",
   dynamicParams = true,
@@ -15,20 +10,29 @@ export const dynamic = "auto",
   fetchCache = "auto";
 
 export async function generateStaticParams() {
-  const renders = await getAllRenders()
-  
-  return renders.map((render) => ({
-    render: render.id,
-  }));
+  // fetch data for both accounts and renders
+  const accounts = await getAccounts();
+  const renders = await getAllRenders();
+
+  // create a paths array combining all possible combinations of account ids and render ids
+  const paths = accounts.flatMap(account =>
+    renders.map(render => ({
+      params: { id: account.id.toString(), render: render.id.toString() },
+    }))
+  );
+
+  return paths;
 }
 
 export default async function Render({ params }) {
   const { id, render } = params;
 
   const account = await getAccount(id);
-  const renders = await getRenders(render);
-  const Assets = await getAssets();
   const scheduler = await getScheduler(account?.attributes.scheduler.data.id);
+
+  // If you are going to use the render and asset data, uncomment the lines below:
+  // const renderData = await getRender(render);
+  // const assets = await getAssets();
 
   return (
     <>
@@ -43,8 +47,7 @@ export default async function Render({ params }) {
           </div>
           <div className="col-span-1 md:col-span-2">
             <div className="p-6 bg-white rounded shadow">
-            
-             Select a Asset Option
+              Select a Asset Option
             </div>
           </div>
         </div>
