@@ -11,7 +11,7 @@ import { DisplayWriteup } from "@/components/displayWriteups";
   dynamicParams = true,
   revalidate = 10,
   fetchCache = "auto"; */
-
+export const  revalidate = 10, fetchCache = true;
 
 export async function generateStaticParams() {
   const accounts = await getAllAccount();

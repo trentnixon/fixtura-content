@@ -1,4 +1,3 @@
-
 import { getAccount, getAllAccount } from "@/api/accounts";
 import { getScheduler } from "@/api/scheduler";
 import { SubNavbar } from "@/components/SubNavBar";
@@ -9,10 +8,11 @@ import { SubNavbar } from "@/components/SubNavBar";
   fetchCache = "auto",
   runtime = "nodejs",
   preferredRegion = "auto"; */
-
+export const revalidate = 10,
+  fetchCache = true;
 export async function generateStaticParams() {
   const accounts = await getAllAccount();
-  
+
   return accounts.map((account) => ({
     id: account.id.toString(),
   }));
