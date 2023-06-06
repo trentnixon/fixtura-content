@@ -1,12 +1,6 @@
-import Link from "next/link";
 
 import { getAccount, getAllAccount } from "@/api/accounts";
-import { getRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
-//import { ComponentTest } from "@/components/componentTest";
-import { fetcher } from "@/utils/fetcher";
-import { SelectARender } from "@/components/SelectARender";
-import { FindAccountLabel } from "@/utils/actions";
 import { SubNavbar } from "@/components/SubNavBar";
 
 export const dynamic = "auto",
