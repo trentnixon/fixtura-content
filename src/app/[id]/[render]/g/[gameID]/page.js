@@ -11,30 +11,11 @@ import { DisplayWriteup } from "@/components/displayWriteups";
 export default async function Render({ params }) {
   const { id, render, gameID } = params;
 
-  const account = await getAccount(id);
-  const scheduler = await getScheduler(account?.attributes.scheduler.data.id);
+/*   const account = await getAccount(id);
+  const scheduler = await getScheduler(account?.attributes.scheduler.data.id); */
   const game = gameID ? await getGame(gameID) : null;
 
   return (
-    <>
-      <SubNavbar PATH={id} DATA={scheduler?.attributes?.renders?.data} />
-
-      <main>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="col-span-1 md:col-span-1">
-            <div className="p-6 bg-white rounded shadow">
-              {/* <RenderNavigation params={params} /> */}
-              Navigation
-              Asset Page
-            </div>
-          </div>
-          <div className="col-span-1 md:col-span-2">
-            <div className="p-6 bg-white rounded shadow">
-              <DisplayWriteup game={game} />
-            </div>
-          </div>
-        </div>
-      </main>
-    </>
+    <DisplayWriteup game={game} />
   );
 }
