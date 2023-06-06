@@ -3,12 +3,12 @@ import { getAccount, getAllAccount } from "@/api/accounts";
 import { getScheduler } from "@/api/scheduler";
 import { SubNavbar } from "@/components/SubNavBar";
 
-export const dynamic = "auto",
+/* export const dynamic = "auto",
   dynamicParams = true,
   revalidate = 10,
   fetchCache = "auto",
   runtime = "nodejs",
-  preferredRegion = "auto";
+  preferredRegion = "auto"; */
 
 export async function generateStaticParams() {
   const accounts = await getAllAccount();

@@ -7,10 +7,10 @@ import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
 import { DisplayWriteup } from "@/components/displayWriteups";
 
-export const dynamic = "auto",
+/* export const dynamic = "auto",
   dynamicParams = true,
   revalidate = 10,
-  fetchCache = "auto";
+  fetchCache = "auto"; */
 
 
 export async function generateStaticParams() {

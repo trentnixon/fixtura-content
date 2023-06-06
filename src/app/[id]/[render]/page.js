@@ -1,14 +1,13 @@
-
 import { getAccount, getAllAccount } from "@/api/accounts";
 import { getAllRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
 
-export const dynamic = "auto",
+/* export const dynamic = "auto",
   dynamicParams = true,
   revalidate = 10,
-  fetchCache = "auto";
+  fetchCache = "auto"; */
 
 export async function generateStaticParams() {
   // fetch data for both accounts and renders
