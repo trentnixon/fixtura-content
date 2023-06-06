@@ -36,7 +36,8 @@ export default async function Render({ params }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="col-span-1 md:col-span-1">
             <div className="p-6 bg-white rounded shadow">
-              <RenderNavigation params={params} />
+              {/* <RenderNavigation params={params} /> */}
+              Navigation
             </div>
           </div>
           <div className="col-span-1 md:col-span-2">

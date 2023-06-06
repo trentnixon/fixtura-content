@@ -6,13 +6,7 @@ import Link from "next/link";
 
 export const RenderNavigation = async ({ params }) => {
   const { id, render } = params;
-  //const account = await getAccount(id);
   const renders = await getRenders(render);
- /*  const Assets = await getAssets();
-  const SubscriptionTier = await getSubscriptionTier(
-    account.attributes.subscription_tier.data.id
-  ); */
-  //console.log(renders.attributes.downloads.data);
 
   return (
     <>
