@@ -1,29 +1,26 @@
 import { getAccount, getAllAccount } from "@/api/accounts";
-import { getAllRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
 
-
 export async function generateStaticParams() {
   // fetch data for both accounts and renders
-
   const accounts = await getAllAccount();
-  const renders = await getAllRenders();
-
-  // create a paths array combining all possible combinations of account ids and render ids
-  const paths = accounts.flatMap((account) =>
-    renders.map((render) => ({
-      params: { id: account.id.toString(), render: render.id.toString() },
-    }))
-  );
-
-  return paths;
+  return accounts.map((a, i) => {
+    if (a.attributes.scheduler.data !== null) {
+      //console.log( a.attributes.scheduler.data.attributes.renders)
+      return a.attributes.scheduler.data.attributes.renders.data.map((r, i) => {
+        return {
+          id: a.id,
+          render: r.id,
+        };
+      });
+    }
+  });
 }
 
 export default async function Render({ params }) {
   const { id, render } = params;
-
   const account = await getAccount(id);
   const scheduler = await getScheduler(account?.attributes.scheduler.data.id);
 

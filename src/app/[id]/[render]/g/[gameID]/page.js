@@ -7,30 +7,6 @@ import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
 import { DisplayWriteup } from "@/components/displayWriteups";
 
-export async function generateStaticParams() {
-  const accounts = await getAllAccount();
-  const renders = await getAllRenders();
-  const games = await getGames();
-
-  const paths = [];
-
-  for (const account of accounts) {
-    for (const render of renders) {
-      for (const game of games) {
-        paths.push({
-          params: {
-            id: account.id.toString(),
-            render: render.id.toString(),
-            gameID: game.attributes.gameID,
-          },
-        });
-      }
-    }
-  }
-
-  return paths;
-}
-
 
 export default async function Render({ params }) {
   const { id, render, gameID } = params;

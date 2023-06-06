@@ -2,10 +2,18 @@ import { fetcher } from "@/utils/fetcher";
 const qs = require("qs");
 export const revalidate = 600;
 export async function getAllAccount() {
-  const res = await fetcher(`accounts`);
+  const queryParams = qs.stringify(
+    {
+      populate: ["scheduler", "scheduler.renders"],
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  );
+  const res = await fetcher(`accounts?${queryParams}`);
   //console.log(res.data)
   return res.data;
-}
+} 
 
 
 export async function getAccount(ID) {
