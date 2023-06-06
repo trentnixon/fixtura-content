@@ -7,12 +7,6 @@ import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
 import { DisplayWriteup } from "@/components/displayWriteups";
 
-/* export const dynamic = "auto",
-  dynamicParams = true,
-  revalidate = 10,
-  fetchCache = "auto"; */
-export const  fetchCache = true;
-
 export async function generateStaticParams() {
   const accounts = await getAllAccount();
   const renders = await getAllRenders();
