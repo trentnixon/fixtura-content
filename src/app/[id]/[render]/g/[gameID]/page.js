@@ -25,6 +25,7 @@ export default async function Render({ params }) {
             <div className="p-6 bg-white rounded shadow">
               {/* <RenderNavigation params={params} /> */}
               Navigation
+              Asset Page
             </div>
           </div>
           <div className="col-span-1 md:col-span-2">
