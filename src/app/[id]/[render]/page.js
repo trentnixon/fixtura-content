@@ -1,4 +1,4 @@
-import { getAccount } from "@/api/accounts";
+import { getAccount, getAllAccount } from "@/api/accounts";
 import { getAllRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
@@ -11,7 +11,8 @@ export const dynamic = "auto",
 
 export async function generateStaticParams() {
   // fetch data for both accounts and renders
-  const accounts = await getAccounts();
+
+  const accounts = await getAllAccount();
   const renders = await getAllRenders();
 
   // create a paths array combining all possible combinations of account ids and render ids

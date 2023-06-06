@@ -3,7 +3,7 @@ const qs = require("qs");
 
 export async function getAllRenders() {
   const res = await fetcher(`renders`);
-  console.log(res.data)
+  //console.log(res.data)
   return res.data;
 }
 

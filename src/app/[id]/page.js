@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { getAccount } from "@/api/accounts";
+import { getAccount, getAllAccount } from "@/api/accounts";
 import { getRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
 //import { ComponentTest } from "@/components/componentTest";
@@ -17,9 +17,10 @@ export const dynamic = "auto",
   preferredRegion = "auto";
 
 export async function generateStaticParams() {
-  const accounts = await fetcher(`accounts`);
+  const accounts = await getAllAccount();
+  
   return accounts.map((account) => ({
-    id: account.id,
+    id: account.id.toString(),
   }));
 }
 

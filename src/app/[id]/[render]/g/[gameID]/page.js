@@ -1,4 +1,4 @@
-import { getAccount } from "@/api/accounts";
+import { getAccount, getAllAccount } from "@/api/accounts";
 import { getGame, getGames } from "@/api/getGame";
 import { getAllRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
@@ -15,7 +15,7 @@ export const dynamic = "auto",
 
 
 export async function generateStaticParams() {
-  const accounts = await fetcher('accounts');
+  const accounts = await getAllAccount();
   const renders = await getAllRenders();
   const games = await getGames();
 
