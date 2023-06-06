@@ -8,7 +8,7 @@ import { SubNavbar } from "@/components/SubNavBar";
   fetchCache = "auto",
   runtime = "nodejs",
   preferredRegion = "auto"; */
-export const revalidate = 10 ;
+//export const revalidate = 10 ;
 export async function generateStaticParams() {
   const accounts = await getAllAccount();
 
