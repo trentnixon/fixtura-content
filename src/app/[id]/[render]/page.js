@@ -8,7 +8,8 @@ import { SubNavbar } from "@/components/SubNavBar";
   dynamicParams = true,
   revalidate = 10,
   fetchCache = "auto"; */
-
+export const revalidate = 10,
+  fetchCache = true;
 export async function generateStaticParams() {
   // fetch data for both accounts and renders
 
@@ -16,8 +17,8 @@ export async function generateStaticParams() {
   const renders = await getAllRenders();
 
   // create a paths array combining all possible combinations of account ids and render ids
-  const paths = accounts.flatMap(account =>
-    renders.map(render => ({
+  const paths = accounts.flatMap((account) =>
+    renders.map((render) => ({
       params: { id: account.id.toString(), render: render.id.toString() },
     }))
   );
