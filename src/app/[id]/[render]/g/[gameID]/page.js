@@ -13,7 +13,7 @@ export const dynamic = "auto",
   fetchCache = "auto";
 
 export async function generateStaticParams() {
-  const Games = await fetcher(`getGames`);
+  const Games = await fetcher(`game-meta-datas`);
 
   console.log(Games)
   return Games.map((game) => ({
