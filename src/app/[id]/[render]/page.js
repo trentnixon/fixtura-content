@@ -1,7 +1,7 @@
 import { getSubscriptionTier } from "@/api/SubscriptionTier";
 import { getAccount } from "@/api/accounts";
 import { getAssets } from "@/api/assets";
-import { getRenders } from "@/api/renders";
+import { getAllRenders, getRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
@@ -15,8 +15,8 @@ export const dynamic = "auto",
   fetchCache = "auto";
 
 export async function generateStaticParams() {
-  const renders = await fetcher(`renders`);
-
+  const renders = await getAllRenders()
+  
   return renders.map((render) => ({
     render: render.id,
   }));

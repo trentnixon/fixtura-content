@@ -1,6 +1,12 @@
 import { fetcher } from "@/utils/fetcher";
 const qs = require("qs");
 
+export async function getAllRenders() {
+  const res = await fetcher(`renders`);
+  return res.data;
+}
+
+
 export async function getRenders(ID) {
   const queryParams = qs.stringify(
     {

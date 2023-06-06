@@ -1,5 +1,5 @@
 import { getAccount } from "@/api/accounts";
-import { getGame } from "@/api/getGame";
+import { getGame, getGames } from "@/api/getGame";
 import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
@@ -9,17 +9,16 @@ import { fetcher } from "@/utils/fetcher";
 
 export const dynamic = "auto",
   dynamicParams = true,
-  revalidate = 10, 
+  revalidate = 10,
   fetchCache = "auto";
 
 export async function generateStaticParams() {
-  const Games = await fetcher(`game-meta-datas`);
+  const Games = await getGames();
 
-  console.log(Games)
   return Games.map((game) => ({
     gameID: game.attributes.gameID,
   }));
-} 
+}
 
 export default async function Render({ params }) {
   const { id, render, gameID } = params;

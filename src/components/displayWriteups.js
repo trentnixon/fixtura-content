@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export const DisplayWriteup = ({ game }) => {
   const [writeup, setWriteup] = useState(null);
-  console.log(game[0].attributes);
+  //console.log(game[0].attributes);
 
   const assignSelected = (e) => {
     
@@ -17,7 +17,7 @@ export const DisplayWriteup = ({ game }) => {
         {game[0].attributes.teamHome} vs {game[0].attributes.teamAway}
       </h1>
       {game[0].attributes.gtp_3_reports.data.map((assets, i) => {
-        console.log(assets);
+        //console.log(assets);
         return (
           <button
             key={i}
@@ -37,7 +37,7 @@ export const DisplayWriteup = ({ game }) => {
 };
 
 const SelectedWriteup = ({writeup}) => {
-    console.log(writeup)
+    //console.log(writeup)
     if(writeup === null)
         return
             return (
