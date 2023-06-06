@@ -8,8 +8,7 @@ import { SubNavbar } from "@/components/SubNavBar";
   dynamicParams = true,
   revalidate = 10,
   fetchCache = "auto"; */
-export const revalidate = 10,
-  fetchCache = true;
+export const  fetchCache = true;
 export async function generateStaticParams() {
   // fetch data for both accounts and renders
 
