@@ -1,4 +1,4 @@
-'use client'
+
 import { getAccount, getAllAccount } from "@/api/accounts";
 import { getGame, getGames } from "@/api/getGame";
 import { getAllRenders } from "@/api/renders";
