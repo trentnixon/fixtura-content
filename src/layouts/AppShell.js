@@ -11,7 +11,7 @@ export const ContentShell = ({ children,params   }) => {
     console.log("searchParams", URLParams)
   return (
     <AppShell
-      padding="md"
+      padding="xs"
       navbar={<NavbarMinimal params={params} URLParams={URLParams}/>}
       header={<HeaderMantine params={params} URLParams={URLParams}/>}
       styles={(theme) => ({

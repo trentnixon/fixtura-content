@@ -126,12 +126,12 @@ export function NavbarMinimal({ params, URLParams }) {
       </Navbar.Section>
       <Navbar.Section>
         <Stack justify="center" spacing={0}>
-         {/*  <NavbarLink
+          <NavbarLink
             icon={IconSwitchHorizontal}
             label="Change account"
             href="/"
           />
-          <NavbarLink icon={IconLogout} label="Logout" href="/" /> */}
+          <NavbarLink icon={IconLogout} label="Logout" href="/" />
         </Stack>
       </Navbar.Section>
     </Navbar>

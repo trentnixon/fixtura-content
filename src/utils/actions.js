@@ -16,8 +16,8 @@ export const DateFromTo = (createdAt) =>{
   const pastDate = new Date(createdAt);
   pastDate.setDate(currentDate.getDate() - 7);
 
-  const formattedCurrentDate = currentDate.toLocaleDateString(undefined, dateOptions);
-  const formattedPastDate = pastDate.toLocaleDateString(undefined, dateOptions);
+  const formattedCurrentDate = currentDate.toLocaleDateString('en-US', dateOptions);
+  const formattedPastDate = pastDate.toLocaleDateString('en-US', dateOptions);
 
   return `${formattedPastDate} - ${formattedCurrentDate}`;
 }

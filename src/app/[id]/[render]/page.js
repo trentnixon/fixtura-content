@@ -1,7 +1,10 @@
 import { getAccount, getAllAccount } from "@/api/accounts";
+import { getAssets } from "@/api/assets";
+import { getRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
 import { RenderNavigation } from "@/components/RenderNavigation";
 import { SubNavbar } from "@/components/SubNavBar";
+import { RenderBaseLayout } from "@/layouts/RenderBaseLayout";
 
 export async function generateStaticParams() {
   // fetch data for both accounts and renders
@@ -21,19 +24,22 @@ export async function generateStaticParams() {
 
 export default async function Render({ params }) {
   const { id, render } = params;
-  //const account = await getAccount(id);
-  //const scheduler = await getScheduler(account?.attributes.scheduler.data.id);
-
+  const account = await getAccount(id);
+  const scheduler = await getScheduler(account?.attributes.scheduler.data.id);
   // If you are going to use the render and asset data, uncomment the lines below:
-  // const renderData = await getRender(render);
-  // const assets = await getAssets();
+  const renderData = await getRenders(render);
+  const assets = await getAssets();
 
   return (
     <>
-    <h2>ID : {id}, render {render}</h2>
-     Render page. About this render and select a asset category.
-
-     Upcoming, Results, Overviews/round ups
+      <RenderBaseLayout
+        account={account}
+        scheduler={scheduler}
+        renderData={renderData}
+        assets={assets}
+        params={params}
+      />
+      
     </>
   );
 }
