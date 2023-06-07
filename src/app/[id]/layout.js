@@ -1,11 +1,16 @@
-import { ContentNavBar } from "@/components/templates";
-import "../globals.css";
+import { getAccount } from "@/api/accounts";
+import { getScheduler } from "@/api/scheduler";
+import { ContentShell } from "@/layouts/AppShell";
 
-export default async function RootLayout({ children }) {
+export default async function RootLayout({ children, params }) {
+  console.log("RootLayout Account : params", params)
+  const { id, render } = params;
+/* 
+  const account = await getAccount(id);
+  const scheduler = await getScheduler(account?.attributes.scheduler.data.id); */
   return (
-    <div className="min-h-full">
-       <ContentNavBar />
-       {children}
-    </div>
+    <ContentShell params={params}>
+      <main>{children}</main>
+    </ContentShell>
   );
 }

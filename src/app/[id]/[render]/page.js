@@ -30,7 +30,10 @@ export default async function Render({ params }) {
 
   return (
     <>
-     Select a Asset Option
+    <h2>ID : {id}, render {render}</h2>
+     Render page. About this render and select a asset category.
+
+     Upcoming, Results, Overviews/round ups
     </>
   );
 }

@@ -18,7 +18,7 @@ export const SelectARender = ({ PATH, DATA }) => {
 
   return (
     <div className="form-control w-full max-w-xs">
-      <select className="select select-bordered" onClick={DirectToRender}>
+      <select className="select select-bordered" onChange={DirectToRender}>
         <option disabled>Date Range</option>
         {DATA.map((render, i) => {
           return (
