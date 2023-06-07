@@ -2,8 +2,6 @@ import { getAccount, getAllAccount } from "@/api/accounts";
 import { getAssets } from "@/api/assets";
 import { getRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
-import { RenderNavigation } from "@/components/RenderNavigation";
-import { SubNavbar } from "@/components/SubNavBar";
 import { RenderBaseLayout } from "@/layouts/RenderBaseLayout";
 
 export async function generateStaticParams() {
@@ -31,15 +29,12 @@ export default async function Render({ params }) {
   const assets = await getAssets();
 
   return (
-    <>
-      <RenderBaseLayout
-        account={account}
-        scheduler={scheduler}
-        renderData={renderData}
-        assets={assets}
-        params={params}
-      />
-      
-    </>
+    <RenderBaseLayout
+      account={account}
+      scheduler={scheduler}
+      renderData={renderData}
+      assets={assets}
+      params={params}
+    />
   );
 }

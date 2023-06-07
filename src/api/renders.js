@@ -13,6 +13,7 @@ export async function getRenders(ID) {
     {
       populate: [
         "downloads",
+        "downloads.asset",
         "gtp_3_reports",
         
         "gtp_3_reports.game_meta_datum",
