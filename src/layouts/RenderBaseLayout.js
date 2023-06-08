@@ -13,6 +13,8 @@ import {
 
 import { DateFromTo, FindAccountLabel } from "@/utils/actions";
 import Link from "next/link";
+import { H } from "@/components/Type/Headers";
+import { P, S, XS } from "@/components/Type/Paragraph";
 
 const PRIMARY_COL_HEIGHT = rem(300);
 
@@ -29,25 +31,22 @@ export const RenderBaseLayout = ({
 
   return (
     <Container my="md" size={`xl`}>
-      <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-        {FindAccountLabel(account)}
-      </h1>
-      <h2>
-        ID : {params.id}, render {params.render}
-      </h2>
-      Render page. About this render and select a asset category. Upcoming,
-      Results, Overviews/round ups
+      <H size="h1">{FindAccountLabel(account)}</H>
+      <P>
+        Render page. About this render and select a asset category. Upcoming,
+        Results, Overviews/round ups
+      </P>
+
       <SimpleGrid
         cols={2}
         spacing="md"
         breakpoints={[{ maxWidth: "sm", cols: 1 }]}
       >
         <Box>
-          <h1>Something</h1>
+          <H size="h3">Something</H>
         </Box>
         <Grid gutter="md">
           <Grid.Col>
-            some stats 1
             <Skeleton
               height={SECONDARY_COL_HEIGHT}
               radius="md"
@@ -55,7 +54,6 @@ export const RenderBaseLayout = ({
             />
           </Grid.Col>
           <Grid.Col span={6}>
-            some stats 2
             <Skeleton
               height={SECONDARY_COL_HEIGHT}
               radius="md"
@@ -63,7 +61,6 @@ export const RenderBaseLayout = ({
             />
           </Grid.Col>
           <Grid.Col span={6}>
-            some stats 3
             <Skeleton
               height={SECONDARY_COL_HEIGHT}
               radius="md"

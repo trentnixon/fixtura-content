@@ -12,14 +12,12 @@ import {
 } from "@mantine/core";
 import {
   IconHome2,
-  IconGauge,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconCalendarStats,
-  IconUser,
-  IconSettings,
   IconLogout,
   IconSwitchHorizontal,
+  IconCricket,
+  IconCalendarDue,
+  IconScoreboard,
+  IconChartPie4,
 } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -80,23 +78,36 @@ function NavbarLink({
   );
 }
 
-
-
 export function NavbarMinimal({ params, URLParams }) {
   const { id, render } = URLParams;
   const [active, setActive] = useState(2);
 
   const SideNavItems = [
-    { icon: IconHome2, label: "Home", href:  `/${id}`, renderOnly: false,  },
-    { icon: IconGauge, label: "Account", href: `/${id}/${render}`, renderOnly: true },
+    { icon: IconHome2, label: "Home", href: `/${id}`, renderOnly: false },
     {
-      icon: IconDeviceDesktopAnalytics,
+      icon: IconCricket,
+      label: "Render",
+      href: `/${id}/${render}`,
+      renderOnly: true,
+    },
+    {
+      icon: IconCalendarDue,
       label: "Upcoming",
       href: `${id}/${render}/u`,
       renderOnly: true,
     },
-    { icon: IconCalendarStats, label: "Results", href: `${id}/${render}/r` , renderOnly: true },
-    { icon: IconUser, label: "Statistics", href: `${id}/${render}/o`, renderOnly: true },
+    {
+      icon: IconScoreboard,
+      label: "Results",
+      href: `${id}/${render}/r`,
+      renderOnly: true,
+    },
+    {
+      icon: IconChartPie4,
+      label: "Statistics",
+      href: `${id}/${render}/o`,
+      renderOnly: true,
+    },
   ];
 
   const links = SideNavItems.map((link, index) => {

@@ -2,10 +2,12 @@ import { getAccount } from "@/api/accounts";
 import { getAssets } from "@/api/assets";
 import { getRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
+import { H } from "@/components/Type/Headers";
 import { FixturaGroup } from "@/components/containers/Group";
 import { FixturaContainer } from "@/components/containers/containers";
 import { FixturaPaper } from "@/components/containers/paper";
 import { AssetTypeGridLayout } from "@/layouts/Grids/AssetTypeGrid";
+import { FixturaPageHeader } from "@/layouts/Headings/PageHeader";
 import {
   groupByCategoryAndGameId,
   groupDownloadsByAssetCategory,
@@ -37,16 +39,11 @@ export default async function Upage({ params }) {
 
   return (
     <>
-      <FixturaContainer>
-        <FixturaPaper>
-          <FixturaGroup>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-              {FindAccountLabel(account)}
-            </h1>
-            <h1>Upcoming Events</h1>
-          </FixturaGroup>
-        </FixturaPaper>
-      </FixturaContainer>
+      <FixturaPageHeader
+        heading={FindAccountLabel(account)}
+        subheading={`Upcoming Events`}
+      />
+
       <AssetTypeGridLayout
         WriteUpDATA={GroupedAndOrdered}
         DownloadData={DownloadsGroupedAndOrdered}

@@ -8,3 +8,11 @@ export const FixturaContainer = ({ children }) => {
     </Container>
   );
 };
+
+export const FixturaVideoContainer = ({ children }) => {
+  return (
+    <Container my={0} size={`xs`}>
+      {children}
+    </Container>
+  );
+};
