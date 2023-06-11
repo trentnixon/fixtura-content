@@ -199,21 +199,21 @@ const Themeing = ({ template, theme, audio_option }) => {
         <Stack>
           <H size="h6">Template</H> 
           {
-            template === undefined ?'no template':<FixturaBox>{template.data.attributes.Name}</FixturaBox>
+            template.data === null ?'no template':<FixturaBox>{template.data.attributes.Name}</FixturaBox>
           }
           
         </Stack>
         <Stack>
           <H size="h6">Theme</H>
           {
-            theme === undefined ?'no theme':<FixturaBox>{theme.data.attributes.Name}</FixturaBox>
+            theme.data === null ?'no theme':<FixturaBox>{theme.data.attributes.Name}</FixturaBox>
           }
           
         </Stack>
         <Stack>
           <H size="h6">Audio</H>
           {
-            audio_option === undefined ?'no audio_option':<FixturaBox>{audio_option.data.attributes.Name}</FixturaBox>
+            audio_option.data === null ?'no audio_option':<FixturaBox>{audio_option.data.attributes.Name}</FixturaBox>
           }
           
         </Stack>
