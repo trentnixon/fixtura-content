@@ -42,7 +42,7 @@ export const AccountHomeGridLayout = ({
         heading={FindAccountLabel(account)}
         subheading={`Home`}
       />
-
+ 
       <Container my="md" size={`xl`}>
         <Group position="center" mb={50}>
           {FindAccountLogo(account) === null ? (

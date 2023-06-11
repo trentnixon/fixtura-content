@@ -13,13 +13,12 @@ export const FindAccountLogo = (account) => {
     return "Undefined";
   }
 
-  if(account?.attributes?.associations?.data[0]?.attributes?.Logo.data.attributes === undefined)
+  if(account?.attributes?.associations?.data[0]?.attributes?.Logo.data?.attributes === undefined)
   return null
    
-  return account.attributes.account_type.data.attributes.Name === "Association"
-    ? account.attributes.associations.data[0]?.attributes.Logo.data.attributes
-        .url
-    : account.attributes.clubs.data[0]?.attributes.Logo.data.attributes.url;
+  return account?.attributes.account_type.data?.attributes.Name === "Association"
+    ? account?.attributes.associations.data[0]?.attributes.Logo.data?.attributes.url
+    : account?.attributes.clubs.data[0]?.attributes.Logo.data?.attributes.url;
 };
 
 export const DateFromTo = (createdAt) => {
