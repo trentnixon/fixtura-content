@@ -42,7 +42,7 @@ export const AccountHomeGridLayout = ({
         heading={FindAccountLabel(account)}
         subheading={`Home`}
       />
- 
+
       <Container my="md" size={`xl`}>
         <Group position="center" mb={50}>
           {FindAccountLogo(account) === null ? (
@@ -192,30 +192,33 @@ const TrackingTeams = ({ clubs }) => {
 
 const Themeing = ({ template, theme, audio_option }) => {
   console.log("template ", template);
-  
+
   return (
     <>
       <Group position="apart" grow>
         <Stack>
-          <H size="h6">Template</H> 
-          {
-            template.data === null ?'no template':<FixturaBox>{template.data.attributes.Name}</FixturaBox>
-          }
-          
+          <H size="h6">Template</H>
+          {template.data === null ? (
+            "no template"
+          ) : (
+            <FixturaBox>{template.data.attributes.Name}</FixturaBox>
+          )}
         </Stack>
         <Stack>
           <H size="h6">Theme</H>
-          {
-            theme.data === null ?'no theme':<FixturaBox>{theme.data.attributes.Name}</FixturaBox>
-          }
-          
+          {theme.data === null ? (
+            "no theme"
+          ) : (
+            <FixturaBox>{theme.data.attributes.Name}</FixturaBox>
+          )}
         </Stack>
         <Stack>
           <H size="h6">Audio</H>
-          {
-            audio_option.data === null ?'no audio_option':<FixturaBox>{audio_option.data.attributes.Name}</FixturaBox>
-          }
-          
+          {audio_option.data === null ? (
+            "no audio_option"
+          ) : (
+            <FixturaBox>{audio_option.data.attributes.Name}</FixturaBox>
+          )}
         </Stack>
       </Group>
     </>
@@ -223,9 +226,11 @@ const Themeing = ({ template, theme, audio_option }) => {
 };
 
 const SubscriptionTier = ({ subscription_tier }) => {
-  const sub = subscription_tier.data.attributes;
+  const sub = subscription_tier.data?.attributes;
 
+  console.log(sub);
   function groupBySubscriptionAndAssetCategory(subscriptions) {
+    console.log("subscriptionssubscriptionssubscriptions", subscriptions);
     return subscriptions.reduce((groupedSubscriptions, subscription) => {
       const subscriptionName = subscription.attributes.Name;
 
@@ -255,9 +260,7 @@ const SubscriptionTier = ({ subscription_tier }) => {
     }, {});
   }
 
-  const groupedItems = groupBySubscriptionAndAssetCategory(
-    sub.subscription_packages.data
-  );
+  if (sub === undefined) return <>No Subscription Found</>;
 
   return (
     <Stack>
@@ -267,39 +270,39 @@ const SubscriptionTier = ({ subscription_tier }) => {
       <N>In Strapi Add: Icon for each option, beter description.</N>
 
       <Group position="apart" grow align="flex-start">
-        {Object.entries(groupedItems).map(
-          ([subscriptionName, assetCategories], i) => {
-            return (
-              <div key={i}>
-                <H size="h4" my={5}>
-                  {subscriptionName}
-                </H>
-                <FixturaPaper>
-                  {Object.entries(assetCategories).map(
-                    ([categoryName, assetNames], j) => {
-                      return (
-                        <div key={j} my={3}>
-                          <H size="h5">{categoryName}</H>
-                          <List withPadding>
-                            {Object.entries(assetNames).map(
-                              ([assetName, assets], k) => {
-                                return (
-                                  <List.Item key={k}>
-                                    <P>{assetName}</P>
-                                  </List.Item>
-                                );
-                              }
-                            )}
-                          </List>
-                        </div>
-                      );
-                    }
-                  )}
-                </FixturaPaper>
-              </div>
-            );
-          }
-        )}
+        {Object.entries(
+          groupBySubscriptionAndAssetCategory(sub.subscription_packages.data)
+        ).map(([subscriptionName, assetCategories], i) => {
+          return (
+            <div key={i}>
+              <H size="h4" my={5}>
+                {subscriptionName}
+              </H>
+              <FixturaPaper>
+                {Object.entries(assetCategories).map(
+                  ([categoryName, assetNames], j) => {
+                    return (
+                      <div key={j} my={3}>
+                        <H size="h5">{categoryName}</H>
+                        <List withPadding>
+                          {Object.entries(assetNames).map(
+                            ([assetName, assets], k) => {
+                              return (
+                                <List.Item key={k}>
+                                  <P>{assetName}</P>
+                                </List.Item>
+                              );
+                            }
+                          )}
+                        </List>
+                      </div>
+                    );
+                  }
+                )}
+              </FixturaPaper>
+            </div>
+          );
+        })}
       </Group>
 
       <P>package type: Club Captain: items expected upgrade package,</P>
