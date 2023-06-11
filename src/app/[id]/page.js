@@ -29,9 +29,9 @@ export default async function Account({ params }) {
       clubs={accountFull.attributes.clubs}
       associations={accountFull.attributes.associations}
       account_type={accountFull.attributes.account_type}
-      template={accountFull.attributes.template}
-      theme={accountFull.attributes.theme}
-      audio_option={accountFull.attributes.audio_option}
+      template={accountFull?.attributes.template}
+      theme={accountFull?.attributes.theme}
+      audio_option={accountFull?.attributes.audio_option}
     />
   );
 }

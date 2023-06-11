@@ -192,20 +192,30 @@ const TrackingTeams = ({ clubs }) => {
 
 const Themeing = ({ template, theme, audio_option }) => {
   console.log("template ", template);
+  
   return (
     <>
       <Group position="apart" grow>
         <Stack>
-          <H size="h6">Template</H>
-          <FixturaBox>{template.data.attributes.Name}</FixturaBox>
+          <H size="h6">Template</H> 
+          {
+            template === undefined ?'no template':<FixturaBox>{template.data.attributes.Name}</FixturaBox>
+          }
+          
         </Stack>
         <Stack>
           <H size="h6">Theme</H>
-          <FixturaBox>{theme.data.attributes.Name}</FixturaBox>
+          {
+            theme === undefined ?'no theme':<FixturaBox>{theme.data.attributes.Name}</FixturaBox>
+          }
+          
         </Stack>
         <Stack>
           <H size="h6">Audio</H>
-          <FixturaBox>{audio_option.data.attributes.Name}</FixturaBox>
+          {
+            audio_option === undefined ?'no audio_option':<FixturaBox>{audio_option.data.attributes.Name}</FixturaBox>
+          }
+          
         </Stack>
       </Group>
     </>
