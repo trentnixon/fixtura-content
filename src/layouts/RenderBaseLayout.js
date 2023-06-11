@@ -94,13 +94,13 @@ export const RenderBaseLayout = ({
             <Box>
               <Stack>
                 <H size="h5" align="right">
-                  View a Categories
+                  Select a Categories
                 </H>
                 <FixturaPaper>
                   <NavLinkWithIcon
                     label="UPCOMING EVENTS"
                     description="A round up of the weeks events"
-                    Icon={<IconCalendarDue size="2rem"  color={theme.colors.teal[9]}  />}
+                    Icon={<IconCalendarDue size="2rem"  color={theme.colors.blue[9]}  />}
                     onClick={() => {
                       router.push(`/${accountID}/${renderID}/u`);
                     }}
@@ -108,7 +108,7 @@ export const RenderBaseLayout = ({
                   <NavLinkWithIcon
                     label="RESULTS"
                     description="A round up of the weeks events"
-                    Icon={<IconScoreboard size="2rem" color={theme.colors.teal[9]} />}
+                    Icon={<IconScoreboard size="2rem" color={theme.colors.blue[9]} />}
                     onClick={() => {
                       router.push(`/${accountID}/${renderID}/r`);
                     }}
@@ -116,7 +116,7 @@ export const RenderBaseLayout = ({
                   <NavLinkWithIcon
                     label="STATISTICS"
                     description="A round up of the weeks events"
-                    Icon={<IconChartPie4 size="2rem" color={theme.colors.teal[9]}  />}
+                    Icon={<IconChartPie4 size="2rem" color={theme.colors.blue[9]}  />}
                     onClick={() => {
                       router.push(`/${accountID}/${renderID}/o`);
                     }}
@@ -180,7 +180,7 @@ export const RenderBaseLayout = ({
 const useStyles = createStyles((theme) => ({
   root: {
     display: "flex",
-    backgroundImage: `linear-gradient(-60deg, ${theme.colors.teal[7]} 0%, ${theme.colors.teal[5]} 100%)`,
+    backgroundImage: `linear-gradient(-60deg, ${theme.colors.blue[7]} 0%, ${theme.colors.blue[5]} 100%)`,
     padding: `calc(${theme.spacing.xl} * 1.5)`,
     borderRadius: theme.radius.sm,
 

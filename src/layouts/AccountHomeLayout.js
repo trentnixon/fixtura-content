@@ -45,18 +45,23 @@ export const AccountHomeGridLayout = ({
 
       <Container my="md" size={`xl`}>
         <Group position="center" mb={50}>
-          <Image
-            src={FindAccountLogo(account)}
-            width={60}
-            alt={FindAccountLabel(account)}
-            height={60}
-            sx={(theme) => ({
-              backgroundColor: theme.colors.gray[2],
+          {FindAccountLogo(account) === null ? (
+            false
+          ) : (
+            <Image
+              src={FindAccountLogo(account)}
+              width={60}
+              alt={FindAccountLabel(account)}
+              height={60}
+              sx={(theme) => ({
+                backgroundColor: theme.colors.gray[2],
 
-              borderRadius: "100%",
-            })}
-            fit="contain"
-          />
+                borderRadius: "100%",
+              })}
+              fit="contain"
+            />
+          )}
+
           <Stack spacing={0}>
             <H size="h1">{FindAccountLabel(account)}</H>
             <H size="h5" weight={400}>

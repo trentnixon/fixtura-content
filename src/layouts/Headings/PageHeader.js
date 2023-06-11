@@ -12,7 +12,7 @@ export const FixturaPageHeader = (props) => {
     <FixturaContainer>
       <FixturaGroup>
         <FixturaBox>
-          <Group> 
+          <Group>
             <IconCategory2 />
             <H size="h4">{subheading} </H>
           </Group>
@@ -20,8 +20,11 @@ export const FixturaPageHeader = (props) => {
 
         <Group>
           <H size="h5">{heading}</H>
-    
-          <Image src={Logo} width={40} height={40} fit="contain" />
+          {Logo === null ? (
+            false
+          ) : (
+            <Image src={Logo} width={40} height={40} fit="contain" />
+          )}
         </Group>
       </FixturaGroup>
     </FixturaContainer>

@@ -84,9 +84,9 @@ export const NavLinkWithIcon = (props) => {
       label={label}
       description={description}
       icon={Icon}
-      rightSection={<IconChevronRight size="0.8rem" stroke={1.5} color={theme.colors.teal[9]} />}
+      rightSection={<IconChevronRight size="0.8rem" stroke={1.5} color={theme.colors.blue[9]} />}
       onClick={onClick}
-      color={theme.colors.teal[9]}
+      color={theme.colors.blue[9]}
     />
   );
 };
