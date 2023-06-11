@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Grid, useMantineTheme } from "@mantine/core";
+import { Container, Grid } from "@mantine/core";
 
 import ViewGamesTable from "@/components/Tables/ViewGamesTable";
 import VideoLayout from "@/components/Video/ViewVideoLayout";
@@ -17,6 +17,7 @@ import {
 } from "@tabler/icons-react";
 import { NavLinkWithIcon } from "@/components/UI/buttons";
 import { useState } from "react";
+import { BackButtonAsNavLink } from "@/components/Navigation/BackBtn";
 
 export const AssetTypeGridLayout = ({
   account,
@@ -25,10 +26,14 @@ export const AssetTypeGridLayout = ({
   assets,
   params,
   WriteUpDATA,
-  DownloadData,
+  assetType,
+  Videos,
+  Images,
+
 }) => {
   const [Category, SetCategory] = useState("select");
-  const theme = useMantineTheme();
+
+  console.log("Videos", Videos);
 
   const Assets = {
     select: {
@@ -38,13 +43,30 @@ export const AssetTypeGridLayout = ({
       component: <Overview DATA={WriteUpDATA.Games} params={params} />,
     },
     Matches: {
-      component: <ViewGamesTable DATA={WriteUpDATA.Games} params={params}  />,
+      component: (
+        <ViewGamesTable
+          DATA={WriteUpDATA.Games}
+          params={params}
+          assetType={assetType}
+          path='r'
+        />
+      ),
     },
     Videos: {
-      component: <VideoLayout DATA={DownloadData[1]} params={params} WriteUpDATA={WriteUpDATA.Games}/>,
+      component: (
+        <VideoLayout
+          DATA={Videos}
+          params={params}
+          WriteUpDATA={WriteUpDATA.Games}
+          assetType={assetType}
+          RenderDate={renderData.attributes.createdAt}
+        />
+      ),
     },
     Images: {
-      component: <ViewImageGrid DATA={DownloadData[2]} params={params} />,
+      component: (
+        <ViewImageGrid DATA={Images} params={params} assetType={assetType} />
+      ),
     },
   };
 
@@ -61,15 +83,18 @@ export const AssetTypeGridLayout = ({
             </S>
             <FixturaPaper>
               <NavLinkWithIcon
+                active={Category === "overview"}
                 label="Overview"
                 description="A round up of the weeks events"
                 Icon={<IconBook size="2rem" />}
                 onClick={() => {
                   SetCategory("overview");
+                  
                 }}
               />
               <NavLinkWithIcon
                 label="Matches"
+                active={Category === "Matches"}
                 description="List of the Weeks fixtures"
                 Icon={<IconGoGame size="2rem" />}
                 onClick={() => {
@@ -78,6 +103,7 @@ export const AssetTypeGridLayout = ({
               />
               <NavLinkWithIcon
                 label="Videos"
+                active={Category === "Videos"}
                 description="List of the Weeks fixtures"
                 Icon={<IconVideo size="2rem" />}
                 onClick={() => {
@@ -86,12 +112,14 @@ export const AssetTypeGridLayout = ({
               />
               <NavLinkWithIcon
                 label="Images"
+                active={Category === "Images"}
                 description="List of the Weeks fixtures"
                 Icon={<IconPhotoAi size="2rem" />}
                 onClick={() => {
                   SetCategory("Images");
                 }}
               />
+              <BackButtonAsNavLink />
             </FixturaPaper>
           </FixturaBox>
         </Grid.Col>

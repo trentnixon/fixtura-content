@@ -23,7 +23,7 @@ export async function getGame(gameID) {
   );
 
   const res = await fetcher(`game-meta-datas?${queryParams}`);
-  console.log(res)
+  //console.log(res)
   return res.data;
 }
 
@@ -38,6 +38,6 @@ export async function getGameByID(gameID) {
   );
 
   const res = await fetcher(`game-meta-datas/${gameID}?${queryParams}`);
-  console.log(res)
+  //console.log(res)
   return res.data;
 }

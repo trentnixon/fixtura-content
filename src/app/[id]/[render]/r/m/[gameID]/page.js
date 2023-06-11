@@ -14,7 +14,7 @@ export default async function GameIDPage({ params }) {
         subheading={`Writeups`}
         Logo={FindAccountLogo(account)}
       />
-      <DisplayWriteup game={displayGame} />;
+      <DisplayWriteup game={displayGame} />; 
     </>
   );
 }

@@ -8,64 +8,77 @@ import {
   IconPlus,
   IconRefresh,
   IconCircleDashed,
+  IconBook,
 } from "@tabler/icons-react";
-import { Container, Group, Select, List, ThemeIcon } from "@mantine/core";
+import { Container, Group, Select, List, ThemeIcon, Grid } from "@mantine/core";
 import Link from "next/link";
+import { FixturaBox } from "@/components/containers/boxes";
+import { FixturaPaper } from "@/components/containers/paper";
+import { BackButtonAsNavLink } from "@/components/Navigation/BackBtn";
+import { NavLinkWithIcon } from "@/components/UI/buttons";
+import { H } from "@/components/Type/Headers";
+import { P } from "@/components/Type/Paragraph";
 
 export const DisplayWriteup = ({ game }) => {
   const [writeup, setWriteup] = useState(null);
   const [copied, setCopied] = useState(false);
-
+  const [active, setActive] = useState(null);
   const assignSelected = (id) => {
+    setActive(id)
     setWriteup(game.attributes.gtp_3_reports.data[id]);
-  };
-
-  const CreateSelect = () => {
-    const ARR = [];
-    {
-      game.attributes.gtp_3_reports.data.map((assets, i) =>
-        ARR.push({
-          value: i,
-          label: assets.attributes.asset.data.attributes.Name,
-        })
-      );
-    }
-    return ARR;
   };
 
   return (
     <>
-      <Container size={`xl`} className="navbar bg-base-300 rounded-md">
-        <Group position="apart" w={`100%`}>
-          <h1>
-            {writeup?.attributes === undefined
-              ? false
-              : writeup?.attributes.asset.data?.attributes.Name}
-          </h1>
-          <Select
-            size={`sm`}
-            value={writeup}
-            onChange={assignSelected}
-            label="Select Article type"
-            placeholder="Articles"
-            data={CreateSelect()}
-            className=" w-72"
-          />
-        </Group>
+      <Container my="md" size={`xl`}>
+        <Grid columns={12}>
+          <Grid.Col span={3}>
+            <FixturaBox>
+              <FixturaPaper>
+                {game.attributes.gtp_3_reports.data.map((assets, i) => {
+                 
+                  return (
+                    <NavLinkWithIcon
+                      active={i === active}
+                      key={i}
+                      label={assets.attributes.asset.data.attributes.Name}
+                      description=""
+                      Icon={<IconBook size="2rem" />}
+                      onClick={() => {
+                        assignSelected(i);
+                       
+                      }}
+                    />
+                  );
+                })}
+                <BackButtonAsNavLink />
+              </FixturaPaper>
+            </FixturaBox>
+          </Grid.Col>
+          <Grid.Col span={9}>
+            <FixturaPaper>
+              <H size="h6" align="right">
+                {writeup?.attributes === undefined
+                  ? false
+                  : writeup?.attributes.asset.data?.attributes.Name}
+              </H>
+              <SelectedWriteup writeup={writeup} game={game} />
+
+              {writeup === null ? (
+                "Select an Article option."
+              ) : (
+                <ActionBtns
+                  setCopied={setCopied}
+                  copied={copied}
+                  article={writeup?.attributes.article}
+                />
+              )}
+
+              <ArticleMeta game={game} writeup={writeup} />
+            </FixturaPaper>
+          </Grid.Col>
+        </Grid>
       </Container>
-
-      <SelectedWriteup writeup={writeup} game={game} />
-      {writeup === null ? (
-        ""
-      ) : (
-        <ActionBtns
-          setCopied={setCopied}
-          copied={copied}
-          article={writeup?.attributes.article}
-        />
-      )}
-
-      <ArticleMeta game={game} writeup={writeup} />
     </>
   );
 };
@@ -86,7 +99,7 @@ const SelectedWriteup = ({ writeup, game }) => {
           {g.ground}
         </p>
       </Container>
-      <Container size={`xl`} className="border p-1 rounded-md my-2">
+      <FixturaBox>
         <div className="chat chat-start">
           <div className="chat-bubble bg-green-700">
             <p>{article.article}</p>
@@ -108,7 +121,7 @@ const SelectedWriteup = ({ writeup, game }) => {
             Or add extra context to the article that is not avaliable on PlayHQ
           </div>
         </div>
-      </Container>
+      </FixturaBox>
     </>
   );
 };
@@ -116,11 +129,11 @@ const SelectedWriteup = ({ writeup, game }) => {
 const ArticleMeta = ({ game, writeup }) => {
   const g = game.attributes;
   const article = writeup?.attributes;
-  console.log(article);
+  //console.log(article);
   if (writeup?.attributes === undefined) return;
   return (
-    <Container size={`xl`} className=" p-1  my-2">
-      <h3>About this article</h3>
+    <FixturaBox>
+      <H size="h6">About this article</H>
       <List
         spacing="xs"
         size="sm"
@@ -131,12 +144,22 @@ const ArticleMeta = ({ game, writeup }) => {
           </ThemeIcon>
         }
       >
-        <List.Item>Article created on : {article.createdAt}</List.Item>
         <List.Item>
-          Data for this article was extracted from the following <Link target="_blank" href={`https://www.playhq.com${g.urlToScoreCard}`}>Scorecard</Link>{" "}
+          <P>Article created on : {article.createdAt}</P>
+        </List.Item>
+        <List.Item>
+          <P>
+            Data for this article was extracted from the following
+            <Link
+              target="_blank"
+              href={`https://www.playhq.com${g.urlToScoreCard}`}
+            >
+              Scorecard
+            </Link>
+          </P>
         </List.Item>
       </List>
-    </Container>
+    </FixturaBox>
   );
 };
 

@@ -8,7 +8,7 @@ export const ContentShell = ({ children,params   }) => {
     const { id, render } = params;
     const URLParams = useParams();
 
-    console.log("searchParams", URLParams)
+    //console.log("searchParams", URLParams)
   return (
     <AppShell
       padding="xs"

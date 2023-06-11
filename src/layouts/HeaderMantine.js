@@ -19,8 +19,8 @@ const HEADER_HEIGHT = rem(60);
 
 const LINKS = [
       {
-        "link": "/about",
-        "label": "Features"
+        "link": "/Fixtura",
+        "label": "Fixtura"
       },
       {
         "link": "#1",
@@ -61,12 +61,8 @@ const LINKS = [
             "label": "FAQ"
           },
           {
-            "link": "/demo",
-            "label": "Book a demo"
-          },
-          {
-            "link": "/forums",
-            "label": "Forums"
+            "link": "/contact",
+            "label": "Contact"
           }
         ]
       }
@@ -180,7 +176,7 @@ export function HeaderMantine({params}) {
           <Image
             src="/images/LogoF.png"
             alt="Fixtura"
-            width={50}
+            width={35}
             height={12}
             priority
           />

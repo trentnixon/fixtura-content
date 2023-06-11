@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Title } from "@mantine/core";
 
 export const H = (props) => {
@@ -9,6 +9,8 @@ export const H = (props) => {
     color = "gray.7",
     italic = false,
     size = "h1",
+    mx = 0,
+    my = 0,
   } = props;
 
   return (
@@ -19,6 +21,8 @@ export const H = (props) => {
       underline={underline}
       color={color}
       italic={italic}
+      mx={mx}
+      my={my}
     >
       {props.children}
     </Title>

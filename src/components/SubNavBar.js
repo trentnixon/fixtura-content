@@ -5,7 +5,7 @@ import { getAccount } from "@/api/accounts";
 export const SubNavbar = async (props) => {
   const { PATH, DATA } = props;
   const account = await getAccount(PATH);
-  console.log(account?.attributes.scheduler.data);
+  //console.log(account?.attributes.scheduler.data);
  
   return (
     <header className="bg-white shadow">

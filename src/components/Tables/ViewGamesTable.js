@@ -6,8 +6,9 @@ import { H } from "@/components/Type/Headers";
 import { FixturaBox } from "@/components/containers/boxes";
 import { BUTTON_LINK } from "@/components/UI/buttons";
 
-export default async function ViewGamesTable({ DATA, params }) {
+export default async function ViewGamesTable({ DATA, params,assetType,path='u' }) {
 
+  //console.log(DATA)
   return (
     <>
       <H size="h6" align="right">
@@ -19,16 +20,16 @@ export default async function ViewGamesTable({ DATA, params }) {
       <FixturaBox>
         <Table>
           <thead>
-            <tr>
+            <tr> 
               <th>Match</th>
-              <th>Articles</th>
-              <th></th>
+              <th>Articles</th> 
+              <th></th> 
             </tr>
           </thead>
           <tbody>
             {Object.keys(DATA).map((gameId) => {
-              const TeamNames = getTeamNamesFromGameObj(
-                DATA[gameId][0].attributes.game_meta_datum
+              const TeamNames = getTeamNamesFromGameObj( 
+                DATA[gameId][assetType][0].attributes.game_meta_datum
               );
               return (
                 <tr key={gameId}>
@@ -36,12 +37,12 @@ export default async function ViewGamesTable({ DATA, params }) {
                     <P>{TeamNames}</P>
                   </td>
                   <td>
-                    <P>{DATA[gameId].length}</P>
+                    <P>{DATA[gameId][assetType].length}</P>
                   </td>
                   <td>
                     <BUTTON_LINK
                       Label="Read"
-                      href={`${params.id}/${params.render}/u/m/${DATA[gameId][0].attributes.game_meta_datum.data.id}`}
+                      href={`${params.id}/${params.render}/${path}/m/${DATA[gameId][assetType][0].attributes.game_meta_datum.data.id}`}
                     />
                   </td>
                 </tr>

@@ -2,9 +2,9 @@ import { getAccount } from "@/api/accounts";
 import { getAssets } from "@/api/assets";
 import { getRenders } from "@/api/renders";
 import { getScheduler } from "@/api/scheduler";
+import { BackButton } from "@/components/Navigation/BackBtn";
 import { H } from "@/components/Type/Headers";
-import { FixturaGroup } from "@/components/containers/Group";
-import { FixturaContainer } from "@/components/containers/containers";
+import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaPaper } from "@/components/containers/paper";
 import { AssetTypeGridLayout } from "@/layouts/Grids/AssetTypeGrid";
 import { FixturaPageHeader } from "@/layouts/Headings/PageHeader";
@@ -13,6 +13,7 @@ import {
   groupDownloadsByAssetCategory,
   filterByAssetId,
   FindAccountLabel,
+  FindAccountLogo
 } from "@/utils/actions";
 
 export default async function Upage({ params }) {
@@ -28,31 +29,51 @@ export default async function Upage({ params }) {
     renderData.attributes.gtp_3_reports.data,
     UIDS
   );
+  const GroupedAndOrdered = groupByCategoryAndGameId(filteredWriteups);
+
   let filteredDownloads = filterByAssetId(
     renderData.attributes.downloads.data,
     UIDS
   );
-
-  const GroupedAndOrdered = groupByCategoryAndGameId(filteredWriteups);
   const DownloadsGroupedAndOrdered =
     groupDownloadsByAssetCategory(filteredDownloads);
 
+   
   return (
     <>
       <FixturaPageHeader
         heading={FindAccountLabel(account)}
-        subheading={`Upcoming Events`}
+        subheading={`UPCOMING EVENTS`}
+        Logo={FindAccountLogo(account)}
       />
-
-      <AssetTypeGridLayout
-        WriteUpDATA={GroupedAndOrdered}
-        DownloadData={DownloadsGroupedAndOrdered}
-        account={account}
-        scheduler={scheduler}
-        renderData={renderData}
-        assets={assets}
-        params={params}
-      />
+      {filteredWriteups.length === 0 ? (
+        <NoResults />
+      ) : (
+        <AssetTypeGridLayout
+          WriteUpDATA={GroupedAndOrdered}
+          DownloadData={DownloadsGroupedAndOrdered}
+          Videos={DownloadsGroupedAndOrdered[1]}
+          Images={DownloadsGroupedAndOrdered[2]}
+          account={account}
+          scheduler={scheduler}
+          renderData={renderData}
+          assets={assets}
+          params={params}
+          assetType={`upcoming`}
+        
+        />
+      )}
     </>
   );
 }
+
+const NoResults = () => {
+  return (
+    <FixturaPaper>
+      <FixturaBox>
+        <H size="h4">No Upcoming Games Found in this render.</H>
+        <BackButton />
+      </FixturaBox>
+    </FixturaPaper>
+  );
+};

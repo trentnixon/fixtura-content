@@ -1,4 +1,4 @@
-import { Button, Badge, Box, NavLink } from "@mantine/core";
+import { Button, Badge, Box, NavLink, useMantineTheme } from "@mantine/core";
 
 import {
   IconHome2,
@@ -68,8 +68,10 @@ export const BUTTON_LINK = (props) => {
 };
 
 export const NavLinkWithIcon = (props) => {
+  const theme = useMantineTheme()
   const {
     label = "",
+    active=false,
     description = "",
     Icon = "",
     onClick = () => {
@@ -78,11 +80,13 @@ export const NavLinkWithIcon = (props) => {
   } = props;
   return (
     <NavLink
+      active={active}
       label={label}
       description={description}
       icon={Icon}
-      rightSection={<IconChevronRight size="0.8rem" stroke={1.5} />}
+      rightSection={<IconChevronRight size="0.8rem" stroke={1.5} color={theme.colors.teal[9]} />}
       onClick={onClick}
+      color={theme.colors.teal[9]}
     />
   );
 };

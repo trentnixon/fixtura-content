@@ -111,7 +111,7 @@ export function NavbarMinimal({ params, URLParams }) {
   ];
 
   const links = SideNavItems.map((link, index) => {
-    console.log("render ", render, link.renderOnly);
+    //console.log("render ", render, link.renderOnly);
     if (render === undefined && link.renderOnly === true) {
       return null;
     } else {
@@ -135,7 +135,7 @@ export function NavbarMinimal({ params, URLParams }) {
           {links}
         </Stack>
       </Navbar.Section>
-      <Navbar.Section>
+     {/*  <Navbar.Section>
         <Stack justify="center" spacing={0}>
           <NavbarLink
             icon={IconSwitchHorizontal}
@@ -144,7 +144,7 @@ export function NavbarMinimal({ params, URLParams }) {
           />
           <NavbarLink icon={IconLogout} label="Logout" href="/" />
         </Stack>
-      </Navbar.Section>
+      </Navbar.Section> */}
     </Navbar>
   );
 }
