@@ -87,13 +87,13 @@ export const HowToUseGuide = () => {
         Your scheduled render day is highlighted in the application, providing
         visibility on when to expect the next render. This is typically set for
         Mondays, but can vary based on your specific scheduling preferences.
-        Fixtura also keeps track of the number of renders you've completed,
-        which can be found in the 'Account' section. This is an excellent way to
+        Fixtura also keeps track of the number of renders you&apos;ve completed,
+        which can be found in the &apos;Account&apos; section. This is an excellent way to
         monitor your utilization of the application and to keep track of your
         asset generation history. To use Fixtura to its fullest potential,
         remember to consistently check these different sections, monitor your
-        render schedule, and don't hesitate to explore and experiment with the
-        app's various features." Remember, the more you use Fixtura, the more
+        render schedule, and don&apos;t hesitate to explore and experiment with the
+        app&apos;s various features. Remember, the more you use Fixtura, the more
         familiar and intuitive these functionalities will become. Happy
         exploring!
       </P>
