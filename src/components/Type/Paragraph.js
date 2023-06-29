@@ -1,10 +1,18 @@
 "use client";
-import { Text } from "@mantine/core";
+import { Text, useMantineTheme } from "@mantine/core";
 
 export const P = (props) => {
-  const { fw = 400, fs = "normal", tt = "", c = "", ta = "left", lh='1.2' } = props;
+  const {
+    fw = 400,
+    fs = "normal",
+    fz='md',
+    tt = "",
+    c = "",
+    ta = "left",
+    lh = "1.2",
+  } = props;
   return (
-    <Text fz="md" fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh}>
+    <Text fz={fz} fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh}>
       {props.children}
     </Text>
   );
@@ -36,3 +44,11 @@ export const N = (props) => {
     </Text>
   );
 };
+
+export const C = (props) =>{
+  const {shade=5, fw='400'}= props
+  const theme = useMantineTheme()
+  return(
+    <span style={{ color:theme.colors.blue[shade], fontWeight:fw }}>{props.children}</span>
+  )
+} ;

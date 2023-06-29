@@ -2,6 +2,7 @@
 import { H } from "@/components/Type/Headers";
 import { N, P, S } from "@/components/Type/Paragraph";
 import { BUTTON_FUNC } from "@/components/UI/buttons";
+import { HTML5VideoPlayer } from "@/components/Video/client/HTML5VideoPlayer";
 import { FixturaBox } from "@/components/containers/boxes";
 import { getTeamNamesFromGameObj } from "@/utils/actions";
 import { Grid, Group, Space } from "@mantine/core";
@@ -40,11 +41,13 @@ function filterByArticleFormat(inputObj, RenderDate) {
   return filteredArr;
 }
 
-export default async function VideoLayout({ DATA, WriteUpDATA, RenderDate }) {
-  //console.log(WriteUpDATA)
-  //console.log("filterByArticleFormat(WriteUpDATA) ");
-  //console.log(filterByArticleFormat(WriteUpDATA, RenderDate).length);
-
+export default async function VideoLayout({
+  DATA,
+  WriteUpDATA,
+  RenderDate,
+  assetType,
+  PATH,
+}) { 
   if (!DATA) {
     // Handle the case where DATA is undefined
     return <div>No data available</div>;
@@ -52,20 +55,27 @@ export default async function VideoLayout({ DATA, WriteUpDATA, RenderDate }) {
   return (
     <>
       <H size="h6" align="right">
-        {DATA[0].attributes.asset.data.attributes.Name}
+        {DATA[assetType.toLowerCase()][0].attributes.asset.data.attributes.Name}
       </H>
 
       <Grid>
-        <Grid.Col span={6}>
+        <Grid.Col span={6} md={6} lg={4}>
           <FixturaBox>
-            <VideoPlayer url={DATA[0].attributes.URL} />
+            <HTML5VideoPlayer
+              url={DATA[assetType.toLowerCase()][0].attributes.URL}
+            />
           </FixturaBox>
         </Grid.Col>
-        <Grid.Col span={6}>
-        <N>NOTE</N>
+        <Grid.Col span={6} md={6} lg={8}>
+          <N>NOTE</N>
           <H size="h6">Title needed</H>
-          
-          <P>{DATA[0].attributes.asset.data.attributes.description}</P>
+
+          <P>
+            {
+              DATA[assetType.toLowerCase()][0].attributes.asset.data.attributes
+                .description
+            }
+          </P>
           <CTAGroup />
         </Grid.Col>
       </Grid>
@@ -76,19 +86,6 @@ export default async function VideoLayout({ DATA, WriteUpDATA, RenderDate }) {
 }
 
 import React from "react";
-
-const VideoPlayer = ({ url }) => {
-  return (
-    <div className="video-player">
-      <video
-        controls
-        src={url}
-        width="100%"
-        className="video-player rounded-md"
-      />
-    </div>
-  );
-};
 
 const CTAGroup = () => {
   return (
@@ -101,10 +98,10 @@ const CTAGroup = () => {
 
 const WriteUP = ({ Games }) => {
   function extractSummary(text) {
-    const summaryIndex = text.indexOf("Matches:");
+    const summaryIndex = text.indexOf("Tweet:");
     if (summaryIndex !== -1) {
       // 'Summary:' length is 8, so we add 8 to index to get the start of the actual summary
-      return text.slice(summaryIndex + 8).trim();
+      return text.slice(summaryIndex + 6).trim();
     } else {
       return text;
     }
@@ -112,7 +109,7 @@ const WriteUP = ({ Games }) => {
   return (
     <>
       <H size="h4" align="left">
-        Supporting Articles 
+        Supporting Articles
       </H>
       <N>ADD OPTION TO CHANGE WRITE TYPE</N>
 

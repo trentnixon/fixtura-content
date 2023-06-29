@@ -6,9 +6,11 @@ import { H } from "@/components/Type/Headers";
 import { FixturaBox } from "@/components/containers/boxes";
 import { BUTTON_LINK } from "@/components/UI/buttons";
 
-export default async function ViewGamesTable({ DATA, params,assetType,path='u' }) {
+export default async function ViewGamesTable({ DATA, assetType,PATH,folder='u' }) {
 
-  //console.log(DATA)
+ 
+  if(DATA === undefined)
+    return(<>No Games found</>)
   return (
     <>
       <H size="h6" align="right">
@@ -19,8 +21,8 @@ export default async function ViewGamesTable({ DATA, params,assetType,path='u' }
       </S>
       <FixturaBox>
         <Table>
-          <thead>
-            <tr> 
+          <thead> 
+            <tr>  
               <th>Match</th>
               <th>Articles</th> 
               <th></th> 
@@ -29,20 +31,21 @@ export default async function ViewGamesTable({ DATA, params,assetType,path='u' }
           <tbody>
             {Object.keys(DATA).map((gameId) => {
               const TeamNames = getTeamNamesFromGameObj( 
-                DATA[gameId][assetType][0].attributes.game_meta_datum
+                DATA[gameId][assetType.toLowerCase()][0].attributes.game_meta_datum
               );
-              return (
+
+            return (
                 <tr key={gameId}>
                   <td>
                     <P>{TeamNames}</P>
                   </td>
                   <td>
-                    <P>{DATA[gameId][assetType].length}</P>
+                    <P>{DATA[gameId][assetType.toLowerCase()].length}</P>
                   </td>
                   <td>
                     <BUTTON_LINK
                       Label="Read"
-                      href={`${params.id}/${params.render}/${path}/m/${DATA[gameId][assetType][0].attributes.game_meta_datum.data.id}`}
+                      href={`${PATH.id}/${PATH.render}/${folder}/m/${DATA[gameId][assetType.toLowerCase()][0].attributes.game_meta_datum.data.id}`}
                     />
                   </td>
                 </tr>

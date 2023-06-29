@@ -18,68 +18,69 @@ import { BackButtonAsNavLink } from "@/components/Navigation/BackBtn";
 import { NavLinkWithIcon } from "@/components/UI/buttons";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
+import { FixturaContainer } from "@/components/containers/containers";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export const DisplayWriteup = ({ game }) => {
   const [writeup, setWriteup] = useState(null);
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(null);
-  const assignSelected = (id) => {
-    setActive(id)
+
+  //console.log(game);
+
+  const assignSelected = (id) => { 
+    setActive(id);
     setWriteup(game.attributes.gtp_3_reports.data[id]);
   };
 
   return (
-    <>
-      <Container my="md" size={`xl`}>
-        <Grid columns={12}>
-          <Grid.Col span={3}>
-            <FixturaBox>
-              <FixturaPaper>
-                {game.attributes.gtp_3_reports.data.map((assets, i) => {
-                 
-                  return (
-                    <NavLinkWithIcon
-                      active={i === active}
-                      key={i}
-                      label={assets.attributes.asset.data.attributes.Name}
-                      description=""
-                      Icon={<IconBook size="2rem" />}
-                      onClick={() => {
-                        assignSelected(i);
-                       
-                      }}
-                    />
-                  );
-                })}
-                <BackButtonAsNavLink />
-              </FixturaPaper>
-            </FixturaBox>
-          </Grid.Col>
-          <Grid.Col span={9}>
+    <FixturaContainer>
+      <Grid columns={12}>
+        <Grid.Col span={3}>
+          <FixturaBox>
             <FixturaPaper>
-              <H size="h6" align="right">
-                {writeup?.attributes === undefined
-                  ? false
-                  : writeup?.attributes.asset.data?.attributes.Name}
-              </H>
-              <SelectedWriteup writeup={writeup} game={game} />
-
-              {writeup === null ? (
-                "Select an Article option."
-              ) : (
-                <ActionBtns
-                  setCopied={setCopied}
-                  copied={copied}
-                  article={writeup?.attributes.article}
-                />
-              )}
-
-              <ArticleMeta game={game} writeup={writeup} />
+              {game.attributes.gtp_3_reports.data.map((assets, i) => {
+                return (
+                  <NavLinkWithIcon
+                    active={i === active}
+                    key={i}
+                    label={assets.attributes.asset.data.attributes.Name}
+                    description=""
+                    Icon={<IconBook size="2rem" />}
+                    onClick={() => {
+                      assignSelected(i);
+                    }}
+                  />
+                );
+              })}
+              <BackButtonAsNavLink />
             </FixturaPaper>
-          </Grid.Col>
-        </Grid>
-      </Container>
-    </>
+          </FixturaBox>
+        </Grid.Col>
+        <Grid.Col span={9}>
+          <FixturaPaper>
+            <H size="h6" align="right">
+              {writeup?.attributes === undefined
+                ? false
+                : writeup?.attributes.asset.data?.attributes.Name}
+            </H>
+            <SelectedWriteup writeup={writeup} game={game} />
+
+            {writeup === null ? (
+              "Select an Article option."
+            ) : (
+              <ActionBtns
+                setCopied={setCopied}
+                copied={copied}
+                article={writeup?.attributes.article}
+              />
+            )}
+
+            <ArticleMeta game={game} writeup={writeup} />
+          </FixturaPaper>
+        </Grid.Col>
+      </Grid>
+    </FixturaContainer>
   );
 };
 
@@ -102,7 +103,7 @@ const SelectedWriteup = ({ writeup, game }) => {
       <FixturaBox>
         <div className="chat chat-start">
           <div className="chat-bubble bg-green-700">
-            <p>{article.article}</p>
+          <ReactMarkdown className="markdown">{article.article}</ReactMarkdown>
           </div>
         </div>
         <div className="chat chat-end">

@@ -12,5 +12,5 @@ export default async function RootLayout({ children, params }) {
     <ContentShell params={params}>
       <main>{children}</main>
     </ContentShell>
-  );
+  ); 
 }

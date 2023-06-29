@@ -1,12 +1,7 @@
-import { Button, Badge, Box, NavLink, useMantineTheme } from "@mantine/core";
+"use client";
+import { ActionIcon, Button, NavLink, useMantineTheme } from "@mantine/core";
 
-import {
-  IconHome2,
-  IconGauge,
-  IconChevronRight,
-  IconActivity,
-  IconCircleOff,
-} from "@tabler/icons-react";
+import { IconChevronRight } from "@tabler/icons-react";
 import Link from "next/link";
 
 export const BUTTON_FUNC = (props) => {
@@ -24,20 +19,20 @@ export const BUTTON_FUNC = (props) => {
   return (
     <Button
       variant={variant}
-      Icon={Icon}
+      leftIcon={Icon}
       color={Color}
       size={size}
       onClick={onClick}
       uppercase
     >
       {Label}
-    </Button>
+    </Button> 
   );
 };
 
 export const BUTTON_LINK = (props) => {
   const {
-    href='',
+    href = "",
     Label = "",
     Color = "cyan",
     size = "md",
@@ -49,13 +44,10 @@ export const BUTTON_LINK = (props) => {
   } = props;
 
   return (
-    <Link
-      href={href}
-      passHref
-    >
+    <Link href={href} passHref>
       <Button
         variant={variant}
-        Icon={Icon}
+        icon={Icon}
         color={Color}
         size={size}
         onClick={onClick}
@@ -67,11 +59,41 @@ export const BUTTON_LINK = (props) => {
   );
 };
 
+export const BUTTON_LINK_ICON = (props) => {
+  const {
+    href = "",
+    label = "",
+    c = "gray",
+    size = "md",
+    variant = "outline",
+    onClick = () => {
+      console.log("Assign a Func to this Button");
+    },
+    icon = false,
+  } = props;
+
+  return (
+    <Link href={href} passHref>
+      <Button
+        variant={variant}
+  
+        color={c}
+        size={size}
+        onClick={onClick}
+        uppercase
+        leftIcon={icon}
+      >
+        {label}
+      </Button>
+    </Link>
+  );
+};
+
 export const NavLinkWithIcon = (props) => {
-  const theme = useMantineTheme()
+  const theme = useMantineTheme();
   const {
     label = "",
-    active=false,
+    active = false,
     description = "",
     Icon = "",
     onClick = () => {
@@ -84,9 +106,43 @@ export const NavLinkWithIcon = (props) => {
       label={label}
       description={description}
       icon={Icon}
-      rightSection={<IconChevronRight size="0.8rem" stroke={1.5} color={theme.colors.blue[9]} />}
+      variant="filled"
+      rightSection={
+        <IconChevronRight
+          size="0.8rem"
+          stroke={1.5}
+          color={theme.colors.blue[9]}
+        /> 
+      }
       onClick={onClick}
       color={theme.colors.blue[9]}
     />
+  );
+};
+
+export const BUTTON_ICON_FUNC = (props) => {
+  const {
+    Label = "",
+    Color = "cyan",
+    size = "md",
+    variant = "outline",
+    onClick = () => {
+      console.log("Assign a Func to this Button");
+    },
+    Icon = false,
+  } = props;
+
+  return (
+    
+    <ActionIcon
+      variant={variant}
+      leftIcon={Icon}
+      color={Color}
+      size={size}
+      onClick={onClick}
+      uppercase
+    >
+       {Icon}
+    </ActionIcon> 
   );
 };

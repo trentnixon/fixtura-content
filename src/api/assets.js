@@ -10,6 +10,10 @@ export async function getAssets() {
     }
   );
 
-  const res = await fetcher(`assets?${queryParams}`);
+  //const res = await fetcher(`assets?${queryParams}`);
+  const res = await fetcher({
+    PATH: `assets?${queryParams}`,
+    nextConfig: { next: { revalidate: 600 } },
+  });
   return res.data;
 }

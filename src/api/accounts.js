@@ -1,6 +1,12 @@
 import { fetcher } from "@/utils/fetcher";
 const qs = require("qs");
-export const revalidate = 600;
+
+
+/* 
+  All this ACCOUNT 
+  Here are a buch of Account API routes for different circumstances
+*/
+
 export async function getAllAccount() {
   const queryParams = qs.stringify(
     {
@@ -10,7 +16,12 @@ export async function getAllAccount() {
       encodeValuesOnly: true,
     }
   );
-  const res = await fetcher(`accounts?${queryParams}`);
+  //const res = await fetcher(`accounts?${queryParams}`);
+  const res = await fetcher({
+    PATH: `accounts?${queryParams}`,
+    nextConfig: {next: { revalidate: 600 }},
+  });
+
   //console.log(res.data)
   return res.data;
 }
@@ -33,7 +44,11 @@ export async function getAccount(ID) {
     }
   );
 
-  const res = await fetcher(`accounts/${ID}?${queryParams}`);
+  //const res = await fetcher(`accounts/${ID}?${queryParams}`);
+  const res = await fetcher({
+    PATH: `accounts/${ID}?${queryParams}`,
+    nextConfig: { next: { revalidate: 600 }},
+  });
   return res.data;
 }
 
@@ -49,6 +64,8 @@ export async function getFullAccount(ID) {
         "clubs",
         "clubs.Logo",
         "clubs.teams",
+        "clubs.teams.grades",
+        "clubs.teams.competition",
         "associations",
         "associations.competitions",
         "associations.Logo",
@@ -57,8 +74,7 @@ export async function getFullAccount(ID) {
         "theme",
         "audio_option",
         "order",
-        'sponsors'
-
+        "sponsors",
       ],
     },
     {
@@ -66,6 +82,29 @@ export async function getFullAccount(ID) {
     }
   );
 
-  const res = await fetcher(`accounts/${ID}?${queryParams}`);
+  //const res = await fetcher(`accounts/${ID}?${queryParams}`);
+  const res = await fetcher({
+    PATH: `accounts/${ID}?${queryParams}`,
+    nextConfig: { next: { revalidate: 600 } },
+  });
+  return res.data;
+}
+
+//["scheduler", "scheduler.renders"]
+export async function getAccountFields(ID, FIELDS) {
+  const queryParams = qs.stringify(
+    {
+      populate: FIELDS,
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  );
+  //const res = await fetcher(`accounts/${ID}?${queryParams}`);
+  const res = await fetcher({
+    PATH: `accounts/${ID}?${queryParams}`,
+    nextConfig: { next: { revalidate: 600 } },
+  });
+  //console.log(res.data)
   return res.data;
 }

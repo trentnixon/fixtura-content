@@ -1,46 +1,23 @@
 "use client";
-import {
-  Button,
-  Group,
-  Image,
-  ScrollArea,
-  SimpleGrid,
-  Table,
-} from "@mantine/core";
+import { Group, Image, ScrollArea, SimpleGrid } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { H } from "@/components/Type/Headers";
 import { FixturaBox } from "@/components/containers/boxes";
 
-export default async function ViewImageGrid({ DATA }) {
-  //console.log(DATA);
+import React from "react";
+import { BUTTON_FUNC } from "@/components/UI/buttons";
+import { handleDownload } from "@/utils/helpers";
+
+export default async function ViewImageGrid({ DATA, assetType, PATH }) {
   return (
     <>
-      <ImageCarousel Images={DATA} />
-
-      <ImageGrid Images={DATA} />
+      <ImageCarousel Images={DATA[assetType.toLowerCase()]} />
+      <ImageGrid Images={DATA[assetType.toLowerCase()]} />
     </>
   );
-}
-
-import React, { useState } from "react";
-import { BUTTON_FUNC } from "@/components/UI/buttons";
+} 
 
 function ImageCarousel({ Images }) {
-  const [downloadUrl, setDownloadUrl] = useState("");
-
-  const handleDownload = async (imageUrl) => {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    setDownloadUrl(url);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "image.jpg"; // or any name you want
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <>
       <H size="h5" align="right">

@@ -13,11 +13,16 @@ export const FindAccountLogo = (account) => {
     return "Undefined";
   }
 
-  if(account?.attributes?.associations?.data[0]?.attributes?.Logo.data?.attributes === undefined)
-  return null
-   
-  return account?.attributes.account_type.data?.attributes.Name === "Association"
-    ? account?.attributes.associations.data[0]?.attributes.Logo.data?.attributes.url
+  if (
+    account?.attributes?.associations?.data[0]?.attributes?.Logo.data
+      ?.attributes === undefined
+  )
+    return null;
+
+  return account?.attributes.account_type.data?.attributes.Name ===
+    "Association"
+    ? account?.attributes.associations.data[0]?.attributes.Logo.data?.attributes
+        .url
     : account?.attributes.clubs.data[0]?.attributes.Logo.data?.attributes.url;
 };
 
@@ -41,6 +46,12 @@ export const DateFromTo = (createdAt) => {
   return [formattedPastDate, formattedCurrentDate];
 };
 
+export function formatStrapiCreatedOnDate(dateString) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}
+
+
 export const getTeamNamesFromGameObj = (GAME) => {
   return `${GAME.data.attributes.teamHome} vs ${GAME.data.attributes.teamAway}`;
 };
@@ -63,8 +74,9 @@ export const groupDownloadsByAssetCategory = (data) => {
 };
 
 export const groupByCategoryAndGameId = (data) => {
+
   return data.reduce((acc, item) => {
-    if (item.attributes.game_meta_datum !== null) {
+    if (item.attributes.game_meta_datum !== null && item.attributes.game_meta_datum.data !== null) {
       // Add to 'Games' category
       if (!acc.Games) {
         acc.Games = {};
@@ -91,27 +103,94 @@ export const groupByCategoryAndGameId = (data) => {
   }, {});
 };
 
-export const filterByAssetId = (data, UIDS) => {
+
+// COMPLIE ACCOUNT DATA
+
+export const CompileAccountData = (DATA) => {
+  return {
+    LABEL: FindAccountLabel(DATA),
+    LOGO: FindAccountLogo(DATA),
+  };
+};
+
+// COMPLIE RENDER DATA
+
+export const ComplieRenderData = (DATA) => {
+  return {
+    CREATEDAT: DATA.createdAt,
+    FROM: DateFromTo(DATA.createdAt)[0],
+    TO: DateFromTo(DATA.createdAt)[1],
+  };
+};
+
+// Complie ASSET DATA
+const ASSET_IDS = {
+  Results: [4, 13, 21, 22, 23],
+  Upcoming: [1, 2, 3, 19, 20],
+  StatisticsDownload: [6, 7, 12, 15, 16, 18],
+  StatisticsWriteup: [24, 25, 26],
+};
+
+export const filterByAssetId = (data, category) => {
   return data.filter((item) => {
     //console.log(item.attributes.asset?.data?.id)
-    return UIDS.includes(item.attributes.asset?.data?.id);
+    return ASSET_IDS[category].includes(item.attributes.asset?.data?.id);
   });
 };
 
-export const FilterResult = (OBJ) => {
-  ASSETIDS = [4, 13, 21, 22, 23];
-  return filterByAssetId(OBJ, ASSETIDS);
-};
-export const FilterUpcoming = (OBJ) => {
-  ASSETIDS = [1, 2, 3, 19, 20];
-  return filterByAssetId(OBJ, ASSETIDS);
+const calculateStats = (writeups, downloads) => {
+  const resultsWriteups = filterByAssetId(writeups, "Results");
+  const upcomingWriteups = filterByAssetId(writeups, "Upcoming");
+  const statisticsWriteups = filterByAssetId(writeups, "StatisticsWriteup");
+
+  const resultsDownloads = filterByAssetId(downloads, "Results");
+  const upcomingDownloads = filterByAssetId(downloads, "Upcoming");
+  const statisticsDownloads = filterByAssetId(downloads, "StatisticsDownload");
+
+  return {
+    INT: {
+      Total: writeups.length + downloads.length,
+      TotalWriteups: writeups.length,
+      TotalDownloads: downloads.length,
+      Results: {
+        w: resultsWriteups.length,
+        dl: resultsDownloads.length,
+      },
+      Upcoming: {
+        w: upcomingWriteups.length,
+        dl: upcomingDownloads.length,
+      },
+      Statitics: {
+        w: statisticsWriteups.length,
+        dl: statisticsDownloads.length,
+      },
+    },
+    Results: {
+      w: groupByCategoryAndGameId(resultsWriteups),
+      dl: groupDownloadsByAssetCategory(resultsDownloads),
+    },
+    Upcoming: {
+      w: groupByCategoryAndGameId(upcomingWriteups),
+      dl: groupDownloadsByAssetCategory(upcomingDownloads),
+    },
+    Statitics: {
+      w: groupByCategoryAndGameId(statisticsWriteups),
+      dl: groupDownloadsByAssetCategory(statisticsDownloads),
+    },
+  };
 };
 
-export const FilterStatisticsDownload = (OBJ) => {
-  ASSETIDS = [6,7,12,15,16,18];
-  return filterByAssetId(OBJ, ASSETIDS);
+export const CompileData = (DATA) => {
+  const gtp_3_reports = DATA.gtp_3_reports.data;
+  const downloads = DATA.downloads.data;
+  return calculateStats(gtp_3_reports, downloads);
 };
-export const FilterStatisticsWriteup = (OBJ) => {
-  ASSETIDS = [24,25,26];
-  return filterByAssetId(OBJ, ASSETIDS);
+
+// GET FULL COMPLIED DATA
+export const GetTheLot = (account, render) => {
+  return {
+    account: CompileAccountData(account),
+    render: ComplieRenderData(render),
+    assets: CompileData(render),
+  };
 };

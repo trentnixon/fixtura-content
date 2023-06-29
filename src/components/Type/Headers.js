@@ -11,6 +11,7 @@ export const H = (props) => {
     size = "h1",
     mx = 0,
     my = 0,
+    lh=`1.5em`
   } = props;
 
   return (
@@ -23,6 +24,7 @@ export const H = (props) => {
       italic={italic}
       mx={mx}
       my={my}
+      lh={lh}
     >
       {props.children}
     </Title>

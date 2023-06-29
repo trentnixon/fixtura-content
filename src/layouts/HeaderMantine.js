@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import {
   createStyles,
   Menu,
@@ -9,65 +10,25 @@ import {
   Button,
   Burger,
   rem,
+  Tooltip,
+  UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconChevronDown } from "@tabler/icons-react";
+import { IconChevronDown, IconHome2 } from "@tabler/icons-react";
 import Image from "next/image";
 
 const HEADER_HEIGHT = rem(60);
 
-
 const LINKS = [
-      {
-        "link": "/Fixtura",
-        "label": "Fixtura"
-      },
-      {
-        "link": "#1",
-        "label": "Learn",
-        "links": [
-          {
-            "link": "/docs",
-            "label": "Documentation"
-          },
-          {
-            "link": "/resources",
-            "label": "Resources"
-          },
-          {
-            "link": "/community",
-            "label": "Community"
-          },
-          {
-            "link": "/blog",
-            "label": "Blog"
-          }
-        ]
-      },
-      {
-        "link": "/about",
-        "label": "About"
-      },
-      {
-        "link": "/pricing",
-        "label": "Pricing"
-      },
-      {
-        "link": "#2",
-        "label": "Support",
-        "links": [
-          {
-            "link": "/faq",
-            "label": "FAQ"
-          },
-          {
-            "link": "/contact",
-            "label": "Contact"
-          }
-        ]
-      }
-    ]
-  
+  {
+    link: "/",
+    label: "Home",
+  },
+  {
+    link: "/Fixtura",
+    label: "Fixtura",
+  },
+];
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -115,52 +76,10 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function HeaderMantine({params}) {
-    const { id } = params;
+export function HeaderMantine({ params }) {
+  const { id } = params;
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
-  const items = LINKS.map((link) => {
-    const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link}>{item.label}</Menu.Item>
-    ));
-
-    if (menuItems) {
-      return (
-        <Menu
-          key={link.label}
-          trigger="hover"
-          transitionProps={{ exitDuration: 0 }}
-          withinPortal
-        >
-            
-          <Menu.Target>
-            <a
-              href={link.link}
-              className={classes.link}
-              onClick={(event) => event.preventDefault()}
-            >
-              <Center>
-                <span className={classes.linkLabel}>{link.label}</span>
-                <IconChevronDown size={rem(12)} stroke={1.5} />
-              </Center>
-            </a>
-          </Menu.Target>
-          <Menu.Dropdown>{menuItems}</Menu.Dropdown>
-        </Menu>
-      );
-    }
-
-    return (
-      <a
-        key={link.label}
-        href={link.link}
-        className={classes.link}
-        onClick={(event) => event.preventDefault()}
-      >
-        {link.label}
-      </a>
-    );
-  });
 
   return (
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
@@ -182,11 +101,18 @@ export function HeaderMantine({params}) {
           />
         </Group>
         <Group spacing={5} className={classes.links}>
-          {items}
+          <Tooltip
+            label={"Home"}
+            position="bottom"
+            transitionProps={{ duration: 0 }}
+          >
+            <UnstyledButton>
+              <Link href={`/${id}`}>
+                <IconHome2 size="1.2rem" stroke={1.5} />
+              </Link>
+            </UnstyledButton>
+          </Tooltip>
         </Group>
-        <Button radius="xl" h={30}>
-          Get early access
-        </Button>
       </Container>
     </Header>
   );

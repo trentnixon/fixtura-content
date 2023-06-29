@@ -7,74 +7,77 @@ import VideoLayout from "@/components/Video/ViewVideoLayout";
 import ViewImageGrid from "@/components/Tables/ViewImageGrid";
 import { FixturaPaper } from "@/components/containers/paper";
 import { FixturaBox } from "@/components/containers/boxes";
-import { S } from "@/components/Type/Paragraph";
+import { N, S } from "@/components/Type/Paragraph";
 import { H } from "@/components/Type/Headers";
 import {
   IconBook,
-  IconGoGame,
+  IconGoGame, 
   IconPhotoAi,
   IconVideo,
 } from "@tabler/icons-react";
 import { NavLinkWithIcon } from "@/components/UI/buttons";
 import { useState } from "react";
 import { BackButtonAsNavLink } from "@/components/Navigation/BackBtn";
+import { RenderDates } from "@/layouts/Headings/client/RenderDates";
+import { FixturaContainer } from "@/components/containers/containers";
 
-export const AssetTypeGridLayout = ({
-  account,
-  scheduler,
-  renderData,
-  assets,
-  params,
-  WriteUpDATA,
+export const LayoutPageCategory = ({
+  ACCOUNTOBJ,
+  DATAOBJ,
+  RENDEROBJ,
+  PATH,
   assetType,
-  Videos,
-  Images,
-
 }) => {
   const [Category, SetCategory] = useState("select");
 
-  console.log("Videos", Videos);
+  let images = Object.entries(DATAOBJ[assetType].dl)[1];
+  let imageValue = images ? images[1] : undefined;
 
   const Assets = {
     select: {
-      component: <Overview DATA={WriteUpDATA.Games} params={params} />,
+      component: <Overview DATA={DATAOBJ[assetType]?.w.Games} params={PATH} />,
     },
     overview: {
-      component: <Overview DATA={WriteUpDATA.Games} params={params} />,
+      component: <Overview DATA={DATAOBJ[assetType]?.w.Games} params={PATH} />,
     },
-    Matches: {
+    Articles: {
       component: (
         <ViewGamesTable
-          DATA={WriteUpDATA.Games}
-          params={params}
+          DATA={DATAOBJ[assetType]?.w.Games}
+          PATH={PATH}
           assetType={assetType}
-          path='r'
+          folder="r"
         />
       ),
-    },
+    }, 
     Videos: {
       component: (
         <VideoLayout
-          DATA={Videos}
-          params={params}
-          WriteUpDATA={WriteUpDATA.Games}
+          DATA={Object.entries(DATAOBJ[assetType].dl)[0][1]}
+          PATH={PATH}
+          WriteUpDATA={DATAOBJ[assetType]?.w.Games}
           assetType={assetType}
-          RenderDate={renderData.attributes.createdAt}
+          RenderDate={RENDEROBJ}
         />
       ),
     },
     Images: {
       component: (
-        <ViewImageGrid DATA={Images} params={params} assetType={assetType} />
+        <ViewImageGrid DATA={imageValue} PATH={PATH} assetType={assetType} />
       ),
     },
   };
 
   return (
-    <Container my="md" size={`xl`}>
+    <FixturaContainer>
+      <RenderDates
+        createdAt={RENDEROBJ}
+        Assets={DATAOBJ.INT[assetType]?.w + DATAOBJ.INT[assetType]?.dl}
+      />
+
       <Grid columns={12}>
         <Grid.Col span={3}>
-          <FixturaBox>
+          {/* <FixturaBox>
             <H size="h6" align="right">
               OPTIONS
             </H>
@@ -89,16 +92,15 @@ export const AssetTypeGridLayout = ({
                 Icon={<IconBook size="2rem" />}
                 onClick={() => {
                   SetCategory("overview");
-                  
                 }}
               />
               <NavLinkWithIcon
-                label="Matches"
-                active={Category === "Matches"}
+                label="Articles"
+                active={Category === "Articles"}
                 description="List of the Weeks fixtures"
                 Icon={<IconGoGame size="2rem" />}
                 onClick={() => {
-                  SetCategory("Matches");
+                  SetCategory("Articles");
                 }}
               />
               <NavLinkWithIcon
@@ -121,15 +123,15 @@ export const AssetTypeGridLayout = ({
               />
               <BackButtonAsNavLink />
             </FixturaPaper>
-          </FixturaBox>
+          </FixturaBox> */}
         </Grid.Col>
         <Grid.Col span={9}>
           <ShowCategoryWrapper>
-            {Assets[Category].component}
+            {Assets[Category]?.component}
           </ShowCategoryWrapper>
         </Grid.Col>
       </Grid>
-    </Container>
+    </FixturaContainer>
   );
 };
 

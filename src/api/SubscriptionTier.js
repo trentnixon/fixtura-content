@@ -10,6 +10,10 @@ export async function getSubscriptionTier(ID) {
     }
   );
 
-  const res = await fetcher(`subscription-tiers/${ID}?${queryParams}`);
+  //const res = await fetcher(`subscription-tiers/${ID}?${queryParams}`);
+  const res = await fetcher({
+    PATH: `subscription-tiers/${ID}?${queryParams}`,
+    nextConfig: { next: { revalidate: 600 } },
+  });
   return res.data;
 }

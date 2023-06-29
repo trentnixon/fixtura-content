@@ -20,3 +20,6 @@ export const FixturaLoader = () => {
     </FixturaContainer>
   );
 };
+
+
+export const ProcessingLoader = ()=> <Loader color="gray" variant="dots" />

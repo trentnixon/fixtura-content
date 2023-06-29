@@ -1,31 +1,33 @@
-"use client";
-import { H } from "@/components/Type/Headers";
+// APIS
+import { RenderCount, getRenderFields } from "@/api/renders";
+import { PageCategoryHeader } from "@/components/UI/Headers";
 import { FixturaGroup } from "@/components/containers/Group";
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaContainer } from "@/components/containers/containers";
-import { Group, Image } from "@mantine/core";
-import { IconCategory2 } from "@tabler/icons-react";
+import { SelectACategory } from "@/components/inputs/SelectCategory";
+import { RenderDates } from "@/layouts/Headings/client/RenderDates";
+// Utils
+import { ComplieRenderData } from "@/utils/actions";
+export const FixturaPageHeader = async (props) => {
+  const { params } = props;
+  const renderData = await getRenderFields(params.render, []);
+  const Count = await RenderCount(params.render);
 
-export const FixturaPageHeader = (props) => {
-  const { heading, subheading, Logo } = props;
+  if (params.render === undefined) return false;
   return (
     <FixturaContainer>
       <FixturaGroup>
+         
+        <RenderDates
+          createdAt={ComplieRenderData(renderData.attributes)}
+          Assets={Count.downloads + Count.gtp_3_reports}
+        />
         <FixturaBox>
-          <Group>
-            <IconCategory2 />
-            <H size="h4">{subheading} </H>
-          </Group>
+          <FixturaGroup position={"left"}>
+            <PageCategoryHeader />
+            <SelectACategory params={params} />
+          </FixturaGroup>
         </FixturaBox>
-
-        <Group>
-          <H size="h5">{heading}</H>
-          {Logo === null ? (
-            false
-          ) : (
-            <Image src={Logo} width={40} height={40} fit="contain" />
-          )}
-        </Group>
       </FixturaGroup>
     </FixturaContainer>
   );
