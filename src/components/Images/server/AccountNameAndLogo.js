@@ -50,7 +50,7 @@ export async function AccountNameAndLogoStack({ params }) {
       {Logo === null ? (
         false
       ) : (
-        <FixturaHeaderLogo Logo={Logo} width={80} height={80} />
+        <FixturaHeaderLogo Logo={Logo} width={100} height={100} />
       )}
       <H size="h5">{heading}</H>
     </FixturaStack>

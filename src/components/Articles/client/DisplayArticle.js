@@ -30,6 +30,7 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
   //const GAME = ArticleSet[version].game_meta_datum;
   const GAME = SelectedGame[0].game_meta_datum;
   const ArticleSet = GAME.gtp_3_reports;
+  console.log(GAME)
   console.log(ArticleSet[version]);
   return (
     <>
@@ -49,7 +50,7 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
                 <H size={`h6`} align="right" color="gray.6" weight="400">{`${
                   GAME?.Homescores === null ? "" : GAME?.Homescores
                 } ${GAME?.HomeOvers === null ? "" : GAME?.HomeOvers}`}</H>
-              </div>
+              </div> 
 
               <div>vs</div>
               <div>

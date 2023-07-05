@@ -50,7 +50,7 @@ export default async function Render({ params }) {
                 },
                 {
                   title: "Downloads",
-                  value: Count.finalStructure.media.results,
+                  value: Count.finalStructure.media.statistics,
                   icon: <Icon123 />,
                 },
               ]}
@@ -106,8 +106,7 @@ export default async function Render({ params }) {
                 {
                   title: "Downloads",
                   value:
-                    Count.finalStructure.statistics -
-                    Count.finalStructure.articles.statistics,
+                    Count.finalStructure.statistics,
                   icon: <Icon123 />,
                 },
               ]}

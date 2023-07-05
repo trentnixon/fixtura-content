@@ -1,8 +1,9 @@
 "use client";
-import { Box, Container } from "@mantine/core";
+import { FindAccountLogo } from "@/utils/actions";
+import { BackgroundImage, Box, Container } from "@mantine/core";
 
 export const FixturaContainer = (props) => {
-  const { children, my = 10, mx=0, p=0 } = props;
+  const { children, my = 10, mx = 0, p = 0 } = props;
   return (
     <Container my={my} mx={mx} p={p} fluid={true}>
       {children}
@@ -27,7 +28,9 @@ export const FixturaComponent = (props) => {
 };
 
 export const FixturaHero = (props) => {
-  const { children } = props;
+  const { children, account } = props;
+  const Logo = FindAccountLogo(account);
+
   return (
     <Container my={0} mx={0} p={0} fluid={true}>
       <Box

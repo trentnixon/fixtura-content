@@ -1,14 +1,14 @@
 "use client";
 import { Button, Select, rem } from "@mantine/core";
 import { useRouter, usePathname } from "next/navigation";
-
+import { useState,useEffect  } from "react";
 import {
   IconCalendarDue,
   IconScoreboard,
   IconChartPie4,
   IconHome2,
 } from "@tabler/icons-react";
-import { useState } from "react";
+
 
 const CATEGORIES = [
   { value: "", title: "RENDER", icon: <IconHome2 /> },
@@ -19,13 +19,20 @@ const CATEGORIES = [
 
 export const SelectACategory = ({ params }) => {
   const router = useRouter();
-  const Pathname = usePathname();
-  const [searchValue, onSearchChange] = useState(null);
+  const pathname = usePathname();
+  const [searchValue, setSearchValue] = useState(null);
+
+  useEffect(() => {
+    console.log(pathname)
+    const lastPathSegment = pathname.split("/").pop();
+    setSearchValue(lastPathSegment);
+  }, [pathname]);
 
   const DirectToRender = (value) => {
-    onSearchChange(value);
+    setSearchValue(value);
     router.push(`${params.id}/${params.render}/${value}`);
   };
+
   return (
     <Select
       label=""
@@ -40,13 +47,19 @@ export const SelectACategory = ({ params }) => {
 
 export const SelectACategoryBtnGroup = ({ params }) => {
   const router = useRouter();
-  const Pathname = usePathname();
-  const [searchValue, onSearchChange] = useState(null);
+  const pathname = usePathname();
+  const [searchValue, setSearchValue] = useState(null);
+
+  useEffect(() => {
+    const lastPathSegment = pathname.split("/").pop();
+    setSearchValue(lastPathSegment);
+  }, [pathname]);
 
   const DirectToRender = (value) => {
-    onSearchChange(value);
+    setSearchValue(value);
     router.push(`${params.id}/${params.render}/${value}`);
   };
+
   return (
     <Button.Group>
       {CATEGORIES.map((c, i) => {
@@ -66,7 +79,6 @@ export const SelectACategoryBtnGroup = ({ params }) => {
                 leftIcon: {
                   marginRight: theme.spacing.md,
                 },
-                // Apply a different background color if this category is the selected one
                 
               },
             })}
@@ -85,5 +97,3 @@ export const SelectACategoryBtnGroup = ({ params }) => {
     </Button.Group>
   );
 };
-
-

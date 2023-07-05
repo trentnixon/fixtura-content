@@ -16,13 +16,22 @@ import { HeroRenderDates } from "@/layouts/Headings/client/RenderDates";
 import { ComplieRenderData } from "@/utils/actions";
 import { FixturaStack } from "@/components/containers/stack";
 import { H } from "@/components/Type/Headers";
+import { getAccountFields } from "@/api/accounts";
 export async function HeroText({ params }) {
   const renderData = await getRenderFields(params.render, []);
   const Count = await RenderCount(params.render);
   //console.log(Count)
+
+  const account = await getAccountFields(params.id, [
+    "account_type",
+    "clubs",
+    "clubs.Logo",
+    "associations",
+    "associations.Logo",
+  ]);
   return (
     <>
-      <FixturaHero>
+      <FixturaHero account={account}>
         <HeroInner>
           <HeroTitle>
             <AccountNameAndLogoStack params={params} />

@@ -18,7 +18,7 @@ export default async function Account({ params }) {
         shade={0}
         Title={"Your Account"}
         subTitle={"review your rendered assets"}
-      > 
+      >  
         <FixturaGRIDOUTER>
           <FixturaGRIDCOL span={4}>
             <AccountDetails params={params} />

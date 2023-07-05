@@ -9,18 +9,12 @@ export const FindAccountLabel = (account) => {
 };
 
 export const FindAccountLogo = (account) => {
-  if (!account?.attributes?.account_type?.data?.attributes?.Name) {
+  const ACCOUNTTYPE = account?.attributes?.account_type?.data?.attributes?.Name;
+  if (!ACCOUNTTYPE) {
     return "Undefined";
   }
 
-  if (
-    account?.attributes?.associations?.data[0]?.attributes?.Logo.data
-      ?.attributes === undefined
-  )
-    return null;
-
-  return account?.attributes.account_type.data?.attributes.Name ===
-    "Association"
+  return ACCOUNTTYPE === "Association"
     ? account?.attributes.associations.data[0]?.attributes.Logo.data?.attributes
         .url
     : account?.attributes.clubs.data[0]?.attributes.Logo.data?.attributes.url;
@@ -47,10 +41,9 @@ export const DateFromTo = (createdAt) => {
 };
 
 export function formatStrapiCreatedOnDate(dateString) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
-
 
 export const getTeamNamesFromGameObj = (GAME) => {
   return `${GAME.data.attributes.teamHome} vs ${GAME.data.attributes.teamAway}`;
@@ -74,9 +67,11 @@ export const groupDownloadsByAssetCategory = (data) => {
 };
 
 export const groupByCategoryAndGameId = (data) => {
-
   return data.reduce((acc, item) => {
-    if (item.attributes.game_meta_datum !== null && item.attributes.game_meta_datum.data !== null) {
+    if (
+      item.attributes.game_meta_datum !== null &&
+      item.attributes.game_meta_datum.data !== null
+    ) {
       // Add to 'Games' category
       if (!acc.Games) {
         acc.Games = {};
@@ -102,7 +97,6 @@ export const groupByCategoryAndGameId = (data) => {
     return acc;
   }, {});
 };
-
 
 // COMPLIE ACCOUNT DATA
 

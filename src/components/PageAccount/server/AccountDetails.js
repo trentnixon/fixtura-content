@@ -21,7 +21,8 @@ export default async function AccountDetails({ params }) {
     "associations.Logo",
   ]);
   const TYPE = accountBasic.attributes.account_type.data.attributes.Name;
-
+ 
+  console.log(accountBasic)
   return (
     <FixturaComponent>
       <FixturaPaper>
