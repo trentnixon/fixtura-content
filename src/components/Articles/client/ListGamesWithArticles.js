@@ -1,21 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ScrollArea,
-  Paper,
-  Text,
-  Col,
-  TextInput,
-  Input,
-  Box,
-  SimpleGrid,
-  useMantineTheme,
-} from "@mantine/core";
+import { ScrollArea, TextInput, Box, useMantineTheme } from "@mantine/core";
 import { IconCricket } from "@tabler/icons-react";
 import { P, S } from "@/components/Type/Paragraph";
-import { FixturaGroup } from "@/components/containers/Group";
-import { FixturaStack } from "@/components/containers/stack";
+/* import { FixturaGroup } from "@/components/containers/Group";
+import { FixturaStack } from "@/components/containers/stack"; */
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { FixturaArticleBox } from "@/components/containers/boxes";
 
@@ -29,10 +19,8 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
 
   const filteredData = Object.keys(groupedData).filter((gameID) => {
     const firstGame = groupedData[gameID][0];
-    const teamHome =
-      firstGame.attributes.game_meta_datum.data.attributes.teamHome;
-    const teamAway =
-      firstGame.attributes.game_meta_datum.data.attributes.teamAway;
+    const teamHome = firstGame.game_meta_datum.teamHome;
+    const teamAway = firstGame.game_meta_datum.teamAway;
     return (
       teamHome.toLowerCase().includes(searchTerm.toLowerCase()) ||
       teamAway.toLowerCase().includes(searchTerm.toLowerCase())
@@ -54,10 +42,8 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
       <ScrollArea h={500} offsetScrollbars>
         {filteredData.map((gameID) => {
           const firstGame = groupedData[gameID][0];
-          const teamHome =
-            firstGame.attributes.game_meta_datum.data.attributes.teamHome;
-          const teamAway =
-            firstGame.attributes.game_meta_datum.data.attributes.teamAway;
+          const teamHome = firstGame.game_meta_datum.teamHome;
+          const teamAway = firstGame.game_meta_datum.teamAway;
           const label = `${teamHome} vs ${teamAway}`;
 
           return (

@@ -9,12 +9,16 @@ import {
 import { ScrollArea } from "@mantine/core";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
+function filterByArticleFormat(data) {
+  return data.filter((item) => item.asset.ArticleFormats === "ShortForm");
+}
+
 export const DisplaySupportingArticles = ({ renderData }) => {
   //console.log(renderData);
   return (
     <ScrollArea h={600}>
       {renderData.map((article, i) => {
-        const GAME = article?.attributes?.game_meta_datum?.data?.attributes;
+        const GAME = article.game_meta_datum;
 
         return (
           <div key={i}>
@@ -22,7 +26,11 @@ export const DisplaySupportingArticles = ({ renderData }) => {
               {GAME ? <ArticleMeta GAME={GAME} /> : false}
 
               <ReactMarkdown className="markdown">
-                {article.attributes.article}
+                {
+                  filterByArticleFormat(
+                    article.game_meta_datum.gtp_3_reports
+                  )[0]?.article
+                }
               </ReactMarkdown>
             </FixturaArticleBox>
           </div>
@@ -46,28 +54,27 @@ const ArticleMeta = ({ GAME }) => {
         <FixturaGroup>
           <div>
             <H size={`h3`} align="right">{`${GAME.teamHome}`}</H>
-            <H
-              size={`h6`}
-              align="right"
-              color="gray.6"
-              weight="400"
-            >{`${GAME.Homescores} ${GAME.HomeOvers}`}</H>
+            <H size={`h6`} align="right" color="gray.6" weight="400">{`${
+              GAME?.Homescores === null ? "" : GAME?.Homescores
+            } ${GAME?.HomeOvers === null ? "" : GAME?.HomeOvers}`}</H>
           </div>
 
           <div>vs</div>
           <div>
             <H size={`h3`}>{`${GAME.teamAway}`}</H>
-            <H
-              size={`h6`}
-              color="gray.6"
-              weight="400"
-            >{`${GAME.Awayscores} ${GAME.AwayOvers}`}</H>
+            <H size={`h6`} color="gray.6" weight="400">{`${
+              GAME?.Awayscores === null ? "" : GAME?.Awayscores
+            } ${GAME?.AwayOvers === null ? "" : GAME?.AwayOvers}`}</H>
           </div>
         </FixturaGroup>
 
-        <FixturaArticleBox c={1}>
-          <P ta="center">{GAME.ResultStatement}</P>
-        </FixturaArticleBox>
+        {!GAME.ResultStatement ? (
+          false
+        ) : (
+          <FixturaArticleBox c={1}>
+            <P ta="center">{GAME.ResultStatement}</P>
+          </FixturaArticleBox>
+        )}
       </FixturaAccountBox>
     </>
   );

@@ -5,7 +5,7 @@ import { SelectedRenderStatsClient } from "../client/StatsGroup";
 export async function SelectedRenderStats({ params }) {
   const Count = await RenderCount(params.render);
 
-  console.log(Count)
+  //console.log(Count)
   const data = [
     {
       title: "Games tracked",

@@ -17,7 +17,7 @@ import { SingleImageWithDownload } from "@/components/Images/client/createImages
 export async function CreateStatisticsClient(props) {
   const { ITEM, renderArticles, assetName, assetTypes, description } = props;
 
-  console.log(assetTypes?.IMAGE);
+  //console.log(assetTypes?.IMAGE);
   if(!assetTypes?.IMAGE)
   return false
   return (
@@ -64,7 +64,7 @@ export async function CreateStatisticsClient(props) {
                   <ImageList ITEMS={assetTypes.IMAGE} />
                 ) : (
                   assetTypes?.IMAGE.map((image, i) => {
-                    console.log(image)
+                    //console.log(image)
                     return (
                       <SingleImageWithDownload
                         URL={image.attributes.URL}
@@ -83,7 +83,7 @@ export async function CreateStatisticsClient(props) {
 }
 
 const ImageList = ({ ITEMS }) => {
-  console.log(ITEMS);
+  //console.log(ITEMS);
   const rows = ITEMS?.map((element) => (
     <tr key={element.name}>
       <td>
@@ -136,7 +136,7 @@ const VideoSupportingData = ({ description, articles }) => {
         <AssetDescription description={description} title="Description" />
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
-        {articles ? <DisplaySupportingArticles renderData={articles} /> : false}
+        {/* {articles ? <DisplaySupportingArticles renderData={articles} /> : false} */}
       </Tabs.Panel>
     </Tabs>
   );

@@ -19,7 +19,7 @@ export default async function SectionImages({ params, Title, Type }) {
     Type
   );
 
-  console.log(filteredDownloads[0]);
+  //console.log(filteredDownloads[0]);
   if(filteredDownloads[0]?.attributes?.asset?.data?.attributes?.Name === undefined)
         return false;
   return (

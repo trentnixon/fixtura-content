@@ -9,7 +9,7 @@ import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { Box, Container, useMantineTheme } from "@mantine/core";
 import { useState } from "react";
 
-const GroupByGame = (dataArray) => {
+/* const GroupByGame = (dataArray) => {
   const groupedData = dataArray.reduce((acc, obj) => {
     const gameID = obj.attributes.game_meta_datum.data.attributes.gameID;
 
@@ -23,14 +23,30 @@ const GroupByGame = (dataArray) => {
   }, {});
 
   return groupedData;
-};
+}; */
+const GroupByGame = (dataArray) => {
+  console.log(dataArray)
+  const groupedData = dataArray.reduce((acc, obj) => {
+    const gameID = obj.game_meta_datum.gameID;
 
+    if (!acc[gameID]) {
+      acc[gameID] = [];
+    }
+
+    acc[gameID].push(obj);
+
+    return acc;
+  }, {});
+
+  return groupedData;
+};
 export default async function SectionMatchWriteupsClient({ renderData }) {
   const [selected, setSelected] = useState(null);
-  const groupedData = GroupByGame(renderData);
+  const groupedData = GroupByGame(renderData?.filteredData);
+
  
   return (
-    <FixturaGRIDOUTER>
+    <FixturaGRIDOUTER> 
       <FixturaGRIDCOL span={3}> 
         <ListGamesWithArticles
           groupedData={groupedData}
@@ -41,7 +57,7 @@ export default async function SectionMatchWriteupsClient({ renderData }) {
         {selected === null ? (
           <SelectAArticle />
         ) : (
-          <DisplayArticleSet ArticleSet={groupedData[selected]} />
+          <DisplayArticleSet SelectedGame={groupedData[selected]} />
         )}
       </FixturaGRIDCOL>
     </FixturaGRIDOUTER>

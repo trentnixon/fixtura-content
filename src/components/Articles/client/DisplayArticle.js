@@ -24,14 +24,13 @@ import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { formatStrapiCreatedOnDate } from "@/utils/actions";
 import { FixturaGroup } from "@/components/containers/Group";
 
-export const DisplayArticleSet = ({ ArticleSet }) => {
+export const DisplayArticleSet = ({ SelectedGame }) => {
   const [version, setVersion] = useState(0);
-  //console.log(ArticleSet[version].attributes.article);
-  //const [writeup, setWriteup] = useState(null);
   const [copied, setCopied] = useState(false);
-  const GAME = ArticleSet[version].attributes.game_meta_datum.data.attributes;
-  //const [active, setActive] = useState(null);
-  console.log(ArticleSet);
+  //const GAME = ArticleSet[version].game_meta_datum;
+  const GAME = SelectedGame[0].game_meta_datum;
+  const ArticleSet = GAME.gtp_3_reports;
+  console.log(ArticleSet[version]);
   return (
     <>
       <FixturaGRIDOUTER>
@@ -47,38 +46,37 @@ export const DisplayArticleSet = ({ ArticleSet }) => {
             <FixturaGroup>
               <div>
                 <H size={`h3`} align="right">{`${GAME.teamHome}`}</H>
-                <H
-                  size={`h6`}
-                  align="right"
-                  color="gray.6"
-                  weight="400"
-                >{`${GAME.Homescores} ${GAME.HomeOvers}`}</H>
+                <H size={`h6`} align="right" color="gray.6" weight="400">{`${
+                  GAME?.Homescores === null ? "" : GAME?.Homescores
+                } ${GAME?.HomeOvers === null ? "" : GAME?.HomeOvers}`}</H>
               </div>
 
               <div>vs</div>
               <div>
                 <H size={`h3`}>{`${GAME.teamAway}`}</H>
-                <H
-                  size={`h6`}
-                  color="gray.6"
-                  weight="400"
-                >{`${GAME.Awayscores} ${GAME.AwayOvers}`}</H>
+                <H size={`h6`} color="gray.6" weight="400">{`${
+                  GAME?.Awayscores === null ? "" : GAME?.Awayscores
+                } ${GAME?.AwayOvers === null ? "" : GAME?.AwayOvers}`}</H>
               </div>
             </FixturaGroup>
 
-            <FixturaArticleBox c={1}>
-              <P ta="center">{GAME.ResultStatement}</P>
-            </FixturaArticleBox>
+            {!GAME.ResultStatement ? (
+              false
+            ) : (
+              <FixturaArticleBox c={1}>
+                <P ta="center">{GAME.ResultStatement}</P>
+              </FixturaArticleBox>
+            )}
           </FixturaAccountBox>
           <FixturaPaper c={2}>
             <ReactMarkdown className="markdown">
-              {ArticleSet[version].attributes.article}
+              {ArticleSet[version].article}
             </ReactMarkdown>
           </FixturaPaper>
           <ActionBtns
             setCopied={setCopied}
             copied={copied}
-            article={ArticleSet[version].attributes.article}
+            article={ArticleSet[version].article}
           />
 
           <FixturaGroup>
@@ -119,7 +117,7 @@ function VersionGroup({ setVersion, version, ArticleSet }) {
       <Space h={80} />
       <Button.Group orientation="vertical">
         {ArticleSet.map((type, i) => {
-          console.log(type.attributes.asset.data.attributes.ArticleFormats);
+          console.log(type.asset.ArticleFormats);
           return (
             <Button
               key={i}
@@ -151,7 +149,7 @@ function VersionGroup({ setVersion, version, ArticleSet }) {
                 setVersion(i);
               }}
             >
-              {type.attributes.asset.data.attributes.ArticleFormats}
+              {type.asset.ArticleFormats}
             </Button>
           );
         })}

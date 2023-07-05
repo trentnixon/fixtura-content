@@ -3,7 +3,7 @@ import { FixturaContainer } from "@/components/containers/containers";
 import { H } from "@/components/Type/Headers";
 
 export async function SelectedStatsStatment({ Count }) {
-  console.log(Count);
+  //console.log(Count);
 
   return (
     <FixturaContainer my={50} mx={'15%'}>

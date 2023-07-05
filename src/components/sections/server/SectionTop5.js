@@ -88,14 +88,14 @@ export default async function SectionTop5({ params, Type }) {
     }
   );
 
-  //console.log(renderArticles)
+  console.log(renderArticles)
 
   const groupedAssets = mergeAndGroupAssets(
     filteredDownloadVideos,
     filteredDownloadImages,
     renderArticles
   );
-  console.log(groupedAssets);
+  //console.log(groupedAssets);
   return (
     <>
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {
@@ -121,10 +121,7 @@ export default async function SectionTop5({ params, Type }) {
               key={index}
               assetName={assetName}
               assetTypes={assetTypes}
-              // Category="Video options"
-              // Type={Type}
-              // ITEM={video.attributes}
-              // renderArticles={renderArticles}
+            
               description={
                 assetTypes.VIDEO[0].attributes.asset.data.attributes
                   .assetDescription
@@ -136,6 +133,11 @@ export default async function SectionTop5({ params, Type }) {
     </>
   );
 }
+
+  // Category="Video options"
+              // Type={Type}
+              // ITEM={video.attributes}
+              // renderArticles={renderArticles}
 /* {filteredDownloadVideos.map((video, i) => {
         //console.log(video.attributes?.asset?.data?.attributes?.Icon);
         return (

@@ -23,9 +23,9 @@ import { SelectedStatsStatment } from "@/components/PageSelectedRender/server/Re
 export default async function Render({ params }) {
   console.log("Page.js - Render");
 
-  const Count = await RenderCount(params.render);
-  //console.log("RenderCount NEW ITEMS");
-  //console.log(Count);
+  const Count = await RenderCount(params.render); 
+  console.log("RenderCount NEW ITEMS");
+  console.log(Count);
   // <SelectedRenderStats params={params} />
   return (
     <>

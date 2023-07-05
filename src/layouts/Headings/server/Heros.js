@@ -19,7 +19,7 @@ import { H } from "@/components/Type/Headers";
 export async function HeroText({ params }) {
   const renderData = await getRenderFields(params.render, []);
   const Count = await RenderCount(params.render);
-  console.log(Count)
+  //console.log(Count)
   return (
     <>
       <FixturaHero>

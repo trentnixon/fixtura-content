@@ -11,4 +11,4 @@ export default async function Opage({ params }) {
       <SectionTop5 params={params}  Type={`statistics`} />
     </FixturaContainer>
   );  
-}   
+}    

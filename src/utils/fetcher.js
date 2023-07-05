@@ -10,7 +10,7 @@
       ...nextConfig // spread the nextConfig object into options
     };
   
-    console.log(options)
+    //console.log(options)
     try {
       console.log(`Fetching data from ${process.env.NEXT_PUBLIC_FIXTURA_API}${PATH}`);
       const response = await fetch(`${process.env.NEXT_PUBLIC_FIXTURA_API}${PATH}`, options);

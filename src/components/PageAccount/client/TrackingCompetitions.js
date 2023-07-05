@@ -21,7 +21,7 @@ export const TrackingCompetitions = ({ associations }) => {
             return (
               <div key={i}>
                 {Association.attributes.competitions.data.map((comp, i) => {
-                  console.log(comp);
+                  //console.log(comp);
                   return (
                     <List.Item key={i} my={25}>
                       <P>{comp.attributes.competitionName}</P>

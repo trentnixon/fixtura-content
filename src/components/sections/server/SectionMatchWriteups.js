@@ -1,45 +1,19 @@
-import { getWriteupsFieldsWithFilters } from "@/api/getWriteup";
+import {
+  /*   getWriteupsFieldsWithFilters, */
+  getWriteupsFromRender,
+} from "@/api/getWriteup";
 import { FixturaSection } from "@/components/containers/Section";
 import SectionMatchWriteupsClient from "@/components/sections/client/SectionMatchWriteups";
-export default async function SectionMatchWriteups({ params, Type }) {
-  const renderData = await getWriteupsFieldsWithFilters(
-    ["game_meta_datum", "asset"],
-    { 
-      $and: [
-        {
-          renders: {
-            id: {
-              $eq: params.render,
-            },
-          },
-        },
-        {
-          asset: {
-            $and: [
-              {
-                asset_type: {
-                  Name: {
-                    $eq: Type,
-                  },
-                },
-              },
-            ],
-          },
-        },
-      ],
-    } 
-  );
-
-  console.log("renderData[0]");
-  console.log(renderData[0]?.attributes.asset);
+export default async function SectionMatchWriteups({ params, Type, Path }) {
+  const Writeups = await getWriteupsFromRender(params.render, Path, Type);
   return (
     <FixturaSection
       shade={0}
-      Title={`Articles : ${renderData[0]?.attributes.asset?.data?.attributes?.Name}`}
-      subTitle={renderData[0]?.attributes.asset?.data?.attributes?.SubTitle}
-      Icon={renderData[0]?.attributes.asset?.data?.attributes?.Icon}
+      Title={`Articles`}
+      subTitle={`Stay Informed with Our Weekend Articles`}
+      Icon={`ICO_HEADER_ARTICLE`}
     >
-      <SectionMatchWriteupsClient renderData={renderData} />
+      <SectionMatchWriteupsClient renderData={Writeups} />
     </FixturaSection>
   );
 }

@@ -35,12 +35,23 @@ export async function getWriteupsFieldsWithFilters(FIELDS, FILTERS) {
     {
       encodeValuesOnly: true,
     }
-  ); 
+  );
 
   const res = await fetcher({
     PATH: `gtp-3-reports?${queryParams}`,
     nextConfig: { next: { revalidate: 600 } },
   });
   //console.log(res.data);
+  return res.data;
+}
+
+export async function getWriteupsFromRender(ID, PATH, TYPE) {
+  console.log(ID, PATH, TYPE)
+  const res = await fetcher({
+    PATH: `render/getRenderWriteups/`,
+    method:`POST`,
+    body:{ID:ID, PATH:PATH, TYPE:TYPE},
+    nextConfig: { next: { revalidate: 600 } },
+  });
   return res.data;
 }

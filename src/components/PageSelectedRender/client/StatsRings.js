@@ -75,7 +75,7 @@ export async function SelectedRenderStatsRingsClient(props) {
   const { Count } = props;
   const DATA = createDataArray(Count);
 
-  console.log(DATA);
+  //console.log(DATA);
   return (
     <>
       <SectionHeaderWithSubHeader
