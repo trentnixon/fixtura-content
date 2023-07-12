@@ -13,7 +13,7 @@ import { ProcessingLoader } from "@/components/UI/Loader";
 export const RendersTableof = async ({ RENDERS, params }) => {
   const [sortType, setSortType] = useState("desc");
   //console.log(RENDERS);
- 
+
   // Function to handle sorting renders by date
   const sortRenders = (a, b) => {
     if (sortType === "desc") {
@@ -28,22 +28,21 @@ export const RendersTableof = async ({ RENDERS, params }) => {
   };
 
   return (
-    <FixturaPaper c={7}>
+    <FixturaPaper c={2}>
       <Group position="right">
         <RendersSelectBy sortType={sortType} setSortType={setSortType} />
       </Group>
       <Table>
         <thead>
           <tr>
-            <th></th>
             <th>
-              <P c="white">From</P>
+              <P c="gray.9">From</P>
             </th>
             <th>
-              <P c="white">To</P>
+              <P c="gray.9">To</P>
             </th>
             <th>
-              <P c="white" ta="center">
+              <P c="gray.9" ta="center">
                 Review
               </P>
             </th>
@@ -56,13 +55,10 @@ export const RendersTableof = async ({ RENDERS, params }) => {
             return (
               <tr key={`option_${i}`} id={render.id} value={render.id}>
                 <td>
-                  <ICO_DOWNLOAD />
+                  <P c="gray.9">{DateFromTo(render.attributes.createdAt)[0]}</P>
                 </td>
                 <td>
-                  <P c="white">{DateFromTo(render.attributes.createdAt)[0]}</P>
-                </td>
-                <td>
-                  <P c="white">{DateFromTo(render.attributes.createdAt)[1]}</P>
+                  <P c="gray.9">{DateFromTo(render.attributes.createdAt)[1]}</P>
                 </td>
                 <td>
                   <Center>
@@ -71,6 +67,7 @@ export const RendersTableof = async ({ RENDERS, params }) => {
                         href={`/${params.id}/${render.id}`}
                         icon={<ICO_DOWNLOAD />}
                         label="Review"
+                        c="gray.8"
                       />
                     ) : (
                       <ProcessingLoader />

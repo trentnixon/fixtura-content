@@ -6,7 +6,7 @@ export default async function RootLayout({ children, params }) {
   return (
     <>
       <HeroText params={params} />
-      {children}
+      {children} 
     </>
   );
 }

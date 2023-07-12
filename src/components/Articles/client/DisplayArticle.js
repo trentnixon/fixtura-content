@@ -30,12 +30,26 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
   //const GAME = ArticleSet[version].game_meta_datum;
   const GAME = SelectedGame[0].game_meta_datum;
   const ArticleSet = GAME.gtp_3_reports;
-  console.log(GAME)
-  console.log(ArticleSet[version]);
+  //console.log(GAME);
+  //console.log(ArticleSet);
+  console.log("ArticleSet[version]", ArticleSet[version]);
+  if (ArticleSet.length === 0)
+    return (
+      <FixturaGRIDOUTER>
+        <FixturaGRIDCOL span={10}>
+          <FixturaPaper c={2}>
+            <P ta="center">
+              We apologize, but it seems that the articles for this game are
+              currently unavailable.
+            </P>
+          </FixturaPaper>
+        </FixturaGRIDCOL>
+      </FixturaGRIDOUTER>
+    );
   return (
     <>
       <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={10}>
+        <FixturaGRIDCOL span={9}>
           <FixturaAccountBox c={0} my={20} py={10}>
             <FixturaGroup my={5}>
               <P>
@@ -50,7 +64,7 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
                 <H size={`h6`} align="right" color="gray.6" weight="400">{`${
                   GAME?.Homescores === null ? "" : GAME?.Homescores
                 } ${GAME?.HomeOvers === null ? "" : GAME?.HomeOvers}`}</H>
-              </div> 
+              </div>
 
               <div>vs</div>
               <div>
@@ -69,43 +83,44 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
               </FixturaArticleBox>
             )}
           </FixturaAccountBox>
-          <FixturaPaper c={2}>
-            <ReactMarkdown className="markdown">
-              {ArticleSet[version].article}
-            </ReactMarkdown>
-          </FixturaPaper>
           <ActionBtns
             setCopied={setCopied}
             copied={copied}
             article={ArticleSet[version].article}
           />
+          <FixturaPaper c={2}>
+            <ReactMarkdown className="markdown">
+              {ArticleSet[version].article}
+            </ReactMarkdown>
+          </FixturaPaper>
 
-          <FixturaGroup>
-            <FixturaBox>
-              <S ta={"left"} fw={600}>
+          <FixturaPaper my={15}>
+            <FixturaGroup>
+              <S ta={"left"} fw={400}>
                 Article created on : {formatStrapiCreatedOnDate(GAME.createdAt)}
               </S>
-            </FixturaBox>
-            <FixturaBox>
-              <S ta={"right"} fw={600}>
+
+              <S ta={"right"} fw={600} fs={'italic'}>
                 Article sources :
                 <Link
                   target="_blank"
                   href={`https://www.playhq.com${GAME.urlToScoreCard}`}
                 >
-                  {" "}
                   Scorecard
                 </Link>
               </S>
-            </FixturaBox>
-          </FixturaGroup>
+            </FixturaGroup>
+          </FixturaPaper>
         </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={2}>
+        <FixturaGRIDCOL span={3}>
           <VersionGroup
             setVersion={setVersion}
             version={version}
             ArticleSet={ArticleSet}
           />
+          <FixturaPaper my={10}>
+            <S>{ArticleSet[version].asset.description}</S>
+          </FixturaPaper>
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </>
@@ -162,7 +177,7 @@ function VersionGroup({ setVersion, version, ArticleSet }) {
 const ActionBtns = ({ setCopied, copied, article }) => {
   return (
     <Container className=" p-1 my-2">
-      <Group position="center">
+      <Group position="right">
         <button className="btn btn-outline btn-info mx-1">
           <IconEdit />
           Edit

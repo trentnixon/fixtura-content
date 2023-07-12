@@ -20,9 +20,9 @@ export default async function Upage({ params }) {
         Type={`results`}
         Path={`game_results_in_renders`}
       /> 
-
+ 
       <SectionImages
-        params={params}
+        params={params} 
         Title={`Upcoming Images`} 
         Type={`results`}
       />

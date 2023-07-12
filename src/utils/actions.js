@@ -20,7 +20,7 @@ export const FindAccountLogo = (account) => {
     : account?.attributes.clubs.data[0]?.attributes.Logo.data?.attributes.url;
 };
 
-export const DateFromTo = (createdAt) => {
+/* export const DateFromTo = (createdAt) => {
   const dateOptions = {
     weekday: "long",
     year: "numeric",
@@ -38,6 +38,28 @@ export const DateFromTo = (createdAt) => {
   const formattedPastDate = pastDate.toLocaleDateString("en-US", dateOptions);
 
   return [formattedPastDate, formattedCurrentDate];
+}; */
+export const DateFromTo = (createdAt) => {
+  const dateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  
+  const currentDate = new Date(createdAt);
+  const pastSaturday = new Date(createdAt);
+  const nextSunday = new Date(createdAt);
+
+  // Adjusting the dates to get previous Saturday and next Sunday
+  pastSaturday.setDate(currentDate.getDate() - ((currentDate.getDay() === 0 ? 7 : currentDate.getDay()) + 1));
+  nextSunday.setDate(pastSaturday.getDate() + 8); // Next Sunday is exactly 8 days from the past Saturday
+
+  const formattedCurrentDate = currentDate.toLocaleDateString("en-AU", dateOptions);
+  const formattedPastSaturday = pastSaturday.toLocaleDateString("en-AU", dateOptions);
+  const formattedNextSunday = nextSunday.toLocaleDateString("en-AU", dateOptions);
+
+  return [formattedPastSaturday, formattedNextSunday,formattedCurrentDate];
 };
 
 export function formatStrapiCreatedOnDate(dateString) {
@@ -109,13 +131,51 @@ export const CompileAccountData = (DATA) => {
 
 // COMPLIE RENDER DATA
 
+// Function to get game date
+function getGameDate(data, findMostRecent = true) {
+  // Filter out entries with missing game_meta_datum dates
+  const filteredData = data.filter((item) => 
+    item.attributes.game_meta_datum && 
+    item.attributes.game_meta_datum.data && 
+    item.attributes.game_meta_datum.data.attributes && 
+    item.attributes.game_meta_datum.data.attributes.date);
+
+  // If filteredData is empty, return null
+  if (!filteredData.length) {
+    return null;
+  }
+
+  // Use reduce() to find the desired date
+  const desiredGame = filteredData.reduce((desired, current) => {
+    // Convert date strings to Date objects
+    const desiredDate = new Date(desired.attributes.game_meta_datum.data.attributes.date);
+    const currentDate = new Date(current.attributes.game_meta_datum.data.attributes.date);
+
+    // Compare dates based on the findMostRecent flag
+    if (findMostRecent) {
+      return desiredDate > currentDate ? desired : current;
+    } else {
+      return desiredDate < currentDate ? desired : current;
+    }
+  });
+
+  // Return the date of the desired game
+  return desiredGame.attributes.game_meta_datum.data.attributes.date;
+}
+
+
+
+
 export const ComplieRenderData = (DATA) => {
+  //console.log('ComplieRenderData ',DATA.game_results_in_renders.data)
+  console.log(getGameDate(DATA.game_results_in_renders.data, true))
+  console.log(getGameDate(DATA.upcoming_games_in_renders.data, false))
   return {
     CREATEDAT: DATA.createdAt,
-    FROM: DateFromTo(DATA.createdAt)[0],
-    TO: DateFromTo(DATA.createdAt)[1],
+    FROM: getGameDate(DATA.game_results_in_renders.data, true),
+    TO: getGameDate(DATA.upcoming_games_in_renders.data, false),
   };
-};
+}; 
 
 // Complie ASSET DATA
 const ASSET_IDS = {

@@ -30,7 +30,7 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
   return (
     <>
       <FixturaArticleBox>
-        <S ta="right" fw="700" c="dimmed" fs="10">
+        <S ta="right" fw="700" c="dimmed" >
           Games: {filteredData.length}
         </S>
         <TextInput
@@ -82,7 +82,7 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
                 <FixturaGRIDCOL span={11}>
                   <P
                     lh="1.2em"
-                    fs="10px"
+                    fz={'sm'}
                     c={
                       gameID === selectedGameID ? "white" : theme.colors.gray[6]
                     }

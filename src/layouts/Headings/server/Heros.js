@@ -18,9 +18,9 @@ import { FixturaStack } from "@/components/containers/stack";
 import { H } from "@/components/Type/Headers";
 import { getAccountFields } from "@/api/accounts";
 export async function HeroText({ params }) {
-  const renderData = await getRenderFields(params.render, []);
+  const renderData = await getRenderFields(params.render, ["game_results_in_renders.game_meta_datum","upcoming_games_in_renders.game_meta_datum"]);
   const Count = await RenderCount(params.render);
-  //console.log(Count)
+  //console.log(renderData)
 
   const account = await getAccountFields(params.id, [
     "account_type",
@@ -29,6 +29,7 @@ export async function HeroText({ params }) {
     "associations",
     "associations.Logo",
   ]);
+
   return (
     <>
       <FixturaHero account={account}>
@@ -45,7 +46,7 @@ export async function HeroText({ params }) {
               <HeroRenderDates
                 createdAt={ComplieRenderData(renderData.attributes)}
                 Assets={Count.downloads + Count.gtp_3_reports}
-              />
+              /> 
             </FixturaStack>
           </HeroControls>
         </HeroInner>

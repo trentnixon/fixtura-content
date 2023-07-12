@@ -58,9 +58,9 @@ export default async function SectionMatchWriteupsClient({ renderData }) {
           <SelectAArticle />
         ) : (
           <DisplayArticleSet SelectedGame={groupedData[selected]} />
-        )}
-      </FixturaGRIDCOL>
-    </FixturaGRIDOUTER>
+        )} 
+      </FixturaGRIDCOL> 
+    </FixturaGRIDOUTER> 
   );
 }
 
