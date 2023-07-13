@@ -42,7 +42,9 @@ export const CookieCutter = ({ children }) => {
 const CheckingAuth = () => {
   return (
     <FixturaSection>
-      <H size="h4" weight={900}>Checking Authentication...</H>
+      <H size="h4" weight={900}>
+        Checking Authentication...
+      </H>
 
       <P>
         Please wait while we verify your authentication status. We are checking
@@ -60,11 +62,13 @@ const CheckingAuth = () => {
 const InvalidToken = () => {
   return (
     <FixturaSection>
-      <H size="h4" weight={900}>Invalid Auth Access</H>
+      <H size="h4" weight={900}>
+        Invalid Auth Access
+      </H>
       <P>
         Oops! It seems like your token is either missing, invalid, or expired.
         To resolve this issue, you can obtain a new token by visiting your admin
-        panel. If you don't have access to the admin panel or need further
+        panel. If you don&apos;t have access to the admin panel or need further
         assistance, please reach out to the admin holder who can provide you
         with a new access link.
       </P>
