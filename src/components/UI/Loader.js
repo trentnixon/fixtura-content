@@ -22,4 +22,4 @@ export const FixturaLoader = () => {
 };
 
 
-export const ProcessingLoader = ()=> <Loader color="gray" variant="dots" />
+export const ProcessingLoader = ()=> <Loader color="gray" variant="dots" size="xl"  />

@@ -14,7 +14,7 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconChevronDown, IconHome2 } from "@tabler/icons-react";
+import { IconDownload, IconHome2 } from "@tabler/icons-react";
 import Image from "next/image";
 
 const HEADER_HEIGHT = rem(60);
@@ -100,14 +100,25 @@ export function HeaderMantine({ params }) {
             priority
           />
         </Group>
-        <Group spacing={5} className={classes.links}>
+        <Group spacing={25} className={classes.links}>
+        <Tooltip
+            label={"Renders"}
+            position="bottom"
+            transitionProps={{ duration: 0 }}
+          >
+            <UnstyledButton>
+              <Link href={`/${id}`}>
+                <IconDownload size="1.2rem" stroke={1.5} />
+              </Link>
+            </UnstyledButton>
+          </Tooltip>
           <Tooltip
             label={"Home"}
             position="bottom"
             transitionProps={{ duration: 0 }}
           >
             <UnstyledButton>
-              <Link href={`/${id}`}>
+              <Link href={`https://fixtura.com.au/`}>
                 <IconHome2 size="1.2rem" stroke={1.5} />
               </Link>
             </UnstyledButton>

@@ -1,6 +1,5 @@
 // APIS
 // Structure
-import { FixturaPageHeader } from "@/layouts/Headings/PageHeader";
 import { FixturaSection } from "@/components/containers/Section";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 // Components
@@ -9,16 +8,15 @@ import DisplayAccountItems from "@/components/PageAccount/server/DisplayAccountI
 import DisplayAccountRenders from "@/components/PageAccount/server/DisplayAccountRenders";
 import AccountTheming from "@/components/PageAccount/server/AccountTheme";
 import AccountSubscription from "@/components/PageAccount/server/AccountSubscription";
-import { HeroText } from "@/layouts/Headings/server/Heros";
 
-export default async function Account({ params }) {
+export default async function Account({ params, searchParams }) {
   return (
     <>
       <FixturaSection
         shade={0}
         Title={"Your Account"}
         subTitle={"review your rendered assets"}
-      >  
+      >
         <FixturaGRIDOUTER>
           <FixturaGRIDCOL span={4}>
             <AccountDetails params={params} />
@@ -30,9 +28,7 @@ export default async function Account({ params }) {
             <AccountSubscription params={params} />
           </FixturaGRIDCOL>
         </FixturaGRIDOUTER>
-      </FixturaSection> 
+      </FixturaSection>
     </>
   );
 }
-
-// <FixturaPageHeader subheading={`Home`} params={params} />
