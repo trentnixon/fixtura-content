@@ -88,6 +88,6 @@ export async function RenderCount(ID) {
     method: "POST",
     nextConfig: { next: { revalidate: 60 } },
     body: { ID: ID },
-  });
+  }); 
   return res.data;
 }
