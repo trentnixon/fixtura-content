@@ -7,12 +7,13 @@ export default async function Upage({ params }) {
   console.log("Page.js - Upage");
   return (
     <FixturaContainer>
-       <SectionMatchWriteups
+    
+       <SectionMatchWriteups 
         params={params}
         Title={`Upcoming Writeups`}
         Type={`upcoming`}
         Path={`upcoming_games_in_renders`}
-      />
+      /> 
      <SectionVideos
         params={params} 
         Title={`Upcoming Videos`}

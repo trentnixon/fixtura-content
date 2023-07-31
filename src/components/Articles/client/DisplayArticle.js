@@ -1,237 +1,76 @@
 "use client";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useState } from "react";
-import {
-  IconCircleCheck,
-  IconCopy,
-  IconEdit,
-  IconPlus,
-  IconRefresh,
-} from "@tabler/icons-react";
-import { Container, Group, List, ThemeIcon, rem, Space } from "@mantine/core";
-import Link from "next/link";
-import {
-  FixturaBox,
-  FixturaArticleBox,
-  FixturaAccountBox,
-} from "@/components/containers/boxes";
-import { FixturaPaper } from "@/components/containers/paper";
-import { H } from "@/components/Type/Headers";
-import { P, S } from "@/components/Type/Paragraph";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { Button } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
-import { formatStrapiCreatedOnDate } from "@/utils/actions";
-import { FixturaGroup } from "@/components/containers/Group";
+import { usePollRewrite, useRewrite } from "@/Hooks/useRewrite";
+import { useRouter } from "next/navigation";
+import { NoArticlesMessage } from "@/components/Articles/client/NoArticlesMessage";
+import { PendingRewrite } from "@/components/Articles/client/PendingRewriteMessage";
+import { ArticleActionBtns } from "@/components/Articles/client/ArticleActionBtns";
+import { SelectArticleType } from "@/components/Articles/client/SelectArticleType";
+import { ArticleContainer } from "@/components/Articles/client/ArticleContainer";
+import { ArticleMetaData } from "@/components/Articles/client/ArticleMetaData";
+import { ArticleHeader } from "@/components/Articles/client/ArticleHeader";
 
 export const DisplayArticleSet = ({ SelectedGame }) => {
-  const [version, setVersion] = useState(0);
-  const [copied, setCopied] = useState(false);
-  //const GAME = ArticleSet[version].game_meta_datum;
+  const router = useRouter(); // Next.js router
+  // Vars
   const GAME = SelectedGame[0].game_meta_datum;
   const ArticleSet = GAME.gtp_3_reports;
-  //console.log(GAME);
-  //console.log(ArticleSet);
-  console.log("ArticleSet[version]", ArticleSet[version]);
-  if (ArticleSet.length === 0)
-    return (
-      <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={10}>
-          <FixturaPaper c={2}>
-            <P ta="center">
-              We apologize, but it seems that the articles for this game are
-              currently unavailable.
-            </P>
-          </FixturaPaper>
-        </FixturaGRIDCOL>
-      </FixturaGRIDOUTER>
-    );
+  // state
+  const [version, setVersion] = useState(0);
+  const [copied, setCopied] = useState(false);
+  const [isPending, SetIsPending] = useState(null);
+  // hooks
+  const [rewriteStatus, requestRewrite] = useRewrite();
+  const startPolling = usePollRewrite(ArticleSet[version]?.id, isPending);
+  // Func
+  const RequestRewrite = () => {
+    SetIsPending(true);
+    requestRewrite(ArticleSet[version].id);
+  };
+  // Update the state with the new article once it's ready
+  useEffect(() => {
+    if (startPolling !== null && isPending) {
+      router.refresh(); // Refresh the page to reflect the new data
+    }
+  }, [startPolling]);
+
+  useEffect(() => {
+    console.log("router.refresh() TEST, does this run when it does?");
+    SetIsPending(false);
+  }, [ArticleSet]);
+
+  if (isPending) {
+    return <PendingRewrite />;
+  }
+  if (ArticleSet.length === 0) return <NoArticlesMessage />;
   return (
     <>
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={9}>
-          <FixturaAccountBox c={0} my={20} py={10}>
-            <FixturaGroup my={5}>
-              <P>
-                {GAME.type} {GAME.round}
-              </P>
+          <ArticleHeader GAME={GAME} />
 
-              <P>{GAME.date}</P>
-            </FixturaGroup>
-            <FixturaGroup>
-              <div>
-                <H size={`h3`} align="right">{`${GAME.teamHome}`}</H>
-                <H size={`h6`} align="right" color="gray.6" weight="400">{`${
-                  GAME?.Homescores === null ? "" : GAME?.Homescores
-                } ${GAME?.HomeOvers === null ? "" : GAME?.HomeOvers}`}</H>
-              </div>
-
-              <div>vs</div>
-              <div>
-                <H size={`h3`}>{`${GAME.teamAway}`}</H>
-                <H size={`h6`} color="gray.6" weight="400">{`${
-                  GAME?.Awayscores === null ? "" : GAME?.Awayscores
-                } ${GAME?.AwayOvers === null ? "" : GAME?.AwayOvers}`}</H>
-              </div>
-            </FixturaGroup>
-
-            {!GAME.ResultStatement ? (
-              false
-            ) : (
-              <FixturaArticleBox c={1}>
-                <P ta="center">{GAME.ResultStatement}</P>
-              </FixturaArticleBox>
-            )}
-          </FixturaAccountBox>
-          <ActionBtns
+          <ArticleActionBtns
             setCopied={setCopied}
             copied={copied}
             article={ArticleSet[version].article}
+            articleID={ArticleSet[version].id}
+            requestRewrite={() => RequestRewrite()}
+            rewriteStatus={rewriteStatus}
+            rewriteCount={ArticleSet[version].rewriteCount}
           />
-          <FixturaPaper c={2}>
-            <ReactMarkdown className="markdown">
-              {ArticleSet[version].article}
-            </ReactMarkdown>
-          </FixturaPaper>
 
-          <FixturaPaper my={15}>
-            <FixturaGroup>
-              <S ta={"left"} fw={400}>
-                Article created on : {formatStrapiCreatedOnDate(GAME.createdAt)}
-              </S>
-
-              <S ta={"right"} fw={600} fs={'italic'}>
-                Article sources :
-                <Link
-                  target="_blank"
-                  href={`https://www.playhq.com${GAME.urlToScoreCard}`}
-                >
-                  Scorecard
-                </Link>
-              </S>
-            </FixturaGroup>
-          </FixturaPaper>
+          <ArticleContainer article={ArticleSet[version].article} />
+          <ArticleMetaData GAME={GAME} />
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={3}>
-          <VersionGroup
+          <SelectArticleType
             setVersion={setVersion}
             version={version}
             ArticleSet={ArticleSet}
           />
-          <FixturaPaper my={10}>
-            <S>{ArticleSet[version].asset.description}</S>
-          </FixturaPaper>
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </>
-  );
-};
-
-function VersionGroup({ setVersion, version, ArticleSet }) {
-  return (
-    <>
-      <Space h={80} />
-      <Button.Group orientation="vertical">
-        {ArticleSet.map((type, i) => {
-          console.log(type.asset.ArticleFormats);
-          return (
-            <Button
-              key={i}
-              variant="default"
-              styles={(theme) => ({
-                root: {
-                  background:
-                    version === i
-                      ? `${theme.fn.linearGradient(45, theme.colors.blue[5], theme.colors.cyan[5])} !important`
-                      : `transparent`,
-                  color:
-                    version === i
-                      ? `${theme.colors.gray[2]} `
-                      : `${theme.colors.gray[6]}`,
-                  height: rem(42),
-                  paddingLeft: rem(20),
-                  paddingRight: rem(20),
-                  "&:hover": {
-                    backgroundColor: theme.colors.gray[9],
-                    color: theme.colors.gray[3],
-                  },
-                  leftIcon: {
-                    marginRight: theme.spacing.md,
-                  },
-                  // Apply a different background color if this category is the selected one
-                },
-              })}
-              onClick={() => {
-                setVersion(i);
-              }}
-            >
-              {type.asset.ArticleFormats}
-            </Button>
-          );
-        })}
-      </Button.Group>
-    </>
-  );
-}
-
-const ActionBtns = ({ setCopied, copied, article }) => {
-  return (
-    <Container className=" p-1 my-2">
-      <Group position="right">
-        <button className="btn btn-outline btn-info mx-1">
-          <IconEdit />
-          Edit
-        </button>
-        <button className="btn btn-outline btn-info mx-1">
-          <IconRefresh />
-          Refresh
-        </button>
-        <button className="btn btn-outline btn-info mx-1">
-          <IconPlus /> Add Context
-        </button>
-        <CopyToClipboard text={article || ""} onCopy={() => setCopied(true)}>
-          <button className="btn btn-outline btn-info mx-1">
-            {copied ? <IconCircleCheck /> : <IconCopy />}
-            {copied ? "Copied" : "Copy"}
-          </button>
-        </CopyToClipboard>
-      </Group>
-    </Container>
-  );
-};
-
-const ArticleMeta = ({ game }) => {
-  const g = game.attributes;
-
-  if (g === undefined) return;
-  return (
-    <FixturaBox>
-      <H size="h6">About this article</H>
-      <List
-        spacing="xs"
-        size="sm"
-        center
-        icon={
-          <ThemeIcon color="teal" size={24} radius="xl">
-            <IconCircleCheck size="1rem" />
-          </ThemeIcon>
-        }
-      >
-        <List.Item>
-          <P>Article created on : {g.createdAt}</P>
-        </List.Item>
-        <List.Item>
-          <P>
-            Data for this article was extracted from the following
-            <Link
-              target="_blank"
-              href={`https://www.playhq.com${g.urlToScoreCard}`}
-            >
-              Scorecard
-            </Link>
-          </P>
-        </List.Item>
-      </List>
-    </FixturaBox>
   );
 };

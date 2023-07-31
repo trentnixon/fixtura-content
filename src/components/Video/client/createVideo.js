@@ -1,5 +1,5 @@
 "use client";
-import { Tabs } from "@mantine/core";
+import { Tabs, useMantineTheme } from "@mantine/core";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
 import { BUTTON_FUNC, BUTTON_ICON_FUNC } from "@/components/UI/buttons";
@@ -53,8 +53,13 @@ const CTAGroup = ({ URL }) => {
 };
 
 const VideoSupportingData = ({ description, articles }) => {
+  const theme = useMantineTheme()
   return (
-    <Tabs defaultValue="about" variant="pills" color="orange">
+    <Tabs defaultValue="about" variant="pills" color={theme.fn.linearGradient(
+      45,
+      theme.colors.blue[5],
+      theme.colors.cyan[5]
+    )}>
       <Tabs.List position="center">
         <Tabs.Tab value="about" icon={<IconBookFilled size="1rem" />}>
           <P>Description</P>

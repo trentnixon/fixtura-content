@@ -1,7 +1,4 @@
-import {
-  /*   getWriteupsFieldsWithFilters, */
-  getWriteupsFromRender,
-} from "@/api/getWriteup";
+import { getWriteupsFromRender } from "@/api/getWriteup";
 import { FixturaSection } from "@/components/containers/Section";
 import SectionMatchWriteupsClient from "@/components/sections/client/SectionMatchWriteups";
 export default async function SectionMatchWriteups({ params, Type, Path }) {
@@ -14,6 +11,6 @@ export default async function SectionMatchWriteups({ params, Type, Path }) {
       Icon={`ICO_HEADER_ARTICLE`}
     >
       <SectionMatchWriteupsClient renderData={Writeups} />
-    </FixturaSection> 
+    </FixturaSection>
   );
 }
