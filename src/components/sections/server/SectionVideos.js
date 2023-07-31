@@ -41,7 +41,7 @@ export default async function SectionVideos({ params, Title, Type,Path }) {
               ITEM={video.attributes}
               renderArticles={RenderWriteups.filteredData}
               description={
-                video.attributes?.asset?.data?.attributes?.assetDescription
+                video.attributes?.asset?.data?.attributes?.Blurb 
               }
             />
           </FixturaSection>

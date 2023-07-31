@@ -48,7 +48,7 @@ export async function getWriteupsFieldsWithFilters(FIELDS, FILTERS) {
 export async function getWriteupsFromRender(ID, PATH, TYPE) {
   console.log(ID, PATH, TYPE)
   const res = await fetcher({
-    PATH: `render/getRenderWriteups/`,
+    PATH: `render/getRenderWriteups/`, 
     method:`POST`,
     body:{ID:ID, PATH:PATH, TYPE:TYPE},
     nextConfig: { next: { revalidate: 600 } },

@@ -1,22 +1,28 @@
 "use client";
 import Link from "next/link";
+
 import {
   createStyles,
-  Menu,
-  Center,
   Header,
   Container,
   Group,
-  Button,
   Burger,
   rem,
   Tooltip,
   UnstyledButton,
+  Button,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconDownload, IconHome2 } from "@tabler/icons-react";
+import {
+  IconCalendarDue,
+  IconChartPie4,
+  IconDownload,
+  IconHome,
+  IconHome2,
+  IconScoreboard,
+} from "@tabler/icons-react";
 import Image from "next/image";
-
+import { usePathname } from "next/navigation";
 const HEADER_HEIGHT = rem(60);
 
 const LINKS = [
@@ -76,10 +82,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function HeaderMantine({ params }) {
+export function HeaderMantine({ params, URLParams }) {
   const { id } = params;
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
+  console.log("render", URLParams.render);
 
   return (
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
@@ -100,8 +107,14 @@ export function HeaderMantine({ params }) {
             priority
           />
         </Group>
-        <Group spacing={25} className={classes.links}>
-        <Tooltip
+        <Group spacing="xs" className={classes.links}>
+          {URLParams.render === undefined ? (
+            false
+          ) : (
+            <RenderBtns params={URLParams} />
+          )}
+
+          <Tooltip
             label={"Renders"}
             position="bottom"
             transitionProps={{ duration: 0 }}
@@ -128,3 +141,62 @@ export function HeaderMantine({ params }) {
     </Header>
   );
 }
+
+const RenderBtns = ({ params }) => {
+  const { id, render } = params;
+  const pathname = usePathname();
+  const CATEGORIES = [
+    { value: "", title: "Overview", icon: <IconHome /> },
+    { value: "r", title: "Results", icon: <IconScoreboard /> },
+    { value: "u", title: "Upcoming", icon: <IconCalendarDue /> },
+    { value: "o", title: "Statistics", icon: <IconChartPie4 /> },
+  ];
+
+  const renderLinks = CATEGORIES.map((item, i) => {
+    const isActive = pathname === `/${id}/${render}/${item.value}`; // check if current path is equal to item's path
+
+    console.log("isActive ", pathname, `/${id}/${render}/${item.value}`);
+    return (
+      <Tooltip
+        key={i}
+        label={item.title}
+        position="bottom"
+        transitionProps={{ duration: 0 }}
+      >
+        <Button
+          variant="subtle"
+          styles={(theme) => ({
+            root: {
+              background: isActive
+                ? `${theme.fn.linearGradient(
+                    45,
+                    theme.colors.blue[5],
+                    theme.colors.cyan[5]
+                  )} !important`
+                : `transparent`,
+              color: isActive
+                ? `${theme.colors.gray[2]} `
+                : `${theme.colors.gray[6]}`,
+
+              "&:hover": {
+                backgroundColor: theme.colors.gray[9],
+                color: theme.colors.gray[3],
+              },
+              
+              // Apply a different background color if this category is the selected one
+            },
+          })}
+        >
+          <Link
+            href={`/${id}/${render}/${item.value}`}
+            className={isActive ? "active" : ""}
+          >
+            {item.title}
+          </Link>
+        </Button>
+      </Tooltip>
+    );
+  });
+
+  return render ? renderLinks : null;
+};

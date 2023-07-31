@@ -27,7 +27,7 @@ export const PageCategoryHeader = () => {
   return (
     <FixturaGroup>
       {matchingObject.icon}
-      <H size="h4">{correspondingTitle}</H>
+      <H size="h3">{correspondingTitle}</H>
     </FixturaGroup>
   );
 };

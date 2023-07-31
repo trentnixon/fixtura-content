@@ -34,7 +34,7 @@ export const FixturaHero = (props) => {
   return (
     <Container my={0} mx={0} p={0} fluid={true}>
       <Box
-        py={60}
+        py={20}
         sx={(theme) => ({
           background: theme.fn.linearGradient(
             45,

@@ -10,16 +10,15 @@ import { ScrollArea } from "@mantine/core";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 function filterByArticleFormat(data) {
-  return data.filter((item) => item.asset.ArticleFormats === "ShortForm");
+  return data.filter((item) => item.asset.ArticleFormats === "Quick Single");
 }
 
 export const DisplaySupportingArticles = ({ renderData }) => {
-  //console.log(renderData);
   return (
     <ScrollArea h={600}>
       {renderData.map((article, i) => {
         const GAME = article.game_meta_datum;
-
+        //console.log("GAME", GAME)
         return (
           <div key={i}>
             <FixturaArticleBox>

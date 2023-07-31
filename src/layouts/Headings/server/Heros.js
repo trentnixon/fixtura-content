@@ -17,8 +17,14 @@ import { ComplieRenderData } from "@/utils/actions";
 import { FixturaStack } from "@/components/containers/stack";
 import { H } from "@/components/Type/Headers";
 import { getAccountFields } from "@/api/accounts";
+import { MainCSSBanner } from "@/layouts/Headings/client/MainCSSBanner";
+import { PageCategoryHeader } from "@/components/UI/Headers";
+
 export async function HeroText({ params }) {
-  const renderData = await getRenderFields(params.render, ["game_results_in_renders.game_meta_datum","upcoming_games_in_renders.game_meta_datum"]);
+  const renderData = await getRenderFields(params.render, [
+    "game_results_in_renders.game_meta_datum",
+    "upcoming_games_in_renders.game_meta_datum",
+  ]);
   const Count = await RenderCount(params.render);
   //console.log(renderData)
 
@@ -32,21 +38,20 @@ export async function HeroText({ params }) {
 
   return (
     <>
+      <MainCSSBanner />
       <FixturaHero account={account}>
         <HeroInner>
           <HeroTitle>
             <AccountNameAndLogoStack params={params} />
           </HeroTitle>
-
           <HeroControls>
-            {/* <SelectACategory params={params} />
-          <PageCategoryHeader /> */}
             <FixturaStack>
-              <SelectACategoryBtnGroup params={params} />
+            <PageCategoryHeader />
               <HeroRenderDates
                 createdAt={ComplieRenderData(renderData.attributes)}
                 Assets={Count.downloads + Count.gtp_3_reports}
-              /> 
+              />
+             
             </FixturaStack>
           </HeroControls>
         </HeroInner>
@@ -54,3 +59,5 @@ export async function HeroText({ params }) {
     </>
   );
 }
+/* <SelectACategory params={params} />*/
+/* <SelectACategoryBtnGroup params={params} /> */

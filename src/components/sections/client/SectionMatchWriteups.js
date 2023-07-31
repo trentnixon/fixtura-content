@@ -9,21 +9,6 @@ import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { Box, Container, useMantineTheme } from "@mantine/core";
 import { useState } from "react";
 
-/* const GroupByGame = (dataArray) => {
-  const groupedData = dataArray.reduce((acc, obj) => {
-    const gameID = obj.attributes.game_meta_datum.data.attributes.gameID;
-
-    if (!acc[gameID]) {
-      acc[gameID] = [];
-    }
-
-    acc[gameID].push(obj);
-
-    return acc;
-  }, {});
-
-  return groupedData;
-}; */
 const GroupByGame = (dataArray) => {
   console.log(dataArray)
   const groupedData = dataArray.reduce((acc, obj) => {

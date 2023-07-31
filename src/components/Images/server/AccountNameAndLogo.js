@@ -44,13 +44,13 @@ export async function AccountNameAndLogoStack({ params }) {
 
   const Logo = await FindAccountLogo(account);
   const heading = await FindAccountLabel(account);
-
+  const LOGOHW=70
   return (
     <FixturaStack>
       {Logo === null ? (
         false
       ) : (
-        <FixturaHeaderLogo Logo={Logo} width={100} height={100} />
+        <FixturaHeaderLogo Logo={Logo} width={LOGOHW} height={LOGOHW} />
       )}
       <H size="h5">{heading}</H>
     </FixturaStack>

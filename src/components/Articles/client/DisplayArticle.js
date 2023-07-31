@@ -140,9 +140,9 @@ function VersionGroup({ setVersion, version, ArticleSet }) {
               variant="default"
               styles={(theme) => ({
                 root: {
-                  backgroundColor:
+                  background:
                     version === i
-                      ? `${theme.colors.gray[7]} !important`
+                      ? `${theme.fn.linearGradient(45, theme.colors.blue[5], theme.colors.cyan[5])} !important`
                       : `transparent`,
                   color:
                     version === i

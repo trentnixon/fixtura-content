@@ -1,12 +1,14 @@
 //import { FixturaPageHeader } from "@/layouts/Headings/PageHeader";
+import { ContentShell } from "@/layouts/AppShell";
 import { HeroText } from "@/layouts/Headings/server/Heros";
+import { CookieCutter } from "@/utils/cookiecutter";
 //import Header_RenderDates from "@/layouts/Headings/server/Header_RenderDates";
 
 export default async function RootLayout({ children, params }) {
   return (
     <>
       <HeroText params={params} />
-      {children} 
+      {children}
     </>
   );
 }

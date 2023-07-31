@@ -8,7 +8,7 @@ export const ContentShell = ({ children, params }) => {
   const { id, render } = params;
   const URLParams = useParams();
 
-  //console.log("searchParams", URLParams)
+  console.log("searchParams", URLParams.render);
   // navbar={<NavbarMinimal params={params} URLParams={URLParams}/>}
   return (
     <AppShell

@@ -7,6 +7,6 @@ export default async function RootLayout({ children, params }) {
       <CookieCutter>
         <main>{children}</main>
       </CookieCutter>
-    </ContentShell>
+    </ContentShell>  
   );
 }
