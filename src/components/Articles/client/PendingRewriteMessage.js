@@ -38,7 +38,7 @@ export const PendingRewrite = () => {
           <P ta="center">Your article is being rewritten.</P>
           <P ta="center">
             If the result is not what you expected, you can enhance it with
-            additional context by using the "Add Context" button. This will allow
+            additional context by using the Add &quot;Context button&quot;. This will allow
             you to provide further insights into the fixture that are not included
             in the scorecard, ensuring a more personalized and tailored article.
           </P>
