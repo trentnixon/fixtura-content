@@ -23,7 +23,7 @@ export const AddContext = ({
         fixture.
       </S>
       <S>For example: This was a day-night game. Player Name scored a lot of runs through
-        cover. This was Player Name's 50th game for the club. There were 3 rain
+        cover. This was Player Name&apos;s 50th game for the club. There were 3 rain
         delays during this game.
       </S>
       <Group position="right" my={10}>
