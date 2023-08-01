@@ -12,6 +12,7 @@ import { ArticleMetaData } from "@/components/Articles/client/ArticleMetaData";
 import { ArticleHeader } from "@/components/Articles/client/ArticleHeader";
 import { Button, Textarea } from "@mantine/core";
 import { putGameContext } from "@/api/getGame";
+import { AddContext } from "@/components/Articles/client/AddContext";
 
 export const DisplayArticleSet = ({ SelectedGame }) => {
   const router = useRouter(); // Next.js router
@@ -35,7 +36,6 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
     requestRewrite(ArticleSet[version].id);
   };
 
-
   const handleSubmit = async (apply) => {
     setIsLoading(true);
     try {
@@ -57,7 +57,7 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
   // useEffect
   useEffect(() => {
     setGameContext(GAME.gameContext || "");
-    setIsAddingContext(false)
+    setIsAddingContext(false);
   }, [SelectedGame]);
   // Update the state with the new article once it's ready
   useEffect(() => {
@@ -105,66 +105,12 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
             isAddingContext={isAddingContext}
           />
           {isAddingContext ? (
-            <>
-              <Textarea
-                placeholder="Add game context to this Fixture"
-                label="Add Context"
-                autosize
-                minRows={10}
-                value={gameContext}
-                onChange={(e) => setGameContext(e.target.value)}
-              />
-              <Button
-                onClick={() => {
-                  handleSubmit(false);
-                }}
-                disabled={isLoading}
-                variant="default"
-                radius="md"
-                size="md"
-                sx={(theme) => ({
-                  borderRadius: theme.radius.md,
-                  background: theme.colors.blue[6],
-                  color: theme.colors.gray[6],
-                  cursor: "pointer",
-                  "&:hover": {
-                    background: theme.fn.linearGradient(
-                      45,
-                      theme.colors.blue[5],
-                      theme.colors.cyan[5]
-                    ),
-                    color: theme.colors.gray[0],
-                  },
-                })}
-              >
-                {isLoading ? "Submitting..." : "Save"}
-              </Button>
-              <Button
-                onClick={() => {
-                  handleSubmit(true);
-                }}
-                disabled={isLoading}
-                variant="default"
-                radius="md"
-                size="md"
-                sx={(theme) => ({
-                  borderRadius: theme.radius.md,
-                  background: theme.colors.blue[6],
-                  color: theme.colors.gray[6],
-                  cursor: "pointer",
-                  "&:hover": {
-                    background: theme.fn.linearGradient(
-                      45,
-                      theme.colors.blue[5],
-                      theme.colors.cyan[5]
-                    ),
-                    color: theme.colors.gray[0],
-                  },
-                })}
-              >
-                {isLoading ? "Submitting..." : "Save and Apply"}
-              </Button>
-            </>
+            <AddContext
+              setGameContext={setGameContext}
+              gameContext={gameContext}
+              handleSubmit={handleSubmit}
+              isLoading={isLoading}
+            />
           ) : (
             <ArticleContainer article={ArticleSet[version].article} />
           )}
