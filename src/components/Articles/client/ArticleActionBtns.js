@@ -8,6 +8,8 @@ export const ArticleActionBtns = ({
     rewriteStatus,
     requestRewrite,
     rewriteCount,
+    setIsAddingContext,
+    isAddingContext
   }) => {
     const ReWrites = 3;
     return (
@@ -19,6 +21,7 @@ export const ArticleActionBtns = ({
             radius="md"
             size="md"
             disabled={ReWrites === rewriteCount}
+            onClick={() => setIsAddingContext(!isAddingContext)}
             sx={(theme) => ({
               borderRadius: theme.radius.md,
               background: theme.colors.blue[6],
@@ -34,7 +37,9 @@ export const ArticleActionBtns = ({
               },
             })}
           >
-            Add Context
+            {
+              isAddingContext ?'close':'Add Context'
+            }
           </Button>
   
           <Button

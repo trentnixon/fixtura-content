@@ -52,3 +52,17 @@ export async function getGameByID(gameID) {
   //console.log(res)
   return res.data;
 }
+
+
+
+// PUT
+export async function putGameContext(ID,CONTEXT) {
+  console.log(ID,CONTEXT)
+  const res = await fetcher({
+    PATH: `game-meta-datas/${ID}`, 
+    method:`PUT`,
+    body:{data:{gameContext:CONTEXT}},
+    nextConfig: { cache: 'no-store' },
+  });
+  return res.data; 
+}
