@@ -51,7 +51,7 @@ export async function getWriteupsFromRender(ID, PATH, TYPE) {
     PATH: `render/getRenderWriteups/`, 
     method:`POST`,
     body:{ID:ID, PATH:PATH, TYPE:TYPE},
-    nextConfig: { cache: 'no-store', next: { revalidate: 60 } },
+    nextConfig: { cache: 'no-store' },
   });
   return res.data; 
 }
