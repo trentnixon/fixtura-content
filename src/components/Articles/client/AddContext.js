@@ -9,22 +9,35 @@ export const AddContext = ({
 }) => {
   return (
     <>
+      <P fz={"xl"} fw={600} lh={"2.2"}>
+        Add Fixture context.
+      </P>
+      <P lh={"1.3"}>
+        Enrich this fixture with more nuanced details that go beyond the scorecard. Share specific player
+        contributions, highlight distinctive match features, or mention the
+        purpose behind the event.
+      </P>
+
       <Textarea
         placeholder="Add game context to this Fixture"
-        label="Add Context"
-        description={`With the "Add Context" feature, you can enrich this fixture with more nuanced details that go beyond the scorecard. Share specific player contributions, highlight distinctive match features, or mention the purpose behind the event. Customize the writeup to make it even more unique and engaging with Fixtura's "Add Context" feature.`}
         autosize
         minRows={10}
+        my={20}
         value={gameContext}
         onChange={(e) => setGameContext(e.target.value)}
       />
+      <P lh={"2.1"}>
+        NB : Any context added here will be applyed to any rewrites for this
+        fixture.
+      </P>
       <S>
         Hint: Add contextual items as a list to provide more insights into the
         fixture.
       </S>
-      <S>For example: This was a day-night game. Player Name scored a lot of runs through
-        cover. This was Player Name&apos;s 50th game for the club. There were 3 rain
-        delays during this game.
+      <S>
+        For example: This was a day-night game. Player Name scored a lot of runs
+        through cover. This was Player Name&apos;s 50th game for the club. There
+        were 3 rain delays during this game.
       </S>
       <Group position="right" my={10}>
         <Button

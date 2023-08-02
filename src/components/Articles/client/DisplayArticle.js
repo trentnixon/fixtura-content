@@ -13,9 +13,12 @@ import { ArticleHeader } from "@/components/Articles/client/ArticleHeader";
 import { Button, Textarea } from "@mantine/core";
 import { putGameContext } from "@/api/getGame";
 import { AddContext } from "@/components/Articles/client/AddContext";
+import { useMediaQuery } from "@mantine/hooks";
+import { MobileSelectArticleType } from "@/components/Articles/client/MobileSelectArticleType";
 
 export const DisplayArticleSet = ({ SelectedGame }) => {
   const router = useRouter(); // Next.js router
+  const isMobile = useMediaQuery("(max-width: 768px)");
   // Vars
   const GAME = SelectedGame[0].game_meta_datum;
   const ArticleSet = GAME.gtp_3_reports;
@@ -90,10 +93,10 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
   return (
     <>
       <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={9}>
+        <FixturaGRIDCOL span={10}>
           <ArticleHeader GAME={GAME} />
 
-          <ArticleActionBtns
+          <ArticleActionBtns 
             setCopied={setCopied}
             copied={copied}
             article={ArticleSet[version].article}
@@ -117,12 +120,21 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
 
           <ArticleMetaData GAME={GAME} />
         </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={3}>
+        <FixturaGRIDCOL span={2}>
+          
+          {isMobile ? (
+          <MobileSelectArticleType
+            setVersion={setVersion}
+            version={version}
+            ArticleSet={ArticleSet}
+          />
+        ) : (
           <SelectArticleType
             setVersion={setVersion}
             version={version}
             ArticleSet={ArticleSet}
           />
+        )}
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </>

@@ -152,6 +152,7 @@ export function HeaderMantine({ params, URLParams }) {
       </Container>
       <Portal>
         <Modal
+          title="Fixtura"
           opened={opened}
           onClose={close}
           overflow="outside"
@@ -162,8 +163,15 @@ export function HeaderMantine({ params, URLParams }) {
             blur: 3,
           }}
           styles={{
-            header: { backgroundColor: theme.colors.gray[9], padding:'7px 10px', marginBottom:'14px' },
-            content: { backgroundColor: theme.colors.gray[3] },
+            title:{
+              color: theme.colors.gray[0],
+            },
+            header: {
+              backgroundColor: theme.colors.gray[9],
+              padding: "7px 10px",
+              marginBottom: "14px",
+            },
+            content: { backgroundColor: theme.colors.gray[1] },
           }}
         >
           <Center>

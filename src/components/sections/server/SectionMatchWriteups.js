@@ -9,8 +9,8 @@ export default async function SectionMatchWriteups({ params, Type, Path }) {
       Title={`Articles`}
       subTitle={`Stay Informed with Our Weekend Articles`}
       Icon={`ICO_HEADER_ARTICLE`}
-    >
+    > 
       <SectionMatchWriteupsClient renderData={Writeups} />
-    </FixturaSection>
+    </FixturaSection>  
   );
 }

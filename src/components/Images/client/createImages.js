@@ -41,7 +41,11 @@ export async function CreateImagesClient(props) {
           onClick={handleDownloadAll}
         />
       </FixturaGroup>
-      <SimpleGrid cols={5}>
+      <SimpleGrid breakpoints={[
+        { minWidth: 'sm', cols: 2 },
+        { minWidth: 'md', cols: 3 },
+        { minWidth: 1200, cols: 4 },
+      ]}> 
         {ITEMS.map((vid, i) => {
           return <SingleImageWithDownload key={i} URL={vid.attributes.URL} />;
         })}

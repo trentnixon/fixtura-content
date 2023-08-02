@@ -15,7 +15,7 @@ export const PageCategoryHeader = () => {
   const pathname = usePathname();
   const thirdItemInPath = pathname.split("/")[3];
   const myArray = [
-    { id: undefined, title: "HOME", icon: <IconHome2 /> },
+    { id: undefined, title: "OVERVIEW", icon: <IconHome2 /> },
     { id: "r", title: "RESULTS", icon: <IconScoreboard /> },
     { id: "o", title: "STATISTICS", icon: <IconChartPie4 /> },
     { id: "u", title: "UPCOMING", icon: <IconCalendarDue /> },

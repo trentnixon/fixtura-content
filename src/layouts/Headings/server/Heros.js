@@ -46,12 +46,11 @@ export async function HeroText({ params }) {
           </HeroTitle>
           <HeroControls>
             <FixturaStack>
-            <PageCategoryHeader />
+              <PageCategoryHeader />
               <HeroRenderDates
                 createdAt={ComplieRenderData(renderData.attributes)}
                 Assets={Count.downloads + Count.gtp_3_reports}
               />
-             
             </FixturaStack>
           </HeroControls>
         </HeroInner>

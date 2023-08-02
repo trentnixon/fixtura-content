@@ -33,7 +33,7 @@ export default async function Render({ params }) {
         <FixturaGRIDOUTER>
           <FixturaGRIDCOL span={12}>
             <SelectedStatsStatment Count={Count} />
-          </FixturaGRIDCOL>
+          </FixturaGRIDCOL> 
 
           <FixturaGRIDCOL span={4}>
             <CategoryCard

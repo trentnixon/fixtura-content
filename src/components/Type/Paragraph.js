@@ -19,9 +19,9 @@ export const P = (props) => {
 };
 
 export const S = (props) => {
-  const { fw = 200, fs = "normal", tt = "", c = "", ta = "left" } = props;
+  const { fw = 200, fz="sm", fs = "normal", tt = "", c = "", ta = "left", lh = "1.2em" } = props;
   return (
-    <Text fz="sm" fw={fw} fs={fs} tt={tt} c={c} ta={ta}>
+    <Text fz={fz} fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh}>
       {props.children}
     </Text>
   );

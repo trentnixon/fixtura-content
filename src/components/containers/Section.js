@@ -5,27 +5,36 @@ import {
   ICO_HEADER_LADDER,
   ICO_HEADER_VIDEO,
   ICO_HEADER_IMAGE,
-  ICO_HEADER_ARTICLE
+  ICO_HEADER_ARTICLE,
 } from "@/components/UI/Icons";
 import { Box, Container, Group, Stack } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 const iconComponents = {
   ICO_HEADER_CRICKET: ICO_HEADER_CRICKET,
   ICO_HEADER_LADDER: ICO_HEADER_LADDER,
   ICO_HEADER_VIDEO: ICO_HEADER_VIDEO,
   ICO_HEADER_IMAGE: ICO_HEADER_IMAGE,
-  ICO_HEADER_ARTICLE:ICO_HEADER_ARTICLE
+  ICO_HEADER_ARTICLE: ICO_HEADER_ARTICLE,
   // add as many as you have
 };
 export const FixturaSection = (props) => {
-  const { shade = 2, Title = "", subTitle = "", Icon = null, py=50,px=0 } = props;
+  const {
+    shade = 2,
+    Title = "",
+    subTitle = "",
+    Icon = null,
+    py = 10,
+    px = 0,
+  } = props;
   const IconComponent = iconComponents[Icon];
+  const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     <Stack justify="flex-start" spacing="xs">
       {Title.length === 0 ? (
         false
       ) : (
-        <Container size={`xl`} mt={80}>
+        <Container size={`xl`} mt={isMobile ? 60: 80} mx={isMobile ? 0: 'auto'}>
           <ShowTitles Title={Title} subTitle={subTitle} Icon={IconComponent} />
         </Container>
       )}
@@ -47,17 +56,26 @@ export const FixturaSection = (props) => {
 };
 
 const ShowTitles = ({ Title, subTitle, Icon }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
-    <Group>
-      <div>{Icon && <Icon />}</div>
-      <Stack justify="flex-start" spacing={0}>
-        <H size="h1" align="center">
-          {Title}
-        </H>
-        <H size="h5" align="center" color={`gray.5`} weight={200}>
-          {subTitle}
-        </H>
-      </Stack>
-    </Group>
+    <Stack justify="center" spacing={0}>
+      <Group>
+        <div>{Icon && <Icon />}</div>
+        <Stack justify="flex-start" spacing={0}>
+          <H size={isMobile ? "h4" : "h1"} align={isMobile ? "left" : "center"}>
+            {Title}
+          </H>
+        </Stack>
+      </Group>
+      <H
+        size={isMobile ? "h6" : "h5"}
+        align="left"
+        color={`gray.7`}
+        weight={200}
+      >
+        {subTitle}
+      </H>
+    </Stack>
   );
 };

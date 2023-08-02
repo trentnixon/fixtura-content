@@ -2,7 +2,7 @@
 import { Tabs, useMantineTheme } from "@mantine/core";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
-import { BUTTON_FUNC, BUTTON_ICON_FUNC } from "@/components/UI/buttons";
+import {  BUTTON_ICON_FUNC } from "@/components/UI/buttons";
 import { HTML5VideoPlayer } from "@/components/Video/client/HTML5VideoPlayer";
 //import VideoSupportingArticles from "@/components/Video/server/VideoSupportingArticles";
 import { FixturaBtnGroup, FixturaGroup } from "@/components/containers/Group";
@@ -19,12 +19,6 @@ export async function CreateVideoClient(props) {
   return (
     <>
       <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={7} md={6} lg={8}>
-          <VideoSupportingData
-            description={description}
-            articles={renderArticles}
-          />
-        </FixturaGRIDCOL>
         <FixturaGRIDCOL span={5} md={6} lg={4}>
           <FixturaGroup>
             <H size="h6">Download Video</H>
@@ -33,6 +27,12 @@ export async function CreateVideoClient(props) {
           <FixturaBox>
             <HTML5VideoPlayer url={ITEM.URL} />
           </FixturaBox>
+        </FixturaGRIDCOL>
+        <FixturaGRIDCOL span={7} md={6} lg={8}>
+          <VideoSupportingData
+            description={description}
+            articles={renderArticles}
+          />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </>
@@ -87,7 +87,7 @@ const AssetDescription = ({ description, title }) => {
       <FixturaArticleBox>
         <ReactMarkdown className="markdown">{description}</ReactMarkdown>
       </FixturaArticleBox>
-      <P>Video Meta</P>
+      
     </>
   );
 };

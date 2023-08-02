@@ -1,24 +1,34 @@
 import React, { useState } from "react";
-import { ScrollArea, TextInput, Box, useMantineTheme } from "@mantine/core";
-import { IconCricket, IconShield, IconShieldFilled } from "@tabler/icons-react";
+import {
+  ScrollArea,
+  TextInput,
+  Box,
+  useMantineTheme,
+  Select,
+} from "@mantine/core";
+import { IconCricket, IconShield } from "@tabler/icons-react";
 import { P, S } from "@/components/Type/Paragraph";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { FixturaArticleBox } from "@/components/containers/boxes";
 import { H } from "@/components/Type/Headers";
 import { FixturaGroup } from "@/components/containers/Group";
+import { limitString } from "@/utils/UI";
+import { useMediaQuery } from "@mantine/hooks";
 
 export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedGameID, setSelectedGameID] = useState(null);
-  const theme = useMantineTheme();
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+
+  // Check if groupedData is not empty
+  if (!groupedData || Object.keys(groupedData).length === 0) {
+    return <p>No data found</p>;
+  }
 
   // Group games by grade
   const gamesByGrade = {};
   Object.keys(groupedData).forEach((gameID) => {
-    const grade = groupedData[gameID][0].game_meta_datum.grade.gradeName;
+    const grade = groupedData[gameID][0]?.game_meta_datum?.grade?.gradeName;
+    if (!grade) return;  // Skip if grade is not found
     if (!gamesByGrade[grade]) gamesByGrade[grade] = [];
     gamesByGrade[grade].push(gameID);
   });
@@ -27,14 +37,43 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
   Object.keys(gamesByGrade).forEach((grade) => {
     gamesByGrade[grade] = gamesByGrade[grade].filter((gameID) => {
       const game = groupedData[gameID][0];
-      const teamHome = game.game_meta_datum.teamHome;
-      const teamAway = game.game_meta_datum.teamAway;
+      const teamHome = game?.game_meta_datum?.teamHome;
+      const teamAway = game?.game_meta_datum?.teamAway;
       return (
-        teamHome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teamAway.toLowerCase().includes(searchTerm.toLowerCase())
+        (teamHome && teamHome.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (teamAway && teamAway.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     });
   });
+
+  const componentProps = {
+    gamesByGrade: gamesByGrade,
+    searchTerm: searchTerm,
+    setSearchTerm: setSearchTerm,
+    groupedData: groupedData,
+    setSelected: setSelected,
+  };
+
+  return isMobile ? (
+    <MobileListGamesWithArticles {...componentProps} />
+  ) : (
+    <DesktopListGamesWithArticles {...componentProps} />
+  );
+};
+
+const DesktopListGamesWithArticles = ({
+  gamesByGrade,
+  setSearchTerm,
+  searchTerm,
+  groupedData,
+  setSelected,
+}) => {
+  const [selectedGameID, setSelectedGameID] = useState(null);
+  //const theme = useMantineTheme();
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const theme = useMantineTheme();
 
   return (
     <>
@@ -58,7 +97,9 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
           .map((grade) => (
             <React.Fragment key={grade}>
               <FixturaGroup my={10} position={"right"}>
-                <H size="h6" italic={true} color={'gray.6'}>{grade}</H>
+                <H size="h6" italic={true} color={"gray.6"}>
+                  {limitString(grade, 35)}
+                </H>
                 <IconShield
                   size="1.1rem"
                   stroke={1.1}
@@ -70,7 +111,10 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
                 const firstGame = groupedData[gameID][0];
                 const teamHome = firstGame.game_meta_datum.teamHome;
                 const teamAway = firstGame.game_meta_datum.teamAway;
-                const label = `${teamHome} vs ${teamAway}`;
+                const label = `${limitString(teamHome, 40)} vs ${limitString(
+                  teamAway,
+                  40
+                )}`;
 
                 return (
                   <Box
@@ -84,12 +128,20 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
                       borderRadius: theme.radius.sm,
                       background:
                         gameID === selectedGameID
-                          ? theme.fn.linearGradient(45, theme.colors.blue[5], theme.colors.cyan[5])
-                          : theme.colors.gray[0], 
+                          ? theme.fn.linearGradient(
+                              45,
+                              theme.colors.blue[5],
+                              theme.colors.cyan[5]
+                            )
+                          : theme.colors.gray[0],
                       marginBottom: 3,
                       cursor: "pointer",
                       "&:hover": {
-                        background: theme.fn.linearGradient(45, theme.colors.dark[8], theme.colors.dark[5])
+                        background: theme.fn.linearGradient(
+                          45,
+                          theme.colors.dark[7],
+                          theme.colors.dark[5]
+                        ),
                       },
                     })}
                   >
@@ -125,6 +177,40 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
             </React.Fragment>
           ))}
       </ScrollArea>
+    </>
+  );
+};
+
+export const MobileListGamesWithArticles = ({
+  gamesByGrade,
+  groupedData,
+  setSelected,
+}) => {
+  const theme = useMantineTheme();
+
+  const options = Object.keys(gamesByGrade)
+    .sort()
+    .reduce((acc, grade) => {
+      const gradeGames = gamesByGrade[grade].map((gameID) => {
+        const firstGame = groupedData[gameID][0];
+        const teamHome = firstGame.game_meta_datum.teamHome;
+        const teamAway = firstGame.game_meta_datum.teamAway;
+        const label = `${limitString(teamHome, 20)} vs ${limitString(
+          teamAway,
+          20
+        )}`;
+        return { value: gameID, label };
+      });
+      return [...acc, ...gradeGames];
+    }, []);
+
+  return (
+    <>
+      <Select
+        placeholder="Select a fixture!"
+        data={options}
+        onChange={(gameID) => setSelected(gameID)}
+      />
     </>
   );
 };

@@ -1,16 +1,17 @@
-import { Button, Container, Group } from "@mantine/core";
+import { ActionIcon, Container, Group, Tooltip } from "@mantine/core";
 import {
   IconCircleCheck,
   IconCopy,
   IconPlus,
   IconRefresh,
+  IconX,
 } from "@tabler/icons-react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 export const ArticleActionBtns = ({
   setCopied,
   copied,
   article,
-  rewriteStatus,
+
   requestRewrite,
   rewriteCount,
   setIsAddingContext,
@@ -20,75 +21,21 @@ export const ArticleActionBtns = ({
   return (
     <Container className=" p-1 my-2">
       <Group position="right">
-        <Button
-          leftIcon={<IconPlus />}
-          variant="default"
-          radius="md"
-          size="md"
-          disabled={ReWrites === rewriteCount}
-          onClick={() => setIsAddingContext(!isAddingContext)}
-          sx={(theme) => ({
-            borderRadius: theme.radius.md,
-            borderColor: theme.colors.cyan[6],
-            color: theme.colors.cyan[6],
-            cursor: "pointer",
-            "&:hover": {
-              background: theme.fn.linearGradient(
-                45,
-                theme.colors.blue[5],
-                theme.colors.cyan[5]
-              ),
-              color: theme.colors.gray[0],
-              borderColor: theme.colors.blue[6],
-            },
-          })}
-        >
-          {isAddingContext ? "close" : "Add Context"}
-        </Button>
-
-        <Button
-          leftIcon={<IconRefresh />}
-          variant="default"
-          radius="md"
-          size="md"
-          onClick={requestRewrite}
-          disabled={ReWrites === rewriteCount}
-          sx={(theme) => ({
-            borderRadius: theme.radius.md,
-            borderColor: theme.colors.red[4],
-            color: theme.colors.red[4],
-            cursor: "pointer",
-            "&:hover": {
-              background: theme.fn.linearGradient(
-                45,
-                theme.colors.red[5],
-                theme.colors.cyan[5]
-              ),
-              color: theme.colors.gray[0],
-              borderColor: theme.colors.blue[6],
-            },
-          })}
-        >
-          {rewriteStatus === "pending"
-            ? "Rewriting..."
-            : `Rewrite (${ReWrites - rewriteCount})`}
-        </Button>
-
-        <CopyToClipboard text={article || ""} onCopy={() => setCopied(true)}>
-          <Button
-            leftIcon={copied ? <IconCircleCheck /> : <IconCopy />}
-            variant="default"
+        <Tooltip label="Add Additional Context">
+          <ActionIcon
+            size="xl" 
             radius="md"
-            size="md"
+            variant="outline"
+            onClick={() => setIsAddingContext(!isAddingContext)}
+            disabled={ReWrites === rewriteCount}
             sx={(theme) => ({
-              borderRadius: theme.radius.md,
-              borderColor: theme.colors.violet[4],
-              color: theme.colors.violet[4],
+              borderColor: theme.colors.cyan[6],
+              color: theme.colors.cyan[6],
               cursor: "pointer",
               "&:hover": {
                 background: theme.fn.linearGradient(
                   45,
-                  theme.colors.violet[5],
+                  theme.colors.blue[5],
                   theme.colors.cyan[5]
                 ),
                 color: theme.colors.gray[0],
@@ -96,8 +43,70 @@ export const ArticleActionBtns = ({
               },
             })}
           >
-            {copied ? "Copied" : "Copy"}
-          </Button>
+            {isAddingContext ? (
+              <IconX size="1.125rem" />
+            ) : (
+              <IconPlus size="1.125rem" />
+            )}
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip
+          label={`Request a Rewrite (${ReWrites - rewriteCount} Remaining)`}
+        >
+          <ActionIcon
+            size="xl"
+            radius="md"
+            variant="outline"
+            onClick={requestRewrite}
+            disabled={ReWrites === rewriteCount}
+            sx={(theme) => ({
+              borderColor: theme.colors.cyan[6],
+              color: theme.colors.cyan[6],
+              cursor: "pointer",
+              "&:hover": {
+                background: theme.fn.linearGradient(
+                  45,
+                  theme.colors.blue[5],
+                  theme.colors.cyan[5]
+                ),
+                color: theme.colors.gray[0],
+                borderColor: theme.colors.blue[6],
+              },
+            })}
+          >
+            <IconRefresh size="1.125rem" />
+          </ActionIcon>
+        </Tooltip>
+
+        <CopyToClipboard text={article || ""} onCopy={() => setCopied(true)}>
+          <Tooltip label={`Copy Article Text`}>
+            <ActionIcon
+              size="xl"
+              radius="md"
+              variant="outline"
+           
+              sx={(theme) => ({
+                borderColor: theme.colors.cyan[6],
+                color: theme.colors.cyan[6],
+                cursor: "pointer",
+                "&:hover": {
+                  background: theme.fn.linearGradient(
+                    45,
+                    theme.colors.blue[5],
+                    theme.colors.cyan[5]
+                  ),
+                  color: theme.colors.gray[0],
+                  borderColor: theme.colors.blue[6],
+                },
+              })}
+            >
+              {copied ? (
+                <IconCircleCheck size="1.125rem" />
+              ) : (
+                <IconCopy size="1.125rem" />
+              )}
+            </ActionIcon>
+          </Tooltip>
         </CopyToClipboard>
       </Group>
     </Container>

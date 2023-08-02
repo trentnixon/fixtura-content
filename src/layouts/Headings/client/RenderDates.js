@@ -3,6 +3,7 @@ import { H } from "@/components/Type/Headers";
 import { C, P, S } from "@/components/Type/Paragraph";
 import { FixturaSection } from "@/components/containers/Section";
 import { Group, useMantineTheme } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 export const RenderDates = ({ createdAt, Assets = 0 }) => {
   const theme = useMantineTheme();
@@ -27,12 +28,12 @@ export const RenderDates = ({ createdAt, Assets = 0 }) => {
 };
 
 export const HeroRenderDates = ({ createdAt, Assets = 0 }) => {
-  const theme = useMantineTheme();
-  return (
-    <FixturaSection Title={""} shade="8" py={10}>
-      <P c={`blue.2`} fs={"xl"} fw="700" ta="center">
-        {createdAt.FROM} - {createdAt.TO}
-      </P>
-    </FixturaSection>
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return isMobile ? (
+    false
+  ) : (
+    <P c={`gray.9`} fz={"sm"} fw="700" ta="center">
+      {createdAt.FROM} - {createdAt.TO}
+    </P>
   );
 };

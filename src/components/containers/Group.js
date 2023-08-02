@@ -2,9 +2,9 @@
 import { Group } from "@mantine/core";
 
 export const FixturaGroup = (props) => {
-  const { position = "apart", my = 0, mx = 0, py = 0, px = 0 } = props;
+  const { position = "apart", my = 0, mx = 0, py = 0, px = 0, grow=false } = props;
   return (
-    <Group position={position} my={my} mx={mx} py={py} px={px}>
+    <Group position={position} my={my} mx={mx} py={py} px={px} grow={grow}>
       {props.children}
     </Group>
   );
