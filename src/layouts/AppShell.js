@@ -1,16 +1,17 @@
 "use client";
 import { AppShell } from "@mantine/core";
-//import { NavbarMinimal } from "@/layouts/SideBarMantine";
 import { HeaderMantine } from "@/layouts/HeaderMantine";
 import { useParams } from "next/navigation";
+import withMobileWarning from "@/layouts/withMobileWarning";
+
 
 export const ContentShell = ({ children, params }) => {
   const { id, render } = params;
   const URLParams = useParams();
 
   console.log("searchParams", URLParams.render);
-  // navbar={<NavbarMinimal params={params} URLParams={URLParams}/>}
-  return (
+
+  const Content = withMobileWarning(() => (
     <AppShell
       padding={0}
       header={<HeaderMantine params={params} URLParams={URLParams} />}
@@ -25,5 +26,7 @@ export const ContentShell = ({ children, params }) => {
     >
       {children}
     </AppShell>
-  );
+  ));
+
+  return <Content />;
 };

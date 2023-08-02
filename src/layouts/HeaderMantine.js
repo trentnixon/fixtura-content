@@ -11,7 +11,16 @@ import {
   Tooltip,
   UnstyledButton,
   Button,
+  Col,
+  Paper,
+  Text,
+  Modal,
+  Portal,
+  Stack,
+  Center,
+  useMantineTheme,
 } from "@mantine/core";
+
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconCalendarDue,
@@ -24,17 +33,6 @@ import {
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 const HEADER_HEIGHT = rem(60);
-
-const LINKS = [
-  {
-    link: "/",
-    label: "Home",
-  },
-  {
-    link: "/Fixtura",
-    label: "Fixtura",
-  },
-];
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -82,12 +80,26 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const LINKS = [
+  {
+    link: "/",
+    label: "Home",
+  },
+  {
+    link: "/Fixtura",
+    label: "Fixtura",
+  },
+];
+
 export function HeaderMantine({ params, URLParams }) {
   const { id } = params;
   const { classes } = useStyles();
-  const [opened, { toggle }] = useDisclosure(false);
+  const [opened, { close, toggle }] = useDisclosure(false);
   console.log("render", URLParams.render);
-
+  const theme = useMantineTheme();
+  const closeDrawer = () => {
+    close();
+  };
   return (
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
       <Container className={classes.inner} fluid>
@@ -138,6 +150,52 @@ export function HeaderMantine({ params, URLParams }) {
           </Tooltip>
         </Group>
       </Container>
+      <Portal>
+        <Modal
+          opened={opened}
+          onClose={close}
+          overflow="outside"
+          transitionProps={{ transition: "skew-up" }}
+          overlayProps={{
+            color: theme.colors.gray[6],
+            opacity: 0.55,
+            blur: 3,
+          }}
+          styles={{
+            header: { backgroundColor: theme.colors.gray[9], padding:'7px 10px', marginBottom:'14px' },
+            content: { backgroundColor: theme.colors.gray[3] },
+          }}
+        >
+          <Center>
+            <Image
+              src="/images/LogoF.png"
+              alt="Fixtura"
+              width={35}
+              height={12}
+              priority
+            />
+          </Center>
+          {URLParams.render === undefined ? (
+            false
+          ) : (
+            <RenderMobileLinks params={URLParams} closeDrawer={closeDrawer} />
+          )}
+
+          <Group spacing="xs" className={classes.links}></Group>
+          <Group position="apart" my={10}>
+            <UnstyledButton onClick={closeDrawer}>
+              <Link href={`/${id}`}>
+                <IconDownload size="1.2rem" stroke={1.5} />
+              </Link>
+            </UnstyledButton>
+            <UnstyledButton onClick={closeDrawer}>
+              <Link href={`https://fixtura.com.au/`}>
+                <IconHome2 size="1.2rem" stroke={1.5} />
+              </Link>
+            </UnstyledButton>
+          </Group>
+        </Modal>
+      </Portal>
     </Header>
   );
 }
@@ -182,8 +240,6 @@ const RenderBtns = ({ params }) => {
                 backgroundColor: theme.colors.gray[9],
                 color: theme.colors.gray[3],
               },
-              
-              // Apply a different background color if this category is the selected one
             },
           })}
         >
@@ -199,4 +255,57 @@ const RenderBtns = ({ params }) => {
   });
 
   return render ? renderLinks : null;
+};
+
+const RenderMobileLinks = ({ params, closeDrawer }) => {
+  const { id, render } = params;
+  const pathname = usePathname();
+  const CATEGORIES = [
+    { value: "", title: "Overview", icon: <IconHome /> },
+    { value: "r", title: "Results", icon: <IconScoreboard /> },
+    { value: "u", title: "Upcoming", icon: <IconCalendarDue /> },
+    { value: "o", title: "Statistics", icon: <IconChartPie4 /> },
+  ];
+
+  const renderLinks = CATEGORIES.map((item, i) => {
+    const isActive = pathname === `/${id}/${render}/${item.value}`; // check if current path is equal to item's path
+
+    return (
+      <Button
+        key={i}
+        variant="subtle"
+        onClick={closeDrawer}
+        styles={(theme) => ({
+          root: {
+            background: isActive
+              ? `${theme.fn.linearGradient(
+                  45,
+                  theme.colors.blue[5],
+                  theme.colors.cyan[5]
+                )} !important`
+              : `transparent`,
+            color: isActive
+              ? `${theme.colors.gray[2]} `
+              : `${theme.colors.gray[6]}`,
+
+            "&:hover": {
+              backgroundColor: theme.colors.gray[9],
+              color: theme.colors.gray[3],
+            },
+
+            // Apply a different background color if this category is the selected one
+          },
+        })}
+      >
+        <Link
+          href={`/${id}/${render}/${item.value}`}
+          className={isActive ? "active" : ""}
+        >
+          {item.title}
+        </Link>
+      </Button>
+    );
+  });
+
+  return render ? <Stack>{renderLinks}</Stack> : null;
 };

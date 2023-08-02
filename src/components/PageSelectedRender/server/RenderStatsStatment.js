@@ -3,10 +3,9 @@ import { FixturaContainer } from "@/components/containers/containers";
 import { H } from "@/components/Type/Headers";
 
 export async function SelectedStatsStatment({ Count }) {
-  //console.log(Count);
-
+ 
   return (
-    <FixturaContainer my={50} mx={'15%'}>
+    <FixturaContainer my={50} mx={'7%'}>
       <H size={"h3"} align="center" weight={400}>
         This weeks package covers <Bold>{Count?.GameCount?.Total}</Bold> Games,
         covering <Bold>{Count?.GameCount.Upcoming}</Bold> Upcoming Games and

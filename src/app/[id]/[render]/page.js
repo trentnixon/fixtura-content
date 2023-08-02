@@ -118,32 +118,32 @@ export default async function Render({ params }) {
             />
           </FixturaGRIDCOL>
           <FixturaGRIDCOL span={12}>
-            <SelectedRenderStatsRings params={params} />
+            {/* <SelectedRenderStatsRings params={params} /> */}
           </FixturaGRIDCOL>
           <FixturaGRIDCOL span={6}>
-            <PieChartDownloadableMedia Count={Count} />
-          </FixturaGRIDCOL>
-
-          <FixturaGRIDCOL span={6}>
-            <PieChartArticleType Count={Count} />
+            {/* <PieChartDownloadableMedia Count={Count} /> */}
           </FixturaGRIDCOL>
 
           <FixturaGRIDCOL span={6}>
-            <BarChartCategoryType Count={Count} />
+            {/* <PieChartArticleType Count={Count} /> */}
+          </FixturaGRIDCOL>
+
+          <FixturaGRIDCOL span={6}>
+            {/* <BarChartCategoryType Count={Count} /> */}
           </FixturaGRIDCOL>
           <FixturaGRIDCOL span={6}>
-            <BarChartArticleType Count={Count} />
+           {/*  <BarChartArticleType Count={Count} /> */}
           </FixturaGRIDCOL>
         </FixturaGRIDOUTER>
       </FixturaSection>
-      <FixturaSection shade={0} Title={""} subTitle={""}>
+     {/*  <FixturaSection shade={0} Title={""} subTitle={""}>
         <FixturaGRIDOUTER>
           <FixturaGRIDCOL span={7}></FixturaGRIDCOL>
           <FixturaGRIDCOL span={5}>
             <P>Barchart of grades and num of items in each</P>
           </FixturaGRIDCOL>
         </FixturaGRIDOUTER>
-      </FixturaSection>
+      </FixturaSection> */}
     </>
   );
 }
