@@ -69,11 +69,8 @@ export const ICO_PHOTO = () => {
   return <IconPhotoAi size="2rem" color={theme.colors.orange[5]}  />;
 };
 
-// Helper function to create responsive icons
-const CreateIcon = (IconComponent) => () => {
-  const theme = useMantineTheme();
-  const isMobile = useMediaQuery("(max-width: 768px)");
-
+// ResponsiveIcon component
+const ResponsiveIcon = ({ IconComponent, theme, isMobile }) => {
   return (
     <IconComponent
       size={isMobile ? "2.5rem" : "3rem"}
@@ -83,9 +80,33 @@ const CreateIcon = (IconComponent) => () => {
   );
 };
 
-// Heading ICONS
-export const ICO_HEADER_CRICKET = CreateIcon(IconCricket);
-export const ICO_HEADER_LADDER = CreateIcon(IconLadder);
-export const ICO_HEADER_VIDEO = CreateIcon(IconVideo);
-export const ICO_HEADER_IMAGE = CreateIcon(IconPhotoAi);
-export const ICO_HEADER_ARTICLE = CreateIcon(IconArticle);
+// Icon components
+export const ICO_HEADER_CRICKET = () => {
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return <ResponsiveIcon IconComponent={IconCricket} theme={theme} isMobile={isMobile} />;
+};
+
+export const ICO_HEADER_LADDER = () => {
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return <ResponsiveIcon IconComponent={IconLadder} theme={theme} isMobile={isMobile} />;
+};
+
+export const ICO_HEADER_VIDEO = () => {
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return <ResponsiveIcon IconComponent={IconVideo} theme={theme} isMobile={isMobile} />;
+};
+
+export const ICO_HEADER_IMAGE = () => {
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return <ResponsiveIcon IconComponent={IconPhotoAi} theme={theme} isMobile={isMobile} />;
+};
+
+export const ICO_HEADER_ARTICLE = () => {
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return <ResponsiveIcon IconComponent={IconArticle} theme={theme} isMobile={isMobile} />;
+};
