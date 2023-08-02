@@ -41,7 +41,7 @@ export async function HeroText({ params }) {
       <MainCSSBanner />
       <FixturaHero account={account}>
         <HeroInner>
-          <HeroTitle>
+          <HeroTitle> 
             <AccountNameAndLogoStack params={params} />
           </HeroTitle>
           <HeroControls>

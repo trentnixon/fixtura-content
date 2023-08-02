@@ -7,8 +7,8 @@ import { useMediaQuery } from "@mantine/hooks";
 const useStyles = createStyles((theme) => ({
   gradientCanvas: {
     width: "100%",
-    minHeight: "250px",
-    maxHeight: "300px",
+    minHeight: "200px",
+    maxHeight: "225px",
     position: "absolute",
     "--gradient-color-4": "#A5D8FF",
     "--gradient-color-1": "#338C81",
@@ -17,8 +17,8 @@ const useStyles = createStyles((theme) => ({
   },
   gradientCanvasMobile: {
     width: "100%",
-    minHeight: "250px",
-    maxHeight: "200px",
+    minHeight: "200px",
+    maxHeight: "225px",
     position: "absolute",
     "--gradient-color-4": "#A5D8FF",
     "--gradient-color-1": "#338C81",

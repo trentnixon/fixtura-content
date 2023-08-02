@@ -29,10 +29,10 @@ body {
 
 .markdown h4 {
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   text-align: left;
-  line-height: 1.6rem;
+  line-height: 1.4rem;
   font-style: normal;
   color: #495057;
   margin-bottom: 10px;
@@ -40,10 +40,10 @@ body {
 
 .markdown p {
   text-decoration: none;
-  font-size: 1rem;
+  font-size: .95rem;
   font-weight: 400;
   text-align: left;
-  line-height: 1.6rem;
+  line-height: 1.3rem;
   font-style: normal;
   color: #495057;
   margin-bottom: 10px;
