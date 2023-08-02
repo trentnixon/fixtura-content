@@ -70,7 +70,7 @@ export const ICO_PHOTO = () => {
 };
 
 // Helper function to create responsive icons
-const createIcon = (IconComponent) => () => {
+const CreateIcon = (IconComponent) => () => {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -84,8 +84,8 @@ const createIcon = (IconComponent) => () => {
 };
 
 // Heading ICONS
-export const ICO_HEADER_CRICKET = createIcon(IconCricket);
-export const ICO_HEADER_LADDER = createIcon(IconLadder);
-export const ICO_HEADER_VIDEO = createIcon(IconVideo);
-export const ICO_HEADER_IMAGE = createIcon(IconPhotoAi);
-export const ICO_HEADER_ARTICLE = createIcon(IconArticle);
+export const ICO_HEADER_CRICKET = CreateIcon(IconCricket);
+export const ICO_HEADER_LADDER = CreateIcon(IconLadder);
+export const ICO_HEADER_VIDEO = CreateIcon(IconVideo);
+export const ICO_HEADER_IMAGE = CreateIcon(IconPhotoAi);
+export const ICO_HEADER_ARTICLE = CreateIcon(IconArticle);
