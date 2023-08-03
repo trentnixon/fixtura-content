@@ -18,6 +18,8 @@ export const FixturaBox = (props) => {
   );
 };
 
+
+
 export const FixturaCategoryBox = (props) => {
   const { color = "blue", c = 5 } = props;
   return (
@@ -31,6 +33,23 @@ export const FixturaCategoryBox = (props) => {
         backgroundColor: theme.colors[color][c],
         textAlign: "left",
         padding: theme.spacing.sm,
+        borderRadius: theme.radius.sm,
+      })}
+    >
+      {props.children}
+    </Box>
+  );
+};
+
+export const ArticleMetaBox = (props) => {
+  const { c = 2, baseColor = "gray", w = "auto", p='sm', border='borderLeft' } = props;
+  return (
+    <Box
+      sx={(theme) => ({
+        width: w,
+        [border]: `10px solid ${theme.colors[baseColor][c]}`,
+        textAlign: "left",
+        padding: theme.spacing[p],
         borderRadius: theme.radius.sm,
       })}
     >

@@ -2,6 +2,7 @@ import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
 import { FixturaGroup } from "@/components/containers/Group";
 import {
+  ArticleMetaBox,
   FixturaAccountBox,
   FixturaArticleBox,
   FixturaBox,
@@ -25,7 +26,7 @@ export const ArticleHeader = ({ GAME }) => {
         <P fz={isMobile ? `xs` : `xs`} fw={400} c={'dark.8'}>{GAME.date}</P>
       </FixturaGroup>
       <ResponsiveGroup grow={true}>
-        <FixturaBox c={4} baseColor={`gray`} w="100%">
+        <ArticleMetaBox c={5} baseColor={`blue`} w="100%" border={'borderRight'} >
           <H
             size={isMobile ? `h6` : `h4`}
             color={"gray.9"}
@@ -39,9 +40,9 @@ export const ArticleHeader = ({ GAME }) => {
           >{`${GAME?.Homescores === null ? "" : GAME?.Homescores} ${
             GAME?.HomeOvers === null ? "" : GAME?.HomeOvers
           }`}</H>
-        </FixturaBox>
+        </ArticleMetaBox>
 
-        <FixturaBox c={2} baseColor={`gray`} w="100%">
+        <ArticleMetaBox c={5} baseColor={`cyan`} w="100%" >
           <H
             size={isMobile ? `h6` : `h4`}
             align={isMobile ? `center` : `left`}
@@ -54,7 +55,7 @@ export const ArticleHeader = ({ GAME }) => {
           >{`${GAME?.Awayscores === null ? "" : GAME?.Awayscores} ${
             GAME?.AwayOvers === null ? "" : GAME?.AwayOvers
           }`}</H>
-        </FixturaBox>
+        </ArticleMetaBox>
       </ResponsiveGroup>
 
       {!GAME.ResultStatement ? (

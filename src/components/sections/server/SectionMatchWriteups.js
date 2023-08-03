@@ -11,6 +11,6 @@ export default async function SectionMatchWriteups({ params, Type, Path }) {
       Icon={`ICO_HEADER_ARTICLE`}
     > 
       <SectionMatchWriteupsClient renderData={Writeups} />
-    </FixturaSection>  
+    </FixturaSection>   
   );
 }
