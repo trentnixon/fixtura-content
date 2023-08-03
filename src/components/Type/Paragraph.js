@@ -10,9 +10,11 @@ export const P = (props) => {
     c = "",
     ta = "left",
     lh = "1.2",
+    my='5',
+    mx='5'
   } = props;
   return (
-    <Text fz={fz} fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh}>
+    <Text fz={fz} fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh} my={my} mx={mx}>
       {props.children}
     </Text>
   );

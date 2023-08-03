@@ -1,5 +1,11 @@
 "use client";
-import { ActionIcon, Button, NavLink, useMantineTheme } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  NavLink,
+  Tooltip,
+  useMantineTheme,
+} from "@mantine/core";
 
 import { IconChevronRight } from "@tabler/icons-react";
 import Link from "next/link";
@@ -26,7 +32,7 @@ export const BUTTON_FUNC = (props) => {
       uppercase
     >
       {Label}
-    </Button> 
+    </Button>
   );
 };
 
@@ -76,7 +82,6 @@ export const BUTTON_LINK_ICON = (props) => {
     <Link href={href} passHref>
       <Button
         variant={variant}
-  
         color={c}
         size={size}
         onClick={onClick}
@@ -112,7 +117,7 @@ export const NavLinkWithIcon = (props) => {
           size="0.8rem"
           stroke={1.5}
           color={theme.colors.blue[9]}
-        /> 
+        />
       }
       onClick={onClick}
       color={theme.colors.blue[9]}
@@ -124,25 +129,42 @@ export const BUTTON_ICON_FUNC = (props) => {
   const {
     Label = "",
     Color = "cyan",
-    size = "md",
+    size = "xl",
     variant = "outline",
     onClick = () => {
       console.log("Assign a Func to this Button");
     },
     Icon = false,
+    label = null,
+    disabled = false,
   } = props;
 
   return (
-    
-    <ActionIcon
-      variant={variant}
-      leftIcon={Icon}
-      color={Color}
-      size={size}
-      onClick={onClick}
-      uppercase
-    >
-       {Icon}
-    </ActionIcon> 
+    <Tooltip label={label}>
+      <ActionIcon
+        disabled={disabled}
+        variant={variant}
+        leftIcon={Icon}
+        size={size}
+        onClick={onClick}
+        uppercase
+        sx={(theme) => ({
+          borderColor: theme.colors[Color][6],
+          color: theme.colors[Color][6],
+          cursor: "pointer",
+          "&:hover": {
+            background: theme.fn.linearGradient(
+              45,
+              theme.colors.blue[5],
+              theme.colors.cyan[5]
+            ),
+            color: theme.colors.gray[0],
+            borderColor: theme.colors.blue[6],
+          },
+        })}
+      >
+        {Icon}
+      </ActionIcon>
+    </Tooltip>
   );
 };

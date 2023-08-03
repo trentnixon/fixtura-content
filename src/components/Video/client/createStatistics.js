@@ -18,17 +18,10 @@ export async function CreateStatisticsClient(props) {
   const { ITEM, renderArticles, assetName, assetTypes, description } = props;
 
   //console.log(assetTypes?.IMAGE);
-  if(!assetTypes?.IMAGE)
-  return false
+  if (!assetTypes?.IMAGE) return false;
   return (
     <>
       <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={7} md={6} lg={8}>
-          <VideoSupportingData
-            description={description}
-            articles={assetTypes.article}
-          />
-        </FixturaGRIDCOL>
         <FixturaGRIDCOL span={5} md={6} lg={4}>
           <Tabs defaultValue="about" variant="pills" color="blue">
             <Tabs.List position="center">
@@ -44,10 +37,6 @@ export async function CreateStatisticsClient(props) {
               {assetTypes?.VIDEO.map((video, i) => {
                 return (
                   <div key={i}>
-                    <FixturaGroup>
-                      <H size="h6">{assetName}</H>
-                      <CTAGroup URL={video.attributes.URL} />
-                    </FixturaGroup>
                     <FixturaBox>
                       <HTML5VideoPlayer url={video.attributes.URL} key={i} />
                     </FixturaBox>
@@ -76,6 +65,12 @@ export async function CreateStatisticsClient(props) {
               </FixturaBox>
             </Tabs.Panel>
           </Tabs>
+        </FixturaGRIDCOL>
+        <FixturaGRIDCOL span={7} md={6} lg={8}>
+          <VideoSupportingData
+            description={description}
+            articles={assetTypes.article}
+          />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </>
@@ -145,13 +140,9 @@ const VideoSupportingData = ({ description, articles }) => {
 const AssetDescription = ({ description, title }) => {
   return (
     <>
-      <H size="h4" my={10}>
-        {title}
-      </H>
       <FixturaArticleBox>
         <ReactMarkdown className="markdown">{description}</ReactMarkdown>
       </FixturaArticleBox>
-      <P>Video Meta</P>
     </>
   );
 };

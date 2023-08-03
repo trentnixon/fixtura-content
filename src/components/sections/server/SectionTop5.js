@@ -103,7 +103,7 @@ export default async function SectionTop5({ params, Type }) {
         return (
           <FixturaSection
             shade={index}
-            Title={`Stat : ${assetName}`}
+            Title={`${assetName}`}
             // you may need to adjust the following two properties according to your needs
             subTitle={
               assetTypes.VIDEO
@@ -133,36 +133,3 @@ export default async function SectionTop5({ params, Type }) {
     </>
   );
 }
-
-  // Category="Video options"
-              // Type={Type}
-              // ITEM={video.attributes}
-              // renderArticles={renderArticles}
-/* {filteredDownloadVideos.map((video, i) => {
-        //console.log(video.attributes?.asset?.data?.attributes?.Icon);
-        return (
-          <FixturaSection
-            shade={i}
-            Title={video.attributes?.asset?.data?.attributes?.Name}
-            subTitle={video.attributes?.asset?.data?.attributes?.SubTitle}
-            Icon={video.attributes?.asset?.data?.attributes?.Icon}
-            key={i}
-          >
-            
-          
-          </FixturaSection>
-        );
-      })} */
-/*
- <CreateStatisticsClient
-                    key={index}
-                    Category="Video options"
-                    Type={Type}
-                    ITEM={video.attributes}
-                    renderArticles={renderArticles}
-                    description={
-                      video.attributes?.asset?.data?.attributes
-                        ?.assetDescription
-                    }
-                  />
-*/

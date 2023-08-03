@@ -13,7 +13,7 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
     "downloads",
     "downloads.asset_type",
     "downloads.asset",
-    "downloads.asset_category",
+    "downloads.asset_category", 
   ]);
 
   // Usage:
@@ -31,8 +31,8 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
       {filteredDownloads.map((video, i) => {
         return (
           <FixturaSection
-            shade={2}
-            Title={`Videos : ${video.attributes?.asset?.data?.attributes?.Name}`}
+            shade={1}
+            Title={`Videos`}
             subTitle={video.attributes?.asset?.data?.attributes?.SubTitle}
             Icon={video.attributes?.asset?.data?.attributes?.Icon}
             key={i}
@@ -43,6 +43,7 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
               ITEM={video.attributes}
               renderArticles={RenderWriteups.filteredData}
               description={video.attributes?.asset?.data?.attributes?.Blurb}
+              subTitle={video.attributes?.asset?.data?.attributes?.SubTitle}
             />
           </FixturaSection>
         );
@@ -50,45 +51,3 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
     </>
   );
 }
-
-//console.log(RenderWriteups.filteredData)
-
-/*   const filteredData = RenderWriteups.filteredData.filter(item => {
-    return item.game_meta_datum.gtp_3_reports.some(report => report.asset.ArticleFormats === "ShortForm");
-  });
-  console.log(filteredData)
-   */
-/* const renderArticles = await getWriteupsFieldsWithFilters(  
-    ["game_meta_datum"],
-    {
-      $and: [
-        {
-          renders: {
-            id: {
-              $eq: params.render,
-            },
-          },
-        },
-        {
-          asset: {
-            $and: [
-              {
-                asset_type: {
-                  Name: {
-                    $eq: Type,
-                  },
-                },
-              },
-              {
-                ArticleFormats: {
-                  $eq: "ShortForm",
-                },
-              },
-            ],
-          },
-        },
-      ],
-    }
-  );
-
-  console.log(renderArticles) */

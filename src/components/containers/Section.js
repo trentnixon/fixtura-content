@@ -43,6 +43,7 @@ export const FixturaSection = (props) => {
         <Container
           size={`xl`}
           mt={isMobile ? 50 : 60}
+          mb={20}
           mx={isMobile ? 0 : "auto"}
         >
           <ShowTitles Title={Title} subTitle={subTitle} Icon={IconComponent} />
@@ -73,7 +74,7 @@ const ShowTitles = ({ Title, subTitle, Icon }) => {
       <Group>
         <div>{Icon && <Icon />}</div>
         <Stack justify="flex-start" spacing={0}>
-          <H size={isMobile ? "h4" : "h1"} align={isMobile ? "left" : "center"}>
+          <H size={isMobile ? "h2" : "h1"} align={isMobile ? "left" : "center"}>
             {Title}
           </H>
         </Stack>

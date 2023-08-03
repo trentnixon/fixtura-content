@@ -12,18 +12,16 @@ export default async function Upage({ params }) {
         Title={`Upcoming Writeups`}
         Type={`results`}
         Path={`game_results_in_renders`}
-        
       />
-      <SectionVideos 
+      <SectionVideos
         params={params}
-        Title={`Results Videos`} 
+        Title={`Results Videos`}
         Type={`results`}
         Path={`game_results_in_renders`}
-      /> 
- 
+      />
       <SectionImages
-        params={params} 
-        Title={`Upcoming Images`} 
+        params={params}
+        Title={`Upcoming Images`}
         Type={`results`}
       />
     </FixturaContainer>

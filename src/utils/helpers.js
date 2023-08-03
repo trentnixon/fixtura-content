@@ -10,17 +10,32 @@ export const handleDownload = async (imageUrl) => {
   document.body.removeChild(link);
 };
 
-export const handleVideoDownload = async (videoUrl) => {
+export const handleVideoDownload = async (videoUrl, Name, callback) => {
+  let validName = "default";
+
+  if (Name && typeof Name === "string") {
+    validName = Name.replace(/\s+/g, '_') // replace spaces with _
+                  .replace(/[^\w\-]+/g, '') // remove non-word chars
+                  .replace(/\_\_+/g, '_');  // replace multiple underscores with a single one
+  }
+
   const response = await fetch(videoUrl);
   const blob = await response.blob();
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "fixturaVideoDownload.mp4"; // or any name you want
+  link.download = `${validName}.mp4`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+
+  // Delay the execution of callback
+  setTimeout(callback, 5000);
 };
+
+
+
+
 
 
 export const filterDownloads = (

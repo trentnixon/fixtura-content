@@ -2,7 +2,7 @@
 import { Tabs, useMantineTheme } from "@mantine/core";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
-import {  BUTTON_ICON_FUNC } from "@/components/UI/buttons";
+import { BUTTON_ICON_FUNC } from "@/components/UI/buttons";
 import { HTML5VideoPlayer } from "@/components/Video/client/HTML5VideoPlayer";
 //import VideoSupportingArticles from "@/components/Video/server/VideoSupportingArticles";
 import { FixturaBtnGroup, FixturaGroup } from "@/components/containers/Group";
@@ -16,60 +16,50 @@ import { handleVideoDownload } from "@/utils/helpers";
 export async function CreateVideoClient(props) {
   const { ITEM, renderArticles, description } = props;
 
+  console.log(ITEM.Name);
   return (
-    <>
-      <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={5} md={6} lg={4}>
-          <FixturaGroup>
-            <H size="h6">Download Video</H>
-            <CTAGroup URL={ITEM.URL} />
-          </FixturaGroup>
-          <FixturaBox>
-            <HTML5VideoPlayer url={ITEM.URL} />
-          </FixturaBox>
-        </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={7} md={6} lg={8}>
-          <VideoSupportingData
-            description={description}
-            articles={renderArticles}
-          />
-        </FixturaGRIDCOL>
-      </FixturaGRIDOUTER>
-    </>
+    <FixturaGRIDOUTER>
+      <FixturaGRIDCOL span={5} md={6} lg={3}>
+        <P fz="sm" c={"gray"} fw={600} ta={"right"} my={7}>
+          {ITEM.Name}
+        </P>
+
+        <FixturaBox p={0} c={1}>
+          <HTML5VideoPlayer url={ITEM.URL} Name={ITEM.Name} />
+        </FixturaBox>
+      </FixturaGRIDCOL>
+      <FixturaGRIDCOL span={7} md={6} lg={9}>
+        <VideoSupportingData
+          description={description}
+          articles={renderArticles}
+        />
+      </FixturaGRIDCOL>
+    </FixturaGRIDOUTER>
   );
 }
 
-const CTAGroup = ({ URL }) => {
-  return (
-    <FixturaBtnGroup my={20}>
-      <BUTTON_ICON_FUNC
-        onClick={() => {
-          handleVideoDownload(URL);
-        }}
-        Icon={<IconDownload />}
-      />
-    </FixturaBtnGroup>
-  );
-};
-
 const VideoSupportingData = ({ description, articles }) => {
-  const theme = useMantineTheme()
+  const theme = useMantineTheme();
   return (
-    <Tabs defaultValue="about" variant="pills" color={theme.fn.linearGradient(
-      45,
-      theme.colors.blue[5],
-      theme.colors.cyan[5]
-    )}>
+    <Tabs
+      defaultValue="articles"
+      variant="pills"
+      color={theme.fn.linearGradient(
+        45,
+        theme.colors.blue[5],
+        theme.colors.cyan[5]
+      )}
+    >
       <Tabs.List position="center">
-        <Tabs.Tab value="about" icon={<IconBookFilled size="1rem" />}>
-          <P>Description</P>
-        </Tabs.Tab>
         <Tabs.Tab value="articles" icon={<IconArticle size="1rem" />}>
           <P>Supporting Articles</P>
         </Tabs.Tab>
+        <Tabs.Tab value="about" icon={<IconBookFilled size="1rem" />}>
+          <P>About</P>
+        </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="about" pt="xs">
-        <AssetDescription description={description} title="Description" />
+        <AssetDescription description={description} />
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
         {articles ? <DisplaySupportingArticles renderData={articles} /> : false}
@@ -78,16 +68,10 @@ const VideoSupportingData = ({ description, articles }) => {
   );
 };
 
-const AssetDescription = ({ description, title }) => {
+const AssetDescription = ({ description }) => {
   return (
-    <>
-      <H size="h4" my={10}>
-        {title}
-      </H>
-      <FixturaArticleBox>
-        <ReactMarkdown className="markdown">{description}</ReactMarkdown>
-      </FixturaArticleBox>
-      
-    </>
+    <FixturaArticleBox>
+      <ReactMarkdown className="markdown">{description}</ReactMarkdown>
+    </FixturaArticleBox>
   );
 };
