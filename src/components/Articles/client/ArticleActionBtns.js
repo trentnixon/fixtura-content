@@ -286,13 +286,3 @@ const ModalPortal = ({
     </Portal>
   );
 };
-
-const CopyNotification = () => {
-  return (
-    <Portal>
-      <Notification title="Default notification">
-        This is default notification with title and body
-      </Notification>
-    </Portal>
-  );
-};
