@@ -125,7 +125,7 @@ export const ArticleActionBtnGroup = ({
 
           if (config.isCopy) {
             return (
-              <CopyToClipboard text={article}>
+              <CopyToClipboard text={article} key={index}>
                 {ActionButtonComponent}
               </CopyToClipboard>
             );
