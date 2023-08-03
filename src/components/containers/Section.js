@@ -30,11 +30,21 @@ export const FixturaSection = (props) => {
   const IconComponent = iconComponents[Icon];
   const isMobile = useMediaQuery("(max-width: 768px)");
   return (
-    <Stack justify="flex-start" spacing="xs">
+    <Stack
+      justify="flex-start"
+      spacing="xs"
+      sx={(theme) => ({
+        backgroundColor: theme.colors.gray[shade],
+      })}
+    >
       {Title.length === 0 ? (
         false
       ) : (
-        <Container size={`xl`} mt={isMobile ? 60: 80} mx={isMobile ? 0: 'auto'}>
+        <Container
+          size={`xl`}
+          mt={isMobile ? 50 : 60}
+          mx={isMobile ? 0 : "auto"}
+        >
           <ShowTitles Title={Title} subTitle={subTitle} Icon={IconComponent} />
         </Container>
       )}

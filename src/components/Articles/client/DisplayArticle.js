@@ -11,6 +11,7 @@ import { ArticleContainer } from "@/components/Articles/client/ArticleContainer"
 import { ArticleMetaData } from "@/components/Articles/client/ArticleMetaData";
 import { ArticleHeader } from "@/components/Articles/client/ArticleHeader";
 import { Button, Textarea } from "@mantine/core";
+
 import { putGameContext } from "@/api/getGame";
 import { AddContext } from "@/components/Articles/client/AddContext";
 import { useMediaQuery } from "@mantine/hooks";
@@ -104,6 +105,7 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
             requestRewrite={() => RequestRewrite()}
             rewriteStatus={rewriteStatus}
             rewriteCount={ArticleSet[version].rewriteCount}
+            ArticleVersion={ArticleSet[version]}
             setIsAddingContext={setIsAddingContext}
             isAddingContext={isAddingContext}
           />

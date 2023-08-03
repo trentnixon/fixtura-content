@@ -84,7 +84,7 @@ const SelectAArticle = () => {
           Select a fixture.
         </H>
         <P c={"white"} ta="center">
-          Select a fixture to access detailed your detailed analysis.
+          Select a fixture to access your detailed analysis.
         </P>
       </Box>
     </Container>

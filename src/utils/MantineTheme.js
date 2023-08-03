@@ -1,5 +1,4 @@
 import { MantineProvider } from "@mantine/core";
-
 export const MantineProviderWrapper = (props) => {
   return (
     <MantineProvider
@@ -32,6 +31,7 @@ export const MantineProviderWrapper = (props) => {
         primaryColor: "members",
       }}
     >
+     
       {props.children}
     </MantineProvider>
   );
