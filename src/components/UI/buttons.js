@@ -30,6 +30,7 @@ export const BUTTON_FUNC = (props) => {
       size={size}
       onClick={onClick}
       uppercase
+      radius="md"
     >
       {Label}
     </Button>
@@ -57,8 +58,23 @@ export const BUTTON_LINK = (props) => {
         color={Color}
         size={size}
         onClick={onClick}
+        radius="md"
         uppercase
-      >
+        sx={(theme) => ({
+          borderColor: theme.colors.cyan[6],
+          color: theme.colors.cyan[6],
+          cursor: "pointer",
+          "&:hover": {
+            background: theme.fn.linearGradient(
+              45,
+              theme.colors.blue[5],
+              theme.colors.cyan[5]
+            ),
+            color: theme.colors.gray[0],
+            borderColor: theme.colors.blue[6],
+          },
+        })}
+>
         {Label}
       </Button>
     </Link>
@@ -86,7 +102,22 @@ export const BUTTON_LINK_ICON = (props) => {
         size={size}
         onClick={onClick}
         uppercase
+        radius="md"
         leftIcon={icon}
+        sx={(theme) => ({
+          borderColor: theme.colors.cyan[6],
+          color: theme.colors.cyan[6],
+          cursor: "pointer",
+          "&:hover": {
+            background: theme.fn.linearGradient(
+              45,
+              theme.colors.blue[5],
+              theme.colors.cyan[5]
+            ),
+            color: theme.colors.gray[0],
+            borderColor: theme.colors.blue[6],
+          },
+        })}
       >
         {label}
       </Button>

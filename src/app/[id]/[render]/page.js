@@ -37,7 +37,7 @@ export default async function Render({ params }) {
 
           <FixturaGRIDCOL span={4}>
             <CategoryCard
-              IMG={`https://fixtura.s3.ap-southeast-2.amazonaws.com/photo_1531415074968_036ba1b575da_3f7c344683.jpg`}
+              IMG={`https://fixtura.s3.ap-southeast-2.amazonaws.com/Score_Card_BG_f55e00c64d.png`}
               OBJ={[
                 {
                   title: "Games",
@@ -85,13 +85,13 @@ export default async function Render({ params }) {
               color="green"
               c="2"
               Link={`/${params.id}/${params.render}/u`}
-              IMG={`https://fixtura.s3.ap-southeast-2.amazonaws.com/upcomingbg_746f8df7ff.jpg`}
+              IMG={`https://fixtura.s3.ap-southeast-2.amazonaws.com/upcomingbg_0cf77f0641.png`}
             />
           </FixturaGRIDCOL>
 
           <FixturaGRIDCOL span={4}>
             <CategoryCard
-              IMG={`https://fixtura.s3.ap-southeast-2.amazonaws.com/photo_1587385789097_0197a7fbd179_83ef90e9e8.jpg`}
+              IMG={`https://fixtura.s3.ap-southeast-2.amazonaws.com/statistics_BG_2947c967d1.png`}
               OBJ={[
                 {
                   title: "Assets",

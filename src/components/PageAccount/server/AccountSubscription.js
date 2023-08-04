@@ -13,7 +13,7 @@ export default async function AccountSubscription({ params }) {
   ]);
   return (
     <FixturaComponent>
-      <SectionHeaderWithSubHeader Main="SUBSCRIPTION" Sub={`SUBSCRIPTION`} />
+      <SectionHeaderWithSubHeader Main="SUBSCRIPTION" Sub={`Level`} />
 
       <FixturaPaper>
         <SubscriptionTier

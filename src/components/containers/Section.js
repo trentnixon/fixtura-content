@@ -6,6 +6,7 @@ import {
   ICO_HEADER_VIDEO,
   ICO_HEADER_IMAGE,
   ICO_HEADER_ARTICLE,
+  ICO_HEADER_ACCOUNT
 } from "@/components/UI/Icons";
 import { Box, Container, Group, Stack } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
@@ -16,6 +17,7 @@ const iconComponents = {
   ICO_HEADER_VIDEO: ICO_HEADER_VIDEO,
   ICO_HEADER_IMAGE: ICO_HEADER_IMAGE,
   ICO_HEADER_ARTICLE: ICO_HEADER_ARTICLE,
+  ICO_HEADER_ACCOUNT:ICO_HEADER_ACCOUNT
   // add as many as you have
 };
 export const FixturaSection = (props) => {

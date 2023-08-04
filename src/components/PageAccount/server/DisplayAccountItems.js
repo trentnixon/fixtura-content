@@ -7,6 +7,9 @@ import { TrackingCompetitions } from "@/components/PageAccount/client/TrackingCo
 import { TrackingTeams } from "@/components/PageAccount/client/TrackingTeams";
 import { FixturaStack } from "@/components/containers/stack";
 import { FixturaBox } from "@/components/containers/boxes";
+import { FixturaPaper } from "@/components/containers/paper";
+import { FixturaComponent } from "@/components/containers/containers";
+import { SectionHeaderWithSubHeader } from "@/layouts/Headings/SectionHeaderWithSubHeader";
 
 export default async function DisplayAccountItems({ params }) {
   const { id } = params;
@@ -14,16 +17,14 @@ export default async function DisplayAccountItems({ params }) {
   const TYPE = accountBasic.attributes.account_type.data.attributes.Name;
 
   return (
-    <>
-      <H size="h5" align="left">
-        Tracked Items
-      </H>
-      <FixturaStack>
-        <P c="dark">
-          A comprehensive list of clubs or competitions associated with your
-          profile.
-        </P>
-       
+    <FixturaComponent>
+      <SectionHeaderWithSubHeader
+        Main="Tracked Items"
+        Sub={`What we are tracking`}
+      />
+      
+      <FixturaPaper>
+        <FixturaStack>
           {TYPE === "Association" ? (
             <TrackingCompetitions
               associations={accountBasic.attributes.associations}
@@ -31,8 +32,12 @@ export default async function DisplayAccountItems({ params }) {
           ) : (
             <TrackingTeams clubs={accountBasic.attributes.clubs} />
           )}
-      
-      </FixturaStack>
-    </>
+        </FixturaStack>
+      </FixturaPaper>
+      <P  my={10} c="dark" fz={'sm'}>
+        A comprehensive list of clubs or competitions associated with your
+        profile. For a full breakdown consult your Admin panel.
+      </P>
+    </FixturaComponent>
   );
 }

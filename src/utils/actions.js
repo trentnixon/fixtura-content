@@ -41,8 +41,7 @@ export const FindAccountLogo = (account) => {
 }; */
 export const DateFromTo = (createdAt) => {
   const dateOptions = {
-    weekday: "long",
-    year: "numeric",
+    weekday: "short", // displays abbreviated day of the week
     month: "short",
     day: "numeric",
   };
@@ -53,7 +52,7 @@ export const DateFromTo = (createdAt) => {
 
   // Adjusting the dates to get previous Saturday and next Sunday
   pastSaturday.setDate(currentDate.getDate() - ((currentDate.getDay() === 0 ? 7 : currentDate.getDay()) + 1));
-  nextSunday.setDate(pastSaturday.getDate() + 8); // Next Sunday is exactly 8 days from the past Saturday
+  nextSunday.setDate(pastSaturday.getDate() + 7); // Next Sunday is exactly 7 days from the past Saturday
 
   const formattedCurrentDate = currentDate.toLocaleDateString("en-AU", dateOptions);
   const formattedPastSaturday = pastSaturday.toLocaleDateString("en-AU", dateOptions);
@@ -61,6 +60,8 @@ export const DateFromTo = (createdAt) => {
 
   return [formattedPastSaturday, formattedNextSunday,formattedCurrentDate];
 };
+
+
 
 export function formatStrapiCreatedOnDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };

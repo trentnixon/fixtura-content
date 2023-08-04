@@ -8,7 +8,7 @@ export const SectionHeaderWithSubHeader = ({Main,Sub}) => {
       <H size="h5" align="left">
        {Main}
       </H>
-      <P>{Sub}</P>
+      <P fz={'xs'}>{Sub}</P>
     </FixturaGroup> 
   );
 };

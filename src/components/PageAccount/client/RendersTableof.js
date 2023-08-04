@@ -4,14 +4,16 @@ import { RendersSelectBy } from "@/components/PageAccount/client/RendersSelectBy
 import { ICO_DOWNLOAD } from "@/components/UI/Icons";
 import { FixturaPaper } from "@/components/containers/paper";
 import { DateFromTo } from "@/utils/actions";
-import { Center, Group, Table } from "@mantine/core";
+import { ActionIcon, Group, Table } from "@mantine/core";
 
 import { P } from "@/components/Type/Paragraph";
 import { BUTTON_LINK_ICON } from "@/components/UI/buttons";
 import { ProcessingLoader } from "@/components/UI/Loader";
+import { useMediaQuery } from "@mantine/hooks";
 
 export const RendersTableof = async ({ RENDERS, params }) => {
   const [sortType, setSortType] = useState("desc");
+  const isMobile = useMediaQuery("(max-width: 768px)");
   //console.log(RENDERS);
 
   // Function to handle sorting renders by date
@@ -28,7 +30,7 @@ export const RendersTableof = async ({ RENDERS, params }) => {
   };
 
   return (
-    <FixturaPaper c={2}>
+    <FixturaPaper c={0}>
       <Group position="right">
         <RendersSelectBy sortType={sortType} setSortType={setSortType} />
       </Group>
@@ -41,17 +43,13 @@ export const RendersTableof = async ({ RENDERS, params }) => {
             <th>
               <P c="gray.9">To</P>
             </th>
-            <th>
-              <P c="gray.9" ta="center">
-                Review
-              </P>
-            </th>
+            <th></th>
           </tr>
         </thead>
 
         <tbody>
           {RENDERS.sort(sortRenders).map((render, i) => {
-            //console.log(render.attributes.Complete);
+            console.log(render.attributes);
             return (
               <tr key={`option_${i}`} id={render.id} value={render.id}>
                 <td>
@@ -60,19 +58,42 @@ export const RendersTableof = async ({ RENDERS, params }) => {
                 <td>
                   <P c="gray.9">{DateFromTo(render.attributes.createdAt)[1]}</P>
                 </td>
-                <td>
-                  <Center>
-                    {render.attributes.Complete ? (
+                <td align="right">
+                  {render.attributes.Complete ? (
+                    isMobile ? (
+                      <ActionIcon
+                        component="a"
+                        size="xl"
+                        radius="md"
+                        variant="outline"
+                        href={`/${params.id}/${render.id}`}
+                        sx={(theme) => ({
+                          borderColor: theme.colors.cyan[6],
+                          color: theme.colors.cyan[6],
+                          cursor: "pointer",
+                          "&:hover": {
+                            background: theme.fn.linearGradient(
+                              45,
+                              theme.colors.blue[5],
+                              theme.colors.cyan[5]
+                            ),
+                            color: theme.colors.gray[0],
+                            borderColor: theme.colors.blue[6],
+                          },
+                        })}
+                      >
+                        <ICO_DOWNLOAD />
+                      </ActionIcon>
+                    ) : (
                       <BUTTON_LINK_ICON
                         href={`/${params.id}/${render.id}`}
                         icon={<ICO_DOWNLOAD />}
                         label="Review"
-                        c="gray.8"
                       />
-                    ) : (
-                      <ProcessingLoader />
-                    )}
-                  </Center>
+                    )
+                  ) : (
+                    <ProcessingLoader />
+                  )}
                 </td>
               </tr>
             );

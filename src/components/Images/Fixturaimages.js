@@ -25,15 +25,17 @@ export const FixturaAccountLogo = (props) => {
   ) : (
     <Image
       src={Logo}
+      fit="cover" 
+      radius={100}
       width={120}
       alt={AccountLabel}
       height={120}
       sx={(theme) => ({
-        backgroundColor: theme.colors.gray[2],
+        backgroundColor: theme.colors.gray[0],
         textAlign: "center",
         borderRadius: "100%",
       })}
-      fit="contain"
+    
     />
   );
 };

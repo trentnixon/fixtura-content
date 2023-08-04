@@ -5,10 +5,10 @@ import { List, ScrollArea, useMantineTheme } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
 
 export const TrackingCompetitions = ({ associations }) => {
-  //console.log(associations);
+
   const theme = useMantineTheme();
   return (
-    <ScrollArea h={900} w={"100%"}>
+    <ScrollArea h={400} w={"100%"}>
       <FixturaBox c="0">
         <List
           spacing="xs"

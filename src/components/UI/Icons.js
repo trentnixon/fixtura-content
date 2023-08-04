@@ -14,6 +14,7 @@ import {
   IconPhotoAi,
   IconCricket,
   IconLadder,
+  IconUserCircle,
   IconArticle
 } from "@tabler/icons-react";
 
@@ -31,7 +32,7 @@ export const ICO_CALENDAR = () => {
 
 export const ICO_DOWNLOAD = () => {
   const theme = useMantineTheme();
-  return <IconDownload color={theme.colors.orange[7]} />;
+  return <IconDownload color={theme.colors.cyan[5]} />;
 };
 
 
@@ -109,4 +110,10 @@ export const ICO_HEADER_ARTICLE = () => {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery("(max-width: 768px)");
   return <ResponsiveIcon IconComponent={IconArticle} theme={theme} isMobile={isMobile} />;
+};
+
+export const ICO_HEADER_ACCOUNT = () => {
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return <ResponsiveIcon IconComponent={IconUserCircle} theme={theme} isMobile={isMobile} />;
 };

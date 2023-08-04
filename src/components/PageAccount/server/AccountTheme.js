@@ -12,40 +12,34 @@ export default async function AccountTheming({ params }) {
   const AccountTheme = await getThemeFromAccount(params.id);
   return (
     <FixturaComponent>
-      <SectionHeaderWithSubHeader Main="THEMES" Sub={`THEMES`} />
-
+      <SectionHeaderWithSubHeader Main="THEMES" Sub={`Selected Design`} />
       <FixturaPaper>
-        <P>
-          Tailor the look and feel of your Fixtura account according to your
-          preferences. Choose a template, select a theme, and decide whether or
-          not to include audio in your selections.
-        </P>
-        <FixturaGroup position="apart" align="flex-start" grow>
-          <FixturaStack>
-            <H size="h6">Template</H>
+        <FixturaStack>
+          <FixturaGroup grow={true} w={"100%"}>
+            <H size="h6">Template : </H>
             {AccountTheme.temp.data === null ? (
               "no template"
             ) : (
-              <FixturaBox>{AccountTheme.temp.data.attributes.Name}</FixturaBox>
+              <P fz={'sm'}>{AccountTheme.temp.data.attributes.Name}</P>
             )}
-          </FixturaStack>
-          <FixturaStack>
-            <H size="h6">Theme</H>
+          </FixturaGroup>
+          <FixturaGroup grow={true} w={"100%"}>
+            <H size="h6">Theme : </H>
             {AccountTheme.theme.data === null ? (
               "no theme"
             ) : (
-              <FixturaBox>{AccountTheme.theme.data.attributes.Name}</FixturaBox>
+              <P fz={'sm'}>{AccountTheme.theme.data.attributes.Name}</P>
             )}
-          </FixturaStack>
-          <FixturaStack>
-            <H size="h6">Audio</H>
+          </FixturaGroup>
+          <FixturaGroup grow={true} w={"100%"}>
+            <H size="h6">Audio : </H>
             {AccountTheme.audio.data === null ? (
               "no audio_option"
             ) : (
-              <FixturaBox>{AccountTheme.audio.data.attributes.Name}</FixturaBox>
+              <P fz={'sm'}>{AccountTheme.audio.data.attributes.Name}</P>
             )}
-          </FixturaStack>
-        </FixturaGroup>
+          </FixturaGroup>
+        </FixturaStack>
       </FixturaPaper>
     </FixturaComponent>
   );
