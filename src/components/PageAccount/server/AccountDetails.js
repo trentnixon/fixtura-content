@@ -26,14 +26,14 @@ export default async function AccountDetails({ params }) {
     <FixturaComponent>
       <FixturaPaper>
         <FixturaAccountBox>
-          <H size="h5">Account Type: {TYPE}</H>
+          <H size="h5" align={'center'}>Account Type: {TYPE}</H>
         </FixturaAccountBox>
         <FixturaAccountLogoBox>
           <FixturaAccountLogo
             Logo={FindAccountLogo(accountBasic)}
             AccountLabel={FindAccountLabel(accountBasic)}
           />
-          <P>{FindAccountLabel(accountBasic)} </P>
+          <P ta={'center'}>{FindAccountLabel(accountBasic)} </P>
         </FixturaAccountLogoBox>
       </FixturaPaper>
     </FixturaComponent> 

@@ -30,76 +30,82 @@ export const RendersTableof = async ({ RENDERS, params }) => {
   };
 
   return (
-    <FixturaPaper c={0}>
+    <>
       <Group position="right">
         <RendersSelectBy sortType={sortType} setSortType={setSortType} />
       </Group>
-      <Table>
-        <thead>
-          <tr>
-            <th>
-              <P c="gray.9">From</P>
-            </th>
-            <th>
-              <P c="gray.9">To</P>
-            </th>
-            <th></th>
-          </tr>
-        </thead>
+      <FixturaPaper c={0}>
+        <Table>
+          <thead>
+            <tr>
+              <th>
+                <P c="gray.9">From</P>
+              </th>
+              <th>
+                <P c="gray.9">To</P>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {RENDERS.sort(sortRenders).map((render, i) => {
-            console.log(render.attributes);
-            return (
-              <tr key={`option_${i}`} id={render.id} value={render.id}>
-                <td>
-                  <P c="gray.9">{DateFromTo(render.attributes.createdAt)[0]}</P>
-                </td>
-                <td>
-                  <P c="gray.9">{DateFromTo(render.attributes.createdAt)[1]}</P>
-                </td>
-                <td align="right">
-                  {render.attributes.Complete ? (
-                    isMobile ? (
-                      <ActionIcon
-                        component="a"
-                        size="xl"
-                        radius="md"
-                        variant="outline"
-                        href={`/${params.id}/${render.id}`}
-                        sx={(theme) => ({
-                          borderColor: theme.colors.cyan[6],
-                          color: theme.colors.cyan[6],
-                          cursor: "pointer",
-                          "&:hover": {
-                            background: theme.fn.linearGradient(
-                              45,
-                              theme.colors.blue[5],
-                              theme.colors.cyan[5]
-                            ),
-                            color: theme.colors.gray[0],
-                            borderColor: theme.colors.blue[6],
-                          },
-                        })}
-                      >
-                        <ICO_DOWNLOAD />
-                      </ActionIcon>
+          <tbody>
+            {RENDERS.sort(sortRenders).map((render, i) => {
+              console.log(render.attributes);
+              return (
+                <tr key={`option_${i}`} id={render.id} value={render.id}>
+                  <td>
+                    <P c="gray.9">
+                      {DateFromTo(render.attributes.createdAt)[0]}
+                    </P>
+                  </td>
+                  <td>
+                    <P c="gray.9">
+                      {DateFromTo(render.attributes.createdAt)[1]}
+                    </P>
+                  </td>
+                  <td align="right">
+                    {render.attributes.Complete ? (
+                      isMobile ? (
+                        <ActionIcon
+                          component="a"
+                          size="xl"
+                          radius="md"
+                          variant="outline"
+                          href={`/${params.id}/${render.id}`}
+                          sx={(theme) => ({
+                            borderColor: theme.colors.cyan[6],
+                            color: theme.colors.cyan[6],
+                            cursor: "pointer",
+                            "&:hover": {
+                              background: theme.fn.linearGradient(
+                                45,
+                                theme.colors.blue[5],
+                                theme.colors.cyan[5]
+                              ),
+                              color: theme.colors.gray[0],
+                              borderColor: theme.colors.blue[6],
+                            },
+                          })}
+                        >
+                          <ICO_DOWNLOAD />
+                        </ActionIcon>
+                      ) : (
+                        <BUTTON_LINK_ICON
+                          href={`/${params.id}/${render.id}`}
+                          icon={<ICO_DOWNLOAD />}
+                          label="Review"
+                        />
+                      )
                     ) : (
-                      <BUTTON_LINK_ICON
-                        href={`/${params.id}/${render.id}`}
-                        icon={<ICO_DOWNLOAD />}
-                        label="Review"
-                      />
-                    )
-                  ) : (
-                    <ProcessingLoader />
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </FixturaPaper>
+                      <ProcessingLoader />
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </FixturaPaper>
+    </>
   );
 };

@@ -118,20 +118,20 @@ const CTAGroup = ({ URL }) => {
 
 const VideoSupportingData = ({ description, articles }) => {
   return (
-    <Tabs defaultValue="about" variant="pills" color="orange">
+    <Tabs defaultValue="articles" variant="pills" color="blue">
       <Tabs.List position="center">
-        <Tabs.Tab value="about" icon={<IconBookFilled size="1rem" />}>
-          <P>About</P>
-        </Tabs.Tab>
         <Tabs.Tab value="articles" icon={<IconArticle size="1rem" />}>
           <P>Supporting Articles</P>
+        </Tabs.Tab>
+        <Tabs.Tab value="about" icon={<IconBookFilled size="1rem" />}>
+          <P>About</P>
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="about" pt="xs">
         <AssetDescription description={description} title="Description" />
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
-        {/* {articles ? <DisplaySupportingArticles renderData={articles} /> : false} */}
+        {articles ? <DisplaySupportingArticles renderData={articles} /> : false}
       </Tabs.Panel>
     </Tabs>
   );

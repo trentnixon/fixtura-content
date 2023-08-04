@@ -32,8 +32,8 @@ const mergeAndGroupAssets = (array1, array2, array3) => {
 };
 
 export default async function SectionTop5({ params, Type }) {
-  const Category = "Video options";
 
+  const Category = "Video options";
   const renderData = await getRenderFields(params.render, [
     "downloads",
     "downloads.asset_type",
@@ -88,7 +88,7 @@ export default async function SectionTop5({ params, Type }) {
     }
   );
 
-  console.log(renderArticles)
+  //console.log(renderArticles)
 
   const groupedAssets = mergeAndGroupAssets(
     filteredDownloadVideos,
@@ -117,7 +117,7 @@ export default async function SectionTop5({ params, Type }) {
             }
             key={index}
           >
-            <CreateStatisticsClient
+            <CreateStatisticsClient 
               key={index}
               assetName={assetName}
               assetTypes={assetTypes}

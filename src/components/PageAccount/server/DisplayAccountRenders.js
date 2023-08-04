@@ -23,13 +23,13 @@ export default async function DisplayAccountRenders({ params }) {
  
         <RendersTableof RENDERS={RENDERS} params={params} />
  
-        <FixturaBox c={4}>
+        <FixturaBox c={8}>
           <FixturaGRIDOUTER>
             <FixturaGRIDCOL span={1}>
               <ICO_INFO />
             </FixturaGRIDCOL>
             <FixturaGRIDCOL span={11}>
-              <P c={"dark"}>
+              <P c={"gray.1"}>
                 To select a render, simply locate the one you are interested in
                 using the date listed. Once selected, you&rsquo;ll have the
                 options to review its details, copy any relevant information, or

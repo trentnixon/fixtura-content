@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { P } from "@/components/Type/Paragraph";
 
@@ -11,10 +11,10 @@ import { H } from "@/components/Type/Headers";
 import { useMediaQuery } from "@mantine/hooks";
 
 function filterByArticleFormat(data) {
-  return data.filter((item) => item.asset.ArticleFormats === "Quick Single");
+  if (data)
+    return data.filter((item) => item.asset.ArticleFormats === "Quick Single");
+  return false;
 }
-
-
 
 export const DisplaySupportingArticles = ({ renderData }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -23,7 +23,7 @@ export const DisplaySupportingArticles = ({ renderData }) => {
   // Building the string that contains all articles' text
   const allArticlesText = renderData.map((article) => {
     let articleContent = filterByArticleFormat(
-      article.game_meta_datum.gtp_3_reports
+      article.game_meta_datum?.gtp_3_reports
     )[0]?.article;
 
     if (articleContent && articleContent.includes("#### Quick Single:")) {
@@ -61,16 +61,21 @@ export const DisplaySupportingArticles = ({ renderData }) => {
         })}
       </ScrollArea>
 
-      <FixturaGroup  my={5} mx={10}>
+      <FixturaGroup my={5} mx={10}>
         <H size="h6">Copy Articles to clipboard</H>
-        <CopyToClipboard text={allArticlesCombined} onCopy={() => setIsCopied(true)}>
+        <CopyToClipboard
+          text={allArticlesCombined}
+          onCopy={() => setIsCopied(true)}
+        >
           <Tooltip label={"Copy Supporting Articles"}>
             <ActionIcon
               size="xl"
               radius="md"
               variant="outline"
               sx={(theme) => ({
-                borderColor: isCopied ? theme.colors.green[6] : theme.colors.cyan[6],
+                borderColor: isCopied
+                  ? theme.colors.green[6]
+                  : theme.colors.cyan[6],
                 color: isCopied ? theme.colors.green[6] : theme.colors.cyan[6],
                 cursor: "pointer",
                 "&:hover": {
@@ -84,7 +89,11 @@ export const DisplaySupportingArticles = ({ renderData }) => {
                 },
               })}
             >
-              {isCopied ? <IconCheck size="1.125rem" /> : <IconCopy size="1.125rem" />}
+              {isCopied ? (
+                <IconCheck size="1.125rem" />
+              ) : (
+                <IconCopy size="1.125rem" />
+              )}
             </ActionIcon>
           </Tooltip>
         </CopyToClipboard>
@@ -92,7 +101,6 @@ export const DisplaySupportingArticles = ({ renderData }) => {
     </>
   );
 };
-
 
 const ArticleMeta = ({ GAME }) => {
   return (
