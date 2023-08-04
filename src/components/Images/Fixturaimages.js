@@ -8,7 +8,7 @@ export const FixturaHeaderLogo = (props) => {
       src={Logo}
       width={width}
       height={height}
-      fit="contain"
+      fit="cover"
       alt={AccountLabel}
       radius={100}
     />

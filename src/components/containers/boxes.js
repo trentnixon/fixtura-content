@@ -101,7 +101,7 @@ export const FixturaAccountBox = (props) => {
         backgroundColor: theme.colors.gray[0],
         textAlign: "left",
         padding: theme.spacing.sm,
-        borderBottom: `1px solid ${theme.colors.gray[3]}`,
+        
       })}
     >
       {children}

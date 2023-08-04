@@ -75,7 +75,11 @@ const SelectAArticle = () => {
           alignItems: "center",
           width: isMobile ? "100%" : "70%",
           borderRadius: theme.radius.sm,
-          backgroundColor: theme.colors.gray[8],
+          background: theme.fn.linearGradient(
+            45,
+            theme.colors.blue[5],
+            theme.colors.cyan[5]
+          ),
           marginBottom: 3,
         })}
       >

@@ -22,7 +22,7 @@ import { useCallback, useState } from "react";
 import { P } from "@/components/Type/Paragraph";
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaGroup } from "@/components/containers/Group";
-
+import { separateArticleHeaderAndBody } from "@/utils/UI";
 
 export const ArticleActionBtns = ({
   setCopied,
@@ -35,12 +35,13 @@ export const ArticleActionBtns = ({
   ArticleVersion,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+ const {articleHeader, articleBody} = separateArticleHeaderAndBody(article);
   return (
-    <Container className=" p-1 my-2">
+    <Container p={0} m={0}>
       <ArticleActionBtnGroup
         setCopied={setCopied}
         copied={copied}
-        article={article}
+        article={articleBody}
         requestRewrite={requestRewrite}
         rewriteCount={rewriteCount}
         setIsAddingContext={setIsAddingContext}

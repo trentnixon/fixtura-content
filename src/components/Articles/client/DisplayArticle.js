@@ -96,7 +96,6 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={10}>
           <ArticleHeader GAME={GAME} />
-
           <ArticleActionBtns 
             setCopied={setCopied}
             copied={copied}
