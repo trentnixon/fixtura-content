@@ -20,11 +20,14 @@ export default async function SectionImages({ params, Title, Type }) {
   );
 
   //console.log(filteredDownloads[0]);
-  if(filteredDownloads[0]?.attributes?.asset?.data?.attributes?.Name === undefined)
-        return false;
+  if (
+    filteredDownloads[0]?.attributes?.asset?.data?.attributes?.Name ===
+    undefined
+  )
+    return false;
   return (
     <FixturaSection
-    shade={1}
+      shade={1}
       Title={`Images`}
       subTitle={
         filteredDownloads[0]?.attributes?.asset?.data?.attributes?.SubTitle

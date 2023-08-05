@@ -113,7 +113,7 @@ export function HeaderMantine({ params, URLParams }) {
 
           <Image
             src="/images/LogoF.png"
-            alt="Fixtura"
+            alt="F"
             width={35}
             height={12}
             priority
