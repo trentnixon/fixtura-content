@@ -10,20 +10,22 @@ const useStyles = createStyles((theme) => ({
     minHeight: "200px",
     maxHeight: "225px",
     position: "absolute",
-    "--gradient-color-4": "#A5D8FF",
-    "--gradient-color-1": "#338C81",
-    "--gradient-color-2": "#EDFBFF",
-    "--gradient-color-3": "#D7F0EC",
+    "--gradient-color-1": "#A5D8FF",
+    "--gradient-color-2": "#E7F5FF",
+    "--gradient-color-3": "#E3FAFC",
+    "--gradient-color-4": "#F8F9FA",
+   
+   
   },
   gradientCanvasMobile: {
     width: "100%",
     minHeight: "200px",
     maxHeight: "225px",
     position: "absolute",
-    "--gradient-color-4": "#A5D8FF",
-    "--gradient-color-1": "#338C81",
-    "--gradient-color-2": "#EDFBFF",
-    "--gradient-color-3": "#D7F0EC",
+    "--gradient-color-1": "#A5D8FF",
+    "--gradient-color-2": "#E7F5FF",
+    "--gradient-color-3": "#E3FAFC",
+    "--gradient-color-4": "#F8F9FA",
   },
 }));
 export const MainCSSBanner = () => {
@@ -33,7 +35,7 @@ export const MainCSSBanner = () => {
     const gradient = new Gradient();
     gradient.initGradient("#gradient-canvas");
   }, []);
-
+ 
   return (
     <canvas
       id="gradient-canvas"

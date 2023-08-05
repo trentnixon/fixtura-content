@@ -86,7 +86,7 @@ export async function RenderCount(ID) {
   const res = await fetcher({
     PATH: `render/AssetCount`,
     method: "POST",
-    nextConfig: { next: { revalidate: 60 } },
+    nextConfig: { next: { revalidate: 600 } },
     body: { ID: ID },
   }); 
   return res.data;

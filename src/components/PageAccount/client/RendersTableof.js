@@ -4,16 +4,26 @@ import { RendersSelectBy } from "@/components/PageAccount/client/RendersSelectBy
 import { ICO_DOWNLOAD } from "@/components/UI/Icons";
 import { FixturaPaper } from "@/components/containers/paper";
 import { DateFromTo } from "@/utils/actions";
-import { ActionIcon, Group, Table } from "@mantine/core";
+import { ActionIcon, Group, Table, useMantineTheme } from "@mantine/core";
 
 import { P } from "@/components/Type/Paragraph";
 import { BUTTON_LINK_ICON } from "@/components/UI/buttons";
 import { ProcessingLoader } from "@/components/UI/Loader";
 import { useMediaQuery } from "@mantine/hooks";
+import { RenderCount } from "@/api/renders";
+import {
+  IconArticle,
+  IconCalendarStats,
+  IconDownload,
+  IconIdBadge2,
+  IconScoreboard,
+} from "@tabler/icons-react";
+import FixturaTooltip from "@/components/UI/ToolTip";
 
 export const RendersTableof = async ({ RENDERS, params }) => {
   const [sortType, setSortType] = useState("desc");
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const theme = useMantineTheme();
   //console.log(RENDERS);
 
   // Function to handle sorting renders by date
@@ -39,18 +49,50 @@ export const RendersTableof = async ({ RENDERS, params }) => {
           <thead>
             <tr>
               <th>
-                <P c="gray.9">From</P>
+                <FixturaTooltip label="From">
+                  <IconIdBadge2 size="1.5rem" color={theme.colors.cyan[5]} />
+                </FixturaTooltip>
               </th>
+
               <th>
-                <P c="gray.9">To</P>
+                <FixturaTooltip label="From">
+                  <IconCalendarStats
+                    size="1.5rem"
+                    color={theme.colors.cyan[5]}
+                  />
+                </FixturaTooltip>
               </th>
+              {!isMobile && (
+                <>
+                  <th>
+                    <FixturaTooltip label="Games Included">
+                      <IconScoreboard
+                        size="1.5rem"
+                        color={theme.colors.cyan[5]}
+                      />
+                    </FixturaTooltip>
+                  </th>
+                  <th>
+                    <FixturaTooltip label="Articles">
+                      <IconArticle size="1.5rem" color={theme.colors.cyan[5]} />
+                    </FixturaTooltip>
+                  </th>
+                </>
+              )}
+              <th>
+                <FixturaTooltip label="Media Downloads">
+                  <IconDownload size="1.5rem" color={theme.colors.cyan[5]} />
+                </FixturaTooltip>
+              </th>
+
               <th></th>
             </tr>
           </thead>
 
           <tbody>
-            {RENDERS.sort(sortRenders).map((render, i) => {
-              console.log(render.attributes);
+            {RENDERS.sort(sortRenders).map(async (render, i) => {
+              const Count = await RenderCount(render.id);
+              console.log(Count.GameCount.Total);
               return (
                 <tr key={`option_${i}`} id={render.id} value={render.id}>
                   <td>
@@ -63,6 +105,20 @@ export const RendersTableof = async ({ RENDERS, params }) => {
                       {DateFromTo(render.attributes.createdAt)[1]}
                     </P>
                   </td>
+                  {!isMobile && (
+                    <>
+                      <td>
+                        <P c="gray.9">{Count.GameCount.Total}</P>
+                      </td>
+                      <td>
+                        <P c="gray.9">{Count.gtp_3_reports}</P>
+                      </td>
+                    </>
+                  )}
+                  <td>
+                    <P c="gray.9">{Count.downloads}</P>
+                  </td>
+
                   <td align="right">
                     {render.attributes.Complete ? (
                       isMobile ? (

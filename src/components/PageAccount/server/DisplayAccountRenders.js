@@ -12,7 +12,7 @@ import { SectionHeaderWithSubHeader } from "@/layouts/Headings/SectionHeaderWith
 export default async function DisplayAccountRenders({ params }) {
   const scheduler = await getSchedulerFromAccount(params.id);
   const RENDERS = scheduler.attributes.renders.data; 
-
+ 
   return (
     <FixturaComponent>
       <FixturaStack align='left'>

@@ -1,22 +1,17 @@
 "use client";
 import { Tabs, useMantineTheme } from "@mantine/core";
-import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
-import { BUTTON_ICON_FUNC } from "@/components/UI/buttons";
 import { HTML5VideoPlayer } from "@/components/Video/client/HTML5VideoPlayer";
-//import VideoSupportingArticles from "@/components/Video/server/VideoSupportingArticles";
-import { FixturaBtnGroup, FixturaGroup } from "@/components/containers/Group";
 import { FixturaArticleBox, FixturaBox } from "@/components/containers/boxes";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { DisplaySupportingArticles } from "@/components/Video/client/DisplaySupportingArticles";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { IconArticle, IconBookFilled, IconDownload } from "@tabler/icons-react";
-import { handleVideoDownload } from "@/utils/helpers";
+import { IconArticle, IconBookFilled, } from "@tabler/icons-react";
 
-export async function CreateVideoClient(props) {
+
+export function CreateVideoClient(props) {
   const { ITEM, renderArticles, description } = props;
 
-  console.log(ITEM.Name);
   return (
     <FixturaGRIDOUTER>
       <FixturaGRIDCOL span={5} md={6} lg={3}>

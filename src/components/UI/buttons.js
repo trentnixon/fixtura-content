@@ -156,7 +156,7 @@ export const NavLinkWithIcon = (props) => {
   );
 };
 
-export const BUTTON_ICON_FUNC = (props) => {
+export const BUTTON_ICON_FUNC = (props) => { 
   const {
     Label = "",
     Color = "cyan",
@@ -175,10 +175,8 @@ export const BUTTON_ICON_FUNC = (props) => {
       <ActionIcon
         disabled={disabled}
         variant={variant}
-        leftIcon={Icon}
         size={size}
         onClick={onClick}
-        uppercase
         sx={(theme) => ({
           borderColor: theme.colors[Color][6],
           color: theme.colors[Color][6],

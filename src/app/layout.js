@@ -9,9 +9,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html className="h-full bg-gray-100">
+      <link rel="icon" type="image/png" href="/favicon-32x32.png"></link>
       <body  className={`${heebo.className} h-full`}>
         {children}
-      </body>
+      </body> 
     </html>
   );
 }

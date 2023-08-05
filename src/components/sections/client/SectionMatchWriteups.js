@@ -29,7 +29,7 @@ const GroupByGame = (dataArray) => {
 
   return groupedData;
 };
-export default async function SectionMatchWriteupsClient({ renderData }) {
+export default function SectionMatchWriteupsClient({ renderData }) {
   const [selected, setSelected] = useState(null);
   const groupedData = GroupByGame(renderData?.filteredData);
 

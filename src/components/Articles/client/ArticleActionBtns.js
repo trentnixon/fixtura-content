@@ -35,7 +35,7 @@ export const ArticleActionBtns = ({
   ArticleVersion,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
- const {articleHeader, articleBody} = separateArticleHeaderAndBody(article);
+  const { articleHeader, articleBody } = separateArticleHeaderAndBody(article);
   return (
     <Container p={0} m={0}>
       <ArticleActionBtnGroup
@@ -114,6 +114,7 @@ export const ArticleActionBtnGroup = ({
         {buttonConfigs.map((config, index) => {
           const ActionButtonComponent = (
             <ActionButton
+              key={index}
               config={config}
               setCopied={setCopied}
               copied={copied}
