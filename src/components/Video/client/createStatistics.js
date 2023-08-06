@@ -1,39 +1,54 @@
 "use client";
-import { Image, ScrollArea, Table, Tabs } from "@mantine/core";
+import { Center, Image, Modal, ScrollArea, Table, Tabs } from "@mantine/core";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
-import { BUTTON_ICON_FUNC } from "@/components/UI/buttons";
+import { BUTTON_FUNC, BUTTON_ICON_FUNC } from "@/components/UI/buttons";
 import { HTML5VideoPlayer } from "@/components/Video/client/HTML5VideoPlayer";
 //import VideoSupportingArticles from "@/components/Video/server/VideoSupportingArticles";
 import { FixturaBtnGroup, FixturaGroup } from "@/components/containers/Group";
 import { FixturaArticleBox, FixturaBox } from "@/components/containers/boxes";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
-import { DisplaySupportingArticles } from "@/components/Video/client/DisplaySupportingArticles";
+import {
+  DisplayStatisticsSupportingArticles,
+  DisplaySupportingArticles,
+} from "@/components/Video/client/DisplaySupportingArticles";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { IconArticle, IconBookFilled, IconDownload } from "@tabler/icons-react";
-import { handleVideoDownload } from "@/utils/helpers";
+import {
+  IconArticle,
+  IconBookFilled,
+  IconDownload,
+  IconEye,
+} from "@tabler/icons-react";
+import {
+  handleDownload,
+  handleDownloadAll,
+  handleVideoDownload,
+} from "@/utils/helpers";
 import { SingleImageWithDownload } from "@/components/Images/client/createImages";
+import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
 
-export async function CreateStatisticsClient(props) {
+export function CreateStatisticsClient(props) {
   const { ITEM, renderArticles, assetName, assetTypes, description } = props;
 
-  //console.log(assetTypes?.IMAGE);
+  console.log(assetName);
+
   if (!assetTypes?.IMAGE) return false;
   return (
     <>
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={5} md={6} lg={4}>
-          <Tabs defaultValue="about" variant="pills" color="blue">
+          <Tabs defaultValue="video" variant="pills" color="blue">
             <Tabs.List position="center">
-              <Tabs.Tab value="about" icon={<IconBookFilled size="1rem" />}>
+              <Tabs.Tab value="video" icon={<IconBookFilled size="1rem" />}>
                 <P>Video</P>
               </Tabs.Tab>
-              <Tabs.Tab value="articles" icon={<IconArticle size="1rem" />}>
+              <Tabs.Tab value="images" icon={<IconArticle size="1rem" />}>
                 <P>Image</P>
               </Tabs.Tab>
             </Tabs.List>
 
-            <Tabs.Panel value="about" pt="xs">
+            <Tabs.Panel value="video" pt="xs">
               {assetTypes?.VIDEO.map((video, i) => {
                 return (
                   <div key={i}>
@@ -44,7 +59,7 @@ export async function CreateStatisticsClient(props) {
                 );
               })}
             </Tabs.Panel>
-            <Tabs.Panel value="articles" pt="xs">
+            <Tabs.Panel value="images" pt="xs">
               <FixturaGroup>
                 <H size="h6">{assetName}</H>
               </FixturaGroup>
@@ -70,6 +85,7 @@ export async function CreateStatisticsClient(props) {
           <VideoSupportingData
             description={description}
             articles={assetTypes.article}
+            assetName={assetName}
           />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
@@ -78,45 +94,67 @@ export async function CreateStatisticsClient(props) {
 }
 
 const ImageList = ({ ITEMS }) => {
-  //console.log(ITEMS);
+  const [opened, { open, close }] = useDisclosure(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleViewClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    open();
+  };
+
   const rows = ITEMS?.map((element) => (
-    <tr key={element.name}>
+    <tr key={element.id}>
       <td>
-        <Image
-          alt={`download image`}
-          src={element?.attributes?.URL}
-          height={50}
-          width={`auto`}
-        />
+        <Center>
+          <Image
+            alt={`download image`}
+            src={element?.attributes?.URL}
+            width={250}
+            height={`auto`}
+          />
+        </Center>
+        <FixturaGroup position="center" my={10}>
+          <BUTTON_ICON_FUNC
+            label="Click to View"
+            onClick={() => handleViewClick(element?.attributes?.URL)}
+            Icon={<IconEye size="1.125rem" stroke={2} />}
+          />
+          <BUTTON_ICON_FUNC
+            label="Download Image"
+            onClick={() => {
+              handleDownload(element?.attributes?.URL);
+            }}
+            Icon={<IconDownload size="1.125rem" stroke={2} />}
+          />
+        </FixturaGroup>
       </td>
-      <td>{element.name}</td>
-      <td>View</td>
-      <td>DL</td>
+      {/*  */}
     </tr>
   ));
+
   return (
-    <ScrollArea h={450}>
-      <Table>
-        <tbody>{rows}</tbody>
-      </Table>
-    </ScrollArea>
+    <>
+      <ScrollArea h={500}>
+        <Table>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
+      <FixturaGroup position="right" my={10}>
+        <BUTTON_FUNC
+          Label={`Download All (${ITEMS.length})`}
+          onClick={() => handleDownloadAll(ITEMS)}
+        />
+      </FixturaGroup>
+      <Modal opened={opened} onClose={close} title="Image View">
+        <Image src={selectedImage} alt="Image View" />
+      </Modal>
+    </>
   );
 };
 
-const CTAGroup = ({ URL }) => {
-  return (
-    <FixturaBtnGroup my={5}>
-      <BUTTON_ICON_FUNC
-        onClick={() => {
-          handleVideoDownload(URL);
-        }}
-        Icon={<IconDownload />}
-      />
-    </FixturaBtnGroup>
-  );
-};
+const VideoSupportingData = ({ description, articles, assetName }) => {
+  console.log("VideoSupportingData VideoSupportingData VideoSupportingData");
 
-const VideoSupportingData = ({ description, articles }) => {
   return (
     <Tabs defaultValue="articles" variant="pills" color="blue">
       <Tabs.List position="center">
@@ -131,7 +169,11 @@ const VideoSupportingData = ({ description, articles }) => {
         <AssetDescription description={description} title="Description" />
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
-        {articles ? <DisplaySupportingArticles renderData={articles} /> : false}
+        {articles ? (
+          <DisplayStatisticsSupportingArticles Article={articles} />
+        ) : (
+          false
+        )}
       </Tabs.Panel>
     </Tabs>
   );

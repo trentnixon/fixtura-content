@@ -46,6 +46,7 @@ const CTAGroup = ({ URL }) => {
   return (
     <FixturaGroup position={"right"} my={5} py={5}>
       <BUTTON_ICON_FUNC
+        label="Download Image"
         onClick={() => {
           handleDownload(URL);
         }}

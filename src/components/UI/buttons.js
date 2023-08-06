@@ -158,7 +158,7 @@ export const NavLinkWithIcon = (props) => {
 
 export const BUTTON_ICON_FUNC = (props) => { 
   const {
-    Label = "",
+ 
     Color = "cyan",
     size = "xl",
     variant = "outline",

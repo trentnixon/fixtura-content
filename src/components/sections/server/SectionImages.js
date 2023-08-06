@@ -27,7 +27,7 @@ export default async function SectionImages({ params, Title, Type }) {
     return false;
   return (
     <FixturaSection
-      shade={1}
+      shade={0}
       Title={`Images`}
       subTitle={
         filteredDownloads[0]?.attributes?.asset?.data?.attributes?.SubTitle

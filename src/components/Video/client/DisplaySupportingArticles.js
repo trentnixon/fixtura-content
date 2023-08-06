@@ -4,11 +4,12 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { P } from "@/components/Type/Paragraph";
 
 import { FixturaArticleBox } from "@/components/containers/boxes";
-import { ActionIcon, ScrollArea, Tooltip } from "@mantine/core";
+import { ScrollArea } from "@mantine/core";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 import { FixturaGroup } from "@/components/containers/Group";
 import { H } from "@/components/Type/Headers";
 import { useMediaQuery } from "@mantine/hooks";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 function filterByArticleFormat(data) {
   if (data)
@@ -18,7 +19,6 @@ function filterByArticleFormat(data) {
 
 export const DisplaySupportingArticles = ({ renderData }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const [isCopied, setIsCopied] = useState(false);
 
   // Building the string that contains all articles' text
   const allArticlesText = renderData.map((article) => {
@@ -35,7 +35,6 @@ export const DisplaySupportingArticles = ({ renderData }) => {
 
   // Combine all articles into one string to be copied
   const allArticlesCombined = allArticlesText.join("\n");
-
   return (
     <>
       <P
@@ -61,44 +60,60 @@ export const DisplaySupportingArticles = ({ renderData }) => {
         })}
       </ScrollArea>
 
-      <FixturaGroup my={5} mx={10}>
-        <H size="h6">Copy Articles to clipboard</H>
-        <CopyToClipboard
-          text={allArticlesCombined}
-          onCopy={() => setIsCopied(true)}
-        >
-          <Tooltip label={"Copy Supporting Articles"}>
-            <ActionIcon
-              size="xl"
-              radius="md"
-              variant="outline"
-              sx={(theme) => ({
-                borderColor: isCopied
-                  ? theme.colors.green[6]
-                  : theme.colors.cyan[6],
-                color: isCopied ? theme.colors.green[6] : theme.colors.cyan[6],
-                cursor: "pointer",
-                "&:hover": {
-                  background: theme.fn.linearGradient(
-                    45,
-                    theme.colors.blue[5],
-                    theme.colors.cyan[5]
-                  ),
-                  color: theme.colors.gray[0],
-                  borderColor: theme.colors.blue[6],
-                },
-              })}
-            >
-              {isCopied ? (
-                <IconCheck size="1.125rem" />
-              ) : (
-                <IconCopy size="1.125rem" />
-              )}
-            </ActionIcon>
-          </Tooltip>
-        </CopyToClipboard>
-      </FixturaGroup>
+      <CopyArticleCTA ArticleToCopy={allArticlesCombined} />
     </>
+  );
+};
+
+export const DisplayStatisticsSupportingArticles = ({ Article }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  console.log(Article, Article.length);
+  return (
+    <>
+      <ScrollArea h={isMobile ? 450 : 600}>
+        <FixturaArticleBox mx={0}>
+          <ReactMarkdown>
+            {Article.length > 0
+              ? Article[0].attributes.article
+              : "No Article found"}
+          </ReactMarkdown>
+        </FixturaArticleBox>
+      </ScrollArea>
+
+      <CopyArticleCTA
+        ArticleToCopy={
+          Article.length > 0
+            ? Article[0].attributes.article
+            : "No Article found"
+        }
+      />
+    </>
+  );
+};
+
+const CopyArticleCTA = ({ ArticleToCopy }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  return (
+    <FixturaGroup my={5} mx={10}>
+      <H size="h6">Copy Articles to clipboard</H>
+      <CopyToClipboard
+        text={ArticleToCopy}
+        onCopy={() => {
+          console.log("Copying:", ArticleToCopy);
+          setIsCopied(true);
+        }}
+      >
+        <button className="btn btn-outline btn-info mx-1">
+          {isCopied ? (
+            <IconCheck size="1.125rem" />
+          ) : (
+            <IconCopy size="1.125rem" />
+          )}
+          {isCopied ? "Copied" : "Copy"}
+        </button>
+      </CopyToClipboard>
+    </FixturaGroup>
   );
 };
 
@@ -128,3 +143,41 @@ const ArticleMeta = ({ GAME }) => {
     </>
   );
 };
+
+/* <FixturaGroup my={5} mx={10}>
+        <H size="h6">Copy Articles to clipboard</H>
+        <CopyToClipboard
+          text={allArticlesCombined}
+          onCopy={() => setIsCopied(true)}
+        >
+          <FixturaTooltip label={"Copy Supporting Articles"}>
+            <ActionIcon
+              size="xl"
+              radius="md"
+              variant="outline"
+              sx={(theme) => ({
+                borderColor: isCopied
+                  ? theme.colors.green[6]
+                  : theme.colors.cyan[6],
+                color: isCopied ? theme.colors.green[6] : theme.colors.cyan[6],
+                cursor: "pointer",
+                "&:hover": {
+                  background: theme.fn.linearGradient(
+                    45,
+                    theme.colors.blue[5],
+                    theme.colors.cyan[5]
+                  ),
+                  color: theme.colors.gray[0],
+                  borderColor: theme.colors.blue[6],
+                },
+              })}
+            >
+              {isCopied ? (
+                <IconCheck size="1.125rem" />
+              ) : (
+                <IconCopy size="1.125rem" />
+              )}
+            </ActionIcon>
+          </FixturaTooltip>
+        </CopyToClipboard>
+      </FixturaGroup> */

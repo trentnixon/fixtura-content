@@ -3,7 +3,7 @@ import { getRenderFields } from "@/api/renders";
 import { FixturaSection } from "@/components/containers/Section";
 
 import { filterDownloads } from "@/utils/helpers";
-import { CreateVideoClient } from "@/components/Video/client/createVideo";
+//import { CreateVideoClient } from "@/components/Video/client/createVideo";
 import { CreateStatisticsClient } from "@/components/Video/client/createStatistics";
 
 const mergeAndGroupAssets = (array1, array2, array3) => {
