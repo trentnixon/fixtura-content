@@ -25,7 +25,7 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
 
   //params.render
   const RenderWriteups = await getWriteupsFromRender(params.render, Path, Type);
-
+ 
   return (
     <>
       {filteredDownloads.map((video, i) => {

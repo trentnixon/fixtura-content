@@ -1,15 +1,15 @@
 export const FindAccountLabel = (account) => {
-  if (!account?.attributes?.account_type?.data?.attributes?.Name) {
+  if (FindAccountType(account)) {
     return "Undefined";
   }
 
-  return account.attributes.account_type.data.attributes.Name === "Association"
+  return FindAccountType(account) === "Association"
     ? account.attributes.associations.data[0]?.attributes?.Name
     : account.attributes.clubs.data[0]?.attributes?.Name;
 };
 
 export const FindAccountLogo = (account) => {
-  const ACCOUNTTYPE = account?.attributes?.account_type?.data?.attributes?.Name;
+  const ACCOUNTTYPE = FindAccountType(account)
   if (!ACCOUNTTYPE) {
     return "Undefined";
   }
@@ -20,25 +20,24 @@ export const FindAccountLogo = (account) => {
     : account?.attributes.clubs.data[0]?.attributes.Logo.data?.attributes.url;
 };
 
-/* export const DateFromTo = (createdAt) => {
-  const dateOptions = {
-    weekday: "long",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  };
-  const currentDate = new Date(createdAt);
-  const pastDate = new Date(createdAt);
-  pastDate.setDate(currentDate.getDate() - 7);
+export const FindAccountType = (account) => {
+  return  account?.attributes?.account_type?.data?.attributes?.Name;
+};
 
-  const formattedCurrentDate = currentDate.toLocaleDateString(
-    "en-US",
-    dateOptions
-  );
-  const formattedPastDate = pastDate.toLocaleDateString("en-US", dateOptions);
+export const FindAccountWriteupID = (account) => {
+  const AccountType = FindAccountType(account)
+  console.log(AccountType)
+  return FindAccountType(account) === "Association"
+  ? 0
+  : account.attributes.clubs.data[0]?.id;
+  
+};
 
-  return [formattedPastDate, formattedCurrentDate];
-}; */
+
+
+
+
+
 export const DateFromTo = (createdAt) => {
   const dateOptions = {
     weekday: "short", // displays abbreviated day of the week

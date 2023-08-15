@@ -13,19 +13,28 @@ export const AddContext = ({
         Add Fixture context.
       </P>
       <P lh={"1.3"}>
-        Enrich this fixture with more nuanced details that go beyond the scorecard. Share specific player
-        contributions, highlight distinctive match features, or mention the
-        purpose behind the event.
+        Enrich this fixture with more nuanced details that go beyond the
+        scorecard. Share specific player contributions, highlight distinctive
+        match features, or mention the purpose behind the event.
       </P>
 
       <Textarea
         placeholder="Add game context to this Fixture"
         autosize
         minRows={10}
+        maxRows={20}
+        maxLength={1000}
         my={20}
         value={gameContext}
         onChange={(e) => setGameContext(e.target.value)}
       />
+      <P
+        fz={"xs"}
+        c={gameContext.length <= 900 ? "green.5" : "red.5"}
+        ta={"right"}
+      >
+        {1000 - gameContext.length} characters remaining
+      </P>
       <P lh={"2.1"}>
         NB : Any context added here will be applyed to any rewrites for this
         fixture.

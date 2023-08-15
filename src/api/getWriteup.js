@@ -45,13 +45,13 @@ export async function getWriteupsFieldsWithFilters(FIELDS, FILTERS) {
   return res.data;
 }
 
-export async function getWriteupsFromRender(ID, PATH, TYPE) {
-  console.log(ID, PATH, TYPE)
+export async function getWriteupsFromRender(ID, PATH, TYPE, BiasID) {
+  console.log(" getWriteupsFromRender ",ID, PATH, TYPE, BiasID);
   const res = await fetcher({
-    PATH: `render/getRenderWriteups/`, 
-    method:`POST`,
-    body:{ID:ID, PATH:PATH, TYPE:TYPE},
-    nextConfig: { cache: 'no-store' },
+    PATH: `render/getRenderWriteups/`,
+    method: `POST`,
+    body: { ID: ID, PATH: PATH, TYPE: TYPE, BiasID: BiasID },
+    nextConfig: { cache: "no-store" },
   });
-  return res.data; 
+  return res.data;
 }
