@@ -94,8 +94,6 @@ export default async function SectionTop5({ params, Type }) {
     filteredDownloadImages,
     renderArticles
   );
-
-  console.log("groupedAssets", groupedAssets)
   return (
     <>
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {

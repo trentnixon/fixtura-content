@@ -23,7 +23,7 @@ export async function getRenderFields(ID, FIELDS) {
   //const res = await fetcher(`accounts/${ID}?${queryParams}`);
   const res = await fetcher({
     PATH: `renders/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 10 } },
+    nextConfig: { next: { revalidate: 600 } },
   });
   //console.log(res.data)
   return res.data;

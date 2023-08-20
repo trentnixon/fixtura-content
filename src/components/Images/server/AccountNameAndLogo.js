@@ -43,7 +43,8 @@ export async function AccountNameAndLogoStack({ params }) {
   ]);
 
   const Logo = await FindAccountLogo(account);
-  const heading = await FindAccountLabel(account);
+  const heading = await FindAccountLabel(account); 
+  console.log("heading ",account)
   const LOGOHW=70
   return (
     <FixturaStack>

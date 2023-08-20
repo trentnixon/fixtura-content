@@ -1,5 +1,5 @@
 export const FindAccountLabel = (account) => {
-  if (FindAccountType(account)) {
+  if (!FindAccountType(account)) {
     return "Undefined";
   }
 
