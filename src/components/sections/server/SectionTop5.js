@@ -88,30 +88,33 @@ export default async function SectionTop5({ params, Type }) {
     }
   );
 
-  //console.log(renderArticles)
 
   const groupedAssets = mergeAndGroupAssets(
     filteredDownloadVideos,
     filteredDownloadImages,
     renderArticles
   );
-  //console.log(groupedAssets);
+
+  console.log("groupedAssets", groupedAssets)
   return (
     <>
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {
-        //console.log(assetName, assetTypes);
+        //console.log(assetName, assetTypes, assetTypes.VIDEO);
+        //console.log("assetTypes.VIDEO ",assetTypes.VIDEO)
+        if(!assetTypes?.VIDEO)
+        return false
         return (
           <FixturaSection
             shade={index}
             Title={`${assetName}`}
             // you may need to adjust the following two properties according to your needs
             subTitle={
-              assetTypes.VIDEO
+              assetTypes?.VIDEO
                 ? assetTypes.VIDEO[0].attributes.asset.data.attributes.SubTitle
                 : assetTypes.VIDEO[0].attributes.asset.data.attributes.SubTitle
             }
             Icon={
-              assetTypes.VIDEO
+              assetTypes?.VIDEO
                 ? assetTypes.VIDEO[0].attributes.asset.data.attributes.Icon
                 : assetTypes.VIDEO[0].attributes.asset.data.attributes.Icon
             }

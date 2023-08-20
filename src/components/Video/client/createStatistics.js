@@ -31,7 +31,7 @@ import { useDisclosure } from "@mantine/hooks";
 export function CreateStatisticsClient(props) {
   const { ITEM, renderArticles, assetName, assetTypes, description } = props;
 
-  console.log(assetName);
+  console.log(assetTypes);
 
   if (!assetTypes?.IMAGE) return false;
   return (

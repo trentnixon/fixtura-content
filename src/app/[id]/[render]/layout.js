@@ -4,7 +4,7 @@ import { HeroText } from "@/layouts/Headings/server/Heros";
 export default async function RootLayout({ children, params }) {
   return (
     <>
-      <HeroText params={params} />
+      <HeroText params={params} /> 
       {children}
     </>
   );
