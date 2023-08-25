@@ -5,6 +5,8 @@ import { FixturaSection } from "@/components/containers/Section";
 import { filterDownloads } from "@/utils/helpers";
 //import { CreateVideoClient } from "@/components/Video/client/createVideo";
 import { CreateStatisticsClient } from "@/components/Video/client/createStatistics";
+import { getAccountFields } from "@/api/accounts";
+import { isSponsorsActive } from "@/utils/actions";
 
 const mergeAndGroupAssets = (array1, array2, array3) => {
   const mergedArray = [...array1, ...array2, ...array3];
@@ -32,13 +34,17 @@ const mergeAndGroupAssets = (array1, array2, array3) => {
 };
 
 export default async function SectionTop5({ params, Type }) {
-
   const Category = "Video options";
   const renderData = await getRenderFields(params.render, [
     "downloads",
     "downloads.asset_type",
     "downloads.asset",
     "downloads.asset_category",
+  ]);
+
+  const accountBasic = await getAccountFields(params.id, [
+    "sponsors",
+    "subscription_tier",
   ]);
 
   // Usage:
@@ -88,7 +94,6 @@ export default async function SectionTop5({ params, Type }) {
     }
   );
 
-
   const groupedAssets = mergeAndGroupAssets(
     filteredDownloadVideos,
     filteredDownloadImages,
@@ -99,8 +104,7 @@ export default async function SectionTop5({ params, Type }) {
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {
         //console.log(assetName, assetTypes, assetTypes.VIDEO);
         //console.log("assetTypes.VIDEO ",assetTypes.VIDEO)
-        if(!assetTypes?.VIDEO)
-        return false
+        if (!assetTypes?.VIDEO) return false;
         return (
           <FixturaSection
             shade={index}
@@ -118,15 +122,15 @@ export default async function SectionTop5({ params, Type }) {
             }
             key={index}
           >
-            <CreateStatisticsClient 
+            <CreateStatisticsClient
               key={index}
               assetName={assetName}
               assetTypes={assetTypes}
-            
               description={
                 assetTypes.VIDEO[0].attributes.asset.data.attributes
                   .assetDescription
               }
+              hasSponsors={isSponsorsActive(accountBasic)}
             />
           </FixturaSection>
         );

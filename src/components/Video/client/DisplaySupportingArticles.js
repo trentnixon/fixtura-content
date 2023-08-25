@@ -10,6 +10,8 @@ import { FixturaGroup } from "@/components/containers/Group";
 import { H } from "@/components/Type/Headers";
 import { useMediaQuery } from "@mantine/hooks";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { AddSponsorsToArticle } from "@/components/Articles/client/AddSponsorsToArticle";
+import { formatSponsorsInPlainText } from "@/utils/UI";
 
 function filterByArticleFormat(data) {
   if (data)
@@ -17,7 +19,7 @@ function filterByArticleFormat(data) {
   return false;
 }
 
-export const DisplaySupportingArticles = ({ renderData }) => {
+export const DisplaySupportingArticles = ({ renderData, hasSponsors }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   // Building the string that contains all articles' text
@@ -33,8 +35,11 @@ export const DisplaySupportingArticles = ({ renderData }) => {
     return articleContent;
   });
 
-  // Combine all articles into one string to be copied
-  const allArticlesCombined = allArticlesText.join("\n");
+  // Combine all articles into one string and add any sponsors to be copied
+  let allArticlesCombined = allArticlesText.join("\n");
+  const sponsorsPlainText = formatSponsorsInPlainText(hasSponsors);
+  allArticlesCombined += sponsorsPlainText;
+ 
   return (
     <>
       <P
@@ -58,6 +63,12 @@ export const DisplaySupportingArticles = ({ renderData }) => {
             </div>
           );
         })}
+        <FixturaArticleBox mx={0}>
+          <AddSponsorsToArticle
+            hasSponsors={hasSponsors}
+            version={"supporting"}
+          />
+        </FixturaArticleBox>
       </ScrollArea>
 
       <CopyArticleCTA ArticleToCopy={allArticlesCombined} />
@@ -65,16 +76,17 @@ export const DisplaySupportingArticles = ({ renderData }) => {
   );
 };
 
-export const DisplayStatisticsSupportingArticles = ({ Article }) => {
+export const DisplayStatisticsSupportingArticles = ({ Article,hasSponsors }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   console.log(Article, Article.length);
+  
   return (
     <>
       <ScrollArea h={isMobile ? 450 : 600}>
         <FixturaArticleBox mx={0}>
           <ReactMarkdown>
             {Article.length > 0
-              ? Article[0].attributes.article
+              ? Article
               : "No Article found"}
           </ReactMarkdown>
         </FixturaArticleBox>
@@ -83,7 +95,7 @@ export const DisplayStatisticsSupportingArticles = ({ Article }) => {
       <CopyArticleCTA
         ArticleToCopy={
           Article.length > 0
-            ? Article[0].attributes.article
+            ? Article
             : "No Article found"
         }
       />

@@ -6,6 +6,8 @@ import { getRenderFields } from "@/api/renders";
 import { FixturaSection } from "@/components/containers/Section";
 import { filterDownloads } from "@/utils/helpers";
 import { CreateVideoClient } from "@/components/Video/client/createVideo";
+import { getAccountFields } from "@/api/accounts";
+import { isSponsorsActive } from "@/utils/actions";
 export default async function SectionVideos({ params, Title, Type, Path }) {
   //console.log(params);
   const Category = "Video options";
@@ -15,7 +17,11 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
     "downloads.asset",
     "downloads.asset_category", 
   ]);
-
+ 
+  const accountBasic = await getAccountFields(params.id, [
+    "sponsors",
+    "subscription_tier"
+  ]); 
   // Usage:
   const filteredDownloads = filterDownloads(
     renderData.attributes.downloads.data,
@@ -36,7 +42,7 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
             subTitle={video.attributes?.asset?.data?.attributes?.SubTitle}
             Icon={video.attributes?.asset?.data?.attributes?.Icon}
             key={i}
-          >
+          > 
             <CreateVideoClient
               Category="Video options"
               Type={Type}
@@ -44,6 +50,7 @@ export default async function SectionVideos({ params, Title, Type, Path }) {
               renderArticles={RenderWriteups.filteredData}
               description={video.attributes?.asset?.data?.attributes?.Blurb}
               subTitle={video.attributes?.asset?.data?.attributes?.SubTitle}
+              hasSponsors={isSponsorsActive(accountBasic)}
             />
           </FixturaSection>
         );

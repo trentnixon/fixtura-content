@@ -9,7 +9,7 @@ export const FindAccountLabel = (account) => {
 };
 
 export const FindAccountLogo = (account) => {
-  const ACCOUNTTYPE = FindAccountType(account)
+  const ACCOUNTTYPE = FindAccountType(account);
   if (!ACCOUNTTYPE) {
     return "Undefined";
   }
@@ -21,22 +21,32 @@ export const FindAccountLogo = (account) => {
 };
 
 export const FindAccountType = (account) => {
-  return  account?.attributes?.account_type?.data?.attributes?.Name;
+  return account?.attributes?.account_type?.data?.attributes?.Name;
 };
 
 export const FindAccountWriteupID = (account) => {
-  const AccountType = FindAccountType(account)
-  console.log(AccountType)
+  const AccountType = FindAccountType(account);
+  console.log(AccountType);
   return FindAccountType(account) === "Association"
-  ? 0
-  : account.attributes.clubs.data[0]?.id;
-  
+    ? 0
+    : account.attributes.clubs.data[0]?.id;
 };
 
+export const isSponsorsActive = (accountBasic) => {
+  console.log("isSponsorsActive");
+  const includeSponsors = accountBasic.attributes.subscription_tier.data.attributes.includeSponsors;
+  console.log(includeSponsors);
+  const sponsorsData = accountBasic.attributes.sponsors.data;
+  console.log(sponsorsData);
 
-
-
-
+  if (includeSponsors) {
+    // Filter out sponsors whose isArticle is set to false
+    const activeSponsors = sponsorsData.filter((sponsor) => sponsor.attributes.isArticle === true);
+    return activeSponsors;
+  } else {
+    return false;
+  }
+};
 
 export const DateFromTo = (createdAt) => {
   const dateOptions = {
@@ -44,23 +54,33 @@ export const DateFromTo = (createdAt) => {
     month: "short",
     day: "numeric",
   };
-  
+
   const currentDate = new Date(createdAt);
   const pastSaturday = new Date(createdAt);
   const nextSunday = new Date(createdAt);
 
   // Adjusting the dates to get previous Saturday and next Sunday
-  pastSaturday.setDate(currentDate.getDate() - ((currentDate.getDay() === 0 ? 7 : currentDate.getDay()) + 1));
+  pastSaturday.setDate(
+    currentDate.getDate() -
+      ((currentDate.getDay() === 0 ? 7 : currentDate.getDay()) + 1)
+  );
   nextSunday.setDate(pastSaturday.getDate() + 7); // Next Sunday is exactly 7 days from the past Saturday
 
-  const formattedCurrentDate = currentDate.toLocaleDateString("en-AU", dateOptions);
-  const formattedPastSaturday = pastSaturday.toLocaleDateString("en-AU", dateOptions);
-  const formattedNextSunday = nextSunday.toLocaleDateString("en-AU", dateOptions);
+  const formattedCurrentDate = currentDate.toLocaleDateString(
+    "en-AU",
+    dateOptions
+  );
+  const formattedPastSaturday = pastSaturday.toLocaleDateString(
+    "en-AU",
+    dateOptions
+  );
+  const formattedNextSunday = nextSunday.toLocaleDateString(
+    "en-AU",
+    dateOptions
+  );
 
-  return [formattedPastSaturday, formattedNextSunday,formattedCurrentDate];
+  return [formattedPastSaturday, formattedNextSunday, formattedCurrentDate];
 };
-
-
 
 export function formatStrapiCreatedOnDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -134,11 +154,13 @@ export const CompileAccountData = (DATA) => {
 // Function to get game date
 function getGameDate(data, findMostRecent = true) {
   // Filter out entries with missing game_meta_datum dates
-  const filteredData = data.filter((item) => 
-    item.attributes.game_meta_datum && 
-    item.attributes.game_meta_datum.data && 
-    item.attributes.game_meta_datum.data.attributes && 
-    item.attributes.game_meta_datum.data.attributes.date);
+  const filteredData = data.filter(
+    (item) =>
+      item.attributes.game_meta_datum &&
+      item.attributes.game_meta_datum.data &&
+      item.attributes.game_meta_datum.data.attributes &&
+      item.attributes.game_meta_datum.data.attributes.date
+  );
 
   // If filteredData is empty, return null
   if (!filteredData.length) {
@@ -148,8 +170,12 @@ function getGameDate(data, findMostRecent = true) {
   // Use reduce() to find the desired date
   const desiredGame = filteredData.reduce((desired, current) => {
     // Convert date strings to Date objects
-    const desiredDate = new Date(desired.attributes.game_meta_datum.data.attributes.date);
-    const currentDate = new Date(current.attributes.game_meta_datum.data.attributes.date);
+    const desiredDate = new Date(
+      desired.attributes.game_meta_datum.data.attributes.date
+    );
+    const currentDate = new Date(
+      current.attributes.game_meta_datum.data.attributes.date
+    );
 
     // Compare dates based on the findMostRecent flag
     if (findMostRecent) {
@@ -163,19 +189,16 @@ function getGameDate(data, findMostRecent = true) {
   return desiredGame.attributes.game_meta_datum.data.attributes.date;
 }
 
-
-
-
 export const ComplieRenderData = (DATA) => {
   //console.log('ComplieRenderData ',DATA.game_results_in_renders.data)
-  console.log(getGameDate(DATA.game_results_in_renders.data, true))
-  console.log(getGameDate(DATA.upcoming_games_in_renders.data, false))
+  console.log(getGameDate(DATA.game_results_in_renders.data, true));
+  console.log(getGameDate(DATA.upcoming_games_in_renders.data, false));
   return {
     CREATEDAT: DATA.createdAt,
     FROM: getGameDate(DATA.game_results_in_renders.data, true),
     TO: getGameDate(DATA.upcoming_games_in_renders.data, false),
   };
-}; 
+};
 
 // Complie ASSET DATA
 const ASSET_IDS = {

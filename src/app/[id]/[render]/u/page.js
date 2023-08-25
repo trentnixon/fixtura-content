@@ -8,12 +8,12 @@ export default async function Upage({ params }) {
   return (
     <FixturaContainer>
       <SectionMatchWriteups
-        params={params}
+        params={params} 
         Title={`Upcoming Writeups`}
         Type={`upcoming`}
         Path={`upcoming_games_in_renders`}
-      /> 
-      <SectionVideos
+      />   
+      <SectionVideos 
         params={params}
         Title={`Upcoming Videos`}
         Type={`upcoming`}
@@ -25,5 +25,5 @@ export default async function Upage({ params }) {
         Type={`upcoming`}
       />
     </FixturaContainer>
-  );
+  ); 
 }

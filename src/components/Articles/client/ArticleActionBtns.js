@@ -22,7 +22,7 @@ import { useCallback, useState } from "react";
 import { P } from "@/components/Type/Paragraph";
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaGroup } from "@/components/containers/Group";
-import { separateArticleHeaderAndBody } from "@/utils/UI";
+import { formatSponsorsInPlainText, separateArticleHeaderAndBody } from "@/utils/UI";
 
 export const ArticleActionBtns = ({
   setCopied,
@@ -33,6 +33,7 @@ export const ArticleActionBtns = ({
   setIsAddingContext,
   isAddingContext,
   ArticleVersion,
+  hasSponsors
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { articleHeader, articleBody } = separateArticleHeaderAndBody(article);
@@ -47,6 +48,8 @@ export const ArticleActionBtns = ({
         setIsAddingContext={setIsAddingContext}
         isAddingContext={isAddingContext}
         setIsModalOpen={setIsModalOpen}
+        ArticleVersion={ArticleVersion}
+        hasSponsors={hasSponsors}
       />
 
       <ModalPortal
@@ -68,20 +71,28 @@ export const ArticleActionBtnGroup = ({
   setIsAddingContext,
   isAddingContext,
   setIsModalOpen,
+  ArticleVersion,
+  hasSponsors
 }) => {
+
   const ReWrites = 3;
   // Manually handle copy operation
   const handleCopy = useCallback(() => {
+    let articleTextToCopy = article;
+    if (hasSponsors && ArticleVersion.asset.ArticleFormats !== 'Quick Single') {
+      const sponsorsPlainText = formatSponsorsInPlainText(hasSponsors);
+      articleTextToCopy += sponsorsPlainText;
+    }
+  
     navigator.clipboard
-      .writeText(article)
+      .writeText(articleTextToCopy)
       .then(() => {
-        // update your state to reflect the copy operation
         setCopied(true);
       })
       .catch((err) => {
         console.error("Could not copy text: ", err);
       });
-  }, [article, setCopied]);
+  }, [article, setCopied, hasSponsors, ArticleVersion]);
 
   const buttonConfigs = [
     {
@@ -139,6 +150,8 @@ export const ArticleActionBtnGroup = ({
     </Container>
   );
 };
+
+
 
 const ActionButton = ({ config, ...props }) => {
   const iconComponents = {

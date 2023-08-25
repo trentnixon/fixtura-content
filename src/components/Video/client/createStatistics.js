@@ -27,9 +27,10 @@ import {
 import { SingleImageWithDownload } from "@/components/Images/client/createImages";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
+import { formatSponsorsInPlainText } from "@/utils/UI";
 
 export function CreateStatisticsClient(props) {
-  const { ITEM, renderArticles, assetName, assetTypes, description } = props;
+  const { ITEM, renderArticles, assetName, assetTypes, description,hasSponsors } = props;
 
   console.log(assetTypes);
 
@@ -86,6 +87,7 @@ export function CreateStatisticsClient(props) {
             description={description}
             articles={assetTypes.article}
             assetName={assetName}
+            hasSponsors={hasSponsors}
           />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
@@ -152,9 +154,11 @@ const ImageList = ({ ITEMS }) => {
   );
 };
 
-const VideoSupportingData = ({ description, articles, assetName }) => {
+const VideoSupportingData = ({ description, articles, assetName,hasSponsors }) => {
   console.log("VideoSupportingData VideoSupportingData VideoSupportingData");
-
+  const CreateArticle=(Article)=>{
+    return Article[0].attributes.article += formatSponsorsInPlainText(hasSponsors)
+   }
   return (
     <Tabs defaultValue="articles" variant="pills" color="blue">
       <Tabs.List position="center">
@@ -170,8 +174,8 @@ const VideoSupportingData = ({ description, articles, assetName }) => {
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
         {articles ? (
-          <DisplayStatisticsSupportingArticles Article={articles} />
-        ) : (
+          <DisplayStatisticsSupportingArticles Article={CreateArticle(articles)} hasSponsors={hasSponsors} />
+        ) : ( 
           false
         )}
       </Tabs.Panel>

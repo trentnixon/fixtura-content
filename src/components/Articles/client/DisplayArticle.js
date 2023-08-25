@@ -17,7 +17,7 @@ import { AddContext } from "@/components/Articles/client/AddContext";
 import { useMediaQuery } from "@mantine/hooks";
 import { MobileSelectArticleType } from "@/components/Articles/client/MobileSelectArticleType";
 
-export const DisplayArticleSet = ({ SelectedGame }) => {
+export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
   const router = useRouter(); // Next.js router
   const isMobile = useMediaQuery("(max-width: 768px)");
   // Vars
@@ -96,7 +96,7 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={10}>
           <ArticleHeader GAME={GAME} />
-          <ArticleActionBtns 
+          <ArticleActionBtns
             setCopied={setCopied}
             copied={copied}
             article={ArticleSet[version].article}
@@ -106,7 +106,8 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
             rewriteCount={ArticleSet[version].rewriteCount}
             ArticleVersion={ArticleSet[version]}
             setIsAddingContext={setIsAddingContext}
-            isAddingContext={isAddingContext}
+            isAddingContext={isAddingContext} 
+            hasSponsors={hasSponsors}
           />
           {isAddingContext ? (
             <AddContext
@@ -116,26 +117,29 @@ export const DisplayArticleSet = ({ SelectedGame }) => {
               isLoading={isLoading}
             />
           ) : (
-            <ArticleContainer article={ArticleSet[version].article} />
+            <ArticleContainer
+              article={ArticleSet[version].article}
+              version={ArticleSet[version]}
+              hasSponsors={hasSponsors}
+            />
           )}
 
           <ArticleMetaData GAME={GAME} />
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={2}>
-          
           {isMobile ? (
-          <MobileSelectArticleType
-            setVersion={setVersion}
-            version={version}
-            ArticleSet={ArticleSet}
-          />
-        ) : (
-          <SelectArticleType
-            setVersion={setVersion}
-            version={version}
-            ArticleSet={ArticleSet}
-          />
-        )}
+            <MobileSelectArticleType
+              setVersion={setVersion}
+              version={version}
+              ArticleSet={ArticleSet}
+            />
+          ) : (
+            <SelectArticleType
+              setVersion={setVersion}
+              version={version}
+              ArticleSet={ArticleSet}
+            />
+          )}
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </>

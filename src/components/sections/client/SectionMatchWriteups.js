@@ -29,10 +29,9 @@ const GroupByGame = (dataArray) => {
 
   return groupedData;
 };
-export default function SectionMatchWriteupsClient({ renderData }) {
+export default function SectionMatchWriteupsClient({ renderData,hasSponsors }) {
   const [selected, setSelected] = useState(null);
   const groupedData = GroupByGame(renderData?.filteredData);
-
   return (
     <FixturaGRIDOUTER>
       <FixturaGRIDCOL span={3}>
@@ -45,9 +44,9 @@ export default function SectionMatchWriteupsClient({ renderData }) {
         {selected === null ? (
           <SelectAArticle />
         ) : (
-          <DisplayArticleSet SelectedGame={groupedData[selected]} />
+          <DisplayArticleSet SelectedGame={groupedData[selected]} hasSponsors={hasSponsors} />
         )}
-      </FixturaGRIDCOL>
+      </FixturaGRIDCOL> 
     </FixturaGRIDOUTER>
   );
 }

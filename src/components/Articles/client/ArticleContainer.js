@@ -1,14 +1,19 @@
+import { AddSponsorsToArticle } from "@/components/Articles/client/AddSponsorsToArticle";
+import { H } from "@/components/Type/Headers";
+import { P } from "@/components/Type/Paragraph";
 import { FixturaPaper } from "@/components/containers/paper";
 import { separateArticleHeaderAndBody } from "@/utils/UI";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
-export const ArticleContainer = ({ article }) => {
-  const {articleHeader, articleBody} = separateArticleHeaderAndBody(article);
+export const ArticleContainer = ({ article, hasSponsors, version }) => {
+  const { articleHeader, articleBody } = separateArticleHeaderAndBody(article);
+
   return (
     <>
-      <ReactMarkdown className="markdown">{articleHeader}</ReactMarkdown> 
+      <ReactMarkdown className="markdown">{articleHeader}</ReactMarkdown>
       <FixturaPaper c={2}>
         <ReactMarkdown className="markdown">{articleBody}</ReactMarkdown>
+        <AddSponsorsToArticle hasSponsors={hasSponsors} ArticleFormats={version.asset.ArticleFormats} />
       </FixturaPaper>
     </>
   );

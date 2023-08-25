@@ -34,3 +34,12 @@ export const separateArticleHeaderAndBody = (article) => {
 
   return {articleHeader, articleBody};
 };
+
+
+export const formatSponsorsInPlainText = (sponsors) => {
+  let plainTextString = '\n\n\n\nThis fixture write-up was proudly brought to you by:\n';
+  sponsors.forEach((sponsor) => {
+    plainTextString += `\n\n- Sponsor: ${sponsor.attributes.Name}\n  - Tagline: ${sponsor.attributes.Tagline}\n  - Description: ${sponsor.attributes.Description}\n  - URL: ${sponsor.attributes.URL}\n`;
+  });
+  return plainTextString;
+};

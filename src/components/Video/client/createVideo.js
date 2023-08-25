@@ -10,7 +10,7 @@ import { IconArticle, IconBookFilled, } from "@tabler/icons-react";
 
 
 export function CreateVideoClient(props) {
-  const { ITEM, renderArticles, description } = props;
+  const { ITEM, renderArticles, description,hasSponsors } = props;
 
   return (
     <FixturaGRIDOUTER>
@@ -27,14 +27,16 @@ export function CreateVideoClient(props) {
         <VideoSupportingData
           description={description}
           articles={renderArticles}
+          hasSponsors={hasSponsors}
         />
       </FixturaGRIDCOL>
     </FixturaGRIDOUTER>
   );
 }
 
-const VideoSupportingData = ({ description, articles }) => {
+const VideoSupportingData = ({ description, articles,hasSponsors }) => {
   const theme = useMantineTheme();
+  
   return (
     <Tabs
       defaultValue="articles"
@@ -57,8 +59,8 @@ const VideoSupportingData = ({ description, articles }) => {
         <AssetDescription description={description} />
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
-        {articles ? <DisplaySupportingArticles renderData={articles} /> : false}
-      </Tabs.Panel>
+        {articles ? <DisplaySupportingArticles renderData={articles} hasSponsors={hasSponsors} /> : false}
+      </Tabs.Panel> 
     </Tabs>
   );
 };
