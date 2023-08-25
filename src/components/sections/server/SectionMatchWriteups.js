@@ -25,7 +25,7 @@ export default async function SectionMatchWriteups({ params, Type, Path }) {
       shade={0}
       Title={`Articles`}
       subTitle={`Stay Informed with Our Weekend Articles`}
-      Icon={`ICO_HEADER_ARTICLE`}
+      Icon={`ICO_HEADER_ARTICLE`} 
     >
       <SectionMatchWriteupsClient renderData={Writeups} hasSponsors={isSponsorsActive(accountBasic)} />
     </FixturaSection>

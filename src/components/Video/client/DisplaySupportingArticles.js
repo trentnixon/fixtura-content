@@ -39,7 +39,7 @@ export const DisplaySupportingArticles = ({ renderData, hasSponsors }) => {
   let allArticlesCombined = allArticlesText.join("\n");
   const sponsorsPlainText = formatSponsorsInPlainText(hasSponsors);
   allArticlesCombined += sponsorsPlainText;
- 
+
   return (
     <>
       <P
@@ -76,17 +76,20 @@ export const DisplaySupportingArticles = ({ renderData, hasSponsors }) => {
   );
 };
 
-export const DisplayStatisticsSupportingArticles = ({ Article,hasSponsors }) => {
+export const DisplayStatisticsSupportingArticles = ({
+  ArticleForCopy,
+  ArticleForDisplay
+}) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
-  console.log(Article, Article.length);
-  
+  console.log(ArticleForCopy, ArticleForCopy.length);
+  console.log(ArticleForDisplay, ArticleForDisplay.length);
   return (
     <>
       <ScrollArea h={isMobile ? 450 : 600}>
         <FixturaArticleBox mx={0}>
           <ReactMarkdown>
-            {Article.length > 0
-              ? Article
+            {ArticleForDisplay.length > 0
+              ? ArticleForDisplay
               : "No Article found"}
           </ReactMarkdown>
         </FixturaArticleBox>
@@ -94,9 +97,7 @@ export const DisplayStatisticsSupportingArticles = ({ Article,hasSponsors }) => 
 
       <CopyArticleCTA
         ArticleToCopy={
-          Article.length > 0
-            ? Article
-            : "No Article found"
+          ArticleForCopy.length > 0 ? ArticleForCopy : "No Article found"
         }
       />
     </>

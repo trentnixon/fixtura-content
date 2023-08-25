@@ -18,7 +18,7 @@ export default async function Upage({ params }) {
         Title={`Upcoming Videos`}
         Type={`upcoming`}
         Path={`upcoming_games_in_renders`}
-      />
+      /> 
       <SectionImages
         params={params}
         Title={`Upcoming Images`}

@@ -27,13 +27,20 @@ import {
 import { SingleImageWithDownload } from "@/components/Images/client/createImages";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { formatSponsorsInPlainText } from "@/utils/UI";
+import {
+  formatSponsorsInMarkdown,
+  formatSponsorsInPlainText,
+} from "@/utils/UI";
 
 export function CreateStatisticsClient(props) {
-  const { ITEM, renderArticles, assetName, assetTypes, description,hasSponsors } = props;
-
-  console.log(assetTypes);
-
+  const {
+    ITEM,
+    renderArticles,
+    assetName,
+    assetTypes,
+    description,
+    hasSponsors,
+  } = props;
   if (!assetTypes?.IMAGE) return false;
   return (
     <>
@@ -154,11 +161,21 @@ const ImageList = ({ ITEMS }) => {
   );
 };
 
-const VideoSupportingData = ({ description, articles, assetName,hasSponsors }) => {
-  console.log("VideoSupportingData VideoSupportingData VideoSupportingData");
-  const CreateArticle=(Article)=>{
-    return Article[0].attributes.article += formatSponsorsInPlainText(hasSponsors)
-   }
+const VideoSupportingData = ({
+  description,
+  articles,
+  assetName,
+  hasSponsors,
+}) => {
+  const CreateArticleForDisplay = (Article) => {
+    return (Article[0].attributes.article +=
+      formatSponsorsInMarkdown(hasSponsors));
+  };
+  const CreateArticleForCopy = (Article) => {
+    return (Article[0].attributes.article +=
+      formatSponsorsInPlainText(hasSponsors));
+  };
+  // formatSponsorsInMarkdown
   return (
     <Tabs defaultValue="articles" variant="pills" color="blue">
       <Tabs.List position="center">
@@ -174,8 +191,12 @@ const VideoSupportingData = ({ description, articles, assetName,hasSponsors }) =
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
         {articles ? (
-          <DisplayStatisticsSupportingArticles Article={CreateArticle(articles)} hasSponsors={hasSponsors} />
-        ) : ( 
+          <DisplayStatisticsSupportingArticles
+            ArticleForDisplay={CreateArticleForDisplay(articles)}
+            ArticleForCopy={CreateArticleForCopy(articles)}
+
+          />
+        ) : (
           false
         )}
       </Tabs.Panel>
