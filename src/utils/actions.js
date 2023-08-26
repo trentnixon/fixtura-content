@@ -44,7 +44,7 @@ export const isSponsorsActive = (accountBasic) => {
     const activeSponsors = sponsorsData.filter((sponsor) => sponsor.attributes.isArticle === true);
     return activeSponsors;
   } else {
-    return false;
+    return [];
   }
 };
 

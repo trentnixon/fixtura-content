@@ -42,6 +42,7 @@ export function CreateStatisticsClient(props) {
     hasSponsors,
   } = props;
   if (!assetTypes?.IMAGE) return false;
+  console.log('hasSponsors', hasSponsors)
   return (
     <>
       <FixturaGRIDOUTER>
@@ -76,7 +77,6 @@ export function CreateStatisticsClient(props) {
                   <ImageList ITEMS={assetTypes.IMAGE} />
                 ) : (
                   assetTypes?.IMAGE.map((image, i) => {
-                    //console.log(image)
                     return (
                       <SingleImageWithDownload
                         URL={image.attributes.URL}
@@ -194,7 +194,6 @@ const VideoSupportingData = ({
           <DisplayStatisticsSupportingArticles
             ArticleForDisplay={CreateArticleForDisplay(articles)}
             ArticleForCopy={CreateArticleForCopy(articles)}
-
           />
         ) : (
           false

@@ -78,11 +78,11 @@ export const DisplaySupportingArticles = ({ renderData, hasSponsors }) => {
 
 export const DisplayStatisticsSupportingArticles = ({
   ArticleForCopy,
-  ArticleForDisplay
+  ArticleForDisplay,
 }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
-  console.log(ArticleForCopy, ArticleForCopy.length);
-  console.log(ArticleForDisplay, ArticleForDisplay.length);
+  /*  console.log(ArticleForCopy, ArticleForCopy.length);
+  console.log(ArticleForDisplay, ArticleForDisplay.length); */
   return (
     <>
       <ScrollArea h={isMobile ? 450 : 600}>
@@ -113,7 +113,6 @@ const CopyArticleCTA = ({ ArticleToCopy }) => {
       <CopyToClipboard
         text={ArticleToCopy}
         onCopy={() => {
-          console.log("Copying:", ArticleToCopy);
           setIsCopied(true);
         }}
       >

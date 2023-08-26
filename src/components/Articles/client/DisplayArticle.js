@@ -107,7 +107,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
             ArticleVersion={ArticleSet[version]}
             setIsAddingContext={setIsAddingContext}
             isAddingContext={isAddingContext} 
-            hasSponsors={hasSponsors}
+            hasSponsors={hasSponsors} 
           />
           {isAddingContext ? (
             <AddContext

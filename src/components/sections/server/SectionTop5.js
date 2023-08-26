@@ -33,7 +33,7 @@ const mergeAndGroupAssets = (array1, array2, array3) => {
   return groupedAssets;
 };
 
-export default async function SectionTop5({ params, Type }) {
+export default async function SectionTop5({ params, Type }) { 
   const Category = "Video options";
   const renderData = await getRenderFields(params.render, [
     "downloads",
