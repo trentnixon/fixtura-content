@@ -57,7 +57,7 @@ export async function getGameByID(gameID) {
 
 // PUT
 export async function putGameContext(ID,CONTEXT) {
-  console.log(ID,CONTEXT)
+  //console.log(ID,CONTEXT)
   const res = await fetcher({
     PATH: `game-meta-datas/${ID}`, 
     method:`PUT`,

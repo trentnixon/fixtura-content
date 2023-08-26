@@ -26,18 +26,18 @@ export const FindAccountType = (account) => {
 
 export const FindAccountWriteupID = (account) => {
   const AccountType = FindAccountType(account);
-  console.log(AccountType);
+  //console.log(AccountType);
   return FindAccountType(account) === "Association"
     ? 0
     : account.attributes.clubs.data[0]?.id;
 };
 
 export const isSponsorsActive = (accountBasic) => {
-  console.log("isSponsorsActive");
+  //console.log("isSponsorsActive");
   const includeSponsors = accountBasic.attributes.subscription_tier.data.attributes.includeSponsors;
-  console.log(includeSponsors);
+  //console.log(includeSponsors);
   const sponsorsData = accountBasic.attributes.sponsors.data;
-  console.log(sponsorsData);
+  //console.log(sponsorsData);
 
   if (includeSponsors) {
     // Filter out sponsors whose isArticle is set to false
@@ -191,8 +191,8 @@ function getGameDate(data, findMostRecent = true) {
 
 export const ComplieRenderData = (DATA) => {
   //console.log('ComplieRenderData ',DATA.game_results_in_renders.data)
-  console.log(getGameDate(DATA.game_results_in_renders.data, true));
-  console.log(getGameDate(DATA.upcoming_games_in_renders.data, false));
+  //console.log(getGameDate(DATA.game_results_in_renders.data, true));
+  //console.log(getGameDate(DATA.upcoming_games_in_renders.data, false));
   return {
     CREATEDAT: DATA.createdAt,
     FROM: getGameDate(DATA.game_results_in_renders.data, true),

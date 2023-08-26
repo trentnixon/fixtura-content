@@ -92,7 +92,6 @@ export const RendersTableof = async ({ RENDERS, params }) => {
           <tbody>
             {RENDERS.sort(sortRenders).map(async (render, i) => {
               const Count = await RenderCount(render.id);
-              console.log(Count.GameCount.Total);
               return (
                 <tr key={`option_${i}`} id={render.id} value={render.id}>
                   <td>

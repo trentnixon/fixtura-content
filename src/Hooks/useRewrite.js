@@ -18,7 +18,7 @@ export function useRewrite(id) {
     const response = await fetcher({
       PATH: `gtp-3-report/rewrite/${ID}`,
     });
-    console.log(response.data.istrue)
+   
     if (response.data.istrue) {
       setRewriteStatus(true);
     } else {
@@ -39,7 +39,7 @@ export function usePollRewrite(id, isPending) {
 
   useEffect(() => {
     let interval;
-    console.log('isPending ', isPending)
+    //console.log('isPending ', isPending)
     if (isPending === true) {
       const fetchArticle = async () => {
         interval = setInterval(async () => {

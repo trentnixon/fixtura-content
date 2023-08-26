@@ -9,7 +9,7 @@ export const ContentShell = ({ children, params }) => {
   const { id, render } = params;
   const URLParams = useParams();
 
-  console.log("searchParams", URLParams.render);
+  //console.log("searchParams", URLParams.render);
 
   const Content = withMobileWarning(() => (
     <AppShell

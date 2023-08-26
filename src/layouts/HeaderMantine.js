@@ -95,7 +95,7 @@ export function HeaderMantine({ params, URLParams }) {
   const { id } = params;
   const { classes } = useStyles();
   const [opened, { close, toggle }] = useDisclosure(false);
-  console.log("render", URLParams.render);
+  //console.log("render", URLParams.render);
   const theme = useMantineTheme();
   const closeDrawer = () => {
     close();
@@ -221,7 +221,7 @@ const RenderBtns = ({ params }) => {
   const renderLinks = CATEGORIES.map((item, i) => {
     const isActive = pathname === `/${id}/${render}/${item.value}`; // check if current path is equal to item's path
 
-    console.log("isActive ", pathname, `/${id}/${render}/${item.value}`);
+    //console.log("isActive ", pathname, `/${id}/${render}/${item.value}`);
     return (
       <Tooltip
         key={i}

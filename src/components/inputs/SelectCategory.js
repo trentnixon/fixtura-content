@@ -23,7 +23,6 @@ export const SelectACategory = ({ params }) => {
   const [searchValue, setSearchValue] = useState(null);
 
   useEffect(() => {
-    console.log(pathname)
     const lastPathSegment = pathname.split("/").pop();
     setSearchValue(lastPathSegment);
   }, [pathname]);

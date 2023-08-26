@@ -3,7 +3,7 @@ import { fetcher } from "@/utils/fetcher";
 const qs = require("qs");
 
 export async function withTokenValidation(token) {
-  console.log("check token", token);
+  //console.log("check token", token);
   const queryParams = qs.stringify(
     {
       filters: {
@@ -23,7 +23,7 @@ export async function withTokenValidation(token) {
     PATH: `render-tokens?${queryParams}`,
     nextConfig: { next: { revalidate: 600 } },
   });
-  console.log("Token Response, ", res.data.length);
+  //console.log("Token Response, ", res.data.length);
 
   return res.data.length === 1 ? true : false;
 }

@@ -83,8 +83,8 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
   }, [ArticleSet]);
 
   useEffect(() => {
-    console.log("isAddingContext", isAddingContext);
-    console.log("GAME", GAME.gameContext);
+    //console.log("isAddingContext", isAddingContext);
+    //console.log("GAME", GAME.gameContext);
   }, [isAddingContext]);
 
   if (isPending) {

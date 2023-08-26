@@ -18,7 +18,7 @@ import {
 } from "recharts";
 
 export const BarChartCategoryType = ({ Count }) => {
-  console.log(Count);
+  //console.log(Count);
   const data = [
     {
       name: "Articles",

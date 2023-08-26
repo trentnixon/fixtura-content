@@ -17,7 +17,6 @@ export const FixturaHeaderLogo = (props) => {
 
 export const FixturaAccountLogo = (props) => {
   const { Logo, AccountLabel } = props;
-  console.log(Logo);
   return Logo === undefined ? (
     <div style={{ width: "120px", height: "120px" }}>
       <DefaultLogo />

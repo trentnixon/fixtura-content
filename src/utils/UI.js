@@ -51,8 +51,7 @@ export const formatSponsorsInPlainText = (sponsors) => {
 };
 
 export const formatSponsorsInMarkdown = (sponsors) => {
-  console.log("formatSponsorsInMarkdown", sponsors.length);
-
+  //console.log("formatSponsorsInMarkdown", sponsors.length);
   let markdownString =
     "\n\n&nbsp;\n\n**This fixture write-up was proudly brought to you by:**\n";
   sponsors.forEach((sponsor) => {

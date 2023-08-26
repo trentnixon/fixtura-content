@@ -14,7 +14,6 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 
 const GroupByGame = (dataArray) => {
-  console.log(dataArray);
   const groupedData = dataArray.reduce((acc, obj) => {
     const gameID = obj.game_meta_datum.gameID;
 

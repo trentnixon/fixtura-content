@@ -46,7 +46,7 @@ export async function getWriteupsFieldsWithFilters(FIELDS, FILTERS) {
 }
 
 export async function getWriteupsFromRender(ID, PATH, TYPE, BiasID) {
-  console.log(" getWriteupsFromRender ",ID, PATH, TYPE, BiasID);
+  //console.log(" getWriteupsFromRender ",ID, PATH, TYPE, BiasID);
   const res = await fetcher({
     PATH: `render/getRenderWriteups/`,
     method: `POST`,

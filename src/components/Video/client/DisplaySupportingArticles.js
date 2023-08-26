@@ -81,8 +81,6 @@ export const DisplayStatisticsSupportingArticles = ({
   ArticleForDisplay,
 }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
-  /*  console.log(ArticleForCopy, ArticleForCopy.length);
-  console.log(ArticleForDisplay, ArticleForDisplay.length); */
   return (
     <>
       <ScrollArea h={isMobile ? 450 : 600}>

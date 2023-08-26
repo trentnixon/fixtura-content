@@ -1,22 +1,22 @@
 import JSZip from "jszip";
 
 export const handleDownload = async (imageUrl) => {
-  console.log(`Fetching ${imageUrl}`);
+  //console.log(`Fetching ${imageUrl}`);
   const response = await fetch(imageUrl, {
     headers: {
       "Cache-Control": "no-cache",
     },
   });
 
-  console.log("Response:", response);
+  //console.log("Response:", response);
 
   const blob = await response.blob();
 
-  console.log("Blob:", blob);
+  //console.log("Blob:", blob);
 
   const url = URL.createObjectURL(blob);
 
-  console.log("Blob URL:", url);
+  //console.log("Blob URL:", url);
 
   // Create a new URL object and extract the filename
   const urlObject = new URL(imageUrl);

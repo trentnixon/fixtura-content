@@ -42,7 +42,6 @@ export function CreateStatisticsClient(props) {
     hasSponsors,
   } = props;
   if (!assetTypes?.IMAGE) return false;
-  console.log('hasSponsors', hasSponsors)
   return (
     <>
       <FixturaGRIDOUTER>
