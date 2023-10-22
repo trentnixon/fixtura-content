@@ -17,7 +17,7 @@ export default async function ViewImageGrid({ DATA, assetType, PATH }) {
   );
 } 
 
-function ImageCarousel({ Images }) {
+function ImageCarousel({ Images }) { 
   return (
     <>
       <H size="h5" align="right">
@@ -41,7 +41,7 @@ function ImageCarousel({ Images }) {
           return (
             <Carousel.Slide key={Images[Download].id}>
               <FixturaBox>
-                <Image src={imageUrl} width={400} height={500} fit="contain" />
+                <Image src={imageUrl} width={400} height={500} fit="contain" alt={'Download Asset'} />
                 <Group position="center" my={20}>
                   <BUTTON_FUNC
                     Label={`Download`}
@@ -78,6 +78,7 @@ const ImageGrid = ({ Images }) => {
                     width={200 / 2}
                     height={250 / 2}
                     fit="contain"
+                    alt={'Download Asset'}
                   />
                 </FixturaBox>
               </div>

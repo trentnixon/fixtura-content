@@ -29,7 +29,7 @@ export const HTML5VideoPlayer = ({ url, Name }) => {
       toggle(false);
     }
     //
-  }, [hasBeenClicked]);
+  }, [hasBeenClicked, visible, toggle]);
 
   return (
     <>

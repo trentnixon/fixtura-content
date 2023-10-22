@@ -10,7 +10,7 @@ export const SelectARender = ({ PATH, DATA }) => {
 
   useEffect(() => {
     setDateRanges(DATA.map(render => DateFromTo(render.attributes.createdAt)));
-  }, []);
+  }, [DATA]);
 
   const DirectToRender = (value) => {
     router.push(`${PATH}/${value.target.value}`);
