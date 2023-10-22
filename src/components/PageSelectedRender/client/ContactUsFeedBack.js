@@ -87,7 +87,7 @@ export function UserFeedback() {
             />
           </Group>
         </div>
-        <Image className={classes.image}  src="https://fixtura.s3.ap-southeast-2.amazonaws.com/voiceicon_d9c979445c.png" />
+        <Image className={classes.image} alt={'Message Us on Facebook'}  src="https://fixtura.s3.ap-southeast-2.amazonaws.com/voiceicon_d9c979445c.png" />
       </div>
     </Container>
   );

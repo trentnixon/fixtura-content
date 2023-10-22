@@ -1,7 +1,6 @@
 // APIS
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaContainer } from "@/components/containers/containers";
-import { FixturaPaper } from "@/components/containers/paper";
 import { DeveloperComment } from "@/components/PageSelectedRender/client/DeveloperComment";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
@@ -17,7 +16,11 @@ export async function BundleWelcomeMessage() {
             NEW Refreshed Bundle Hub!
           </H>
           <P c={"gray.1"}>
-          We're excited to roll out some impactful updates to elevate your experience. As we continually strive to improve, we welcome any feedback on the new approach. Additionally, please notify us if you encounter any errors or find any missing fixtures in your weekly bundles.
+            We&apos;re excited to roll out some impactful updates to elevate
+            your experience. As we continually strive to improve, we welcome any
+            feedback on the new approach. Additionally, please notify us if you
+            encounter any errors or find any missing fixtures in your weekly
+            bundles.
           </P>
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={1}>
@@ -33,9 +36,10 @@ export async function BundleUpdates() {
     <FixturaContainer my={30} mx={"5%"}>
       <DeveloperComment
         Title={`Simplified Layout:`}
-        Copy={`We've decluttered and focused on what's essential. Results and
-          upcoming events take center stage, while videos, images, and write-ups
-          have dedicated pages for easier access. More tweaks are coming soon!`}
+        Copy={`We&apos;ve decluttered and focused on what&apos;s essential. Results and
+        upcoming events take center stage, while videos, images, and write-ups
+        have dedicated pages for easier access. More tweaks are coming soon!
+`}
       />
 
       <DeveloperComment

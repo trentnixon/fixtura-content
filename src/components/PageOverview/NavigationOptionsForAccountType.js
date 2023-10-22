@@ -17,8 +17,9 @@ export default async function NavigationOptionsForAccountType({ params }) {
     <>
       <FixturaComponent>
         <FixturaGRIDOUTER>
-          {Object.keys(renders.assetGrouping).map((key) => (
+          {Object.keys(renders.assetGrouping).map((key, i) => (
             <FixturaGRIDCOL
+              key={i}
               span={Object.keys(renders.assetGrouping).length < 3 ? 6 : 4}
             >
               <CategoryPod params={params} keyLabel={key} />

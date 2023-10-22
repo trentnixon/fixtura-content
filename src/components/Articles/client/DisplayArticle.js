@@ -82,10 +82,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
     SetIsPending(false);
   }, [ArticleSet]);
 
-  useEffect(() => {
-    //console.log("isAddingContext", isAddingContext);
-    //console.log("GAME", GAME.gameContext);
-  }, [isAddingContext]);
+  useEffect(() => {}, [isAddingContext]);
 
   if (isPending) {
     return <PendingRewrite />;
