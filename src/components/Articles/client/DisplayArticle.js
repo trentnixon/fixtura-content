@@ -62,20 +62,20 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
   useEffect(() => {
     setGameContext(GAME.gameContext || "");
     setIsAddingContext(false);
-  }, [SelectedGame]);
+  }, [SelectedGame,GAME.gameContext]);
   // Update the state with the new article once it's ready
   useEffect(() => {
     if (startPolling !== null && isPending) {
       router.refresh(); // Refresh the page to reflect the new data
     }
-  }, [startPolling]);
+  }, [startPolling, isPending, router]);
 
   useEffect(() => {
     if (needsRefresh) {
       router.refresh();
       setNeedsRefresh(false);
     }
-  }, [needsRefresh]);
+  }, [needsRefresh, router]);
 
   useEffect(() => {
     console.log("router.refresh() TEST, does this run when it does?");
