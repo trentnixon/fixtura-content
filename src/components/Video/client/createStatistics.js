@@ -1,5 +1,13 @@
 "use client";
-import { Center, Image, Modal, ScrollArea, Table, Tabs } from "@mantine/core";
+import {
+  Center,
+  Image,
+  Modal,
+  ScrollArea,
+  SimpleGrid,
+  Table,
+  Tabs,
+} from "@mantine/core";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
 import { BUTTON_FUNC, BUTTON_ICON_FUNC } from "@/components/UI/buttons";
@@ -40,8 +48,53 @@ export function CreateStatisticsClient(props) {
     assetTypes,
     description,
     hasSponsors,
+    display,
   } = props;
+  console.log(assetTypes);
+
   if (!assetTypes?.IMAGE) return false;
+  if (display === "IMAGE")
+    return (
+      <SimpleGrid
+        breakpoints={[
+          { minWidth: "sm", cols: 2 },
+          { minWidth: "md", cols: 3 },
+          { minWidth: 1200, cols: 4 },
+        ]}
+      >
+        {assetTypes?.IMAGE.map((image, i) => {
+          return <SingleImageWithDownload URL={image.attributes.URL} key={i} />;
+        })}
+      </SimpleGrid>
+    );
+
+  if (display === "VIDEO")
+    return (
+      <>
+        {assetTypes?.VIDEO.map((video, i) => {
+          return (
+            <div key={i}>
+              <FixturaGRIDOUTER>
+                <FixturaGRIDCOL span={5} md={6} lg={4}>
+                  <HTML5VideoPlayer url={video.attributes.URL} key={i} />
+                </FixturaGRIDCOL>
+                <FixturaGRIDCOL span={7} md={6} lg={9}>
+                  {/*  <VideoSupportingData
+                    description={description}
+                    articles={renderArticles}
+                    hasSponsors={hasSponsors}
+                    GroupBy={GroupBy}
+                    AccountType={AccountType}
+                  /> */}
+                  supporting Articles
+                </FixturaGRIDCOL>
+              </FixturaGRIDOUTER>
+            </div>
+          );
+        })}
+      </>
+    );
+
   return (
     <>
       <FixturaGRIDOUTER>

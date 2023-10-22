@@ -1,7 +1,7 @@
 export const FindAccountLabel = (account) => {
   if (!FindAccountType(account)) {
     return "Undefined";
-  }
+  } 
 
   return FindAccountType(account) === "Association"
     ? account.attributes.associations.data[0]?.attributes?.Name

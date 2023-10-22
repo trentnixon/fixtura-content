@@ -1,10 +1,7 @@
 "use client";
 
 import { DisplayArticleSet } from "@/components/Articles/client/DisplayArticle";
-import {
-  GameListParent,
-  ListGamesWithArticles,
-} from "@/components/Articles/client/ListGamesWithArticles";
+import { ListGamesWithArticles } from "@/components/Articles/client/ListGamesWithArticles";
 import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
 import { ICO_HEADER_ARTICLE } from "@/components/UI/Icons";
@@ -13,26 +10,53 @@ import { Box, Container, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 
-const GroupByGame = (dataArray) => {
+
+const GroupByGame = (dataArray, ageGroupKey, accountType) => {
+
+  const isMatchingAgeGroup = (obj) => {
+    // logic for Clubs
+    const ageGroup = obj.game_meta_datum.grade.ageGroup;
+    if (accountType === 'Club') {
+      if (ageGroupKey === "Junior" && ageGroup && ageGroup.startsWith("U")) {
+        return true;
+      } else if (
+        ageGroupKey === "Senior" &&
+        (ageGroup === "Senior" || (ageGroup && ageGroup.startsWith("Over")))
+      ) {
+        return true;
+      }
+    } else if (accountType === 'Association') {
+      // logic for Associations
+      const competitionName = obj.game_meta_datum.grade.competition.competitionName;
+      return competitionName === ageGroupKey;
+    }
+    return false;
+  };
+  
+
   const groupedData = dataArray.reduce((acc, obj) => {
     const gameID = obj.game_meta_datum.gameID;
-
     if (!acc[gameID]) {
       acc[gameID] = [];
     }
-
-    acc[gameID].push(obj);
-
+    if (isMatchingAgeGroup(obj)) {
+      acc[gameID].push(obj);
+    }
     return acc;
   }, {});
 
   return groupedData;
 };
-export default function SectionMatchWriteupsClient({ renderData,hasSponsors }) {
+
+
+
+export default function SectionMatchWriteupsClient(props) {
+  const { renderData, hasSponsors, GroupBy, FindAccountType } = props;
   const [selected, setSelected] = useState(null);
-  const groupedData = GroupByGame(renderData?.filteredData);
+  const groupedData = GroupByGame(renderData?.filteredData, GroupBy, FindAccountType);
   return (
     <FixturaGRIDOUTER>
+     
       <FixturaGRIDCOL span={3}>
         <ListGamesWithArticles
           groupedData={groupedData}
@@ -43,9 +67,12 @@ export default function SectionMatchWriteupsClient({ renderData,hasSponsors }) {
         {selected === null ? (
           <SelectAArticle />
         ) : (
-          <DisplayArticleSet SelectedGame={groupedData[selected]} hasSponsors={hasSponsors} />
+          <DisplayArticleSet
+            SelectedGame={groupedData[selected]}
+            hasSponsors={hasSponsors}
+          />
         )}
-      </FixturaGRIDCOL> 
+      </FixturaGRIDCOL>
     </FixturaGRIDOUTER>
   );
 }
@@ -92,3 +119,22 @@ const SelectAArticle = () => {
     </Container>
   );
 };
+
+
+
+/* const GroupByGame = (dataArray) => {
+  const groupedData = dataArray.reduce((acc, obj) => {
+    const gameID = obj.game_meta_datum.gameID;
+
+    if (!acc[gameID]) {
+      acc[gameID] = [];
+    }
+
+    acc[gameID].push(obj);
+
+    return acc;
+  }, {});
+
+  console.log(groupedData)
+  return groupedData;
+}; */

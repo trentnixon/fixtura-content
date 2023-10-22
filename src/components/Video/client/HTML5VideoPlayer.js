@@ -7,6 +7,7 @@ import { FixturaBtnGroup, FixturaGroup } from "@/components/containers/Group";
 import { IconDownload } from "@tabler/icons-react";
 import { Box, LoadingOverlay } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { FixturaBox } from "@/components/containers/boxes";
 
 export const HTML5VideoPlayer = ({ url, Name }) => {
   const [visible, { toggle }] = useDisclosure(false);
@@ -33,19 +34,21 @@ export const HTML5VideoPlayer = ({ url, Name }) => {
   return (
     <>
       <Box pos="relative">
-        <div className="video-player">
-          <LoadingOverlay
-            visible={visible}
-            overlayBlur={3}
-            transitionDuration={500}
-          />
-          <video
-            controls
-            src={url}
-            width="100%"
-            className="video-player rounded-md"
-          />
-        </div>
+        <FixturaBox p={0} c={1}>
+          <div className="video-player">
+            <LoadingOverlay
+              visible={visible}
+              overlayBlur={3}
+              transitionDuration={500}
+            />
+            <video
+              controls
+              src={url}
+              width="100%"
+              className="video-player rounded-md"
+            />
+          </div>
+        </FixturaBox>
       </Box>
       <FixturaGroup>
         <H size="h6">
@@ -62,6 +65,7 @@ const CTAGroup = ({ onClick, disabled }) => {
   return (
     <FixturaBtnGroup my={5}>
       <BUTTON_ICON_FUNC
+        size="md"
         label="Download Video"
         onClick={onClick}
         disabled={disabled}

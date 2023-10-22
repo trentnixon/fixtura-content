@@ -1,5 +1,5 @@
 import { getSchedulerFromAccount } from "@/api/scheduler";
-import {RendersTableof} from "@/components/PageAccount/client/RendersTableof";
+import { RendersTableof } from "@/components/PageAccount/client/RendersTableof";
 
 import { P } from "@/components/Type/Paragraph";
 import { ICO_INFO } from "@/components/UI/Icons";
@@ -11,18 +11,18 @@ import { SectionHeaderWithSubHeader } from "@/layouts/Headings/SectionHeaderWith
 
 export default async function DisplayAccountRenders({ params }) {
   const scheduler = await getSchedulerFromAccount(params.id);
-  const RENDERS = scheduler.attributes.renders.data; 
- 
+  const RENDERS = scheduler.attributes.renders.data;
+
   return (
     <FixturaComponent>
-      <FixturaStack align='left'>
+      <FixturaStack align="left">
         <SectionHeaderWithSubHeader
           Main="Renders"
           Sub={`${RENDERS.length} Available`}
         />
- 
+
         <RendersTableof RENDERS={RENDERS} params={params} />
- 
+
         <FixturaBox c={8}>
           <FixturaGRIDOUTER>
             <FixturaGRIDCOL span={1}>
@@ -30,12 +30,11 @@ export default async function DisplayAccountRenders({ params }) {
             </FixturaGRIDCOL>
             <FixturaGRIDCOL span={11}>
               <P c={"gray.1"}>
-                To select a render, simply locate the one you are interested in
-                using the date listed. Once selected, you&rsquo;ll have the
-                options to review its details, copy any relevant information, or
-                even download any associated assets. This applies to all
-                upcoming games, previous game results, as well as any
-                statistical assets.
+                To select a bundle, identify the one you&rsquo;re interested in
+                by its listed date. Upon selection, you&rsquo;ll be able to view
+                its details, copy pertinent information, or download related
+                assets. This functionality extends to all upcoming games and
+                past game results.
               </P>
             </FixturaGRIDCOL>
           </FixturaGRIDOUTER>

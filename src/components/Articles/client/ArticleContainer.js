@@ -11,7 +11,10 @@ export const ArticleContainer = ({ article, hasSponsors, version }) => {
       <ReactMarkdown className="markdown">{articleHeader}</ReactMarkdown>
       <FixturaPaper c={2}>
         <ReactMarkdown className="markdown">{articleBody}</ReactMarkdown>
-        <AddSponsorsToArticle hasSponsors={hasSponsors} ArticleFormats={version.asset.ArticleFormats} />
+        <AddSponsorsToArticle
+          hasSponsors={hasSponsors}
+          ArticleFormats={version.asset.ArticleFormats}
+        />
       </FixturaPaper>
     </>
   );

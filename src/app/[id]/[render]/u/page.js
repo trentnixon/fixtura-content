@@ -6,7 +6,7 @@ import SectionImages from "@/components/sections/server/SectionImages";
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
   return (
-    <FixturaContainer>
+    <FixturaContainer> 
       <SectionMatchWriteups
         params={params} 
         Title={`Upcoming Writeups`}

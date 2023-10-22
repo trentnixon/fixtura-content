@@ -13,20 +13,50 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { AddSponsorsToArticle } from "@/components/Articles/client/AddSponsorsToArticle";
 import { formatSponsorsInPlainText } from "@/utils/UI";
 
-function filterByArticleFormat(data) {
-  if (data)
-    return data.filter((item) => item.asset.ArticleFormats === "Quick Single");
+function filterByArticleFormat(data, groupBy, accountType) {
+  if (data) {
+    const filtered = data.filter((item) => {
+      return item.asset.ArticleFormats === "Quick Single";
+    });
+    console.log("filtered:", filtered);
+    return filtered;
+  }
   return false;
 }
 
-export const DisplaySupportingArticles = ({ renderData, hasSponsors }) => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+function filterRenderData(data, groupBy, accountType) {
+  return data.filter((article) => {
+    const grade = article.game_meta_datum.grade;
+    if (accountType === "Club") {
+      return grade.ageGroup === groupBy;
+    } else if (accountType === "Association") {
+      return grade.competition.competitionName === groupBy;
+    }
+    return false;
+  });
+}
 
+export const DisplaySupportingArticles = ({
+  renderData,
+  hasSponsors,
+  GroupBy,
+  AccountType,
+}) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  // Filtering renderData before the flatMap operation
+  const filteredRenderData = filterRenderData(renderData, GroupBy, AccountType);
+
+  // Filtering articles outside of the map function
+  const filteredArticles = filterByArticleFormat(
+    filteredRenderData.flatMap(
+      (article) => article.game_meta_datum?.gtp_3_reports || []
+    ),
+    GroupBy,
+    AccountType
+  );
   // Building the string that contains all articles' text
-  const allArticlesText = renderData.map((article) => {
-    let articleContent = filterByArticleFormat(
-      article.game_meta_datum?.gtp_3_reports
-    )[0]?.article;
+  const allArticlesText = filteredArticles.map((article) => {
+    let articleContent = article.article; // Adjusted this line to access the article content directly
 
     if (articleContent && articleContent.includes("#### Quick Single:")) {
       articleContent = articleContent.replace("#### Quick Single:", "").trim();
@@ -48,12 +78,12 @@ export const DisplaySupportingArticles = ({ renderData, hasSponsors }) => {
         my={10}
         fz={"xs"}
         ta={"right"}
-      >{`Supporting articles: ${renderData.length}`}</P>
-      <ScrollArea h={isMobile ? 450 : 600}>
-        {renderData.map((article, i) => {
+      >{`Supporting articles: ${filteredArticles.length}`}</P>
+      <ScrollArea h={400}>
+        {filteredArticles.map((article, i) => {
           const GAME = article.game_meta_datum;
           const articleContent = allArticlesText[i];
-
+  
           return (
             <div key={i}>
               <FixturaArticleBox mx={0}>
@@ -70,11 +100,16 @@ export const DisplaySupportingArticles = ({ renderData, hasSponsors }) => {
           />
         </FixturaArticleBox>
       </ScrollArea>
-
+  
       <CopyArticleCTA ArticleToCopy={allArticlesCombined} />
     </>
   );
+  
 };
+
+
+
+
 
 export const DisplayStatisticsSupportingArticles = ({
   ArticleForCopy,
@@ -153,41 +188,3 @@ const ArticleMeta = ({ GAME }) => {
     </>
   );
 };
-
-/* <FixturaGroup my={5} mx={10}>
-        <H size="h6">Copy Articles to clipboard</H>
-        <CopyToClipboard
-          text={allArticlesCombined}
-          onCopy={() => setIsCopied(true)}
-        >
-          <FixturaTooltip label={"Copy Supporting Articles"}>
-            <ActionIcon
-              size="xl"
-              radius="md"
-              variant="outline"
-              sx={(theme) => ({
-                borderColor: isCopied
-                  ? theme.colors.green[6]
-                  : theme.colors.cyan[6],
-                color: isCopied ? theme.colors.green[6] : theme.colors.cyan[6],
-                cursor: "pointer",
-                "&:hover": {
-                  background: theme.fn.linearGradient(
-                    45,
-                    theme.colors.blue[5],
-                    theme.colors.cyan[5]
-                  ),
-                  color: theme.colors.gray[0],
-                  borderColor: theme.colors.blue[6],
-                },
-              })}
-            >
-              {isCopied ? (
-                <IconCheck size="1.125rem" />
-              ) : (
-                <IconCopy size="1.125rem" />
-              )}
-            </ActionIcon>
-          </FixturaTooltip>
-        </CopyToClipboard>
-      </FixturaGroup> */

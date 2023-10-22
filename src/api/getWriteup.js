@@ -53,5 +53,5 @@ export async function getWriteupsFromRender(ID, PATH, TYPE, BiasID) {
     body: { ID: ID, PATH: PATH, TYPE: TYPE, BiasID: BiasID },
     nextConfig: { cache: "no-store" },
   });
-  return res.data;
+  return res.data; 
 }

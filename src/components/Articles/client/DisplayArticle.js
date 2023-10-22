@@ -99,7 +99,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
           <ArticleActionBtns 
             setCopied={setCopied}
             copied={copied}
-            article={ArticleSet[version].article}
+            article={ArticleSet[version].EditorsArticle}
             articleID={ArticleSet[version].id}
             requestRewrite={() => RequestRewrite()}
             rewriteStatus={rewriteStatus}
@@ -118,7 +118,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
             />
           ) : (
             <ArticleContainer
-              article={ArticleSet[version].article}
+              article={ArticleSet[version].EditorsArticle}
               version={ArticleSet[version]}
               hasSponsors={hasSponsors}
             />

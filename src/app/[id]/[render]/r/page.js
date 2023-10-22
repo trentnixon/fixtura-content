@@ -16,7 +16,7 @@ export default async function Upage({ params }) {
       <SectionVideos
         params={params}
         Title={`Results Videos`}
-        Type={`results`}
+        Type={`results`} 
         Path={`game_results_in_renders`}
       />
       <SectionImages

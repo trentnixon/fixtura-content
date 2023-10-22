@@ -9,13 +9,11 @@ import {
   HeroInner,
   HeroTitle,
 } from "@/layouts/Headings/client/Heros";
-import { SelectACategoryBtnGroup } from "@/components/inputs/SelectCategory";
 import { HeroRenderDates } from "@/layouts/Headings/client/RenderDates";
 
 // Utils
 import { ComplieRenderData } from "@/utils/actions";
 import { FixturaStack } from "@/components/containers/stack";
-import { H } from "@/components/Type/Headers";
 import { getAccountFields } from "@/api/accounts";
 import { MainCSSBanner } from "@/layouts/Headings/client/MainCSSBanner";
 import { PageCategoryHeader } from "@/components/UI/Headers";
@@ -41,7 +39,7 @@ export async function HeroText({ params }) {
       <MainCSSBanner />
       <FixturaHero account={account}>
         <HeroInner>
-          <HeroTitle> 
+          <HeroTitle>
             <AccountNameAndLogoStack params={params} />
           </HeroTitle>
           <HeroControls>

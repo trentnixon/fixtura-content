@@ -19,6 +19,7 @@ import {
   Stack,
   Center,
   useMantineTheme,
+  Box,
 } from "@mantine/core";
 
 import { useDisclosure } from "@mantine/hooks";
@@ -100,16 +101,25 @@ export function HeaderMantine({ params, URLParams }) {
   const closeDrawer = () => {
     close();
   };
+
+
   return (
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
-      <Container className={classes.inner} fluid>
+      <Container
+        className={classes.inner}
+        fluid
+        sx={(theme) => ({
+          height: "60px",
+          backgroundColor: theme.colors.gray[8],
+        })}
+      >
         <Group>
-          <Burger
+          {/* <Burger
             opened={opened}
             onClick={toggle}
             className={classes.burger}
             size="sm"
-          />
+          /> */}
 
           <Image
             src="/images/LogoF.png"
@@ -120,12 +130,6 @@ export function HeaderMantine({ params, URLParams }) {
           />
         </Group>
         <Group spacing="xs" className={classes.links}>
-          {URLParams.render === undefined ? (
-            false
-          ) : (
-            <RenderBtns params={URLParams} />
-          )}
-
           <Tooltip
             label={"Renders"}
             position="bottom"
@@ -133,7 +137,7 @@ export function HeaderMantine({ params, URLParams }) {
           >
             <UnstyledButton>
               <Link href={`/${id}`}>
-                <IconDownload size="1.2rem" stroke={1.5} />
+                <IconDownload size="1.2rem" stroke={1.5} color="white" />
               </Link>
             </UnstyledButton>
           </Tooltip>
@@ -144,7 +148,7 @@ export function HeaderMantine({ params, URLParams }) {
           >
             <UnstyledButton>
               <Link href={`https://fixtura.com.au/`}>
-                <IconHome2 size="1.2rem" stroke={1.5} />
+                <IconHome2 size="1.2rem" stroke={1.5} color="white"/>
               </Link>
             </UnstyledButton>
           </Tooltip>
@@ -163,7 +167,7 @@ export function HeaderMantine({ params, URLParams }) {
             blur: 3,
           }}
           styles={{
-            title:{
+            title: {
               color: theme.colors.gray[0],
             },
             header: {

@@ -1,4 +1,7 @@
 "use client";
+import { NavigationSelect } from "@/components/PageKey/client/RenderCategorySelect";
+import { FixturaGroup } from "@/components/containers/Group";
+import { formatStrapiCreatedOnDate } from "@/utils/actions";
 import { Title } from "@mantine/core";
 
 export const H = (props) => {
@@ -11,7 +14,7 @@ export const H = (props) => {
     size = "h1",
     mx = 0,
     my = 0,
-    lh=`1.5em`
+    lh = `1.5em`,
   } = props;
 
   return (
@@ -28,5 +31,22 @@ export const H = (props) => {
     >
       {props.children}
     </Title>
+  );
+};
+
+export const PageTitleAndCreated = (props) => {
+  const { createdAt, Title, brackets } = props;
+  return (
+    <FixturaGroup>
+      <div>
+        <H size={"h4"} lh={`1.1em`} italic={true}>
+          {Title} ({brackets})
+        </H>
+        <H size={"h6"} lh={`1.1em`} italic={true}>
+          Created : {formatStrapiCreatedOnDate(createdAt)}
+        </H>
+      </div>
+      <NavigationSelect />
+    </FixturaGroup>
   );
 };

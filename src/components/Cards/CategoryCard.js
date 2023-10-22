@@ -90,29 +90,6 @@ export function CategoryCard(props) {
           <H color="gray.1" size="h3">
             {Category}
           </H>
-
-          <Group position="apart" spacing="xs">
-            <Group spacing="lg" position="center">
-              {OBJ.map((col, i) => {
-                return (
-                  <Center key={i}>
-                    <IconEye
-                      size="1rem"
-                      stroke={1.5}
-                      color={theme.colors.dark[2]}
-                    />
-
-                    <Text size="sm" className={classes.bodyText}>
-                      {col.title}
-                    </Text>
-                    <Text size="sm" className={classes.bodyText}>
-                      {col.value}
-                    </Text>
-                  </Center>
-                );
-              })}
-            </Group>
-          </Group>
         </div>
       </div>
     </Card>

@@ -8,8 +8,16 @@ import { CreateStatisticsClient } from "@/components/Video/client/createStatisti
 import { getAccountFields } from "@/api/accounts";
 import { isSponsorsActive } from "@/utils/actions";
 
-const mergeAndGroupAssets = (array1, array2, array3) => {
-  const mergedArray = [...array1, ...array2, ...array3];
+const isMatchingAgeGroup = (obj, ageGroupKey) => {
+  const ageGroup = obj.attributes.grouping_category;
+  return ageGroup === ageGroupKey;
+};
+
+const mergeAndGroupAssets = (array1, array2, array3, ageGroupKey) => {
+  //const mergedArray = [...array1, ...array2, ...array3];
+  const mergedArray = [...array1, ...array2, ...array3].filter((obj) =>
+    isMatchingAgeGroup(obj, ageGroupKey)
+  );
 
   const groupedAssets = mergedArray.reduce((acc, obj) => {
     const assetName = obj.attributes.asset.data.attributes.Name;
@@ -33,7 +41,9 @@ const mergeAndGroupAssets = (array1, array2, array3) => {
   return groupedAssets;
 };
 
-export default async function SectionTop5({ params, Type }) { 
+export default async function SectionTop5(props) {
+  const { params, Type, GroupBy, display } = props;
+
   const Category = "Video options";
   const renderData = await getRenderFields(params.render, [
     "downloads",
@@ -97,29 +107,25 @@ export default async function SectionTop5({ params, Type }) {
   const groupedAssets = mergeAndGroupAssets(
     filteredDownloadVideos,
     filteredDownloadImages,
-    renderArticles
+    renderArticles,
+    GroupBy
   );
   return (
     <>
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {
-        //console.log(assetName, assetTypes, assetTypes.VIDEO);
-        //console.log("assetTypes.VIDEO ",assetTypes.VIDEO)
         if (!assetTypes?.VIDEO) return false;
         return (
           <FixturaSection
-            shade={index}
+            shade={0}
             Title={`${assetName}`}
             // you may need to adjust the following two properties according to your needs
             subTitle={
-              assetTypes?.VIDEO
-                ? assetTypes.VIDEO[0].attributes.asset.data.attributes.SubTitle
-                : assetTypes.VIDEO[0].attributes.asset.data.attributes.SubTitle
+              assetTypes[display][0].attributes.asset.data.attributes.SubTitle
             }
-            Icon={
-              assetTypes?.VIDEO
-                ? assetTypes.VIDEO[0].attributes.asset.data.attributes.Icon
-                : assetTypes.VIDEO[0].attributes.asset.data.attributes.Icon
+            Blurb={
+              assetTypes[display][0].attributes.asset.data.attributes.Blurb
             }
+            Icon={assetTypes[display][0].attributes.asset.data.attributes.Icon}
             key={index}
           >
             <CreateStatisticsClient
@@ -127,10 +133,11 @@ export default async function SectionTop5({ params, Type }) {
               assetName={assetName}
               assetTypes={assetTypes}
               description={
-                assetTypes.VIDEO[0].attributes.asset.data.attributes
+                assetTypes[display][0].attributes.asset.data.attributes
                   .assetDescription
               }
               hasSponsors={isSponsorsActive(accountBasic)}
+              display={display}
             />
           </FixturaSection>
         );

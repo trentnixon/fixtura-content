@@ -6,38 +6,77 @@ import { FixturaArticleBox, FixturaBox } from "@/components/containers/boxes";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { DisplaySupportingArticles } from "@/components/Video/client/DisplaySupportingArticles";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { IconArticle, IconBookFilled, } from "@tabler/icons-react";
-
+import { IconArticle, IconBookFilled } from "@tabler/icons-react";
 
 export function CreateVideoClient(props) {
-  const { ITEM, renderArticles, description,hasSponsors } = props;
+  const {
+    ITEM,
+    renderArticles,
+    description,
+    hasSponsors,
+    GroupBy,
+    AccountType,
+  } = props;
 
+  console.log("GroupBy", GroupBy);
   return (
-    <FixturaGRIDOUTER>
-      <FixturaGRIDCOL span={5} md={6} lg={3}>
-        <P fz="sm" c={"gray"} fw={600} ta={"right"} my={7}>
-          {ITEM.Name}
-        </P>
-
-        <FixturaBox p={0} c={1}>
+    <>
+      <P fz="lg" c={"gray.8"} fw={900} ta={"right"} my={7}>
+        {ITEM.Name}
+      </P>
+      <FixturaGRIDOUTER>
+        <FixturaGRIDCOL span={5} md={6} lg={3}>
           <HTML5VideoPlayer url={ITEM.URL} Name={ITEM.Name} />
-        </FixturaBox>
-      </FixturaGRIDCOL>
-      <FixturaGRIDCOL span={7} md={6} lg={9}>
-        <VideoSupportingData
-          description={description}
-          articles={renderArticles}
-          hasSponsors={hasSponsors}
-        />
-      </FixturaGRIDCOL>
-    </FixturaGRIDOUTER>
+        </FixturaGRIDCOL>
+        <FixturaGRIDCOL span={7} md={6} lg={9}>
+          <VideoSupportingData
+            description={description}
+            articles={renderArticles}
+            hasSponsors={hasSponsors}
+            GroupBy={GroupBy}
+            AccountType={AccountType}
+          />
+        </FixturaGRIDCOL>
+      </FixturaGRIDOUTER>
+    </>
   );
 }
 
-const VideoSupportingData = ({ description, articles,hasSponsors }) => {
+const VideoSupportingData = ({
+  articles,
+  hasSponsors,
+  GroupBy,
+  AccountType,
+}) => {
   const theme = useMantineTheme();
-  
+
   return (
+    <>
+      <P>Supporting Articles</P>
+      {articles ? (
+        <DisplaySupportingArticles
+          renderData={articles}
+          hasSponsors={hasSponsors}
+          GroupBy={GroupBy}
+          AccountType={AccountType}
+        />
+      ) : (
+        false
+      )}
+    </>
+  );
+};
+
+/* const AssetDescription = ({ description }) => {
+  return (
+    <FixturaArticleBox>
+      <ReactMarkdown className="markdown">{description}</ReactMarkdown>
+    </FixturaArticleBox>
+  );
+};
+ */
+/*
+return (
     <Tabs
       defaultValue="articles"
       variant="pills"
@@ -59,16 +98,17 @@ const VideoSupportingData = ({ description, articles,hasSponsors }) => {
         <AssetDescription description={description} />
       </Tabs.Panel>
       <Tabs.Panel value="articles" pt="xs">
-        {articles ? <DisplaySupportingArticles renderData={articles} hasSponsors={hasSponsors} /> : false}
-      </Tabs.Panel> 
+        {articles ? (
+          <DisplaySupportingArticles
+            renderData={articles}
+            hasSponsors={hasSponsors}
+            GroupBy={GroupBy}
+            AccountType={AccountType}
+          />
+        ) : (
+          false
+        )}
+      </Tabs.Panel>
     </Tabs>
   );
-};
-
-const AssetDescription = ({ description }) => {
-  return (
-    <FixturaArticleBox>
-      <ReactMarkdown className="markdown">{description}</ReactMarkdown>
-    </FixturaArticleBox>
-  );
-};
+*/

@@ -9,6 +9,8 @@ import DisplayAccountRenders from "@/components/PageAccount/server/DisplayAccoun
 import AccountTheming from "@/components/PageAccount/server/AccountTheme";
 import AccountSubscription from "@/components/PageAccount/server/AccountSubscription";
 import { MobileChecker } from "@/components/UI/isMobile";
+import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
+import { BundleUpdates } from "@/components/PageSelectedRender/server/BundleWelcomeMessage";
 
 export default async function Account({ params, searchParams }) {
   return (
@@ -20,19 +22,30 @@ export default async function Account({ params, searchParams }) {
         Icon={`ICO_HEADER_ACCOUNT`}
       >
         <FixturaGRIDOUTER>
-          <FixturaGRIDCOL span={9}>
+          <FixturaGRIDCOL span={12}>
             <MobileChecker mobileOnly={true}>
               <AccountDetails params={params} />
             </MobileChecker>
             <DisplayAccountRenders params={params} />
-            <AccountSubscription params={params} />
-          </FixturaGRIDCOL>
-          <FixturaGRIDCOL span={3}>
-            <MobileChecker mobileOnly={false}>
-              <AccountDetails params={params} />
-            </MobileChecker>
-            <AccountTheming params={params} />
-            <DisplayAccountItems params={params} />
+            {/* <DisplayAccountItems params={params} />
+            <AccountSubscription params={params} /> */}
+            <FixturaSection
+              shade={0}
+              Title={`Fixtura Updates`}
+              subTitle={``}
+              Icon={`ICO_Edit`}
+            >
+              <BundleUpdates />
+            </FixturaSection>
+
+            <FixturaSection
+              shade={0}
+              Title={`Feedback`}
+              subTitle={``}
+              Icon={`ICO_Speakerphone`}
+            >
+              <UserFeedback />
+            </FixturaSection>
           </FixturaGRIDCOL>
         </FixturaGRIDOUTER>
       </FixturaSection>

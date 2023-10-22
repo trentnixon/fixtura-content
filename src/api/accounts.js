@@ -37,6 +37,7 @@ export async function getAccount(ID) {
         "associations",
         "associations.Logo",
         "scheduler",
+        "theme"
       ],
     },
     {

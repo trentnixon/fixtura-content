@@ -2,15 +2,16 @@ import { getAccountFields } from "@/api/accounts";
 import { getWriteupsFromRender } from "@/api/getWriteup";
 import { FixturaSection } from "@/components/containers/Section";
 import SectionMatchWriteupsClient from "@/components/sections/client/SectionMatchWriteups";
-import { FindAccountWriteupID, isSponsorsActive } from "@/utils/actions";
-export default async function SectionMatchWriteups({ params, Type, Path }) {
+import { FindAccountType, FindAccountWriteupID, isSponsorsActive } from "@/utils/actions";
+export default async function SectionMatchWriteups(props) {
+  const { params, Type, Path, GroupBy,Title } = props;
   const accountBasic = await getAccountFields(params.id, [
     "account_type",
     "clubs",
     "associations",
     "sponsors",
-    "subscription_tier"
-  ]); 
+    "subscription_tier",
+  ]);
   const BiasID = FindAccountWriteupID(accountBasic);
   const Writeups = await getWriteupsFromRender(
     params.render,
@@ -19,15 +20,21 @@ export default async function SectionMatchWriteups({ params, Type, Path }) {
     BiasID
   );
 
+  console.log("FindAccountType ",FindAccountType(accountBasic));
 
   return (
     <FixturaSection
       shade={0}
-      Title={`Articles`}
+      Title={Title}
       subTitle={`Stay Informed with Our Weekend Articles`}
-      Icon={`ICO_HEADER_ARTICLE`} 
+      Icon={`ICO_HEADER_ARTICLE`}
     >
-      <SectionMatchWriteupsClient renderData={Writeups} hasSponsors={isSponsorsActive(accountBasic)} />
+      <SectionMatchWriteupsClient
+        renderData={Writeups}
+        hasSponsors={isSponsorsActive(accountBasic)}
+        GroupBy={GroupBy}
+        FindAccountType={FindAccountType(accountBasic)}
+      />
     </FixturaSection>
   );
 }

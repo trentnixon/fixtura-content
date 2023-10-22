@@ -28,7 +28,7 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
   const gamesByGrade = {};
   Object.keys(groupedData).forEach((gameID) => {
     const grade = groupedData[gameID][0]?.game_meta_datum?.grade?.gradeName;
-    if (!grade) return;  // Skip if grade is not found
+    if (!grade) return; // Skip if grade is not found
     if (!gamesByGrade[grade]) gamesByGrade[grade] = [];
     gamesByGrade[grade].push(gameID);
   });
@@ -40,7 +40,8 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
       const teamHome = game?.game_meta_datum?.teamHome;
       const teamAway = game?.game_meta_datum?.teamAway;
       return (
-        (teamHome && teamHome.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (teamHome &&
+          teamHome.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (teamAway && teamAway.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     });
@@ -77,7 +78,7 @@ const DesktopListGamesWithArticles = ({
 
   return (
     <>
-      <FixturaArticleBox>
+      <FixturaArticleBox my={'xs'} mx={0} p={'xs'}>
         <S ta="right" fw="700" c="dimmed">
           Games:{" "}
           {Object.values(gamesByGrade).reduce(
@@ -118,7 +119,7 @@ const DesktopListGamesWithArticles = ({
 
                 return (
                   <Box
-                    p="sm"
+                    p="xs"
                     key={gameID}
                     onClick={() => {
                       setSelected(gameID);
@@ -145,22 +146,9 @@ const DesktopListGamesWithArticles = ({
                       },
                     })}
                   >
-                    <FixturaGRIDOUTER>
-                      <FixturaGRIDCOL span={1}>
-                        <IconCricket
-                          size="1.3rem"
-                          stroke={1.1}
-                          color={
-                            gameID === selectedGameID
-                              ? theme.colors.orange[2]
-                              : theme.colors.orange[6]
-                          }
-                        />
-                      </FixturaGRIDCOL>
-                      <FixturaGRIDCOL span={11}>
-                        <P
+                   <P
                           lh="1.2em"
-                          fz={"sm"}
+                          fz={"xs"}
                           c={
                             gameID === selectedGameID
                               ? "white"
@@ -169,8 +157,6 @@ const DesktopListGamesWithArticles = ({
                         >
                           {label}
                         </P>
-                      </FixturaGRIDCOL>
-                    </FixturaGRIDOUTER>
                   </Box>
                 );
               })}

@@ -1,9 +1,19 @@
 import { getRenderFields } from "@/api/renders";
 import { CreateImagesClient } from "@/components/Images/client/createImages";
 import { filterDownloads } from "@/utils/helpers";
-//import { CreateImages } from "@/components/Images/server/createImages";
-import { FixturaSection } from "@/components/containers/Section";
-export default async function SectionImages({ params, Title, Type }) {
+
+function groupByAssetName(downloads) {
+  return downloads.reduce((acc, item) => {
+    const assetName = item.attributes.asset.data.attributes.Name;
+    if (!acc[assetName]) {
+      acc[assetName] = [];
+    }
+    acc[assetName].push(item);
+    return acc;
+  }, {});
+}
+
+export default async function SectionImages({ params, Title, Type, GroupBy }) {
   const Category = "Image options";
   const renderData = await getRenderFields(params.render, [
     "downloads",
@@ -19,22 +29,27 @@ export default async function SectionImages({ params, Title, Type }) {
     Type
   );
 
-  //console.log(filteredDownloads[0]);
+  const groupedDownloads = groupByAssetName(filteredDownloads);
+
+  if (Object.keys(groupedDownloads).length === 0) {
+    return false;
+  }
+
   if (
     filteredDownloads[0]?.attributes?.asset?.data?.attributes?.Name ===
     undefined
   )
     return false;
   return (
-    <FixturaSection
-      shade={0}
-      Title={`Images`}
-      subTitle={
-        filteredDownloads[0]?.attributes?.asset?.data?.attributes?.SubTitle
-      }
-      Icon={filteredDownloads[0]?.attributes?.asset?.data?.attributes?.Icon}
-    >
-      <CreateImagesClient ITEMS={filteredDownloads} />
-    </FixturaSection>
+    <>
+      {Object.entries(groupedDownloads).map(([label, items]) => (
+        <CreateImagesClient
+          key={label}
+          ITEMS={items}
+          label={label}
+          GroupBy={GroupBy}
+        />
+      ))}
+    </>
   );
 }
