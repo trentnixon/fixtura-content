@@ -14,7 +14,7 @@ export default async function SectionVideos({
 }) {
   //console.log(params);
   const Category = "Video options";
-  const renderData = await getRenderFields(params.render, [
+  const renderData = await getRenderFields(params.render, [ 
     "downloads",
     "downloads.asset_type",
     "downloads.asset",

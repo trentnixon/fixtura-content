@@ -138,6 +138,7 @@ export default async function SectionTop5(props) {
               }
               hasSponsors={isSponsorsActive(accountBasic)}
               display={display}
+              renderArticles={renderArticles}
             />
           </FixturaSection>
         );

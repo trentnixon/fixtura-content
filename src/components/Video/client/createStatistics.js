@@ -50,7 +50,7 @@ export function CreateStatisticsClient(props) {
     hasSponsors,
     display,
   } = props;
-  console.log(assetTypes);
+  console.log(renderArticles);
 
   if (!assetTypes?.IMAGE) return false;
   if (display === "IMAGE")
@@ -68,7 +68,7 @@ export function CreateStatisticsClient(props) {
       </SimpleGrid>
     );
 
-  if (display === "VIDEO")
+  if (display === "VIDEO") 
     return (
       <>
         {assetTypes?.VIDEO.map((video, i) => {
@@ -78,16 +78,16 @@ export function CreateStatisticsClient(props) {
                 <FixturaGRIDCOL span={5} md={6} lg={4}>
                   <HTML5VideoPlayer url={video.attributes.URL} key={i} />
                 </FixturaGRIDCOL>
-                <FixturaGRIDCOL span={7} md={6} lg={9}>
-                  {/*  <VideoSupportingData
+                {/* <FixturaGRIDCOL span={7} md={6} lg={9}>
+                   <VideoSupportingData
                     description={description}
                     articles={renderArticles}
                     hasSponsors={hasSponsors}
                     GroupBy={GroupBy}
                     AccountType={AccountType}
-                  /> */}
+                  />
                   supporting Articles
-                </FixturaGRIDCOL>
+                </FixturaGRIDCOL> */}
               </FixturaGRIDOUTER>
             </div>
           );

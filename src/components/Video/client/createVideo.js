@@ -28,7 +28,7 @@ export function CreateVideoClient(props) {
         <FixturaGRIDCOL span={5} md={6} lg={3}>
           <HTML5VideoPlayer url={ITEM.URL} Name={ITEM.Name} />
         </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={7} md={6} lg={9}>
+       {/*  <FixturaGRIDCOL span={7} md={6} lg={9}>
           <VideoSupportingData
             description={description}
             articles={renderArticles}
@@ -36,7 +36,7 @@ export function CreateVideoClient(props) {
             GroupBy={GroupBy}
             AccountType={AccountType}
           />
-        </FixturaGRIDCOL>
+        </FixturaGRIDCOL> */}
       </FixturaGRIDOUTER>
     </>
   );
@@ -47,9 +47,11 @@ const VideoSupportingData = ({
   hasSponsors,
   GroupBy,
   AccountType,
+  description
 }) => {
   const theme = useMantineTheme();
 
+  console.log(articles)
   return (
     <>
       <P>Supporting Articles</P>
