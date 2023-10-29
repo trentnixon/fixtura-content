@@ -113,7 +113,8 @@ export default async function SectionTop5(props) {
   return (
     <>
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {
-        if (!assetTypes?.VIDEO) return false;
+        if (!assetTypes?.VIDEO || assetTypes[display] === undefined)
+          return false;
         return (
           <FixturaSection
             shade={0}
