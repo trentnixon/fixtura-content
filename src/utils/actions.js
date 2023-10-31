@@ -34,9 +34,9 @@ export const FindAccountWriteupID = (account) => {
 
 export const isSponsorsActive = (accountBasic) => {
   //console.log("isSponsorsActive");
-  const includeSponsors = accountBasic.attributes.subscription_tier.data.attributes.includeSponsors;
+  const includeSponsors = accountBasic?.attributes?.subscription_tier?.data?.attributes?.includeSponsors;
   //console.log(includeSponsors);
-  const sponsorsData = accountBasic.attributes.sponsors.data;
+  const sponsorsData = accountBasic?.attributes?.sponsors?.data;
   //console.log(sponsorsData);
 
   if (includeSponsors) {

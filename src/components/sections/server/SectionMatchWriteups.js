@@ -20,7 +20,7 @@ export default async function SectionMatchWriteups(props) {
     BiasID
   );
 
-  console.log("FindAccountType ",FindAccountType(accountBasic));
+  console.log("isSponsorsActive ",isSponsorsActive(accountBasic));
 
   return (
     <FixturaSection
@@ -31,7 +31,7 @@ export default async function SectionMatchWriteups(props) {
     >
       <SectionMatchWriteupsClient
         renderData={Writeups}
-        hasSponsors={isSponsorsActive(accountBasic)}
+        hasSponsors={isSponsorsActive(accountBasic)} 
         GroupBy={GroupBy}
         FindAccountType={FindAccountType(accountBasic)}
       />

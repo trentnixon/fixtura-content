@@ -14,13 +14,13 @@ export default async function Upage({ params }) {
         Title={decodeURIComponent(params.key)}
         brackets={"Results"}
       />
-      {/* <SectionMatchWriteups
+      <SectionMatchWriteups
         params={params}
         Title={`Result Writeups`}
         Type={`results`}
         Path={`game_results_in_renders`}
         GroupBy={decodeURIComponent(params.key)}
-      /> */}
+      />
     </FixturaContainer>
   );
 }
