@@ -4,10 +4,12 @@ import { PageTitleAndCreated } from "@/components/Type/Headers";
 import SectionTop5 from "@/components/sections/server/SectionTop5";
 
 import { getRenders } from "@/api/renders";
+import { P } from "@/components/Type/Paragraph";
 
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
   const Render = await getRenders(params.render);
+  console.log(params.key, decodeURIComponent(params.key))
   return (
     <FixturaContainer>
       <PageTitleAndCreated
@@ -15,14 +17,14 @@ export default async function Upage({ params }) {
         Title={decodeURIComponent(params.key)}
         brackets={"Results"}
       />
-
-       <SectionVideos
+<P>Testing in Progress</P>
+      {/*  <SectionVideos
         params={params} 
         Title={`Results Videos`}
         Type={`results`}
         Path={`game_results_in_renders`}
         GroupBy={decodeURIComponent(params.key)}
-      /> 
+      />  */}
      {/* <SectionTop5
         params={params}
         Type={`statistics`}
