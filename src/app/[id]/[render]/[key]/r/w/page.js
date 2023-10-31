@@ -6,7 +6,7 @@ import { getRenders } from "@/api/renders";
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
   const Render = await getRenders(params.render);
-  console.log("decodeURIComponent(params.key)", decodeURIComponent(params.key))
+
   return (
     <FixturaContainer>
       <PageTitleAndCreated
