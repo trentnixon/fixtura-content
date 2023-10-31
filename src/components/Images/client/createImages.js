@@ -11,9 +11,13 @@ import { IconDownload } from "@tabler/icons-react";
 export async function CreateImagesClient(props) {
   const { ITEMS, GroupBy, label } = props;
 
+  console.log("IMG GroupBy", GroupBy)
   // Filter ITEMS based on the GroupBy value
   const filteredItems = ITEMS.filter(
-    (IMG) => IMG.attributes.grouping_category === GroupBy
+    (IMG) =>{
+      console.log(IMG.attributes.grouping_category, GroupBy)
+      return IMG.attributes.grouping_category === GroupBy
+    } 
   );
 
   return (

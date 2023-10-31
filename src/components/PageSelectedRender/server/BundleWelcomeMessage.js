@@ -36,7 +36,7 @@ export async function BundleUpdates() {
     <FixturaContainer my={30} mx={"5%"}>
       <DeveloperComment
         Title={`Simplified Layout:`}
-        Copy={`We&apos;ve decluttered and focused on what&apos;s essential. Results and
+        Copy={`We've decluttered and focused on what's essential. Results and
         upcoming events take center stage, while videos, images, and write-ups
         have dedicated pages for easier access. More tweaks are coming soon!
 `}

@@ -7,6 +7,7 @@ import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { DisplaySupportingArticles } from "@/components/Video/client/DisplaySupportingArticles";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { IconArticle, IconBookFilled } from "@tabler/icons-react";
+import { VideoError } from "@/components/Video/client/VideoError";
 
 export function CreateVideoClient(props) {
   const {
@@ -26,9 +27,13 @@ export function CreateVideoClient(props) {
       </P>
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={5} md={6} lg={3}>
-          <HTML5VideoPlayer url={ITEM.URL} Name={ITEM.Name} />
+          {ITEM.URL === null ? (
+            <VideoError />
+          ) : (
+            <HTML5VideoPlayer url={ITEM.URL} Name={ITEM.Name} />
+          )}
         </FixturaGRIDCOL>
-       {/*  <FixturaGRIDCOL span={7} md={6} lg={9}>
+        {/*  <FixturaGRIDCOL span={7} md={6} lg={9}>
           <VideoSupportingData
             description={description}
             articles={renderArticles}
@@ -47,11 +52,11 @@ const VideoSupportingData = ({
   hasSponsors,
   GroupBy,
   AccountType,
-  description
+  description,
 }) => {
   const theme = useMantineTheme();
 
-  console.log(articles)
+  console.log(articles);
   return (
     <>
       <P>Supporting Articles</P>

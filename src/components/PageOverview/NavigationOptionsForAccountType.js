@@ -40,8 +40,8 @@ const CategoryPod = (props) => {
       icon={<Icon123 />}
       Category={`${keyLabel} Assets`}
       color="teal"
-      c="9"
-      Link={`/${id}/${render}/${keyLabel}/`}
+      c="9" 
+      Link={`/${id}/${render}/${encodeURIComponent(keyLabel)}/`}
     />
   );
 };

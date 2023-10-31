@@ -39,6 +39,7 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
     "Y11",
     "Y12",
     "Colts Y9 & 10",
+    "Mixed Age Group"
   ]; // Add all junior age groups here
   const SENIOR_AGE_GROUPS = ["Senior", "Senior/Open"]; // Add all senior age groups here
   const MASTERS_AGE_GROUPS = ["Over 35", "Over 40", "Over 50", "Over 60"]; // Add all senior age groups here
@@ -75,25 +76,6 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
     }
     return false;
   };
-  /* const isMatchingAgeGroup = (obj) => { 
-    // logic for Clubs
-    const ageGroup = obj.game_meta_datum.grade.ageGroup;
-    if (accountType === 'Club') {
-      if (ageGroupKey === "Junior" && ageGroup && ageGroup.startsWith("U")) {
-        return true;
-      } else if (
-        ageGroupKey === "Senior" &&
-        (ageGroup === "Senior" || (ageGroup && ageGroup.startsWith("Over")))
-      ) {
-        return true; 
-      }
-    } else if (accountType === 'Association') {
-      // logic for Associations
-      const competitionName = obj.game_meta_datum.grade.competition.competitionName;
-      return competitionName === ageGroupKey;
-    }
-    return false;
-  }; */
 
   const groupedData = dataArray.reduce((acc, obj) => {
     const gameID = obj.game_meta_datum.gameID;

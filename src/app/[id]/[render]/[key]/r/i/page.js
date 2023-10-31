@@ -24,7 +24,7 @@ export default async function Upage({ params }) {
         params={params}
         Type={`statistics`}
         GroupBy={decodeURIComponent(params.key)}
-        display={"IMAGE"}
+        display={"IMAGE"} 
       />
     </FixturaContainer>
   );

@@ -40,15 +40,17 @@ export function QuickSelectNavigationOptionsForAccountType(props) {
 
   return (
     <>
-      <FixturaContainer mx={10}>
-        <Select
-          placeholder="Jump To:"
-          onChange={handleSelectionChange}
-          data={Object.keys(renders.assetGrouping).map((key) => ({
-            value: key,
-            label: `${key}`,
-          }))}
-        />
+      <FixturaContainer mx={10} >
+      <Select
+     
+       radius="xl"
+       placeholder="Jump To:"
+       onChange={handleSelectionChange}
+       data={Object.keys(renders.assetGrouping).map((key) => ({
+         value: key,
+         label: `${key}`,
+       }))}
+     />
       </FixturaContainer>
     </>
   );

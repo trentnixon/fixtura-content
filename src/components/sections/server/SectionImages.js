@@ -14,6 +14,7 @@ function groupByAssetName(downloads) {
 }
 
 export default async function SectionImages({ params, Title, Type, GroupBy }) {
+  //console.log("IMAGE GroupBy", GroupBy)
   const Category = "Image options";
   const renderData = await getRenderFields(params.render, [
     "downloads",
@@ -52,4 +53,4 @@ export default async function SectionImages({ params, Title, Type, GroupBy }) {
       ))}
     </>
   );
-}
+} 

@@ -39,6 +39,7 @@ import {
   formatSponsorsInMarkdown,
   formatSponsorsInPlainText,
 } from "@/utils/UI";
+import { VideoError } from "@/components/Video/client/VideoError";
 
 export function CreateStatisticsClient(props) {
   const {
@@ -50,9 +51,9 @@ export function CreateStatisticsClient(props) {
     hasSponsors,
     display,
   } = props;
-  console.log(renderArticles);
+  console.log("assetTypes", assetTypes, assetTypes?.VIDEO, display);
 
-  if (!assetTypes?.IMAGE) return false;
+  /* if (!assetTypes?.IMAGE) return false; */
   if (display === "IMAGE")
     return (
       <SimpleGrid
@@ -68,15 +69,20 @@ export function CreateStatisticsClient(props) {
       </SimpleGrid>
     );
 
-  if (display === "VIDEO") 
+  if (display === "VIDEO")
     return (
       <>
         {assetTypes?.VIDEO.map((video, i) => {
+          console.log("video ", video);
           return (
             <div key={i}>
               <FixturaGRIDOUTER>
                 <FixturaGRIDCOL span={5} md={6} lg={4}>
-                  <HTML5VideoPlayer url={video.attributes.URL} key={i} />
+                  {video.attributes.URL === null ? (
+                    <VideoError />
+                  ) : (
+                    <HTML5VideoPlayer url={video.attributes.URL} />
+                  )}
                 </FixturaGRIDCOL>
                 {/* <FixturaGRIDCOL span={7} md={6} lg={9}>
                    <VideoSupportingData

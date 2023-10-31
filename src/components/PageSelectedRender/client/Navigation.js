@@ -30,7 +30,7 @@ export const KeyNavigationItems = (props) => {
             c="9"
             Link={`/${id}/${render}/${key}/u/v`}
           />
-        </FixturaGRIDCOL>
+        </FixturaGRIDCOL> 
       </FixturaGRIDOUTER>
     </FixturaComponent>
   );

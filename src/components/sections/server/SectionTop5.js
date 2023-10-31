@@ -113,6 +113,8 @@ export default async function SectionTop5(props) {
   return (
     <>
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {
+        console.log(assetName)
+        console.log(assetTypes)
         if (!assetTypes?.VIDEO || assetTypes[display] === undefined)
           return false;
         return (
@@ -140,7 +142,7 @@ export default async function SectionTop5(props) {
               hasSponsors={isSponsorsActive(accountBasic)}
               display={display}
               renderArticles={renderArticles}
-            />
+            /> 
           </FixturaSection>
         );
       })}

@@ -16,7 +16,6 @@ export default async function Render({ params }) {
   return (
     <>
       <FixturaSection shade={0} Title={""} subTitle={""}>
-        <BundleWelcomeMessage />
         <FixturaSection
           shade={0}
           Title={`Your Bundle`}
@@ -26,7 +25,7 @@ export default async function Render({ params }) {
           <SelectedStatsStatment Count={Count} />
           <NavigationOptionsForAccountType params={params} />
         </FixturaSection>
-
+        <BundleWelcomeMessage />
         <FixturaSection
           shade={0}
           Title={`Fixtura Updates`}
