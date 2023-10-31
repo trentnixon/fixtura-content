@@ -16,7 +16,7 @@ export default async function Upage({ params }) {
         brackets={"Results"}
       />
 
-      <SectionVideos
+     {/*  <SectionVideos
         params={params} 
         Title={`Results Videos`}
         Type={`results`}
@@ -28,7 +28,7 @@ export default async function Upage({ params }) {
         Type={`statistics`}
         GroupBy={decodeURIComponent(params.key)}
         display={"VIDEO"}
-      />
+      /> */}
     </FixturaContainer>
   );
 }
