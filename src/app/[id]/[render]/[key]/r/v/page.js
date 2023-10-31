@@ -16,14 +16,14 @@ export default async function Upage({ params }) {
         brackets={"Results"}
       />
 
-     {/*  <SectionVideos
+       <SectionVideos
         params={params} 
         Title={`Results Videos`}
         Type={`results`}
         Path={`game_results_in_renders`}
         GroupBy={decodeURIComponent(params.key)}
       /> 
-      <SectionTop5
+     {/* <SectionTop5
         params={params}
         Type={`statistics`}
         GroupBy={decodeURIComponent(params.key)}
