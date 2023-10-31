@@ -9,7 +9,7 @@ import { P } from "@/components/Type/Paragraph";
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
   const Render = await getRenders(params.render);
-  console.log(params.key, decodeURIComponent(params.key))
+
   return (
     <FixturaContainer>
       <PageTitleAndCreated
@@ -18,13 +18,13 @@ export default async function Upage({ params }) {
         brackets={"Results"}
       />
 <P>Testing in Progress</P>
-      {/*  <SectionVideos
+       <SectionVideos
         params={params} 
         Title={`Results Videos`}
         Type={`results`}
         Path={`game_results_in_renders`}
         GroupBy={decodeURIComponent(params.key)}
-      />  */}
+      /> 
      {/* <SectionTop5
         params={params}
         Type={`statistics`}

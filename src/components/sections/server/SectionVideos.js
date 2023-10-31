@@ -13,6 +13,7 @@ export default async function SectionVideos({
   GroupBy,
 }) {
   //console.log(params);
+
   const Category = "Video options";
   const renderData = await getRenderFields(params.render, [ 
     "downloads",
@@ -21,10 +22,10 @@ export default async function SectionVideos({
     "downloads.asset_category",
   ]); 
 
-  const accountBasic = await getAccountFields(params.id, [
+/*   const accountBasic = await getAccountFields(params.id, [
     "sponsors",
     "subscription_tier",
-  ]);
+  ]); */
 
   const account = await getAccount(params.id);
   const AccountType = FindAccountType(account);
@@ -58,7 +59,7 @@ export default async function SectionVideos({
                 renderArticles={RenderWriteups.filteredData}
                 description={video.attributes?.asset?.data?.attributes?.Blurb}
                 subTitle={video.attributes?.asset?.data?.attributes?.SubTitle}
-                hasSponsors={isSponsorsActive(accountBasic)}
+               /*  hasSponsors={isSponsorsActive(accountBasic)} */
                 GroupBy={GroupBy}
                 AccountType={AccountType}
               />
