@@ -152,7 +152,7 @@ export function CreateStatisticsClient(props) {
             description={description}
             articles={assetTypes.article}
             assetName={assetName}
-            hasSponsors={hasSponsors}
+           /*  hasSponsors={hasSponsors} */
           />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>

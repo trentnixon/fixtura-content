@@ -139,7 +139,7 @@ export default async function SectionTop5(props) {
                 assetTypes[display][0].attributes.asset.data.attributes
                   .assetDescription
               }
-              hasSponsors={isSponsorsActive(accountBasic)}
+            /*   hasSponsors={isSponsorsActive(accountBasic)}  */
               display={display}
               renderArticles={renderArticles}
             /> 

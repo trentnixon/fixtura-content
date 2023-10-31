@@ -2,9 +2,7 @@ import { FixturaContainer } from "@/components/containers/containers";
 import SectionVideos from "@/components/sections/server/SectionVideos";
 import { PageTitleAndCreated } from "@/components/Type/Headers";
 import SectionTop5 from "@/components/sections/server/SectionTop5";
-
 import { getRenders } from "@/api/renders";
-import { P } from "@/components/Type/Paragraph";
 
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
