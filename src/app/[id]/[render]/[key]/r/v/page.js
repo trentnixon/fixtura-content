@@ -17,7 +17,7 @@ export default async function Upage({ params }) {
         Title={decodeURIComponent(params.key)}
         brackets={"Results"}
       />
-<P>Testing in Progress</P>
+
        <SectionVideos
         params={params} 
         Title={`Results Videos`}
@@ -25,12 +25,12 @@ export default async function Upage({ params }) {
         Path={`game_results_in_renders`}
         GroupBy={decodeURIComponent(params.key)}
       /> 
-     {/* <SectionTop5
+     <SectionTop5
         params={params}
         Type={`statistics`}
         GroupBy={decodeURIComponent(params.key)}
         display={"VIDEO"}
-      /> */}
+      />
     </FixturaContainer>
   );
 }
