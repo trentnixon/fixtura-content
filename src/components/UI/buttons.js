@@ -55,14 +55,14 @@ export const BUTTON_LINK = (props) => {
       <Button
         variant={variant}
         icon={Icon}
-        color={Color}
+      
         size={size}
         onClick={onClick}
         radius="md"
         uppercase
         sx={(theme) => ({
-          borderColor: theme.colors.cyan[6],
-          color: theme.colors.cyan[6],
+          borderColor: theme.colors[Color][6],
+          color: theme.colors[Color][6],
           cursor: "pointer",
           "&:hover": {
             background: theme.fn.linearGradient(

@@ -6,9 +6,8 @@ import {
   useMantineTheme,
   Select,
 } from "@mantine/core";
-import { IconCricket, IconShield } from "@tabler/icons-react";
+import {  IconShield } from "@tabler/icons-react";
 import { P, S } from "@/components/Type/Paragraph";
-import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { FixturaArticleBox } from "@/components/containers/boxes";
 import { H } from "@/components/Type/Headers";
 import { FixturaGroup } from "@/components/containers/Group";
@@ -19,6 +18,7 @@ export const ListGamesWithArticles = ({ groupedData, setSelected }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [searchTerm, setSearchTerm] = useState("");
 
+  //console.log("groupedData", groupedData)
   // Check if groupedData is not empty
   if (!groupedData || Object.keys(groupedData).length === 0) {
     return <p>No data found</p>;

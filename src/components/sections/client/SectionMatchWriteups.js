@@ -70,9 +70,16 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
       }
     } else if (accountType === "Association") {
       // logic for Associations remains the same
+    /*   console.log("THIS IS AN ASSOICATION")
+     console.log(obj.game_meta_datum.grade.gradeName) */
       const competitionName =
         obj.game_meta_datum.grade.competition.competitionName;
-      return competitionName === ageGroupKey;
+
+       const GradeName  = obj.game_meta_datum.grade.gradeName 
+     /*    console.log(competitionName,ageGroupKey)
+        console.log(competitionName+' - '+GradeName,ageGroupKey)
+        console.log(competitionName+' - '+GradeName === ageGroupKey) */
+      return competitionName+' - '+GradeName === ageGroupKey;
     }
     return false;
   };
@@ -99,6 +106,7 @@ export default function SectionMatchWriteupsClient(props) {
     GroupBy,
     FindAccountType
   );
+  console.log("groupedData", groupedData) 
   return (
     <FixturaGRIDOUTER>
       <FixturaGRIDCOL span={3}>
