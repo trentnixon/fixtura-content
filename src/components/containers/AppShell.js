@@ -27,7 +27,6 @@ export const FixturaAppShell = (props) => {
         <Grid>
           <Grid.Col span={12} sm={4} md={3}>
             <UserDetailsCard accountBasic={accountBasic} />
-           
           </Grid.Col>
           <Grid.Col span={12} sm={8} md={9}>
             <main>{props.children}</main>

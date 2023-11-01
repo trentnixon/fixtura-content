@@ -35,6 +35,6 @@ export default async function SectionMatchWriteups(props) {
         GroupBy={GroupBy}
         FindAccountType={FindAccountType(accountBasic)}
       />
-    </FixturaSection>
+    </FixturaSection> 
   );
 }

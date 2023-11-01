@@ -16,7 +16,12 @@ import {
   Center,
 } from "@mantine/core";
 import { BUTTON_FUNC } from "@/components/UI/buttons";
-import { IconArticle, IconHome2, IconPhotoAi, IconVideo } from "@tabler/icons-react";
+import {
+  IconArticle,
+  IconHome2,
+  IconPhotoAi,
+  IconVideo,
+} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
 export function UserDetailsCard(props) {
@@ -129,18 +134,6 @@ function AssetTypeButtonGroup() {
     }, 500);
   };
 
-  const handleReturnToRender = () => {
-    const baseUrlSegments = pathname.split("/").filter(Boolean); // Split and remove any empty strings
-    const newPath = `/${baseUrlSegments.slice(0, 2).join("/")}`; // Take first two segments and join them
-
-    console.log("New Path", newPath);
-
-    // Navigate to newPath
-    setTimeout(() => {
-      router.push(newPath);
-    }, 500);
-  };
-
   useEffect(() => {
     setIsResults(pathname.includes("/r"));
   }, [pathname]);
@@ -153,7 +146,7 @@ function AssetTypeButtonGroup() {
             size={"sm"}
             Icon={<IconArticle />}
             Label={`Results`}
-            onClick={() => handleButtonClick("r")}
+            onClick={() => handleButtonClick("r/v")}
             variant={pathname.includes("/r") ? "outline" : "light"}
             Color={pathname.includes("/r") ? "green" : "gray.4"}
           />
@@ -161,7 +154,7 @@ function AssetTypeButtonGroup() {
             size={"sm"}
             Icon={<IconArticle />}
             Label={`Upcoming`}
-            onClick={() => handleButtonClick("u")}
+            onClick={() => handleButtonClick("u/v")}
             variant={pathname.includes("/u") ? "outline" : "light"}
             Color={pathname.includes("/u") ? "green" : "gray.4"}
           />
@@ -174,15 +167,6 @@ function AssetTypeButtonGroup() {
 const ReturnHomeBTN = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const [isResults, setIsResults] = useState(pathname.includes("/r"));
-
-  const handleButtonClick = (type) => {
-    const baseUrl = pathname.replace(/\/[ru]\/?.*/, "");
-    const newPath = `${baseUrl}/${type}`;
-    setTimeout(() => {
-      router.push(newPath);
-    }, 500);
-  };
 
   const handleReturnToRender = () => {
     const baseUrlSegments = pathname.split("/").filter(Boolean); // Split and remove any empty strings
@@ -196,9 +180,6 @@ const ReturnHomeBTN = () => {
     }, 500);
   };
 
-  useEffect(() => {
-    setIsResults(pathname.includes("/r"));
-  }, [pathname]);
   return (
     <Center>
       <Card.Section>

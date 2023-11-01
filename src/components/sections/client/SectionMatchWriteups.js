@@ -39,47 +39,38 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
     "Y11",
     "Y12",
     "Colts Y9 & 10",
-    "Mixed Age Group"
+    "Mixed Age Group",
   ]; // Add all junior age groups here
   const SENIOR_AGE_GROUPS = ["Senior", "Senior/Open"]; // Add all senior age groups here
   const MASTERS_AGE_GROUPS = ["Over 35", "Over 40", "Over 50", "Over 60"]; // Add all senior age groups here
 
-  const isAgeGroupInList = (ageGroup, ageGroupList) => {
-    return ageGroupList.includes(ageGroup);
+  const categorizeAgeGroup = (ageGroup) => {
+    // Assuming ageGroup is a string like "U12", "U16", "Over 40", etc.
+    // Define the logic to categorize these into "Junior", "Senior", "Masters"
+    if (JUNIOR_AGE_GROUPS.includes(ageGroup)) {
+      return "Junior";
+    } else if (SENIOR_AGE_GROUPS.includes(ageGroup)) {
+      return "Senior";
+    } else if (MASTERS_AGE_GROUPS.includes(ageGroup)) {
+      return "Masters";
+    }
+    return "Unknown"; // Or handle undefined age groups as needed
   };
 
   const isMatchingAgeGroup = (obj) => {
     // logic for Clubs
     const ageGroup = obj.game_meta_datum.grade.ageGroup;
+    const broaderAgeGroup = categorizeAgeGroup(ageGroup);
+
     if (accountType === "Club") {
-      if (
-        ageGroupKey === "Junior" &&
-        isAgeGroupInList(ageGroup, JUNIOR_AGE_GROUPS)
-      ) {
-        return true;
-      } else if (
-        ageGroupKey === "Senior" &&
-        isAgeGroupInList(ageGroup, SENIOR_AGE_GROUPS)
-      ) {
-        return true;
-      } else if (
-        ageGroupKey === "Masters" &&
-        isAgeGroupInList(ageGroup, MASTERS_AGE_GROUPS)
-      ) {
-        return true;
-      }
+      return ageGroupKey === broaderAgeGroup;
     } else if (accountType === "Association") {
       // logic for Associations remains the same
-    /*   console.log("THIS IS AN ASSOICATION")
-     console.log(obj.game_meta_datum.grade.gradeName) */
+
       const competitionName =
         obj.game_meta_datum.grade.competition.competitionName;
-
-       const GradeName  = obj.game_meta_datum.grade.gradeName 
-     /*    console.log(competitionName,ageGroupKey)
-        console.log(competitionName+' - '+GradeName,ageGroupKey)
-        console.log(competitionName+' - '+GradeName === ageGroupKey) */
-      return competitionName+' - '+GradeName === ageGroupKey;
+      const GradeName = obj.game_meta_datum.grade.gradeName;
+      return competitionName + " - " + GradeName === ageGroupKey;
     }
     return false;
   };
@@ -106,7 +97,7 @@ export default function SectionMatchWriteupsClient(props) {
     GroupBy,
     FindAccountType
   );
-  console.log("groupedData", groupedData) 
+  console.log("groupedData", groupedData);
   return (
     <FixturaGRIDOUTER>
       <FixturaGRIDCOL span={3}>
