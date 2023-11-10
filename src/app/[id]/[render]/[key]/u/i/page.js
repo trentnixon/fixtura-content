@@ -21,7 +21,7 @@ export default async function Upage({ params }) {
         GroupBy={decodeURIComponent(params.key)}
       />
 
-      <RequestTeamRosterForRender Render={Render} />
+      {/* <RequestTeamRosterForRender Render={Render} /> */}
     </FixturaContainer>
   );
 }
