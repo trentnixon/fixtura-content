@@ -22,16 +22,17 @@ export default async function SectionImages({ params, Title, Type, GroupBy }) {
     "downloads.asset",
     "downloads.asset_category",
   ]);
-
+ 
   // Usage:
   const filteredDownloads = filterDownloads(
     renderData.attributes.downloads.data,
     Category,
     Type
   );
-
+ 
   const groupedDownloads = groupByAssetName(filteredDownloads);
-
+  console.log("groupedDownloads",groupedDownloads)
+ 
   if (Object.keys(groupedDownloads).length === 0) {
     return false;
   }
@@ -43,6 +44,7 @@ export default async function SectionImages({ params, Title, Type, GroupBy }) {
     return false;
   return (
     <>
+    groupedDownloads here?
       {Object.entries(groupedDownloads).map(([label, items]) => (
         <CreateImagesClient
           key={label}

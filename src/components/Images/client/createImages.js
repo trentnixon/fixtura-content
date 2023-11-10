@@ -1,5 +1,4 @@
 "use client";
-
 import { AssetImage } from "@/components/Images/Fixturaimages";
 import { BUTTON_FUNC, BUTTON_ICON_FUNC } from "@/components/UI/buttons";
 import { FixturaGroup } from "@/components/containers/Group";
@@ -16,10 +15,10 @@ export async function CreateImagesClient(props) {
   const filteredItems = ITEMS.filter(
     (IMG) =>{
       console.log(IMG.attributes.grouping_category, GroupBy)
-      return IMG.attributes.grouping_category === GroupBy
+      return IMG.attributes.grouping_category.toLowerCase() === GroupBy.toLowerCase();
     } 
   );
-
+  
   return (
     <>
       <FixturaSection
@@ -29,6 +28,7 @@ export async function CreateImagesClient(props) {
         Blurb={filteredItems[0]?.attributes.asset.data.attributes.Blurb}
         Icon={"ICO_HEADER_CRICKET"}
       >
+   
         <FixturaGroup position="right" my={10}>
           <BUTTON_FUNC
             Label={`Download All (${filteredItems.length})`}
