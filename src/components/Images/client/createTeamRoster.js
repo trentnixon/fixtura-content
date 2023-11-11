@@ -89,16 +89,16 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
         {!hasRosters && (
           <FixturaBox c={8} baseColor={"green"} c={0}>
             <P fw={800} c={"gray.8"} ta={`center`}>
-              Instantly create sleek team roster graphics for every team in the
-              club.
+            Instantly create sleek team roster graphics for every team in the club.
+
             </P>
             <P c={"gray.8"} ta={`center`}>
-              Ensure your PlayHQ entries are set, then hit 'Generate Team
-              Rosters'
+            Instantly create sleek team roster graphics for every team in the club.
+
             </P>
             <P c={"gray.8"} ta={`center`}>
-              This service is only available once per week/bundle. We'll notify
-              you when they're ready for showcase.
+            This service is only available once per week\/bundle. We&#39;ll notify you when they&#39;re ready for showcase.
+
             </P>
           </FixturaBox>
         )}
