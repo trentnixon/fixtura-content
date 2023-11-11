@@ -27,7 +27,7 @@ export default async function Render({ params }) {
           <SelectedStatsStatment Count={Count} />
           <NavigationOptionsForAccountType params={params} />
         </FixturaSection>
-       {/*  <BundleWelcomeMessage /> */}
+    
         <RequestTeamRosterForRender Render={params.render} CompleteRender={CompleteRender}/>
         <FixturaSection
           shade={0}

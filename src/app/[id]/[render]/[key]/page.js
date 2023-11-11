@@ -23,5 +23,5 @@ export default async function page({ params }) {
         <KeyNavigationItems params={params} Render={Render} />
       </FixturaSection>
     </FixturaContainer> 
-  ); 
+  );  
 }

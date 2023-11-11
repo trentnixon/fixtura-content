@@ -70,7 +70,7 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const dayOfWeek = new Date()
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
-  const allowedDays = ["thursday", "friday", "saturday"];
+  const allowedDays = ["thursday", "friday", "saturday","sunday"];
   const isButtonAccessible = allowedDays.includes(dayOfWeek);
 
   console.log("isButtonAccessible", isButtonAccessible);
