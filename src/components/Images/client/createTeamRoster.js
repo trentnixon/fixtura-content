@@ -87,7 +87,7 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
       </FixturaGroup>
       <FixturaPaper my={15}>
         {!hasRosters && (
-          <FixturaBox c={8} baseColor={"green"} c={0}>
+          <FixturaBox baseColor={"green"} c={0}>
             <P fw={800} c={"gray.8"} ta={`center`}>
             Instantly create sleek team roster graphics for every team in the club.
 
