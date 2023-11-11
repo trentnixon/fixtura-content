@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BUTTON_FUNC } from "@/components/UI/buttons";
 import { FixturaGroup } from "@/components/containers/Group";
 import { useRequestTeamRoster } from "@/Hooks/useRequestTeamRoster";
@@ -61,7 +61,16 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const { requestStatus, error, requestTeamRoster } = useRequestTeamRoster();
   const [requestInitiated, setRequestInitiated] = useState(false);
 
+  useEffect(() => {
+    // Check local storage for the request state
+    const storedState = localStorage.getItem(`requestInitiated-${Render}`);
+    if (storedState === "true") {
+      setRequestInitiated(true);
+    }
+  }, [Render]);
+
   const handleRequestClick = () => {
+    localStorage.setItem(`requestInitiated-${Render}`, "true");
     setRequestInitiated(true);
     requestTeamRoster(Render);
   };
@@ -86,24 +95,32 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
       </FixturaGroup>
 
       <FixturaPaper my={15}>
-        {!hasRosters && (
+        {!hasRosters && !requestInitiated && (
           <FixturaBox baseColor={"green"} c={0}>
             <P fw={800} c={"gray.8"} ta={`center`}>
               Instantly create sleek team roster graphics for every team in the
               club.
             </P>
             <P c={"gray.8"} ta={`center`}>
-              This service is only available once per week/bundle. We&apos;ll notify
-              you when they&apos;re ready for showcase.
+              This service is only available once per week/bundle. We&apos;ll
+              notify you when they&apos;re ready for showcase.
             </P>
           </FixturaBox>
         )}
-        {requestInitiated ? (
-          <FixturaGroup position={"center"} my={5} py={5}>
-            <P>Request sent!</P>
-          </FixturaGroup>
-        ) : (
-          false
+        {requestInitiated && (
+          <FixturaBox baseColor={"blue"} c={0}>
+            <P fw={800} c={"gray.8"} ta={`center`}>
+              Now Processing!
+            </P>
+            <P c={"gray.9"} ta={`center`}>
+              Your request to generate team rosters has been successfully sent
+              and is now being processed.
+            </P>
+            <P c={"gray.9"} ta={`center`}>
+              This may take a few moments. You will be notified via email once the rosters
+              are ready.
+            </P>
+          </FixturaBox>
         )}
 
         {!requestInitiated &&
