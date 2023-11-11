@@ -93,8 +93,8 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
               club.
             </P>
             <P c={"gray.8"} ta={`center`}>
-              This service is only available once per week/bundle. We'll notify
-              you when they're ready for showcase.
+              This service is only available once per week/bundle. We&apos;ll notify
+              you when they&apos;re ready for showcase.
             </P>
           </FixturaBox>
         )}
