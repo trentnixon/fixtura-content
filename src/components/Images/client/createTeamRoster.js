@@ -40,7 +40,7 @@ const RequestButtonWithConfirmation = ({ onConfirm, disabled, isLoading }) => {
         />
       ) : (
         <Stack>
-          <P> 
+          <P>
             You can only do this once for this bundle. Confirm to generate the
             team rosters.
           </P>
@@ -59,22 +59,20 @@ const RequestButtonWithConfirmation = ({ onConfirm, disabled, isLoading }) => {
 
 export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const { requestStatus, error, requestTeamRoster } = useRequestTeamRoster();
-console.log("this is the render", Render)
+  const [requestInitiated, setRequestInitiated] = useState(false);
+
   const handleRequestClick = () => {
-    console.log("SEND Render.id", Render)
+    setRequestInitiated(true);
     requestTeamRoster(Render);
   };
 
   const hasRosters = CompleteRender.attributes.hasTeamRosters;
-
-  // Determine the current day of the week
   const dayOfWeek = new Date()
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
-  const allowedDays = ["thursday", "friday", "saturday","sunday"];
+  const allowedDays = ["thursday", "friday", "saturday", "sunday"];
   const isButtonAccessible = allowedDays.includes(dayOfWeek);
 
-  console.log("isButtonAccessible", isButtonAccessible, hasRosters);
   return (
     <>
       <FixturaGroup position={"apart"} my={5} py={5}>
@@ -86,26 +84,31 @@ console.log("this is the render", Render)
         </Stack>
         <Badge color="orange">Beta</Badge>
       </FixturaGroup>
+
       <FixturaPaper my={15}>
         {!hasRosters && (
           <FixturaBox baseColor={"green"} c={0}>
             <P fw={800} c={"gray.8"} ta={`center`}>
-            Instantly create sleek team roster graphics for every team in the club.
-
+              Instantly create sleek team roster graphics for every team in the
+              club.
             </P>
             <P c={"gray.8"} ta={`center`}>
-            Instantly create sleek team roster graphics for every team in the club.
-
-            </P>
-            <P c={"gray.8"} ta={`center`}>
-            This service is only available once per week\/bundle. We&#39;ll notify you when they&#39;re ready for showcase.
-
+              This service is only available once per week/bundle. We'll notify
+              you when they're ready for showcase.
             </P>
           </FixturaBox>
         )}
+        {requestInitiated ? (
+          <FixturaGroup position={"center"} my={5} py={5}>
+            <P>Request sent!</P>
+          </FixturaGroup>
+        ) : (
+          false
+        )}
 
-        {isButtonAccessible ? (
-          hasRosters ? (
+        {!requestInitiated &&
+          isButtonAccessible &&
+          (hasRosters ? (
             <FixturaGroup position={"center"} my={5} py={5}>
               <IconCheck size={50} stroke={2} color={"#3ba776"} />
               <Stack justify="flex-start" spacing={0}>
@@ -134,34 +137,9 @@ console.log("this is the render", Render)
                 </div>
               </Stack>
             </FixturaGroup>
-          )
-        ) : (
-          <>
-            <P c={"gray.7"} ta={`center`} my={15}>
-              Hang tight! The Player Roster feature is only available on these
-              selected days.
-            </P>
-
-            {allowedDays.map((day, i) => {
-              return (
-                <P
-                  key={i}
-                  tt="uppercase"
-                  c={"gray.7"}
-                  ta={`center`}
-                  fw={800}
-                  my={10}
-                >
-                  {day}
-                </P>
-              );
-            })}
-            <P c={"gray.7"} ta={`center`} my={15}>
-              We look forward to seeing your teams in the spotlight soon!
-            </P>
-          </>
-        )}
+          ))}
       </FixturaPaper>
+
       <S c={"gray.7"} ta={"left"} my={15}>
         This feature is currently in Beta, meaning some things may not always
         appear or work as expected. Should you run into any issues, please
