@@ -40,7 +40,7 @@ const RequestButtonWithConfirmation = ({ onConfirm, disabled, isLoading }) => {
         />
       ) : (
         <Stack>
-          <P>
+          <P> 
             You can only do this once for this bundle. Confirm to generate the
             team rosters.
           </P>
@@ -59,9 +59,10 @@ const RequestButtonWithConfirmation = ({ onConfirm, disabled, isLoading }) => {
 
 export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const { requestStatus, error, requestTeamRoster } = useRequestTeamRoster();
-
+console.log("this is the render", Render)
   const handleRequestClick = () => {
-    requestTeamRoster(Render.id);
+    console.log("SEND Render.id", Render)
+    requestTeamRoster(Render);
   };
 
   const hasRosters = CompleteRender.attributes.hasTeamRosters;
@@ -73,7 +74,7 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const allowedDays = ["thursday", "friday", "saturday","sunday"];
   const isButtonAccessible = allowedDays.includes(dayOfWeek);
 
-  console.log("isButtonAccessible", isButtonAccessible);
+  console.log("isButtonAccessible", isButtonAccessible, hasRosters);
   return (
     <>
       <FixturaGroup position={"apart"} my={5} py={5}>

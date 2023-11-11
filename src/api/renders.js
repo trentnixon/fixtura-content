@@ -75,7 +75,7 @@ export async function getRenders(ID) {
   //const res = await fetcher(`renders/${ID}?${queryParams}`);
   const res = await fetcher({
     PATH: `renders/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 60 } },
   });
   //console.log("res.data", res.data);
   return res.data;
