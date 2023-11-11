@@ -2,7 +2,7 @@
 // Structure
 import { FixturaSection } from "@/components/containers/Section";
 
-import { RenderCount } from "@/api/renders";
+import { RenderCount, getRenders } from "@/api/renders";
 import { SelectedStatsStatment } from "@/components/PageSelectedRender/server/RenderStatsStatment";
 import NavigationOptionsForAccountType from "@/components/PageOverview/NavigationOptionsForAccountType";
 import {
@@ -10,9 +10,11 @@ import {
   BundleWelcomeMessage,
 } from "@/components/PageSelectedRender/server/BundleWelcomeMessage";
 import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
+import { RequestTeamRosterForRender } from "@/components/Images/client/createTeamRoster";
 
 export default async function Render({ params }) {
   const Count = await RenderCount(params.render);
+  const CompleteRender = await getRenders(params.render);
   return (
     <>
       <FixturaSection shade={0} Title={""} subTitle={""}>
@@ -25,7 +27,8 @@ export default async function Render({ params }) {
           <SelectedStatsStatment Count={Count} />
           <NavigationOptionsForAccountType params={params} />
         </FixturaSection>
-        <BundleWelcomeMessage />
+       {/*  <BundleWelcomeMessage /> */}
+        <RequestTeamRosterForRender Render={params.render} CompleteRender={CompleteRender}/>
         <FixturaSection
           shade={0}
           Title={`Fixtura Updates`}

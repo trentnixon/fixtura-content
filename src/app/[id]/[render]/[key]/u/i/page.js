@@ -2,7 +2,6 @@ import { FixturaContainer } from "@/components/containers/containers";
 import SectionImages from "@/components/sections/server/SectionImages";
 import { PageTitleAndCreated } from "@/components/Type/Headers";
 import { getRenders } from "@/api/renders";
-import { RequestTeamRosterForRender } from "@/components/Images/client/createTeamRoster";
 
 export default async function Upage({ params }) {
   const Render = await getRenders(params.render);
@@ -21,7 +20,7 @@ export default async function Upage({ params }) {
         GroupBy={decodeURIComponent(params.key)}
       />
 
-      {/* <RequestTeamRosterForRender Render={Render} /> */}
+     
     </FixturaContainer>
   );
 }

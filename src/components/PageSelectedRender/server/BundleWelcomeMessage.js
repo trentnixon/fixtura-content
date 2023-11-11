@@ -27,13 +27,13 @@ export async function BundleWelcomeMessage() {
           <ICO_INFO />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
-    </FixturaBox>
+    </FixturaBox> 
   );
 }
 
 export async function BundleUpdates() {
   return (
-    <FixturaContainer my={30} mx={"5%"}>
+    <FixturaContainer my={30} mx={"0%"}>
       <DeveloperComment
         Title={`Simplified Layout:`}
         Copy={`We've decluttered and focused on what's essential. Results and
