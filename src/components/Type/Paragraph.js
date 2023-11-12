@@ -5,13 +5,13 @@ export const P = (props) => {
   const {
     fw = 400,
     fs = "normal",
-    fz='md',
+    fz = "md",
     tt = "",
     c = "",
     ta = "left",
     lh = "1.2",
-    my='5',
-    mx='5'
+    my = "5",
+    mx = "5",
   } = props;
   return (
     <Text fz={fz} fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh} my={my} mx={mx}>
@@ -21,9 +21,19 @@ export const P = (props) => {
 };
 
 export const S = (props) => {
-  const { fw = 200, fz="sm", fs = "normal", tt = "", c = "", ta = "left", lh = "1.2em" } = props;
+  const {
+    fw = 200,
+    fz = "sm",
+    fs = "normal",
+    tt = "",
+    c = "",
+    ta = "left",
+    lh = "1.2em",
+    my = "5",
+    mx = "5",
+  } = props;
   return (
-    <Text fz={fz} fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh}>
+    <Text fz={fz} fw={fw} fs={fs} tt={tt} c={c} ta={ta} lh={lh} my={my} mx={mx}>
       {props.children}
     </Text>
   );
@@ -47,10 +57,12 @@ export const N = (props) => {
   );
 };
 
-export const C = (props) =>{
-  const {shade=5, fw='400'}= props
-  const theme = useMantineTheme()
-  return(
-    <span style={{ color:theme.colors.blue[shade], fontWeight:fw }}>{props.children}</span>
-  )
-} ;
+export const C = (props) => {
+  const { shade = 5, fw = "400" } = props;
+  const theme = useMantineTheme();
+  return (
+    <span style={{ color: theme.colors.blue[shade], fontWeight: fw }}>
+      {props.children}
+    </span>
+  );
+};
