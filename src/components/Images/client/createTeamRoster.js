@@ -60,14 +60,24 @@ const RequestButtonWithConfirmation = ({ onConfirm, disabled, isLoading }) => {
 export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const { requestStatus, error, requestTeamRoster } = useRequestTeamRoster();
   const [requestInitiated, setRequestInitiated] = useState(false);
+  const hasRosters = CompleteRender.attributes.hasTeamRosters;
+
 
   useEffect(() => {
-    // Check local storage for the request state
     const storedState = localStorage.getItem(`requestInitiated-${Render}`);
     if (storedState === "true") {
       setRequestInitiated(true);
     }
   }, [Render]);
+
+    // Reset local storage when rosters are created
+    useEffect(() => {
+
+      if (hasRosters && requestInitiated) {
+        localStorage.removeItem(`rosterRequest_${Render}`);
+        setRequestInitiated(false);
+      }
+    }, [hasRosters, requestInitiated, Render]);
 
   const handleRequestClick = () => {
     localStorage.setItem(`requestInitiated-${Render}`, "true");
@@ -75,7 +85,7 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
     requestTeamRoster(Render);
   };
 
-  const hasRosters = CompleteRender.attributes.hasTeamRosters;
+  
   const dayOfWeek = new Date()
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
