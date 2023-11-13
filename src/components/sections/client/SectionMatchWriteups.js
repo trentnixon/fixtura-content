@@ -40,6 +40,7 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
     "Y12",
     "Colts Y9 & 10",
     "Mixed Age Group",
+    "Junior Competition"
   ]; // Add all junior age groups here
   const SENIOR_AGE_GROUPS = ["Senior", "Senior/Open"]; // Add all senior age groups here
   const MASTERS_AGE_GROUPS = ["Over 35", "Over 40", "Over 50", "Over 60"]; // Add all senior age groups here
