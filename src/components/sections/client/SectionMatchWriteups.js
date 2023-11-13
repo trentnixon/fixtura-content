@@ -92,6 +92,10 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
 export default function SectionMatchWriteupsClient(props) {
   const { renderData, hasSponsors, GroupBy, FindAccountType } = props;
   const [selected, setSelected] = useState(null);
+  console.log("renderData?.filteredData", renderData?.filteredData);
+  console.log("GroupBy", GroupBy);
+  console.log("FindAccountType", FindAccountType);
+
   const groupedData = GroupByGame(
     renderData?.filteredData,
     GroupBy,
