@@ -10,7 +10,7 @@ import { Box, Container, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 
-const GroupByGame = (dataArray, ageGroupKey, accountType) => {
+const GroupByGame = (dataArray, ageGroupKey, accountType, group_assets_by) => {
   const JUNIOR_AGE_GROUPS = [
     "U7",
     "U8",
@@ -40,7 +40,7 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
     "Y12",
     "Colts Y9 & 10",
     "Mixed Age Group",
-    "Junior Competition"
+    "Junior Competition",
   ]; // Add all junior age groups here
   const SENIOR_AGE_GROUPS = ["Senior", "Senior/Open"]; // Add all senior age groups here
   const MASTERS_AGE_GROUPS = ["Over 35", "Over 40", "Over 50", "Over 60"]; // Add all senior age groups here
@@ -66,12 +66,14 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
     if (accountType === "Club") {
       return ageGroupKey === broaderAgeGroup;
     } else if (accountType === "Association") {
-      // logic for Associations remains the same
-      //[0].game_meta_datum.grade.competition.competitionName
-      const competitionName =
-        obj.game_meta_datum.grade.competition.competitionName;
-      const GradeName = obj.game_meta_datum.grade.gradeName;
-      return competitionName + " - " + GradeName === ageGroupKey;
+      if (group_assets_by) {
+        const competitionName =
+          obj.game_meta_datum.grade.competition.competitionName;
+        const GradeName = obj.game_meta_datum.grade.gradeName;
+        return competitionName + " - " + GradeName === ageGroupKey;
+      } else {
+        return obj.game_meta_datum.grade.competition.competitionName;
+      }
     }
     return false;
   };
@@ -91,7 +93,8 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
 };
 
 export default function SectionMatchWriteupsClient(props) {
-  const { renderData, hasSponsors, GroupBy, FindAccountType } = props;
+  const { renderData, hasSponsors, GroupBy, FindAccountType, group_assets_by } =
+    props;
   const [selected, setSelected] = useState(null);
   console.log("renderData?.filteredData", renderData?.filteredData);
   console.log("GroupBy", GroupBy);
@@ -100,7 +103,8 @@ export default function SectionMatchWriteupsClient(props) {
   const groupedData = GroupByGame(
     renderData?.filteredData,
     GroupBy,
-    FindAccountType
+    FindAccountType,
+    group_assets_by
   );
   console.log("groupedData", groupedData);
   return (
