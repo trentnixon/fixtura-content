@@ -67,7 +67,7 @@ const GroupByGame = (dataArray, ageGroupKey, accountType) => {
       return ageGroupKey === broaderAgeGroup;
     } else if (accountType === "Association") {
       // logic for Associations remains the same
-
+      //[0].game_meta_datum.grade.competition.competitionName
       const competitionName =
         obj.game_meta_datum.grade.competition.competitionName;
       const GradeName = obj.game_meta_datum.grade.gradeName;

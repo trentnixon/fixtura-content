@@ -20,6 +20,8 @@ export default async function SectionMatchWriteups(props) {
     BiasID
   );
 
+  console.log("accountBasic", accountBasic)
+
   //console.log("isSponsorsActive ",isSponsorsActive(accountBasic));
     //console.log("Writeups", Writeups)
   return (
