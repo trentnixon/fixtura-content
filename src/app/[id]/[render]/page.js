@@ -11,10 +11,15 @@ import {
 } from "@/components/PageSelectedRender/server/BundleWelcomeMessage";
 import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
 import { RequestTeamRosterForRender } from "@/components/Images/client/createTeamRoster";
+import { FindAccountType } from "@/utils/actions";
+import { getAccount } from "@/api/accounts";
 
 export default async function Render({ params }) {
   const Count = await RenderCount(params.render);
   const CompleteRender = await getRenders(params.render);
+  const account = await getAccount(params.id);
+  const AccountType = FindAccountType(account);
+
   return (
     <>
       <FixturaSection shade={0} Title={""} subTitle={""}>
@@ -27,8 +32,15 @@ export default async function Render({ params }) {
           <SelectedStatsStatment Count={Count} />
           <NavigationOptionsForAccountType params={params} />
         </FixturaSection>
-    
-        <RequestTeamRosterForRender Render={params.render} CompleteRender={CompleteRender}/>
+        {AccountType === "Club" ? (
+          <RequestTeamRosterForRender
+            Render={params.render}
+            CompleteRender={CompleteRender}
+          />
+        ) : (
+          false
+        )}
+
         <FixturaSection
           shade={0}
           Title={`Fixtura Updates`}
