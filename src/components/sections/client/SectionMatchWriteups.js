@@ -66,13 +66,24 @@ const GroupByGame = (dataArray, ageGroupKey, accountType, group_assets_by) => {
     if (accountType === "Club") {
       return ageGroupKey === broaderAgeGroup;
     } else if (accountType === "Association") {
+      console.log("group_assets_by", group_assets_by);
       if (group_assets_by) {
         const competitionName =
           obj.game_meta_datum.grade.competition.competitionName;
         const GradeName = obj.game_meta_datum.grade.gradeName;
+        console.log(
+          "competitionName + " - " + GradeName === ageGroupKey",
+          competitionName + " - " + GradeName === ageGroupKey
+        );
         return competitionName + " - " + GradeName === ageGroupKey;
       } else {
-        return obj.game_meta_datum.grade.competition.competitionName;
+        console.log(
+          "obj.game_meta_datum.grade.competition.competitionName === ageGroupKey",
+          obj.game_meta_datum.grade.competition.competitionName === ageGroupKey
+        );
+        return (
+          obj.game_meta_datum.grade.competition.competitionName === ageGroupKey
+        );
       }
     }
     return false;
