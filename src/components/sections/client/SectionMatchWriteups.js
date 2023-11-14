@@ -66,21 +66,13 @@ const GroupByGame = (dataArray, ageGroupKey, accountType, group_assets_by) => {
     if (accountType === "Club") {
       return ageGroupKey === broaderAgeGroup;
     } else if (accountType === "Association") {
-      console.log("group_assets_by", group_assets_by);
       if (group_assets_by) {
         const competitionName =
           obj.game_meta_datum.grade.competition.competitionName;
         const GradeName = obj.game_meta_datum.grade.gradeName;
-        console.log(
-          "competitionName + " - " + GradeName === ageGroupKey",
-          competitionName + " - " + GradeName === ageGroupKey
-        );
+
         return competitionName + " - " + GradeName === ageGroupKey;
       } else {
-        console.log(
-          "obj.game_meta_datum.grade.competition.competitionName === ageGroupKey",
-          obj.game_meta_datum.grade.competition.competitionName === ageGroupKey
-        );
         return (
           obj.game_meta_datum.grade.competition.competitionName === ageGroupKey
         );
@@ -107,9 +99,6 @@ export default function SectionMatchWriteupsClient(props) {
   const { renderData, hasSponsors, GroupBy, FindAccountType, group_assets_by } =
     props;
   const [selected, setSelected] = useState(null);
-/*   console.log("renderData?.filteredData", renderData?.filteredData);
-  console.log("GroupBy", GroupBy);
-  console.log("FindAccountType", FindAccountType); */
 
   const groupedData = GroupByGame(
     renderData?.filteredData,
@@ -117,7 +106,7 @@ export default function SectionMatchWriteupsClient(props) {
     FindAccountType,
     group_assets_by
   );
-  console.log("groupedData", groupedData);
+  //console.log("groupedData", groupedData);
   return (
     <FixturaGRIDOUTER>
       <FixturaGRIDCOL span={3}>
