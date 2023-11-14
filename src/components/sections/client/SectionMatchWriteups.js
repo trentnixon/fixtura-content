@@ -107,9 +107,9 @@ export default function SectionMatchWriteupsClient(props) {
   const { renderData, hasSponsors, GroupBy, FindAccountType, group_assets_by } =
     props;
   const [selected, setSelected] = useState(null);
-  console.log("renderData?.filteredData", renderData?.filteredData);
+/*   console.log("renderData?.filteredData", renderData?.filteredData);
   console.log("GroupBy", GroupBy);
-  console.log("FindAccountType", FindAccountType);
+  console.log("FindAccountType", FindAccountType); */
 
   const groupedData = GroupByGame(
     renderData?.filteredData,
