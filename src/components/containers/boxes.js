@@ -2,7 +2,7 @@
 import { Box } from "@mantine/core";
 
 export const FixturaBox = (props) => {
-  const { c = 2, baseColor = "gray", w = "auto", p='sm' } = props;
+  const { c = 2, baseColor = "gray", w = "auto", p = "sm" } = props;
   return (
     <Box
       sx={(theme) => ({
@@ -17,8 +17,6 @@ export const FixturaBox = (props) => {
     </Box>
   );
 };
-
-
 
 export const FixturaCategoryBox = (props) => {
   const { color = "blue", c = 5 } = props;
@@ -42,12 +40,18 @@ export const FixturaCategoryBox = (props) => {
 };
 
 export const ArticleMetaBox = (props) => {
-  const { c = 2, baseColor = "gray", w = "auto", p='sm', border='borderLeft' } = props;
+  const {
+    c = 2,
+    baseColor = "gray",
+    w = "auto",
+    p = "sm",
+    border = "borderLeft",
+  } = props;
   return (
     <Box
       sx={(theme) => ({
         width: w,
-        [border]: `10px solid ${theme.colors[baseColor][c]}`,
+
         textAlign: "left",
         padding: theme.spacing[p],
         borderRadius: theme.radius.sm,
@@ -74,12 +78,11 @@ export const FixturaArticleBox = (props) => {
       sx={(theme) => ({
         backgroundColor: theme.colors[baseColor][c],
         textAlign: "left",
-        width:w,
+        width: w,
         padding: theme.spacing[p],
         borderRadius: theme.radius.sm,
         border: `1px solid ${theme.colors.gray[1]}`,
       })}
-    
     >
       {props.children}
     </Box>
@@ -90,7 +93,7 @@ export const FixturaArticleBox = (props) => {
 
 // Account Page
 export const FixturaAccountBox = (props) => {
-  const { children, my = 0, py = 10, mx='md', px=`md` } = props;
+  const { children, my = 0, py = 10, mx = "md", px = `md` } = props;
   return (
     <Box
       my={my}
@@ -101,7 +104,6 @@ export const FixturaAccountBox = (props) => {
         backgroundColor: theme.colors.gray[0],
         textAlign: "left",
         padding: theme.spacing.sm,
-        
       })}
     >
       {children}

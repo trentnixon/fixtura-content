@@ -20,5 +20,5 @@ export default async function Upage({ params }) {
         GroupBy={decodeURIComponent(params.key)}
       />
     </FixturaContainer>
-  );
+  );  
 }

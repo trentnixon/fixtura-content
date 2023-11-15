@@ -109,12 +109,6 @@ export default function SectionMatchWriteupsClient(props) {
   //console.log("groupedData", groupedData);
   return (
     <FixturaGRIDOUTER>
-      <FixturaGRIDCOL span={3}>
-        <ListGamesWithArticles
-          groupedData={groupedData}
-          setSelected={setSelected}
-        />
-      </FixturaGRIDCOL>
       <FixturaGRIDCOL span={9}>
         {selected === null ? (
           <SelectAArticle />
@@ -124,6 +118,12 @@ export default function SectionMatchWriteupsClient(props) {
             hasSponsors={hasSponsors}
           />
         )}
+      </FixturaGRIDCOL>
+      <FixturaGRIDCOL span={3}>
+        <ListGamesWithArticles
+          groupedData={groupedData}
+          setSelected={setSelected}
+        />
       </FixturaGRIDCOL>
     </FixturaGRIDOUTER>
   );

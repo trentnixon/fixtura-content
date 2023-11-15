@@ -62,7 +62,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
   useEffect(() => {
     setGameContext(GAME.gameContext || "");
     setIsAddingContext(false);
-  }, [SelectedGame,GAME.gameContext]);
+  }, [SelectedGame, GAME.gameContext]);
   // Update the state with the new article once it's ready
   useEffect(() => {
     if (startPolling !== null && isPending) {
@@ -91,9 +91,12 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
   return (
     <>
       <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={10}>
+        <FixturaGRIDCOL span={12}>
           <ArticleHeader GAME={GAME} />
-          <ArticleActionBtns 
+          <ArticleActionBtns
+            setVersion={setVersion}
+            version={version}
+            ArticleSet={ArticleSet}
             setCopied={setCopied}
             copied={copied}
             article={ArticleSet[version].EditorsArticle}
@@ -103,8 +106,8 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
             rewriteCount={ArticleSet[version].rewriteCount}
             ArticleVersion={ArticleSet[version]}
             setIsAddingContext={setIsAddingContext}
-            isAddingContext={isAddingContext} 
-            hasSponsors={hasSponsors} 
+            isAddingContext={isAddingContext}
+            hasSponsors={hasSponsors}
           />
           {isAddingContext ? (
             <AddContext
@@ -123,7 +126,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
 
           <ArticleMetaData GAME={GAME} />
         </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={2}>
+        {/*  <FixturaGRIDCOL span={2}>
           {isMobile ? (
             <MobileSelectArticleType
               setVersion={setVersion}
@@ -137,7 +140,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
               ArticleSet={ArticleSet}
             />
           )}
-        </FixturaGRIDCOL>
+        </FixturaGRIDCOL> */}
       </FixturaGRIDOUTER>
     </>
   );

@@ -18,15 +18,7 @@ export const ArticleHeader = ({ GAME }) => {
 
   return (
     <FixturaAccountBox c={0} my={5} mx={0} py={0} px={0}>
-      <FixturaGroup my={5}>
-        <P fz={isMobile ? `xs` : `xs`} fw={800} c={"dark.5"}>
-          {GAME.type} {GAME.round}
-        </P>
-
-        <P fz={isMobile ? `xs` : `xs`} fw={400} c={"dark.8"}>
-          {GAME.date}
-        </P>
-      </FixturaGroup>
+      
       <ResponsiveGroup grow={true}>
         <ArticleMetaBox
           c={5}
@@ -65,7 +57,15 @@ export const ArticleHeader = ({ GAME }) => {
           }`}</H>
         </ArticleMetaBox>
       </ResponsiveGroup>
+      <FixturaGroup my={5}>
+        <P fz={isMobile ? `xs` : `xs`} fw={800} c={"dark.5"}>
+          {GAME.type} {GAME.round}
+        </P>
 
+        <P fz={isMobile ? `xs` : `xs`} fw={400} c={"dark.8"}>
+          {GAME.date}
+        </P>
+      </FixturaGroup>
       {!GAME.ResultStatement ? (
         false
       ) : (

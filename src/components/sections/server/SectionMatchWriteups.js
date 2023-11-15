@@ -20,11 +20,7 @@ export default async function SectionMatchWriteups(props) {
     BiasID
   );
 
-  console.log("accountBasic", accountBasic.attributes.group_assets_by)
-
-  //console.log("isSponsorsActive ",isSponsorsActive(accountBasic));
-    //console.log("Writeups", Writeups)
-  return (
+  return ( 
     <FixturaSection
       shade={0}
       Title={Title}

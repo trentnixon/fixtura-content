@@ -6,7 +6,7 @@ import {
   useMantineTheme,
   Select,
 } from "@mantine/core";
-import {  IconShield } from "@tabler/icons-react";
+
 import { P, S } from "@/components/Type/Paragraph";
 import { FixturaArticleBox } from "@/components/containers/boxes";
 import { H } from "@/components/Type/Headers";
@@ -78,7 +78,7 @@ const DesktopListGamesWithArticles = ({
 
   return (
     <>
-      <FixturaArticleBox my={'xs'} mx={0} p={'xs'}>
+      <FixturaArticleBox my={"xs"} mx={0} p={"xs"}>
         <S ta="right" fw="700" c="dimmed">
           Games:{" "}
           {Object.values(gamesByGrade).reduce(
@@ -101,11 +101,6 @@ const DesktopListGamesWithArticles = ({
                 <H size="h6" italic={true} color={"gray.6"}>
                   {limitString(grade, 35)}
                 </H>
-                <IconShield
-                  size="1.1rem"
-                  stroke={1.1}
-                  color={theme.colors.gray[6]}
-                />
               </FixturaGroup>
 
               {gamesByGrade[grade].map((gameID) => {
@@ -146,17 +141,17 @@ const DesktopListGamesWithArticles = ({
                       },
                     })}
                   >
-                   <P
-                          lh="1.2em"
-                          fz={"xs"}
-                          c={
-                            gameID === selectedGameID
-                              ? "white"
-                              : theme.colors.gray[6]
-                          }
-                        >
-                          {label}
-                        </P>
+                    <P
+                      lh="1.2em"
+                      fz={"xs"}
+                      c={
+                        gameID === selectedGameID
+                          ? "white"
+                          : theme.colors.gray[6]
+                      }
+                    >
+                      {label}
+                    </P>
                   </Box>
                 );
               })}
