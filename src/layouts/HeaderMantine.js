@@ -20,6 +20,7 @@ import {
   Center,
   useMantineTheme,
   Box,
+  Badge,
 } from "@mantine/core";
 
 import { useDisclosure } from "@mantine/hooks";
@@ -92,7 +93,7 @@ const LINKS = [
   },
 ];
 
-export function HeaderMantine({ params, URLParams }) {
+export function HeaderMantine({ params, URLParams,isActive }) {
   const { id } = params;
   const { classes } = useStyles();
   const [opened, { close, toggle }] = useDisclosure(false);
@@ -101,6 +102,7 @@ export function HeaderMantine({ params, URLParams }) {
   const closeDrawer = () => {
     close();
   };
+
 
 
   return (
@@ -128,6 +130,9 @@ export function HeaderMantine({ params, URLParams }) {
             height={12}
             priority
           />
+          {
+            isActive ?<Badge >Free Trial</Badge>:false
+          }
         </Group>
         <Group spacing="xs" className={classes.links}>
           <Tooltip

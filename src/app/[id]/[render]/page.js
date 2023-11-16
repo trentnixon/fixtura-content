@@ -23,13 +23,13 @@ export default async function Render({ params }) {
   return (
     <>
       <FixturaSection shade={0} Title={""} subTitle={""}>
+        <SelectedStatsStatment Count={Count} />
         <FixturaSection
           shade={0}
           Title={`Your Bundle`}
           subTitle={``}
           Icon={`ICO_HEADER_ARTICLE`}
         >
-          <SelectedStatsStatment Count={Count} />
           <NavigationOptionsForAccountType params={params} />
         </FixturaSection>
         {AccountType === "Club" ? (

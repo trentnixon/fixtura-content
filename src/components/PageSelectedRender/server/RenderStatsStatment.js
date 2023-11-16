@@ -4,13 +4,16 @@ import { H } from "@/components/Type/Headers";
 
 export async function SelectedStatsStatment({ Count }) {
   return (
-   
     <FixturaContainer my={5} mx={"2%"}>
-      <H size={"h3"} align="left" weight={400}>
-        This weeks bundle covers <Bold>{Count?.GameCount?.Total}</Bold> Games,
-        covering <Bold>{Count?.GameCount.Upcoming}</Bold> Upcoming Games and
-        Match results for <Bold>{Count?.GameCount.Results}</Bold> fixtures. A
-        total of <Bold>{Count?.downloads + Count?.gtp_3_reports}</Bold> assets
+      <H size={"h3"} align="right" weight={400}>
+        This weeks bundle covers <Bold>{Count?.GameCount?.Total}</Bold> Games.
+      </H>
+      <H size={"h3"} align="right" weight={400}>
+        Covering <Bold>{Count?.GameCount.Results}</Bold> Match results and{" "}
+        <Bold>{Count?.GameCount.Upcoming}</Bold> Upcoming fixtures.
+      </H>
+      <H size={"h3"} align="right" weight={400}>
+        A total of <Bold>{Count?.downloads + Count?.gtp_3_reports}</Bold> assets
         were created this week.
       </H>
     </FixturaContainer>

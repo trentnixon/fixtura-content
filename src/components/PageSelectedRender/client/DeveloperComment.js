@@ -7,7 +7,7 @@ export function DeveloperComment({ Copy, Title }) {
       <FixturaPaper my={20}>
         <Group>
           <Avatar
-            src="https://fixtura.s3.ap-southeast-2.amazonaws.com/avatar_8c6df367b0.png"
+            src="https://fixtura.s3.ap-southeast-2.amazonaws.com/Logo_Blue_on_transparent_0e86187b28.png"
             alt="Admin"
             radius="xl"
           />
