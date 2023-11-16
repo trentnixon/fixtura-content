@@ -18,7 +18,7 @@ export const FixturaAppShell = (props) => {
   };
 
   const trialDaysRemaining = calculateRemainingDays(
-    accountBasic.attributes.trial_instance.data.attributes.endDate
+    accountBasic?.attributes?.trial_instance?.data?.attributes.endDate
   );
 
   const trialMessage = accountBasic?.attributes?.trial_instance?.data
