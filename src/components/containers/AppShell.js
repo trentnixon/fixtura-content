@@ -51,16 +51,7 @@ export const FixturaAppShell = (props) => {
         <Grid>
           <Grid.Col span={12} sm={4} md={3}>
             <UserDetailsCard accountBasic={accountBasic} />
-            <Group noWrap={true} mx={10} my={15}>
-              <P ta={"right"} fw={600} lh={"1.1"}>
-                {trialMessage}
-              </P>
-              <IconCalendarEvent
-                size={30}
-                color="orange"
-                style={{ marginLeft: 5 }}
-              />
-            </Group>
+            <TrialStatus accountBasic={accountBasic} />
           </Grid.Col>
           <Grid.Col span={12} sm={8} md={9}>
             <main>{props.children}</main>
@@ -71,4 +62,34 @@ export const FixturaAppShell = (props) => {
   ));
 
   return <Content />;
+};
+
+const TrialStatus = ({ accountBasic }) => {
+  const isActive =
+    accountBasic.attributes?.trial_instance?.data?.attributes?.isActive;
+
+  const calculateRemainingDays = (endDate) => {
+    const today = new Date();
+    const end = new Date(endDate);
+    return Math.ceil((end - today) / (1000 * 60 * 60 * 24));
+  };
+
+  if (!isActive) {
+    return null;
+  }
+
+  const trialDaysRemaining = calculateRemainingDays(
+    accountBasic.attributes.trial_instance.data.attributes.endDate
+  );
+
+  const trialMessage = `Free trial expires in ${trialDaysRemaining} days`;
+
+  return (
+    <Group noWrap={true} mx={10} my={15}>
+      <Text style={{ textAlign: "right", fontWeight: 600, lineHeight: "1.1" }}>
+        {trialMessage}
+      </Text>
+      <IconCalendarEvent size={30} color="orange" style={{ marginLeft: 5 }} />
+    </Group>
+  );
 };
