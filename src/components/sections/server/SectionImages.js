@@ -44,7 +44,6 @@ export default async function SectionImages({ params, Title, Type, GroupBy }) {
     return false;
   return (
     <>
-    groupedDownloads here?
       {Object.entries(groupedDownloads).map(([label, items]) => (
         <CreateImagesClient
           key={label}
