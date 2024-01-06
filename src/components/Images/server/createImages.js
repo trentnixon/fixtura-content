@@ -1,5 +1,5 @@
 import { getRenderFields } from "@/api/renders";
-import { CreateImagesClient } from "@/components/Images/client/createImages";
+import { CreateImagesClient } from "@/components/AssetLayout/Image/createImages";
 import { filterDownloads } from "@/utils/helpers";
 
 export async function CreateImages({ params, Category, Type }) {

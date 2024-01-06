@@ -3,34 +3,59 @@ import { fetcher } from "@/utils/fetcher";
 
 // Utils
 function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-  
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
+// HOOKS
 
- // HOOKS
- 
- // Create a new Article
-export function useRewrite(id) {
-  const [rewriteStatus, setRewriteStatus] = useState(null);
+// Create a new Article
+export function useRewrite() {
+  const [rewriteStatus, setRewriteStatus] = useState({
+    isLoading: false,
+    error: null,
+    success: false,
+  });
 
   async function requestRewrite(ID) {
-    const response = await fetcher({
-      PATH: `gtp-3-report/rewrite/${ID}`,
-    });
-   
-    if (response.data.istrue) {
-      setRewriteStatus(true);
-    } else {
-      setRewriteStatus(false);
+    setRewriteStatus({ ...rewriteStatus, isLoading: true });
+    try {
+      const response = await fetcher({
+        PATH: `gtp-3-report/rewrite/${ID}`,
+      });
+      // Assuming 'istrue' is a success flag in the response
+
+      if (response.data.istrue) {
+        setRewriteStatus({
+          isLoading: false,
+          error: null,
+          success: true,
+          RequestResponse: response.data.RequestResponse,
+        });
+      } else {
+        setRewriteStatus({
+          isLoading: false,
+          error: "Rewrite request failed",
+          success: false,
+        });
+      }
+    } catch (error) {
+      setRewriteStatus({
+        isLoading: false,
+        error: error.message,
+        success: false,
+      });
     }
   }
 
-  useEffect(() => {
-    setRewriteStatus(null);
-  }, [id]);
+  const resetRewriteStatus = () => {
+    setRewriteStatus({
+      isLoading: false,
+      error: null,
+      success: false,
+    });
+  };
 
-  return [rewriteStatus, requestRewrite];
+  return [rewriteStatus, requestRewrite, resetRewriteStatus];
 }
 
 // Poll Strapi for the new Article
@@ -61,6 +86,3 @@ export function usePollRewrite(id, isPending) {
 
   return startPolling;
 }
-
-
-

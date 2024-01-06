@@ -1,5 +1,5 @@
 import { getWriteupsFieldsWithFilters } from "@/api/getWriteup";
-import { SupportingArticleClient } from "@/components/Articles/client/supportingArticles";
+import { SupportingArticleClient } from "@/components/AssetLayout/Article/supportingArticles";
 
 export async function SupportingArticleServer({ params, Type }) {
   // need a new API call with a filter claus as this will be getting to big

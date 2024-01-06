@@ -271,3 +271,11 @@ export const GetTheLot = (account, render) => {
     assets: CompileData(render),
   };
 };
+
+
+
+export const sortRenders = (a, b) => {
+  return (
+    new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt)
+  );
+};

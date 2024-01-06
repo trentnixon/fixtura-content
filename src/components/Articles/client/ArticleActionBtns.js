@@ -164,7 +164,7 @@ export const ArticleActionBtnGroup = ({
 };
 
 const ActionButton = ({ config, ...props }) => {
-  const iconComponents = {
+  const iconComponents = { 
     IconX,
     IconPlus,
     IconRefresh,

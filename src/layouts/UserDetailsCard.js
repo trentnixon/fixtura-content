@@ -18,14 +18,21 @@ import {
 import { BUTTON_FUNC } from "@/components/UI/buttons";
 import {
   IconArticle,
+  IconCalendarEvent,
+  IconCricket,
   IconHome2,
-  IconPhotoAi,
-  IconVideo,
+  IconLadder,
+  IconListDetails,
+  IconListNumbers,
+  IconScoreboard,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
 export function UserDetailsCard(props) {
-  const { accountBasic } = props;
+  const { OBJ } = props;
+  const { accountBasic, URLParams, Sport } = OBJ;
+  console.log(FindAccountType(accountBasic));
   const theme = useMantineTheme();
   const router = useRouter();
   const pathname = usePathname();
@@ -33,18 +40,15 @@ export function UserDetailsCard(props) {
   const [isResults, setIsResults] = useState(false); // Switch state
 
   useEffect(() => {
-    const showButtons = pathname.includes("/r") || pathname.includes("/u");
+    const showButtons = pathname.includes("/a") || pathname.includes("/u");
     setShowButtonGroup(showButtons);
     setIsResults(pathname.includes("/r"));
   }, [pathname]);
 
   const handleButtonClick = (extension) => {
-    const baseUrlMatch = pathname.match(/(.*\/[ru])\/?.*/);
-    if (baseUrlMatch) {
-      const baseUrl = baseUrlMatch[1];
-      const newPath = `${baseUrl}/${extension}`;
-      router.push(newPath);
-    }
+    /* console.log("URLParams ", URLParams, Sport); */
+    const newPath = `/${URLParams.id}/${Sport}/${URLParams.render}/${URLParams.key}/a/${extension}`;
+    router.push(newPath);
   };
 
   return (
@@ -74,14 +78,18 @@ export function UserDetailsCard(props) {
         <Text ta="center" fz="lg" fw={500} mt="sm">
           {FindAccountLabel(accountBasic)}
         </Text>
-        <Text ta="center" fz="sm" c="dimmed">
+
+        {/*  <Text ta="center" fz="sm" c="dimmed">
           {FindAccountType(accountBasic)}
-        </Text>
+        </Text> */}
         {showButtonGroup && (
           <>
-            <AssetTypeButtonGroup />
+            {/* <AssetTypeButtonGroup /> */}
 
-            <RenderButtonGroup onButtonClick={handleButtonClick} />
+            <RenderButtonGroup
+              onButtonClick={handleButtonClick}
+              AccountType={FindAccountType(accountBasic)}
+            />
             <ReturnHomeBTN />
           </>
         )}
@@ -90,34 +98,164 @@ export function UserDetailsCard(props) {
   );
 }
 
-const RenderButtonGroup = ({ onButtonClick }) => {
+const RenderButtonGroup = ({ onButtonClick, AccountType }) => {
   const pathname = usePathname(); // Get the current pathname
+  /*console.log(pathname); */
+  const NavColors = ["green", "gray.6"];
+  const variantState = ["outline", "light"];
   return (
     <Card.Section>
       <Button.Group orientation="vertical" my={10} mx={20}>
         <BUTTON_FUNC
+          Icon={<IconCalendarEvent />}
+          Label={`Upcoming Fixtures`}
+          onClick={() => onButtonClick("upcoming")}
+          variant={
+            pathname.includes("/upcoming") ? variantState[0] : variantState[1]
+          }
+          Color={pathname.includes("/upcoming") ? NavColors[0] : "gray.6"}
+        />
+        {AccountType === "Club" ? (
+          <BUTTON_FUNC
+            Icon={<IconListDetails />}
+            Label={`Team Rosters`}
+            onClick={() => onButtonClick("teamroster")}
+            variant={
+              pathname.includes("/teamroster")
+                ? variantState[0]
+                : variantState[1]
+            }
+            Color={pathname.includes("/teamroster") ? NavColors[0] : "gray.6"}
+          />
+        ) : (
+          false
+        )}
+      </Button.Group>
+      <Button.Group orientation="vertical" mt={40} mb={20} mx={20}>
+        <BUTTON_FUNC
+          Icon={<IconScoreboard />}
+          Label={`Weekend Results`}
+          onClick={() => onButtonClick("results")}
+          variant={
+            pathname.includes("/results") ? variantState[0] : variantState[1]
+          }
+          Color={pathname.includes("/results") ? NavColors[0] : NavColors[1]}
+        />
+        <BUTTON_FUNC
+          Icon={<IconListNumbers />}
+          Label={`Fixtures`}
+          onClick={() => onButtonClick("fixtures")}
+          variant={
+            pathname.includes("/fixtures") ? variantState[0] : variantState[1]
+          }
+          Color={pathname.includes("/fixtures") ? NavColors[0] : NavColors[1]}
+        />
+
+        <BUTTON_FUNC
+          Icon={<IconCricket />}
+          Label={`Top 5 Batting`}
+          onClick={() => onButtonClick("top5batting")}
+          variant={
+            pathname.includes("/top5batting")
+              ? variantState[0]
+              : variantState[1]
+          }
+          Color={
+            pathname.includes("/top5batting") ? NavColors[0] : NavColors[1]
+          }
+        />
+        <BUTTON_FUNC
+          Icon={<IconCricket />}
+          Label={`Top 5 Bowling`}
+          onClick={() => onButtonClick("top5bowling")}
+          variant={
+            pathname.includes("/top5bowling")
+              ? variantState[0]
+              : variantState[1]
+          }
+          Color={
+            pathname.includes("/top5bowling") ? NavColors[0] : NavColors[1]
+          }
+        />
+        <BUTTON_FUNC
+          Icon={<IconUsersGroup />}
+          Label={`Team of the Week`}
+          onClick={() => onButtonClick("teamoftheweek")}
+          variant={
+            pathname.includes("/teamoftheweek")
+              ? variantState[0]
+              : variantState[1]
+          }
+          Color={
+            pathname.includes("/teamoftheweek") ? NavColors[0] : NavColors[1]
+          }
+        />
+        <BUTTON_FUNC
+          Icon={<IconLadder />}
+          Label={`Ladder`}
+          onClick={() => onButtonClick("ladder")}
+          variant={
+            pathname.includes("/ladder") ? variantState[0] : variantState[1]
+          }
+          Color={pathname.includes("/ladder") ? NavColors[0] : NavColors[1]}
+        />
+      </Button.Group>
+      {/*  <Button.Group orientation="vertical" my={10} mx={20}>
+        <BUTTON_FUNC
           Icon={<IconVideo />}
           Label={`Videos`}
           onClick={() => onButtonClick("v")}
-          variant={pathname.includes("/v") ? "outline" : "light"}
-          Color={pathname.includes("/v") ? "green" : "gray.4"}
+          variant={pathname.includes("/v") ? variantState[0] : variantState[1]}
+          Color={pathname.includes("/v") ? NavColors[0] : NavColors[1]}
         />
         <BUTTON_FUNC
           Icon={<IconPhotoAi />}
           Label={`Images`}
           onClick={() => onButtonClick("i")}
-          variant={pathname.includes("/i") ? "outline" : "light"}
-          Color={pathname.includes("/i") ? "green" : "gray.4"}
+          variant={pathname.includes("/i") ? variantState[0] : variantState[1]}
+          Color={pathname.includes("/i") ? NavColors[0] : NavColors[1]}
         />
         <BUTTON_FUNC
           Icon={<IconArticle />}
           Label={`Write Ups`}
           onClick={() => onButtonClick("w")}
-          variant={pathname.includes("/w") ? "outline" : "light"}
-          Color={pathname.includes("/w") ? "green" : "gray.4"}
+          variant={pathname.includes("/w") ? variantState[0] : variantState[1]}
+          Color={pathname.includes("/w") ? NavColors[0] : NavColors[1]}
         />
-      </Button.Group>
+      </Button.Group> */}
     </Card.Section>
+  );
+};
+
+const ReturnHomeBTN = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleReturnToRender = () => {
+    const baseUrlSegments = pathname.split("/").filter(Boolean); // Split and remove any empty strings
+    const newPath = `/${baseUrlSegments.slice(0, 3).join("/")}`; // Take first two segments and join them
+
+    /* console.log("New Path", newPath); */
+
+    // Navigate to newPath
+    setTimeout(() => {
+      router.push(newPath);
+    }, 500);
+  };
+
+  return (
+    <Center>
+      <Card.Section>
+        <BUTTON_FUNC
+          size={"sm"}
+          Icon={<IconHome2 />}
+          Label={`Back to List`}
+          Color={"gray.8"}
+          onClick={() => handleReturnToRender("")}
+          variant={"default"}
+        />
+      </Card.Section>
+    </Center>
   );
 };
 
@@ -163,35 +301,3 @@ function AssetTypeButtonGroup() {
     </Center>
   );
 }
-
-const ReturnHomeBTN = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleReturnToRender = () => {
-    const baseUrlSegments = pathname.split("/").filter(Boolean); // Split and remove any empty strings
-    const newPath = `/${baseUrlSegments.slice(0, 2).join("/")}`; // Take first two segments and join them
-
-    console.log("New Path", newPath);
-
-    // Navigate to newPath
-    setTimeout(() => {
-      router.push(newPath);
-    }, 500);
-  };
-
-  return (
-    <Center>
-      <Card.Section>
-        <BUTTON_FUNC
-          size={"sm"}
-          Icon={<IconHome2 />}
-          Label={`Back to List`}
-          Color={"gray.6"}
-          onClick={() => handleReturnToRender("")}
-          variant={pathname.includes("/r") ? "outline" : "light"}
-        />
-      </Card.Section>
-    </Center>
-  );
-};

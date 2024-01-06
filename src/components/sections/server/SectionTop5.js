@@ -4,7 +4,7 @@ import { FixturaSection } from "@/components/containers/Section";
 
 import { filterDownloads } from "@/utils/helpers";
 //import { CreateVideoClient } from "@/components/Video/client/createVideo";
-import { CreateStatisticsClient } from "@/components/Video/client/createStatistics";
+import { CreateStatisticsClient } from "@/components/Video/client/OLD_createStatistics";
 import { getAccountFields } from "@/api/accounts";
 import { isSponsorsActive } from "@/utils/actions";
 
@@ -113,8 +113,6 @@ export default async function SectionTop5(props) {
   return (
     <>
       {Object.entries(groupedAssets).map(([assetName, assetTypes], index) => {
-        console.log(assetName)
-        console.log(assetTypes)
         if (!assetTypes?.VIDEO || assetTypes[display] === undefined)
           return false;
         return (
@@ -139,10 +137,10 @@ export default async function SectionTop5(props) {
                 assetTypes[display][0].attributes.asset.data.attributes
                   .assetDescription
               }
-            /*   hasSponsors={isSponsorsActive(accountBasic)}  */
+              /*   hasSponsors={isSponsorsActive(accountBasic)}  */
               display={display}
               renderArticles={renderArticles}
-            /> 
+            />
           </FixturaSection>
         );
       })}

@@ -1,5 +1,5 @@
 import { getRenderFields } from "@/api/renders";
-import { CreateImagesClient } from "@/components/Images/client/createImages";
+import { CreateImagesClient } from "@/components/AssetLayout/Image/createImages";
 import { filterDownloads } from "@/utils/helpers";
 
 function groupByAssetName(downloads) {
@@ -22,17 +22,16 @@ export default async function SectionImages({ params, Title, Type, GroupBy }) {
     "downloads.asset",
     "downloads.asset_category",
   ]);
- 
+
   // Usage:
   const filteredDownloads = filterDownloads(
     renderData.attributes.downloads.data,
     Category,
     Type
   );
- 
+
   const groupedDownloads = groupByAssetName(filteredDownloads);
-  console.log("groupedDownloads",groupedDownloads)
- 
+
   if (Object.keys(groupedDownloads).length === 0) {
     return false;
   }
@@ -54,4 +53,4 @@ export default async function SectionImages({ params, Title, Type, GroupBy }) {
       ))}
     </>
   );
-} 
+}

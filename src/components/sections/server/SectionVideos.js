@@ -2,7 +2,7 @@ import { getWriteupsFromRender } from "@/api/getWriteup";
 import { getRenderFields } from "@/api/renders";
 import { FixturaSection } from "@/components/containers/Section";
 import { filterDownloads } from "@/utils/helpers";
-import { CreateVideoClient } from "@/components/Video/client/createVideo";
+import { CreateVideoClient } from "@/components/AssetLayout/Video/createVideo";
 import { getAccount, getAccountFields } from "@/api/accounts";
 import { FindAccountType, isSponsorsActive } from "@/utils/actions";
 export default async function SectionVideos({
@@ -63,7 +63,7 @@ export default async function SectionVideos({
                 GroupBy={GroupBy}
                 AccountType={AccountType}
               />
-            </FixturaSection>
+            </FixturaSection> 
           );
       })}
     </>

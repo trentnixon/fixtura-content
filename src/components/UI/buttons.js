@@ -30,7 +30,7 @@ export const BUTTON_FUNC = (props) => {
       size={size}
       onClick={onClick}
       uppercase
-      radius="md"
+      radius="md" 
     >
       {Label}
     </Button>
@@ -55,7 +55,6 @@ export const BUTTON_LINK = (props) => {
       <Button
         variant={variant}
         icon={Icon}
-      
         size={size}
         onClick={onClick}
         radius="md"

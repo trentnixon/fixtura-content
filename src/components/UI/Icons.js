@@ -17,7 +17,8 @@ import {
   IconUserCircle,
   IconArticle,
   IconEdit,
-  IconSpeakerphone
+  IconSpeakerphone,
+  IconTemplate
 } from "@tabler/icons-react";
 
 export const ICO_INFO = () => {
@@ -182,6 +183,18 @@ export const ICO_HEADER_ACCOUNT = () => {
   return (
     <ResponsiveIcon
       IconComponent={IconUserCircle}
+      theme={theme}
+      isMobile={isMobile}
+    />
+  );
+};
+
+export const ICO_TEMPLATE = () => {
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  return (
+    <ResponsiveIcon
+      IconComponent={IconTemplate}
       theme={theme}
       isMobile={isMobile}
     />

@@ -2,11 +2,11 @@
 import { Paper } from "@mantine/core";
 
 export const FixturaPaper = (props) => {
-  const { mx = 0, my = 0, c = 0 } = props;
+  const { mx = 0, my = 0, c = 0, shadow = "xs", p = "md" } = props;
   return (
     <Paper
-      shadow="xs"
-      p="md"
+      shadow={shadow}
+      p={p}
       mx={mx}
       my={my}
       sx={(theme) => ({

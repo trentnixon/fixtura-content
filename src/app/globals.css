@@ -26,8 +26,18 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.markdown h1{
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-decoration: none;
+  text-align: left;
+  line-height: 1.4rem;
+  font-style: normal;
+  color: #495057;
+  margin-bottom: 10px;
+}
 
-.markdown h4 {
+.markdown h4, .markdown h2, .markdown h3 {
   text-decoration: none;
   font-size: 1.15rem;
   font-weight: 700;
@@ -38,7 +48,11 @@ body {
   margin-bottom: 10px;
 }
 
-.markdown p {
+.markdown ul{
+  margin:10px 0;
+}
+
+.markdown p, .markdown li {
   text-decoration: none;
   font-size: .95rem;
   font-weight: 400;
@@ -47,4 +61,7 @@ body {
   font-style: normal;
   color: #495057;
   margin-bottom: 10px;
+}
+.markdown hr{
+  margin: 10px 0 30px;
 }

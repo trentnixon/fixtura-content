@@ -95,7 +95,7 @@ const GroupByGame = (dataArray, ageGroupKey, accountType, group_assets_by) => {
   return groupedData;
 };
 
-export default function SectionMatchWriteupsClient(props) {
+export default function  SectionMatchWriteupsClient(props) {
   const { renderData, hasSponsors, GroupBy, FindAccountType, group_assets_by } =
     props;
   const [selected, setSelected] = useState(null);

@@ -14,7 +14,7 @@ import { useState } from "react";
 import { BackButtonAsNavLink } from "@/components/Navigation/BackBtn";
 import { RenderDates } from "@/layouts/Headings/client/RenderDates";
 import { FixturaContainer } from "@/components/containers/containers";
-import { HTML5VideoPlayer } from "@/components/Video/client/HTML5VideoPlayer";
+import { HTML5VideoPlayer } from "@/components/AssetLayout/Video/HTML5VideoPlayer";
 import { handleDownload } from "@/utils/helpers";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 

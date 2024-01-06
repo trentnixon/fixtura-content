@@ -93,8 +93,11 @@ const LINKS = [
   },
 ];
 
-export function HeaderMantine({ params, URLParams,isActive }) {
+export function HeaderMantine(props) {
+  const { params, URLParams, isActive, OBJ } = props;
   const { id } = params;
+  const { Sport } = OBJ;
+
   const { classes } = useStyles();
   const [opened, { close, toggle }] = useDisclosure(false);
   //console.log("render", URLParams.render);
@@ -102,8 +105,6 @@ export function HeaderMantine({ params, URLParams,isActive }) {
   const closeDrawer = () => {
     close();
   };
-
-
 
   return (
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
@@ -130,9 +131,7 @@ export function HeaderMantine({ params, URLParams,isActive }) {
             height={12}
             priority
           />
-          {
-            isActive ?<Badge >Free Trial</Badge>:false
-          }
+          {isActive ? <Badge>Free Trial</Badge> : false}
         </Group>
         <Group spacing="xs" className={classes.links}>
           <Tooltip
@@ -141,7 +140,7 @@ export function HeaderMantine({ params, URLParams,isActive }) {
             transitionProps={{ duration: 0 }}
           >
             <UnstyledButton>
-              <Link href={`/${id}`}>
+              <Link href={`/${id}/${Sport}`}>
                 <IconDownload size="1.2rem" stroke={1.5} color="white" />
               </Link>
             </UnstyledButton>
@@ -153,7 +152,7 @@ export function HeaderMantine({ params, URLParams,isActive }) {
           >
             <UnstyledButton>
               <Link href={`https://fixtura.com.au/`}>
-                <IconHome2 size="1.2rem" stroke={1.5} color="white"/>
+                <IconHome2 size="1.2rem" stroke={1.5} color="white" />
               </Link>
             </UnstyledButton>
           </Tooltip>

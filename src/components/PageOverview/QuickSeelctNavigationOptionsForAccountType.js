@@ -3,55 +3,49 @@ import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { RenderCount } from "@/api/renders";
 import { FixturaContainer } from "@/components/containers/containers";
-import { FindAccountType } from "@/utils/actions";
 import { Select } from "@mantine/core";
-
 export function QuickSelectNavigationOptionsForAccountType(props) {
-  const { accountBasic } = props;
+  const { OBJ } = props;
   const params = useParams();
   const router = useRouter();
-
   const [renders, setRenders] = useState(null);
 
   useEffect(() => {
-    // Check if params.render and params.id are present before fetching data
     if (params.render && params.id) {
       async function fetchData() {
         const renderData = await RenderCount(params.render);
         setRenders(renderData);
       }
-
       fetchData();
     }
-  }, [params.render, params.id]); // Depend on both params.render and params.id
+  }, [params.render, params.id]);
 
   const handleSelectionChange = (key) => {
     const { id, render } = params;
-    // URL encoding the key to handle special characters
     const encodedKey = encodeURIComponent(key);
-    const path = `/${id}/${render}/${encodedKey}`;
-    router.push(path); // navigating to the new page
+    const path = `/${id}/${OBJ.Sport}/${render}/${encodedKey}/a/results`;
+    router.push(path);
   };
 
-  // Render null if params.render or params.id are not present, or if renders is not yet loaded
   if (!params.render || !params.id || !renders) {
-    return null; // or return a loading indicator or other fallback UI
+    return null;
   }
 
+  const maxLength = Math.max(...Object.keys(renders.assetGrouping).map(key => key.length));
+  const dynamicWidth = Math.min((maxLength*2) * 10, 400); // Assuming average character width of 10px, max at 600px
+  console.log("maxLength", maxLength, dynamicWidth)
   return (
     <>
-      <FixturaContainer mx={10} >
-      <Select
-     
-       radius="xl"
-       placeholder="Jump To:"
-       onChange={handleSelectionChange}
-       data={Object.keys(renders.assetGrouping).map((key) => ({
-         value: key,
-         label: `${key}`,
-       }))}
-     />
+      <FixturaContainer mx={10}>
+        <Select
+          radius="md"
+          placeholder="Jump To:"
+          onChange={handleSelectionChange}
+          data={Object.keys(renders.assetGrouping).map((key) => ({ value: key, label: `${key}` }))}
+          styles={{ wrapper: { width: dynamicWidth } }}
+        />
       </FixturaContainer>
     </>
   );
 }
+

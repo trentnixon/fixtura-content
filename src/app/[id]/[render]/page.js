@@ -10,31 +10,37 @@ import {
   BundleWelcomeMessage,
 } from "@/components/PageSelectedRender/server/BundleWelcomeMessage";
 import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
-import { RequestTeamRosterForRender } from "@/components/Images/client/createTeamRoster";
+import { RequestTeamRosterForRender } from "@/components/AssetLayout/Image/createTeamRoster";
 import { FindAccountType } from "@/utils/actions";
 import { getAccount } from "@/api/accounts";
 import { P } from "@/components/Type/Paragraph";
 import { FixturaPaper } from "@/components/containers/paper";
+import { FixturaGroup } from "@/components/containers/Group";
+import {
+  BarListAssetBreakDown,
+  PieAssetDivide,
+} from "@/components/PageOverview/Charts/BarList";
 
 export default async function Render({ params }) {
   const Count = await RenderCount(params.render);
   const CompleteRender = await getRenders(params.render);
   const account = await getAccount(params.id);
   const AccountType = FindAccountType(account);
-
   return (
     <>
       <FixturaSection shade={0} Title={""} subTitle={""}>
-        <TemplatePromo />
-        <SelectedStatsStatment Count={Count} />
+        {/*  <TemplatePromo /> */}
+
         <FixturaSection
           shade={0}
-          Title={`Your Bundle`}
+          Title={`Selected Bundle`}
           subTitle={``}
           Icon={`ICO_HEADER_ARTICLE`}
         >
+          <SelectedStatsStatment Count={Count} />
           <NavigationOptionsForAccountType params={params} />
         </FixturaSection>
+
         {AccountType === "Club" ? (
           <RequestTeamRosterForRender
             Render={params.render}
@@ -43,22 +49,12 @@ export default async function Render({ params }) {
         ) : (
           false
         )}
-        <FixturaSection
-          shade={0}
-          Title={`Fixtura Updates`}
-          subTitle={``}
-          Icon={`ICO_Edit`}
-        >
-          <BundleUpdates />
-        </FixturaSection>
-        <FixturaSection
-          shade={0}
-          Title={`Feedback`}
-          subTitle={``}
-          Icon={`ICO_Speakerphone`}
-        >
-          <UserFeedback />
-        </FixturaSection>
+
+        <FixturaGroup>
+          <BarListAssetBreakDown params={params} />
+          <PieAssetDivide params={params} />
+        </FixturaGroup>
+        <UserFeedback />
       </FixturaSection>
     </>
   );

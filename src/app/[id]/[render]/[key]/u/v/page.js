@@ -5,7 +5,6 @@ import { getRenders } from "@/api/renders";
 
 export default async function Upage({ params }) {
   const Render = await getRenders(params.render);
-  console.log("params.key", params.key, decodeURIComponent(params.key))
   return (
     <FixturaContainer>
       <PageTitleAndCreated
@@ -22,5 +21,5 @@ export default async function Upage({ params }) {
         GroupBy={decodeURIComponent(params.key)}
       />
     </FixturaContainer>
-  ); 
+  );
 }

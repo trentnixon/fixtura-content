@@ -2,7 +2,7 @@
 import { H } from "@/components/Type/Headers";
 import { N, P, S } from "@/components/Type/Paragraph";
 import { BUTTON_FUNC } from "@/components/UI/buttons";
-import { HTML5VideoPlayer } from "@/components/Video/client/HTML5VideoPlayer";
+import { HTML5VideoPlayer } from "@/components/AssetLayout/Video/HTML5VideoPlayer";
 import { FixturaBox } from "@/components/containers/boxes";
 import { getTeamNamesFromGameObj } from "@/utils/actions";
 import { Grid, Group, Space } from "@mantine/core";

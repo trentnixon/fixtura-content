@@ -30,7 +30,6 @@ export const handleDownload = async (imageUrl) => {
   document.body.removeChild(link);
 };
 
-
 export const handleVideoDownload = async (videoUrl, Name, callback) => {
   let validName = "default";
 
@@ -60,18 +59,42 @@ export const handleVideoDownload = async (videoUrl, Name, callback) => {
 
 export const filterDownloads = (
   OBJ,
-  Category = "Video options",
-  Type = "upcoming"
+  AssetCategory = "Video options",
+  Type = "upcoming",
+  ImageType = "",
+  Selected_Category
 ) => {
   return OBJ.filter((asset) => {
     const assetCategoryName =
       asset.attributes.asset_category.data.attributes.Name;
     const assetTypeName = asset.attributes.asset_type.data.attributes.Name;
+    const assetType = asset.attributes.asset.data.attributes.Name;
+    const grouping_category = asset.attributes?.grouping_category;
 
-    return assetCategoryName === Category && assetTypeName === Type;
+    /* console.log("Selected_Category", Selected_Category);
+    console.log("grouping_category", grouping_category); */
+
+    return (
+      assetCategoryName === AssetCategory &&
+      assetTypeName === Type &&
+      assetType === ImageType &&
+      grouping_category === Selected_Category
+    );
   });
 };
 
+export const filterWriteUps = (writeUps, name = "Name", Selected_Category) => {
+  /*console.log("writeUps", writeUps.length) */
+  return writeUps.filter((writeUp) => {
+    const AssetName = writeUp.attributes.asset.data.attributes.Name;
+    const grouping_category = writeUp.attributes?.grouping_category;
+
+    /*console.log("AssetName", AssetName, name);
+    console.log("grouping_category", grouping_category, Selected_Category); */
+
+    return AssetName === name && grouping_category === Selected_Category;
+  });
+};
 
 export const handleDownloadAll = async (items) => {
   const zip = new JSZip();
@@ -96,6 +119,43 @@ export const handleDownloadAll = async (items) => {
 
   // Extract common part of filename for the zip filename
   const firstUrlObject = new URL(items[0].attributes.URL);
+  const firstFilename = firstUrlObject.pathname.split("/").pop();
+  const zipFilename = firstFilename.split("_").slice(0, -1).join("_") + ".zip";
+
+  // Generate the zip file and create a download link
+  const content = await zip.generateAsync({ type: "blob" });
+  const url = URL.createObjectURL(content);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = zipFilename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+export const handleDownloadAllFromArray = async (items) => {
+  const zip = new JSZip();
+
+  // Download all images and add them to the zip file
+  const downloads = items.map(async (item, i) => {
+    const response = await fetch(item, {
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    });
+    const blob = await response.blob();
+
+    // Get the filename from the URL
+    const urlObject = new URL(item);
+    const filename = urlObject.pathname.split("/").pop();
+
+    zip.file(filename, blob);
+  });
+
+  await Promise.all(downloads);
+
+  // Extract common part of filename for the zip filename
+  const firstUrlObject = new URL(items[0]);
   const firstFilename = firstUrlObject.pathname.split("/").pop();
   const zipFilename = firstFilename.split("_").slice(0, -1).join("_") + ".zip";
 

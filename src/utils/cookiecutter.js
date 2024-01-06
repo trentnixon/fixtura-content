@@ -41,11 +41,10 @@ export const CookieCutter = ({ children }) => {
 
 const CheckingAuth = () => {
   return (
-    <FixturaSection>
+    <FixturaSection py={30} px={30} mx={30} shade={0}>
       <H size="h4" weight={900}>
         Checking Authentication...
       </H>
-
       <P>
         Please wait while we verify your authentication status. We are checking
         if you have authorized access to our platform. Thank you for your

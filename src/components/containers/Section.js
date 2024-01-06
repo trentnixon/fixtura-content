@@ -10,7 +10,8 @@ import {
   ICO_HEADER_ACCOUNT,
   ICO_Edit,
   ICO_Speakerphone,
-  ICO_RES_CALENDAR
+  ICO_RES_CALENDAR,
+  ICO_TEMPLATE
 } from "@/components/UI/Icons";
 import { Box, Container, Group, Stack } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
@@ -24,7 +25,8 @@ const iconComponents = {
   ICO_HEADER_ACCOUNT: ICO_HEADER_ACCOUNT,
   ICO_Edit:ICO_Edit,
   ICO_Speakerphone:ICO_Speakerphone,
-  ICO_RES_CALENDAR:ICO_RES_CALENDAR 
+  ICO_RES_CALENDAR:ICO_RES_CALENDAR, 
+  ICO_TEMPLATE:ICO_TEMPLATE
   // add as many as you have
 };
 export const FixturaSection = (props) => {
@@ -36,6 +38,8 @@ export const FixturaSection = (props) => {
     Icon = null,
     py = 10,
     px = 0,
+    my=0,
+    mx=0
   } = props;
   const IconComponent = iconComponents[Icon];
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -51,7 +55,7 @@ export const FixturaSection = (props) => {
       {Title.length === 0 ? (
         false
       ) : (
-        <Container size={`xl`} px={0} mt={isMobile ? 10 : 40} mb={0} mx={0}>
+        <Container size={`xl`} px={0} mt={isMobile ? 10 : 40} mb={0} my={my} mx={mx}>
           <ShowTitles
             Title={Title}
             subTitle={subTitle}

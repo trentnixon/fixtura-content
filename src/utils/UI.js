@@ -41,21 +41,20 @@ export const separateArticleHeaderAndBody = (article) => {
   return { articleHeader, articleBody };
 };
 
-export const formatSponsorsInPlainText = (sponsors) => {
-  let plainTextString =
-    "\n\n\n\nThis fixture write-up was proudly brought to you by:\n";
+export const formatSponsorsInPlainText = (sponsors = []) => {
+  let plainTextString = "\n\n\n\nThis fixture write-up was proudly brought to you by:\n";
   sponsors.forEach((sponsor) => {
     plainTextString += `\n\n- Sponsor: ${sponsor.attributes.Name}\n  - Tagline: ${sponsor.attributes.Tagline}\n  - Description: ${sponsor.attributes.Description}\n  - URL: ${sponsor.attributes.URL}\n`;
   });
-  return sponsors.length === 0 ? '' : plainTextString;
+  return sponsors.length === 0 ? "" : plainTextString;
 };
 
-export const formatSponsorsInMarkdown = (sponsors) => {
-  //console.log("formatSponsorsInMarkdown", sponsors.length);
-  let markdownString =
-    "\n\n&nbsp;\n\n**This fixture write-up was proudly brought to you by:**\n";
+export const formatSponsorsInMarkdown = (sponsors = []) => {
+  //console.log("formatSponsorsInMarkdown", sponsors);
+  
+  let markdownString = "\n\n&nbsp;\n\n**This fixture write-up was proudly brought to you by:**\n";
   sponsors.forEach((sponsor) => {
     markdownString += `\n- **${sponsor.attributes.Name}**\n  - *Tagline*: ${sponsor.attributes.Tagline}\n  - *Description*: ${sponsor.attributes.Description}\n  - *URL*: [${sponsor.attributes.URL}](${sponsor.attributes.URL})\n`;
   });
-  return sponsors.length === 0 ? '' : markdownString;
+  return sponsors.length === 0 ? "" : markdownString;
 };

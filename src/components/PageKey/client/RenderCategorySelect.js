@@ -4,14 +4,14 @@ import { useRouter, useParams } from "next/navigation";
 import { QuickSelectNavigationOptionsForAccountType } from "@/components/PageOverview/QuickSeelctNavigationOptionsForAccountType";
 
 export function NavigationSelect(props) {
-  const { accountBasic } = props;
-  const params = useParams();
+/*   const { OBJ } = props;
+  const params = useParams(); */
 
 
   return (
     <QuickSelectNavigationOptionsForAccountType
-      params={params}
-      accountBasic={accountBasic}
+     /*  params={params} */
+      {...props}
     />
   );
 }

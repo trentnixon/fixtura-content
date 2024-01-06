@@ -20,21 +20,17 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
 
-    paddingBottom: `calc(${theme.spacing.xl} * 4)`,
+    paddingBottom: `calc(${theme.spacing.xl})`,
   },
   content: {
-    maxWidth: rem(480),
-    marginRight: `calc(${theme.spacing.xl} * 3)`,
-    "@media (max-width: 960px)": {
-      maxWidth: "100%",
-      marginRight: 0,
-    },
+    maxWidth: "100%",
+    marginRight: 0,
   },
   title: {
     color: theme.colors.white,
     fontFamily: "Greycliff CF, var(--mantine-font-family)",
-    fontSize: rem(44),
-    lineHeight: 1.2,
+    fontSize: "1.1em",
+    lineHeight: 1.1,
     fontWeight: 900,
     "@media (max-width: 480px)": {
       fontSize: rem(28),
@@ -64,30 +60,32 @@ export function UserFeedback() {
   const { classes } = useStyles();
 
   return (
-    <Container size="md">
+    <Container size="md" mt={40}>
       <div className={classes.inner}>
         <div className={classes.content}>
           <Title className={classes.title}>
             <span className={classes.highlight}>Error</span> and{" "}
             <span className={classes.highlight}>Issue</span> Reporting
           </Title>
-          <Text c="dimmed" mt="md">
+
+          <Text c="dimmed" mt="md" fz={"xs"}>
             We would greatly appreciate it if you could take a moment to message
             us on our Facebook channel with any issues or feedback you might
-            have. We are committed to refining and enhancing our product, and
-            your valuable insights play a pivotal role in ensuring we offer the
-            best possible experience for your organization. Your feedback truly
-            matters to us.
+            have.
           </Text>
-
-          <Group mt={30}>
+          <Group mt={20} mb={10} position="center">
             <BUTTON_LINK
+              size={"sm"}
               Label="Message Fixtura"
               href="https://www.facebook.com/profile.php?id=100095406210560"
             />
           </Group>
         </div>
-        <Image className={classes.image} alt={'Message Us on Facebook'}  src="https://fixtura.s3.ap-southeast-2.amazonaws.com/voiceicon_d9c979445c.png" />
+        {/*  <Image
+          className={classes.image}
+          alt={"Message Us on Facebook"}
+          src="https://fixtura.s3.ap-southeast-2.amazonaws.com/voiceicon_d9c979445c.png"
+        /> */}
       </div>
     </Container>
   );
