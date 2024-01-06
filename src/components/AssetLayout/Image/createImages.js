@@ -13,7 +13,7 @@ import {
 import { Image, Modal, SimpleGrid, useMantineTheme } from "@mantine/core";
 import {
   IconDownload,
-  IconEye,
+  IconEye, 
   IconLoader,
   IconPhotoAi,
 } from "@tabler/icons-react";

@@ -74,9 +74,9 @@ export function AssetLayoutFixtures({ OBJ }) {
           OBJ.downloads,
           Fixture.attributes.game_meta_datum.data.id
         );
-        return Articles.map((Article) => {
+        return Articles.map((Article, i) => {
           return (
-            <Box my={50}>
+            <Box my={50} key={i}>
               <Box mb={0}>
                 <FixturaPaper c={5} shadow={"none"} mb={0}>
                   <P fw={400} fz={"1.3em"} c='gray.8'>
@@ -92,7 +92,7 @@ export function AssetLayoutFixtures({ OBJ }) {
                 <FixturaGRIDCOL span={5}>
                   {FixtureGraphic.map((Graphic, i) => {
                     return (
-                      <SingleImageWithDownload URL={Graphic.attributes.URL} />
+                      <SingleImageWithDownload URL={Graphic.attributes.URL} key={i}/>
                     );
                   })}
                 </FixturaGRIDCOL>
