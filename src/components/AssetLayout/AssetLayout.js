@@ -148,27 +148,32 @@ const filterImages = (DATA, ID) => {
 const filterWriteUps = (writeUps, Name, WriteupID) => {
   return writeUps.filter((writeUp) => {
     const writeUpName = writeUp.attributes.asset.data.attributes.Name;
-    const writeUpArticleFormats = writeUp.attributes.asset.data.attributes.ArticleFormats;
+    const writeUpArticleFormats =
+      writeUp.attributes.asset.data.attributes.ArticleFormats;
     const writeUpBias = writeUp.attributes.Bias; // Retrieve the Bias attribute
 
-    console.log("Name", Name, "WriteupID", WriteupID, "writeUpName", writeUpName, "writeUpBias", writeUpBias);
+    console.log("Name", Name, "writeUp", writeUp);
 
     // Check if the Bias matches WriteupID
     const isBiasMatch = writeUpBias === WriteupID;
 
     // If 'Name' is an array, check if writeUpName is in the array and Bias matches
     if (Array.isArray(Name)) {
-      return isBiasMatch && Name.includes(writeUpName) && writeUpArticleFormats === "Breakdown";
+      return (
+        isBiasMatch &&
+        Name.includes(writeUpName) &&
+        writeUpArticleFormats === "Breakdown"
+      );
     }
 
     // If 'Name' is a string, check for an exact match and Bias matches
-    return isBiasMatch && writeUpName === Name && writeUpArticleFormats === "Breakdown";
+    return (
+      isBiasMatch &&
+      writeUpName === Name &&
+      writeUpArticleFormats === "Breakdown"
+    );
   });
 };
-
-
-
-
 
 /* const filterWriteUps = (writeUps, name = "Name") => {
   return writeUps.filter((writeUp) => {
