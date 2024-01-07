@@ -78,7 +78,7 @@ export function AssetLayoutFixtures({ OBJ }) {
           Fixture.attributes.game_meta_datum.data.id
         );
         console.log("Articles", Articles, Articles.length);
-        console.log("Articles[0].attributes?.EditorsArticle", Articles[0].attributes?.EditorsArticle)
+        //console.log("Articles[0].attributes?.EditorsArticle", Articles[0].attributes?.EditorsArticle)
         console.log("FixtureDetails", FixtureDetails);
         console.log("FixtureGraphic", FixtureGraphic);
         //return Articles.map((Article, i) => {
@@ -111,14 +111,14 @@ export function AssetLayoutFixtures({ OBJ }) {
                   <ScrollArea h={450}>
                     {Articles.length !== 0 ? (
                       <SelectedWriteup
-                        writeup={Articles[0].attributes?.EditorsArticle}
+                        selectedArticle={Articles[0].attributes?.EditorsArticle}
                       />
                     ) : (
-                      false
+                      <>No Article Found</>
                     )}
                   </ScrollArea>
                 </FixturaPaper>
-               {/*  {Articles.length !== 0 ? (
+                {/*  {Articles.length !== 0 ? (
                   <Box mb={10}>
                     <ArticleActionButtonsContainer
                       Article={Articles[0]?.attributes?.EditorsArticle}
@@ -152,18 +152,24 @@ const filterWriteUps = (writeUps, Name, WriteupID) => {
     const writeUpArticleFormats =
       writeUp.attributes.asset.data.attributes.ArticleFormats;
     const writeUpBias = writeUp.attributes.Bias; // Retrieve the Bias attribute
-    
+
     // Check if the Bias matches WriteupID
     const isBiasMatch = Number(writeUpBias) === WriteupID;
 
     console.log("writeUps Sent", writeUp);
-    console.log("Check writeUpName",writeUpName, Name)
-    console.log("Check writeUpArticleFormats",writeUpArticleFormats, "Breakdown")
-    console.log("Check writeUpBias", Number(writeUpBias), WriteupID,"isBiasMatch ", isBiasMatch)
-    
- 
-
-    
+    console.log("Check writeUpName", writeUpName, Name);
+    console.log(
+      "Check writeUpArticleFormats",
+      writeUpArticleFormats,
+      "Breakdown"
+    );
+    console.log(
+      "Check writeUpBias",
+      Number(writeUpBias),
+      WriteupID,
+      "isBiasMatch ",
+      isBiasMatch
+    );
 
     // If 'Name' is an array, check if writeUpName is in the array and Bias matches
     if (Array.isArray(Name)) {
