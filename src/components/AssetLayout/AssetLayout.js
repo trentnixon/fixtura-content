@@ -69,7 +69,8 @@ export function AssetLayoutFixtures({ OBJ }) {
           Fixture.attributes.game_meta_datum.data.attributes;
         const Articles = filterWriteUps(
           FixtureDetails.gtp_3_reports.data,
-          "Weekend Results"
+          OBJ.AssetMetaData.Writeup,
+          OBJ.AssetMetaData.WriteupID
         );
 
         const FixtureGraphic = filterImages(
@@ -144,12 +145,38 @@ const filterImages = (DATA, ID) => {
   });
 };
 
-const filterWriteUps = (writeUps, name = "Name") => {
+const filterWriteUps = (writeUps, Name, WriteupID) => {
+  return writeUps.filter((writeUp) => {
+    const writeUpName = writeUp.attributes.asset.data.attributes.Name;
+    const writeUpArticleFormats = writeUp.attributes.asset.data.attributes.ArticleFormats;
+    const writeUpBias = writeUp.attributes.Bias; // Retrieve the Bias attribute
+
+    console.log("Name", Name, "WriteupID", WriteupID, "writeUpName", writeUpName, "writeUpBias", writeUpBias);
+
+    // Check if the Bias matches WriteupID
+    const isBiasMatch = writeUpBias === WriteupID;
+
+    // If 'Name' is an array, check if writeUpName is in the array and Bias matches
+    if (Array.isArray(Name)) {
+      return isBiasMatch && Name.includes(writeUpName) && writeUpArticleFormats === "Breakdown";
+    }
+
+    // If 'Name' is a string, check for an exact match and Bias matches
+    return isBiasMatch && writeUpName === Name && writeUpArticleFormats === "Breakdown";
+  });
+};
+
+
+
+
+
+/* const filterWriteUps = (writeUps, name = "Name") => {
   return writeUps.filter((writeUp) => {
     const writeUpName = writeUp.attributes.asset.data.attributes.Name;
     const writeUpArticleFormats =
       writeUp.attributes.asset.data.attributes.ArticleFormats;
-
+    console.log("name", name, "writeUpName", writeUpName);
     return writeUpName === name && writeUpArticleFormats === "Breakdown";
   });
 };
+ */

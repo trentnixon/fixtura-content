@@ -6,7 +6,7 @@ import AssetLayout, {
 } from "@/components/AssetLayout/AssetLayout";
 import { createDataSet } from "@/utils/CreateAssetDataForUI";
 import { getAccount, getAccountFields } from "@/api/accounts";
-import { FindAccountLabel } from "@/utils/actions";
+import { FindAccountLabel, FindAccountType, FindAccountWriteupID } from "@/utils/actions";
 
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
@@ -26,6 +26,7 @@ export default async function Upage({ params }) {
     "gtp_3_reports.asset",
   ]); 
 
+  console.log("account ===", FindAccountWriteupID(account))
   const AssetMetaData = {
     AssetName: "Weekend Results",
     AssetType: "results",
@@ -33,12 +34,14 @@ export default async function Upage({ params }) {
     Video_Asset_Name: "Weekend Results",
     Image_asset_Category: "Image options",
     Image_Asset_Name: "Game Spotlight",
-    Writeup: "",
+    Writeup: ["Weekend Results","Stumps Review"],
+    WriteupID:FindAccountWriteupID(account),
     Category: decodeURIComponent(params.key),
   };
 
   const OBJ = {
     AssetMetaData: AssetMetaData,
+    
     createdAt: Render.attributes.createdAt,
     decodeURIComponent: decodeURIComponent(params.key),
     FixturesToDisplay: renderData.attributes.game_results_in_renders,
@@ -53,7 +56,6 @@ export default async function Upage({ params }) {
       <FixturaContainer>
         <PageTitleAndCreated OBJ={OBJ} />
       </FixturaContainer>
-
       <AssetLayoutFixtures OBJ={OBJ} />
     </>
   );
