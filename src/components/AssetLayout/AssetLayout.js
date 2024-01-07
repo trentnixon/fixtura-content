@@ -155,7 +155,7 @@ const filterWriteUps = (writeUps, Name, WriteupID) => {
     console.log("writeUps Sent", writeUp);
     console.log("Check writeUpName",writeUpName, Name)
     console.log("Check writeUpArticleFormats",writeUpArticleFormats, "Breakdown")
-    console.log("Check writeUpBias",writeUpBias, "WriteupID")
+    console.log("Check writeUpBias",writeUpBias, WriteupID)
     
  
 
