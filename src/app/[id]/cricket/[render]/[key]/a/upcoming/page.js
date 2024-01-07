@@ -17,7 +17,7 @@ export default async function Upage({ params }) {
     "downloads.asset_category",
     "game_results_in_renders",
     "gtp_3_reports",
-    "gtp_3_reports.asset",
+    "gtp_3_reports.asset", 
   ]);
 
   const AssetMetaData = {
@@ -26,7 +26,7 @@ export default async function Upage({ params }) {
     Video_asset_Category: "Video options",
     Video_Asset_Name: "Up Coming Fixtures",
     Image_asset_Category: "Image options",
-    Image_Asset_Name: "Fixture Previews",
+    Image_Asset_Name: "Upcoming Fixtures",
     Writeup: "Upcoming Preview",
     Category: decodeURIComponent(params.key),
   };
