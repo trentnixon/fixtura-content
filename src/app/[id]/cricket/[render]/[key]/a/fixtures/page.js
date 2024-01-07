@@ -24,7 +24,7 @@ export default async function Upage({ params }) {
     "game_results_in_renders.game_meta_datum.gtp_3_reports.asset",
     "gtp_3_reports",
     "gtp_3_reports.asset",
-  ]);
+  ]); 
 
   const AssetMetaData = {
     AssetName: "Weekend Results",

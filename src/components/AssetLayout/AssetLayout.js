@@ -59,9 +59,11 @@ export function AssetLayoutImagesOnly({ OBJ }) {
 }
 
 export function AssetLayoutFixtures({ OBJ }) {
+  console.log("OBJ.FixturesToDisplay.data", OBJ.FixturesToDisplay.data);
   return (
     <FixturaComponent>
       <DefaultHeader OBJ={OBJ} />
+
       {OBJ.FixturesToDisplay.data.map((Fixture, i) => {
         const FixtureDetails =
           Fixture.attributes.game_meta_datum.data.attributes;
@@ -69,51 +71,63 @@ export function AssetLayoutFixtures({ OBJ }) {
           FixtureDetails.gtp_3_reports.data,
           "Weekend Results"
         );
-          console.log(FixtureDetails)
+        console.log("Articles", Articles);
+        console.log("FixtureDetails", FixtureDetails);
         const FixtureGraphic = filterImages(
           OBJ.downloads,
           Fixture.attributes.game_meta_datum.data.id
         );
-        return Articles.map((Article, i) => {
-          return (
-            <Box my={50} key={i}>
-              <Box mb={0}>
-                <FixturaPaper c={5} shadow={"none"} mb={0}>
-                  <P fw={400} fz={"1.3em"} c='gray.8'>
-                    {FixtureDetails.teamHome} vs {FixtureDetails.teamAway}
-                  </P>
-                  <P fw={600} c='gray.8'>
-                    {FixtureDetails.Homescores} {FixtureDetails.HomeOvers} vs{" "}
-                    {FixtureDetails.Awayscores} {FixtureDetails.AwayOvers}
-                  </P>
-                </FixturaPaper>
-              </Box>
-              <FixturaGRIDOUTER>
-                <FixturaGRIDCOL span={5}>
-                  {FixtureGraphic.map((Graphic, i) => {
-                    return (
-                      <SingleImageWithDownload URL={Graphic.attributes.URL} key={i}/>
-                    );
-                  })}
-                </FixturaGRIDCOL>
-                <FixturaGRIDCOL span={7}>
-                  <FixturaPaper key={i}>
-                    <ScrollArea h={450}>
+        //return Articles.map((Article, i) => {
+        return (
+          <Box my={50} key={i}>
+            <Box mb={0}>
+              <FixturaPaper c={2} shadow={"none"} mb={0}>
+                <P fw={400} fz={"1.3em"} c="gray.8">
+                  {FixtureDetails.teamHome} vs {FixtureDetails.teamAway}
+                </P>
+                <P fw={600} c="gray.8">
+                  {FixtureDetails.Homescores} {FixtureDetails.HomeOvers} vs{" "}
+                  {FixtureDetails.Awayscores} {FixtureDetails.AwayOvers}
+                </P>
+              </FixturaPaper>
+            </Box>
+            <FixturaGRIDOUTER>
+              <FixturaGRIDCOL span={5}>
+                {FixtureGraphic.map((Graphic, i) => {
+                  return (
+                    <SingleImageWithDownload
+                      URL={Graphic.attributes.URL}
+                      key={i}
+                    />
+                  );
+                })}
+              </FixturaGRIDCOL>
+              <FixturaGRIDCOL span={7}>
+                <FixturaPaper key={i}>
+                  <ScrollArea h={450}>
+                    {Articles.length !== 0 ? (
                       <SelectedWriteup
-                        writeup={Article?.attributes?.EditorsArticle}
+                        writeup={Articles[0]?.attributes?.EditorsArticle}
                       />
-                    </ScrollArea>
-                  </FixturaPaper>
+                    ) : (
+                      false
+                    )}
+                  </ScrollArea>
+                </FixturaPaper>
+                {Articles.length !== 0 ? (
                   <Box mb={10}>
                     <ArticleActionButtonsContainer
-                      Article={Article?.attributes?.EditorsArticle}
+                      Article={Article[0]?.attributes?.EditorsArticle}
                     />
                   </Box>
-                </FixturaGRIDCOL>
-              </FixturaGRIDOUTER>
-            </Box>
-          );
-        });
+                ) : (
+                  false
+                )}
+              </FixturaGRIDCOL>
+            </FixturaGRIDOUTER>
+          </Box>
+        );
+        //});
       })}
     </FixturaComponent>
   );
