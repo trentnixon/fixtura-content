@@ -77,7 +77,8 @@ export function AssetLayoutFixtures({ OBJ }) {
           OBJ.downloads,
           Fixture.attributes.game_meta_datum.data.id
         );
-        console.log("Articles", Articles);
+        console.log("Articles", Articles, Articles.length);
+        console.log("Articles[0].attributes?.EditorsArticle", Articles[0].attributes?.EditorsArticle)
         console.log("FixtureDetails", FixtureDetails);
         console.log("FixtureGraphic", FixtureGraphic);
         //return Articles.map((Article, i) => {
@@ -110,7 +111,7 @@ export function AssetLayoutFixtures({ OBJ }) {
                   <ScrollArea h={450}>
                     {Articles.length !== 0 ? (
                       <SelectedWriteup
-                        writeup={Articles[0]?.attributes?.EditorsArticle}
+                        writeup={Articles[0].attributes?.EditorsArticle}
                       />
                     ) : (
                       false
