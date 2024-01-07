@@ -26,7 +26,7 @@ export default async function Upage({ params }) {
     Video_asset_Category: "Video options",
     Video_Asset_Name: "Weekend Results",
     Image_asset_Category: "Image options",
-    Image_Asset_Name: "Grouped Results",
+    Image_Asset_Name: "Weekend Results",
     Writeup: "Results Wrapup",
     Category: decodeURIComponent(params.key),
   };
