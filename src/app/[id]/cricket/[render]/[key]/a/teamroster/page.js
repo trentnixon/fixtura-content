@@ -2,7 +2,7 @@ import {
   FixturaComponent,
   FixturaContainer,
 } from "@/components/containers/containers";
-import { H, PageTitleAndCreated } from "@/components/Type/Headers";
+import { PageTitleAndCreated } from "@/components/Type/Headers";
 import { getRenderFields, getRenders } from "@/api/renders";
 import { RequestTeamRosterForRender } from "@/components/AssetLayout/Image/createTeamRoster";
 import { getAccount } from "@/api/accounts";
@@ -15,7 +15,7 @@ export default async function Upage({ params }) {
   const account = await getAccount(id);
   const Render = await getRenders(params.render);
   const renderData = await getRenderFields(render, [
-    "downloads",
+    "downloads", 
     "downloads.asset_type",
     "downloads.asset",
     "downloads.asset_category",

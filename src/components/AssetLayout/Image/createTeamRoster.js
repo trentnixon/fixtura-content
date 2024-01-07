@@ -86,14 +86,7 @@ const MainContent = ({
   const dayOfWeek = new Date()
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
-  const allowedDays = [
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-  ];
+  const allowedDays = ["thursday", "friday", "saturday"];
   const isButtonAccessible = allowedDays.includes(dayOfWeek);
 
   return (
