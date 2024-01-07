@@ -151,8 +151,13 @@ const filterWriteUps = (writeUps, Name, WriteupID) => {
     const writeUpArticleFormats =
       writeUp.attributes.asset.data.attributes.ArticleFormats;
     const writeUpBias = writeUp.attributes.Bias; // Retrieve the Bias attribute
-
-    console.log("Name", Name, "writeUp", writeUp);
+    
+    console.log("writeUps Sent", writeUp);
+    console.log("Check writeUpName",writeUpName, Name)
+    console.log("Check writeUpArticleFormats",writeUpArticleFormats, "Breakdown")
+    console.log("Check writeUpBias",writeUpBias, "WriteupID")
+    
+ 
 
     // Check if the Bias matches WriteupID
     const isBiasMatch = writeUpBias === WriteupID;
