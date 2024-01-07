@@ -28,6 +28,7 @@ export const SupportingArticleClientWithScroll = (props) => {
   const [loadingState, setLoadingState] = useState(false);
   const [ArticleRewrite, setArticleRewrite] = useState(false)
   const { ITEMS } = props;
+  console.log("SupportingArticleClientWithScroll === ", ITEMS)
   return (
     <FixturaContainer>
       <FixturaPaper c={1} shadow={"none"} p={5} my={10}>

@@ -41,7 +41,6 @@ export default async function Upage({ params }) {
 
   const OBJ = {
     AssetMetaData: AssetMetaData,
-    
     createdAt: Render.attributes.createdAt,
     decodeURIComponent: decodeURIComponent(params.key),
     FixturesToDisplay: renderData.attributes.game_results_in_renders,
