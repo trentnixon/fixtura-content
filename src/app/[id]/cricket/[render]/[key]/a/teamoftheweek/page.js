@@ -15,7 +15,7 @@ export default async function Upage({ params }) {
   return (
     <>
       <FixturaContainer>
-        <PageTitleAndCreated OBJ={OBJ} />
+        {/* <PageTitleAndCreated OBJ={OBJ} />  */}
       </FixturaContainer>
 
       <FixturaComponent>
