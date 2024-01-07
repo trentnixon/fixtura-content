@@ -71,12 +71,14 @@ export function AssetLayoutFixtures({ OBJ }) {
           FixtureDetails.gtp_3_reports.data,
           "Weekend Results"
         );
-        console.log("Articles", Articles);
-        console.log("FixtureDetails", FixtureDetails);
+
         const FixtureGraphic = filterImages(
           OBJ.downloads,
           Fixture.attributes.game_meta_datum.data.id
         );
+        console.log("Articles", Articles);
+        console.log("FixtureDetails", FixtureDetails);
+        console.log("FixtureGraphic", FixtureGraphic);
         //return Articles.map((Article, i) => {
         return (
           <Box my={50} key={i}>
@@ -138,7 +140,7 @@ const filterImages = (DATA, ID) => {
     const GameID = download.attributes.game_meta_data.data[0]?.id;
 
     const AssetName = download.attributes.asset.data.attributes.Name;
-    return ID === GameID && AssetName === "Game Spotlight";
+    return ID === GameID && AssetName === "Weekend Result Single Game";
   });
 };
 
