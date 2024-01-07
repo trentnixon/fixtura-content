@@ -117,15 +117,15 @@ export function AssetLayoutFixtures({ OBJ }) {
                     )}
                   </ScrollArea>
                 </FixturaPaper>
-                {Articles.length !== 0 ? (
+               {/*  {Articles.length !== 0 ? (
                   <Box mb={10}>
                     <ArticleActionButtonsContainer
-                      Article={Article[0]?.attributes?.EditorsArticle}
-                    />
+                      Article={Articles[0]?.attributes?.EditorsArticle}
+                    /> 
                   </Box>
                 ) : (
                   false
-                )}
+                )} */}
               </FixturaGRIDCOL>
             </FixturaGRIDOUTER>
           </Box>
