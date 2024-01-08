@@ -8,6 +8,13 @@ import { createDataSet } from "@/utils/CreateAssetDataForUI";
 import { getAccount, getAccountFields } from "@/api/accounts";
 import { FindAccountLabel, FindAccountType, FindAccountWriteupID } from "@/utils/actions";
 
+/*
+  NOTES:
+
+  WE need to fiter down the data load on this component
+  there are to many non essential items being piped down the channel here!
+
+*/
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
   const Render = await getRenders(params.render);
@@ -20,13 +27,15 @@ export default async function Upage({ params }) {
     "downloads.game_meta_data",
     "game_results_in_renders",
     "game_results_in_renders.game_meta_datum",
+    "game_results_in_renders.game_meta_datum.grade",
     "game_results_in_renders.game_meta_datum.gtp_3_reports",
     "game_results_in_renders.game_meta_datum.gtp_3_reports.asset",
     "gtp_3_reports",
     "gtp_3_reports.asset",
   ]); 
+  console.log(account)
 
-  console.log("account ===", FindAccountWriteupID(account))
+ /*  console.log("account ===", FindAccountWriteupID(account)) */
   const AssetMetaData = {
     AssetName: "Weekend Results",
     AssetType: "results",
@@ -37,6 +46,8 @@ export default async function Upage({ params }) {
     Writeup: ["Weekend Results","Stumps Review"],
     WriteupID:FindAccountWriteupID(account),
     Category: decodeURIComponent(params.key),
+    AccountType: FindAccountType(account),
+    group_assets_by:account.attributes.group_assets_by
   };
  
   const OBJ = {

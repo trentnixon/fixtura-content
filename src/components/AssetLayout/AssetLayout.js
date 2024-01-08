@@ -59,13 +59,25 @@ export function AssetLayoutImagesOnly({ OBJ }) {
 }
 
 export function AssetLayoutFixtures({ OBJ }) {
+  console.log(OBJ)
   console.log("OBJ.AssetMetaData.Category ", OBJ.AssetMetaData.Category);
   console.log("OBJ.FixturesToDisplay.data", OBJ.FixturesToDisplay.data);
+
+  const filterKey = OBJ.AssetMetaData.AccountType === "Club" ? "ageGroup" : "gradeName";
+
+// [0].attributes.game_meta_datum.data.attributes.grade.data.attributes.ageGroup
+// [0].attributes.game_meta_datum.data.attributes.grade.data.attributes.gradeName
+const filteredFixtures = OBJ.FixturesToDisplay.data.filter(fixture => {
+  const categoryValue = fixture.attributes.game_meta_datum.data.attributes.grade.data.attributes[filterKey];
+  return categoryValue === OBJ.AssetMetaData.Category;
+});
+console.log("filteredFixtures", filteredFixtures)
+
   return (
     <FixturaComponent>
       <DefaultHeader OBJ={OBJ} />
 
-      {OBJ.FixturesToDisplay.data.map((Fixture, i) => {
+      {filteredFixtures.map((Fixture, i) => {
         const FixtureDetails =
           Fixture.attributes.game_meta_datum.data.attributes;
         const Articles = filterWriteUps(
@@ -155,22 +167,6 @@ const filterWriteUps = (writeUps, Name, WriteupID) => {
 
     // Check if the Bias matches WriteupID
     const isBiasMatch = Number(writeUpBias) === WriteupID;
-
-    /*     console.log("writeUps Sent", writeUp);
-    console.log("Check writeUpName", writeUpName, Name);
-    console.log(
-      "Check writeUpArticleFormats",
-      writeUpArticleFormats,
-      "Breakdown"
-    );
-    console.log(
-      "Check writeUpBias",
-      Number(writeUpBias),
-      WriteupID,
-      "isBiasMatch ",
-      isBiasMatch
-    ); */
-
     // If 'Name' is an array, check if writeUpName is in the array and Bias matches
     if (Array.isArray(Name)) {
       return (
