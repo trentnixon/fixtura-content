@@ -1,12 +1,11 @@
 import { FixturaContainer } from "@/components/containers/containers";
 import { PageTitleAndCreated } from "@/components/Type/Headers";
 import { getRenderFields, getRenders } from "@/api/renders";
-import AssetLayout, {
-  AssetLayoutFixtures,
-} from "@/components/AssetLayout/AssetLayout";
+
 import { createDataSet } from "@/utils/CreateAssetDataForUI";
 import { getAccount, getAccountFields } from "@/api/accounts";
 import { FindAccountLabel, FindAccountType, FindAccountWriteupID } from "@/utils/actions";
+import { AssetLayoutFixtures } from "@/components/AssetLayout/FixtureLayout";
 
 /*
   NOTES:
