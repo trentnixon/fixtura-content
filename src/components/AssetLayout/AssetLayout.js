@@ -59,19 +59,28 @@ export function AssetLayoutImagesOnly({ OBJ }) {
 }
 
 export function AssetLayoutFixtures({ OBJ }) {
-  console.log(OBJ)
+  /*   console.log(OBJ)
   console.log("OBJ.AssetMetaData.Category ", OBJ.AssetMetaData.Category);
-  console.log("OBJ.FixturesToDisplay.data", OBJ.FixturesToDisplay.data);
+  console.log("OBJ.FixturesToDisplay.data", OBJ.FixturesToDisplay.data); */
+  let Category = OBJ.AssetMetaData.Category;
+  if (OBJ.AssetMetaData.AccountType === "Association") {
+    const splitCategory = Category.split("-").map((part) => part.trim());
+    Category = splitCategory[1] || ""; // Use the second part of the split, or an empty string if not available
+  }
 
-  const filterKey = OBJ.AssetMetaData.AccountType === "Club" ? "ageGroup" : "gradeName";
+  console.log("Processed Category: ", Category);
 
-// [0].attributes.game_meta_datum.data.attributes.grade.data.attributes.ageGroup
-// [0].attributes.game_meta_datum.data.attributes.grade.data.attributes.gradeName
-const filteredFixtures = OBJ.FixturesToDisplay.data.filter(fixture => {
-  const categoryValue = fixture.attributes.game_meta_datum.data.attributes.grade.data.attributes[filterKey];
-  return categoryValue === OBJ.AssetMetaData.Category;
-});
-console.log("filteredFixtures", filteredFixtures)
+  const filterKey =
+    OBJ.AssetMetaData.AccountType === "Club" ? "ageGroup" : "gradeName";
+
+  const filteredFixtures = OBJ.FixturesToDisplay.data.filter((fixture) => {
+    const categoryValue =
+      fixture.attributes.game_meta_datum.data.attributes.grade.data.attributes[
+        filterKey
+      ];
+    return categoryValue === Category;
+  });
+  console.log("filteredFixtures", filteredFixtures);
 
   return (
     <FixturaComponent>
