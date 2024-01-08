@@ -59,6 +59,7 @@ export function AssetLayoutImagesOnly({ OBJ }) {
 }
 
 export function AssetLayoutFixtures({ OBJ }) {
+  console.log("OBJ.AssetMetaData.Category ", OBJ.AssetMetaData.Category);
   console.log("OBJ.FixturesToDisplay.data", OBJ.FixturesToDisplay.data);
   return (
     <FixturaComponent>
@@ -77,10 +78,9 @@ export function AssetLayoutFixtures({ OBJ }) {
           OBJ.downloads,
           Fixture.attributes.game_meta_datum.data.id
         );
-        console.log("Articles", Articles, Articles.length);
-        //console.log("Articles[0].attributes?.EditorsArticle", Articles[0].attributes?.EditorsArticle)
+        /*  console.log("Articles", Articles, Articles.length);
         console.log("FixtureDetails", FixtureDetails);
-        console.log("FixtureGraphic", FixtureGraphic);
+        console.log("FixtureGraphic", FixtureGraphic); */
         //return Articles.map((Article, i) => {
         return (
           <Box my={50} key={i}>
@@ -156,7 +156,7 @@ const filterWriteUps = (writeUps, Name, WriteupID) => {
     // Check if the Bias matches WriteupID
     const isBiasMatch = Number(writeUpBias) === WriteupID;
 
-    console.log("writeUps Sent", writeUp);
+    /*     console.log("writeUps Sent", writeUp);
     console.log("Check writeUpName", writeUpName, Name);
     console.log(
       "Check writeUpArticleFormats",
@@ -169,7 +169,7 @@ const filterWriteUps = (writeUps, Name, WriteupID) => {
       WriteupID,
       "isBiasMatch ",
       isBiasMatch
-    );
+    ); */
 
     // If 'Name' is an array, check if writeUpName is in the array and Bias matches
     if (Array.isArray(Name)) {
@@ -188,14 +188,3 @@ const filterWriteUps = (writeUps, Name, WriteupID) => {
     );
   });
 };
-
-/* const filterWriteUps = (writeUps, name = "Name") => {
-  return writeUps.filter((writeUp) => {
-    const writeUpName = writeUp.attributes.asset.data.attributes.Name;
-    const writeUpArticleFormats =
-      writeUp.attributes.asset.data.attributes.ArticleFormats;
-    console.log("name", name, "writeUpName", writeUpName);
-    return writeUpName === name && writeUpArticleFormats === "Breakdown";
-  });
-};
- */

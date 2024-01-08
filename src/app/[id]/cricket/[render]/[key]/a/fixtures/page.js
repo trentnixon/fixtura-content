@@ -38,7 +38,7 @@ export default async function Upage({ params }) {
     WriteupID:FindAccountWriteupID(account),
     Category: decodeURIComponent(params.key),
   };
-
+ 
   const OBJ = {
     AssetMetaData: AssetMetaData,
     createdAt: Render.attributes.createdAt,
@@ -56,7 +56,7 @@ export default async function Upage({ params }) {
         <PageTitleAndCreated OBJ={OBJ} />
       </FixturaContainer>
       <AssetLayoutFixtures OBJ={OBJ} />
-    </>
+    </> 
   );
 }
 
