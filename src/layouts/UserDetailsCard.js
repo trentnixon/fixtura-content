@@ -133,8 +133,8 @@ const RenderButtonGroup = ({ onButtonClick, AccountType }) => {
       </Button.Group>
       <Button.Group orientation="vertical" mt={40} mb={20} mx={20}>
         <BUTTON_FUNC
-          Icon={<IconScoreboard />}
-          Label={`Weekend Results`}
+          Icon={<IconListNumbers />}
+          Label={`Weekend Summary`}
           onClick={() => onButtonClick("results")}
           variant={
             pathname.includes("/results") ? variantState[0] : variantState[1]
@@ -142,8 +142,8 @@ const RenderButtonGroup = ({ onButtonClick, AccountType }) => {
           Color={pathname.includes("/results") ? NavColors[0] : NavColors[1]}
         />
         <BUTTON_FUNC
-          Icon={<IconListNumbers />}
-          Label={`Fixtures`}
+          Icon={<IconScoreboard />}
+          Label={`Match Results`}
           onClick={() => onButtonClick("fixtures")}
           variant={
             pathname.includes("/fixtures") ? variantState[0] : variantState[1]

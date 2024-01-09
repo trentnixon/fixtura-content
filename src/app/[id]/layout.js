@@ -17,7 +17,7 @@ export default async function RootLayout({ children, params }) {
   );
 
   const OBJ = {
-    accountBasic: accountBasic,
+    accountBasic: accountBasic, 
     params: params,
     trialDaysRemaining: trialDaysRemaining,
     isActive:

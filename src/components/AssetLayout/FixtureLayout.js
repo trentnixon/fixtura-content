@@ -4,12 +4,12 @@ import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { SingleImageWithDownload } from "@/components/AssetLayout/Image/createImages";
 import { SelectedWriteup } from "@/components/AssetLayout/Article/supportingArticles";
 import { P } from "@/components/Type/Paragraph";
-import { Box, ScrollArea } from "@mantine/core";
+import { Box, Group, ScrollArea } from "@mantine/core";
 import { FixturaPaper } from "@/components/containers/paper";
 import { DefaultHeader } from "@/components/AssetLayout/AssetLayout";
 
 export function AssetLayoutFixtures({ OBJ }) {
-  const filteredFixtures = findfilteredFixtures(OBJ);
+  const filteredFixtures = findFilteredFixtures(OBJ);
 
   return (
     <FixturaComponent>
@@ -18,20 +18,8 @@ export function AssetLayoutFixtures({ OBJ }) {
         const FixtureOBJ = createFixtureOBJ(Fixture, OBJ);
         return (
           <Box my={50} key={i}>
-            <Box mb={0}>
-              <FixturaPaper c={2} shadow={"none"} mb={0}>
-                <P fw={400} fz={"1.3em"} c="gray.8">
-                  {FixtureOBJ.FixtureDetails.teamHome} vs{" "}
-                  {FixtureOBJ.FixtureDetails.teamAway}
-                </P>
-                <P fw={600} c="gray.8">
-                  {FixtureOBJ.FixtureDetails.Homescores}{" "}
-                  {FixtureOBJ.FixtureDetails.HomeOvers} vs{" "}
-                  {FixtureOBJ.FixtureDetails.Awayscores}{" "}
-                  {FixtureOBJ.FixtureDetails.AwayOvers}
-                </P>
-              </FixturaPaper>
-            </Box>
+            <MatchDetails FixtureOBJ={FixtureOBJ} />
+
             <FixturaGRIDOUTER>
               <FixturaGRIDCOL span={5}>
                 {FixtureOBJ.FixtureGraphic.map((Graphic, i) => {
@@ -53,7 +41,7 @@ export function AssetLayoutFixtures({ OBJ }) {
                         }
                       />
                     ) : (
-                      <>No Article Found</>
+                      <NoArticleMessage />
                     )}
                   </ScrollArea>
                 </FixturaPaper>
@@ -66,25 +54,106 @@ export function AssetLayoutFixtures({ OBJ }) {
   );
 }
 
-// Helper functions
+// external Component
 
+const MatchDetails = ({ FixtureOBJ }) => {
+  const { FixtureDetails } = FixtureOBJ;
+  console.log("FixtureDetails ", FixtureDetails);
+  return (
+    <Box mb={0}>
+      <Group position="apart">
+        <P fw={400} fz={".8em"} c="gray.8">
+          {FixtureDetails?.round}
+        </P>
+        <P fw={400} fz={".8em"} c="gray.8">
+          {FixtureDetails?.ground}
+        </P>
+      </Group>
+      <Group position="apart">
+        <P fw={600} fz={"1.1em"} c="gray.8">
+          {FixtureDetails.teamHome} {FixtureDetails.Homescores}{" "}
+          {FixtureDetails.HomeOvers}
+        </P>
+        <P fw={400} fz={".8em"} c="gray.8">
+          VS
+        </P>
+        <P fw={600} fz={"1.1em"} c="gray.8">
+          {FixtureDetails.Awayscores} {FixtureDetails.AwayOvers}{" "}
+          {FixtureDetails.teamAway}
+        </P>
+      </Group>
+
+      <P ta="center" fw={400} fz={".8em"} c="gray.8" my={10}>
+        {FixtureDetails?.ResultStatement}
+      </P>
+    </Box>
+  );
+};
+
+// A component for displaying when no article is found
+const NoArticleMessage = () => (
+  <Box textAlign="center" py={20}>
+    <P fw={500} fz={"sm"} c="gray.6" ta="center">
+      No articles available at the moment.
+    </P>
+  </Box>
+);
+
+// Data functions
 const processCategory = (OBJ) => {
   let Category = OBJ.AssetMetaData.Category;
-  if (OBJ.AssetMetaData.AccountType === "Association") {
+  if (
+    OBJ.AssetMetaData.AccountType === "Association" &&
+    OBJ.AssetMetaData.group_assets_by
+  ) {
     const splitCategory = Category.split("-").map((part) => part.trim());
     return splitCategory[1] || "";
   }
   return Category;
 };
 
-const findfilteredFixtures = (OBJ) => {
-    const Category = processCategory(OBJ);
-    const filterKey = OBJ.AssetMetaData.AccountType === "Club" ? "ageGroup" : "gradeName";
-  
-    return OBJ.FixturesToDisplay.data.filter((fixture) => {
-      const categoryValue = fixture.attributes.game_meta_datum.data.attributes.grade.data.attributes[filterKey];
-      return categoryValue === Category;
-    });
+/* findFilteredFixtures  **************** */
+const findFilteredFixtures = (OBJ) => {
+  // Extract the category from OBJ using processCategory function
+  const Category = processCategory(OBJ);
+  // Destructure AccountType and group_assets_by from AssetMetaData for easy access
+  const { AccountType, group_assets_by } = OBJ.AssetMetaData;
+
+  // Default filter key for 'Club' AccountType
+  let filterKey = AccountType === "Club" ? "ageGroup" : "gradeName";
+  // Determine if the competition path should be used
+  let isCompetitionPath = AccountType !== "Club" && !group_assets_by;
+
+  // Change filterKey to 'competitionName' if it's a competition path
+  if (isCompetitionPath) {
+    filterKey = "competitionName";
+  }
+
+  // Filter the FixturesToDisplay data
+  return OBJ.FixturesToDisplay.data.filter((fixture) => {
+    // Safely navigate to grade data
+    let gradeData =
+      fixture.attributes.game_meta_datum.data.attributes.grade.data;
+    let categoryValue;
+
+    // Extract the categoryValue based on whether it's a competition path
+    if (
+      isCompetitionPath &&
+      gradeData.attributes &&
+      gradeData.attributes.competition &&
+      gradeData.attributes.competition.data
+    ) {
+      // Accessing competitionName from the nested competition data
+      categoryValue =
+        gradeData.attributes.competition.data.attributes[filterKey];
+    } else if (gradeData.attributes) {
+      // Accessing ageGroup/gradeName from grade data
+      categoryValue = gradeData.attributes[filterKey];
+    }
+
+    // Compare the extracted categoryValue with the Category
+    return categoryValue === Category;
+  });
 };
 
 const createFixtureOBJ = (Fixture, OBJ) => {
@@ -103,6 +172,7 @@ const createFixtureOBJ = (Fixture, OBJ) => {
   return { FixtureDetails, Articles, FixtureGraphic };
 };
 
+// Helper functions
 // Filters image data based on game ID and asset name with added robustness
 const filterImages = (DATA, ID) => {
   return DATA.filter((download) => {

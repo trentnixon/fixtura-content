@@ -2,9 +2,13 @@ import { FixturaContainer } from "@/components/containers/containers";
 import { PageTitleAndCreated } from "@/components/Type/Headers";
 import { getRenderFields, getRenders } from "@/api/renders";
 
-import { createDataSet } from "@/utils/CreateAssetDataForUI";
+//import { createDataSet } from "@/utils/CreateAssetDataForUI";
 import { getAccount, getAccountFields } from "@/api/accounts";
-import { FindAccountLabel, FindAccountType, FindAccountWriteupID } from "@/utils/actions";
+import {
+  FindAccountLabel,
+  FindAccountType,
+  FindAccountWriteupID,
+} from "@/utils/actions";
 import { AssetLayoutFixtures } from "@/components/AssetLayout/FixtureLayout";
 
 /*
@@ -27,14 +31,15 @@ export default async function Upage({ params }) {
     "game_results_in_renders",
     "game_results_in_renders.game_meta_datum",
     "game_results_in_renders.game_meta_datum.grade",
+    "game_results_in_renders.game_meta_datum.grade.competition",
     "game_results_in_renders.game_meta_datum.gtp_3_reports",
     "game_results_in_renders.game_meta_datum.gtp_3_reports.asset",
     "gtp_3_reports",
     "gtp_3_reports.asset",
-  ]); 
-  console.log(account)
+  ]);
+  console.log(account);
 
- /*  console.log("account ===", FindAccountWriteupID(account)) */
+  /*  console.log("account ===", FindAccountWriteupID(account)) */
   const AssetMetaData = {
     AssetName: "Weekend Results",
     AssetType: "results",
@@ -42,13 +47,13 @@ export default async function Upage({ params }) {
     Video_Asset_Name: "Weekend Results",
     Image_asset_Category: "Image options",
     Image_Asset_Name: "Game Spotlight",
-    Writeup: ["Weekend Results","Stumps Review"],
-    WriteupID:FindAccountWriteupID(account),
+    Writeup: ["Weekend Results", "Stumps Review"],
+    WriteupID: FindAccountWriteupID(account),
     Category: decodeURIComponent(params.key),
     AccountType: FindAccountType(account),
-    group_assets_by:account.attributes.group_assets_by
+    group_assets_by: account.attributes.group_assets_by,
   };
- 
+
   const OBJ = {
     AssetMetaData: AssetMetaData,
     createdAt: Render.attributes.createdAt,
@@ -66,7 +71,7 @@ export default async function Upage({ params }) {
         <PageTitleAndCreated OBJ={OBJ} />
       </FixturaContainer>
       <AssetLayoutFixtures OBJ={OBJ} />
-    </> 
+    </>
   );
 }
 
