@@ -25,7 +25,7 @@ export default async function Upage({ params }) {
   ]);
 
   const AssetMetaData = {
-    AssetName: "Weekend Results",
+    AssetName: "RosterPoster",
     AssetType: "upcoming",
     Video_asset_Category: "Video options",
     Video_Asset_Name: "RosterPoster",
