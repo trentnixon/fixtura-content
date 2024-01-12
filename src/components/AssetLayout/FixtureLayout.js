@@ -99,6 +99,9 @@ const NoArticleMessage = () => (
   </Box>
 );
 
+
+
+
 // Data functions
 const processCategory = (OBJ) => {
   let Category = OBJ.AssetMetaData.Category;

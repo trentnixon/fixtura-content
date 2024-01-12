@@ -19,7 +19,7 @@ export default async function Upage({ params }) {
     "downloads.asset_type",
     "downloads.asset",
     "downloads.asset_category",
-    "game_results_in_renders",
+    "game_results_in_renders", 
     "gtp_3_reports",
     "gtp_3_reports.asset",
   ]);
@@ -28,10 +28,10 @@ export default async function Upage({ params }) {
     AssetName: "Weekend Results",
     AssetType: "upcoming",
     Video_asset_Category: "Video options",
-    Video_Asset_Name: "Match & Squad Preview",
+    Video_Asset_Name: "RosterPoster",
     Image_asset_Category: "Image options",
-    Image_Asset_Name: "Match & Squad Preview",
-    Writeup: "Match & Squad Preview",
+    Image_Asset_Name: "RosterPoster",
+    Writeup: "RosterPoster",
     Category: decodeURIComponent(params.key),
   };
 
