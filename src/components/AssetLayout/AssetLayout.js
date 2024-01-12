@@ -9,10 +9,11 @@ import { FixturaPaper } from "@/components/containers/paper";
 import { H } from "@/components/Type/Headers";
 
 export const DefaultHeader = ({ OBJ }) => {
+  console.log("OBJ", OBJ)
   return (
     <FixturaPaper c={1} shadow={"none"} mb={20}>
-      <H>{OBJ.AssetMetaData.AssetName}</H>
-      <P>{OBJ.decodeURIComponent}</P>
+      <H>{OBJ?.AssetMetaData?.AssetName}</H>
+      <P>{OBJ?.decodeURIComponent}</P>
     </FixturaPaper>
   );
 };
@@ -37,10 +38,10 @@ export default function AssetLayout({ OBJ }) {
 }
 
 export function AssetLayoutImagesOnly({ OBJ }) {
-  console.log("OBJ", OBJ)
+ 
   return (
     <FixturaComponent>
-     {/*  <DefaultHeader OBJ={OBJ} /> */}
+      <DefaultHeader OBJ={OBJ} />
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={12}>
           <ImageGalleryForAssets OBJ={OBJ} />

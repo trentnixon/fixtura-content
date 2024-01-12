@@ -25,7 +25,7 @@ export default async function Upage({ params }) {
   ]);
 
   const AssetMetaData = {
-    AssetName: "RosterPoster",
+    AssetName: "Team Rosters",
     AssetType: "upcoming",
     Video_asset_Category: "Video options",
     Video_Asset_Name: "RosterPoster",
@@ -36,6 +36,7 @@ export default async function Upage({ params }) {
   };
 
   const OBJ = {
+    AssetMetaData: AssetMetaData,
     CompleteRender: Render,
     createdAt: Render.attributes.createdAt,
     accountBasic: account,
