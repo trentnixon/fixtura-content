@@ -200,7 +200,7 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
     const storedState = localStorage.getItem(`requestInitiated-${Render}`);
     if (storedState === "true") {
       setRequestInitiated(true);
-    }
+    } 
   }, [Render]);
 
   useEffect(() => {

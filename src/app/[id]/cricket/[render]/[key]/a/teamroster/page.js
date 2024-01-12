@@ -15,11 +15,11 @@ export default async function Upage({ params }) {
   const account = await getAccount(id);
   const Render = await getRenders(params.render);
   const renderData = await getRenderFields(render, [
-    "downloads", 
+    "downloads",
     "downloads.asset_type",
     "downloads.asset",
     "downloads.asset_category",
-    "game_results_in_renders", 
+    "game_results_in_renders",
     "gtp_3_reports",
     "gtp_3_reports.asset",
   ]);
@@ -63,7 +63,7 @@ export default async function Upage({ params }) {
               Render={OBJ.params.render}
               CompleteRender={OBJ.CompleteRender}
             />
-          ) : ( 
+          ) : (
             false
           )}
         </FixturaComponent>

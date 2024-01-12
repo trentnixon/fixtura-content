@@ -37,9 +37,10 @@ export default function AssetLayout({ OBJ }) {
 }
 
 export function AssetLayoutImagesOnly({ OBJ }) {
+  console.log("OBJ", OBJ)
   return (
     <FixturaComponent>
-      <DefaultHeader OBJ={OBJ} />
+     {/*  <DefaultHeader OBJ={OBJ} /> */}
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={12}>
           <ImageGalleryForAssets OBJ={OBJ} />
