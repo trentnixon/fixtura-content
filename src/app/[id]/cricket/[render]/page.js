@@ -43,14 +43,14 @@ export default async function Render({ params }) {
           </P>
           <P mx={10} my={15} c={"white"}>
             We sincerely apologize for the delays and errors experienced with
-            today's renders. Our team has been diligently working throughout the
+            today&apos;s renders. Our team has been diligently working throughout the
             morning to resolve the network issues that occurred during the
             overnight rendering of your assets.
           </P>
           <P mx={10} my={15} c={"white"}>
             As of now, we have implemented a temporary solution and are actively
             developing a more robust fix in the coming days. If you find any of
-            your assets to be incorrect or missing, please don't hesitate to
+            your assets to be incorrect or missing, please don&apos;t hesitate to
             contact us via our Facebook page. We are here to assist and ensure
             everything is sorted out promptly
           </P>
