@@ -139,7 +139,7 @@ function sanitizeDownloadData(dataArray) {
           return (
             asset &&
             (asset.attributes.CompositionID === "Weekend Results" ||
-              asset.attributes.CompositionID === "Stumps Review")
+              asset.attributes.CompositionID === "Stumps Review (Article)")
           );
         })
         .map((filteredReport) => ({
