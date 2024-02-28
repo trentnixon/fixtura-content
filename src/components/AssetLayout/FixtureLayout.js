@@ -107,8 +107,13 @@ const processCategory = (OBJ) => {
 };
 
 const findFilteredFixtures = (OBJ) => {
-  const Category = processCategory(OBJ);
- 
+  let Category = processCategory(OBJ);
+
+  // Normalize the Category string to ensure consistent comparison
+  Category = normalizeString(Category);
+
+  console.log("Normalized Category: ", Category);
+
   const { AccountType, group_assets_by } = OBJ.AssetMetaData;
   let filterKey = AccountType === "Club" ? "ageGroup" : "gradeName";
   let isCompetitionPath = AccountType !== "Club" && !group_assets_by;
@@ -120,12 +125,17 @@ const findFilteredFixtures = (OBJ) => {
     let gradeData = fixture.attributes.game_meta_datum.data.attributes.grade.data;
     let categoryValue;
     if (isCompetitionPath && gradeData.attributes && gradeData.attributes.competition && gradeData.attributes.competition.data) {
-      categoryValue = gradeData.attributes.competition.data.attributes[filterKey];
+      categoryValue = normalizeString(gradeData.attributes.competition.data.attributes[filterKey]);
     } else if (gradeData.attributes) {
-      categoryValue = gradeData.attributes[filterKey];
+      categoryValue = normalizeString(gradeData.attributes[filterKey]);
     }
     return categoryValue === Category;
   });
+};
+
+// Helper function to normalize strings for consistent comparison
+const normalizeString = (str) => {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 };
 
 const createFixtureOBJ = (Fixture, OBJ) => {
