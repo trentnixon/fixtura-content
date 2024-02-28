@@ -6,7 +6,7 @@ export async function getAllRenders() {
   const res = await fetcher({
     PATH: `renders`,
     nextConfig: { next: { revalidate: 600 }},
-  });
+  }); 
   return res.data;
 }
 

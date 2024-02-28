@@ -13,3 +13,28 @@ export async function userFeedbackOnDownload(ID,CONTEXT) {
     });
     return res.data; 
   }
+
+
+
+  export async function getdownloadFieldsWithFilters(FIELDS, FILTERS) {
+    console.log(FIELDS, FILTERS)
+    const queryParams = qs.stringify(
+      {
+        filters: {
+          ...FILTERS
+        },
+        populate: FIELDS,
+      },
+  
+      {
+        encodeValuesOnly: true,
+      }
+    );
+  
+    const res = await fetcher({
+      PATH: `downloads?${queryParams}`,
+      nextConfig: {next: { revalidate: 600 } },
+    });
+    //console.log(res.data);
+    return res.data;
+  }
