@@ -17,7 +17,6 @@ export function AssetLayoutFixtures({ OBJ }) {
     return null; // Consider providing a fallback UI or error message here
   }
 
-  console.log("OBJ ", OBJ)
 
   const filteredFixtures = findFilteredFixtures(OBJ);
 
@@ -110,8 +109,6 @@ const processCategory = (OBJ) => {
 const findFilteredFixtures = (OBJ) => {
   const Category = processCategory(OBJ);
  
-  console.log(" OBJ.decodeURIComponent ",  OBJ.decodeURIComponent)
-
   const { AccountType, group_assets_by } = OBJ.AssetMetaData;
   let filterKey = AccountType === "Club" ? "ageGroup" : "gradeName";
   let isCompetitionPath = AccountType !== "Club" && !group_assets_by;
