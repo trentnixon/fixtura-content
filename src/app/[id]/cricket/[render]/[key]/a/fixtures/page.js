@@ -14,7 +14,7 @@ import { AssetLayoutFixtures } from "@/components/AssetLayout/FixtureLayout";
 /*
   NOTES:
 
-  WE need to fiter down the data load on this component
+  WE need to filter down the data load on this component
   there are to many non essential items being piped down the channel here!
 
 */
@@ -69,6 +69,7 @@ export default async function Upage({ params }) {
     <>
       <FixturaContainer>
         <PageTitleAndCreated OBJ={OBJ} />
+        
       </FixturaContainer>
       <AssetLayoutFixtures OBJ={OBJ} />
     </>

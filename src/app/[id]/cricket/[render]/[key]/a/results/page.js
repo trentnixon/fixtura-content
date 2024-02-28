@@ -45,6 +45,7 @@ export default async function Upage({ params }) {
     <>
       <FixturaContainer>
         <PageTitleAndCreated OBJ={OBJ} />
+        
       </FixturaContainer>
       <AssetLayout OBJ={OBJ} />
     </>

@@ -8,7 +8,7 @@ import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { FixturaSection } from "@/components/containers/Section";
 import { SelectedStatsStatment } from "@/components/PageSelectedRender/server/RenderStatsStatment";
 import NavigationOptionsForAccountType from "@/components/PageOverview/NavigationOptionsForAccountType";
-import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
+//import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
 import { FindAccountLabel, FindAccountType } from "@/utils/actions";
 import { FixturaGroup } from "@/components/containers/Group";
 import {
