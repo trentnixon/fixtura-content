@@ -13,10 +13,10 @@ export const NoDataFound = () => {
       <H size="h2">Asset Rendering Glitch</H>
       <FixturaPaper c={1} shadow={"none"} my={20}>
         <P>
-          It looks like we've hit a snag and can't find the data you're looking
+          It looks like we&#39;ve hit a snag and can&#39;t find the data you&#39;re looking
           for. This could be because the necessary details are missing from your
-          fixtures from PlayHQ, or there's been a hiccup in bringing this
-          category to life. But don't worry, we've got a couple of ways to get
+          fixtures from PlayHQ, or there&#39;s been a hiccup in bringing this
+          category to life. But don&#39;t worry, we&#39;ve got a couple of ways to get
           you back on track and ensure you have all the information you need to
           keep the game going.
         </P>
