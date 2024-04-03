@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-
+/src/app/OLD
 # next.js
 /.next/
 /out/
