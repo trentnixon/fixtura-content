@@ -1,6 +1,6 @@
 import { getWriteupsFieldsWithFilters } from "@/api/getWriteup";
 import { getRenderFields } from "@/api/renders";
-import { CreateVideoClient } from "@/components/AssetLayout/Video/createVideo";
+import { DisplayVideoAsset } from "@/components/AssetLayout/Video/createVideo"; 
 import { filterDownloads } from "@/utils/helpers";
 
 export async function CreateVideo({ params, Category, Type }) {
@@ -51,7 +51,7 @@ export async function CreateVideo({ params, Category, Type }) {
   );
 
   return (
-    <CreateVideoClient
+    <DisplayVideoAsset
       ITEM={filteredDownloads}
       renderArticles={renderArticles}
       params={params}

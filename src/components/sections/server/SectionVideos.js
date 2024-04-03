@@ -2,8 +2,8 @@ import { getWriteupsFromRender } from "@/api/getWriteup";
 import { getRenderFields } from "@/api/renders";
 import { FixturaSection } from "@/components/containers/Section";
 import { filterDownloads } from "@/utils/helpers";
-import { CreateVideoClient } from "@/components/AssetLayout/Video/createVideo";
-import { getAccount, getAccountFields } from "@/api/accounts";
+import { DisplayVideoAsset } from "@/components/AssetLayout/Video/createVideo";
+import { getAccount } from "@/api/accounts";
 import { FindAccountType, isSponsorsActive } from "@/utils/actions";
 export default async function SectionVideos({
   params,
@@ -15,14 +15,14 @@ export default async function SectionVideos({
   //console.log(params);
 
   const Category = "Video options";
-  const renderData = await getRenderFields(params.render, [ 
+  const renderData = await getRenderFields(params.render, [
     "downloads",
     "downloads.asset_type",
     "downloads.asset",
     "downloads.asset_category",
-  ]); 
+  ]);
 
-/*   const accountBasic = await getAccountFields(params.id, [
+  /*   const accountBasic = await getAccountFields(params.id, [
     "sponsors",
     "subscription_tier",
   ]); */
@@ -52,18 +52,18 @@ export default async function SectionVideos({
               Icon={video.attributes?.asset?.data?.attributes?.Icon}
               key={i}
             >
-              <CreateVideoClient
+              <DisplayVideoAsset
                 Category="Video options"
                 Type={Type}
                 ITEM={video.attributes}
                 renderArticles={RenderWriteups.filteredData}
                 description={video.attributes?.asset?.data?.attributes?.Blurb}
                 subTitle={video.attributes?.asset?.data?.attributes?.SubTitle}
-               /*  hasSponsors={isSponsorsActive(accountBasic)} */
+                /*  hasSponsors={isSponsorsActive(accountBasic)} */
                 GroupBy={GroupBy}
                 AccountType={AccountType}
               />
-            </FixturaSection> 
+            </FixturaSection>
           );
       })}
     </>
