@@ -1,11 +1,6 @@
 "use client";
 import { NavigationSelect } from "@/components/PageKey/client/RenderCategorySelect";
 import { FixturaGroup } from "@/components/containers/Group";
-import {
-  FixturaContainer,
-  FixturaVideoContainer,
-} from "@/components/containers/containers";
-import { formatStrapiCreatedOnDate } from "@/utils/actions";
 import { Title } from "@mantine/core";
 
 export const H = (props) => {
@@ -45,9 +40,3 @@ export const PageTitleAndCreated = (props) => {
     </FixturaGroup>
   );
 };
-
-/*  <FixturaVideoContainer>
-        <H size={"h6"} lh={`1.1em`} italic={true}>
-          {formatStrapiCreatedOnDate(createdAt)}
-        </H>
-      </FixturaVideoContainer> */

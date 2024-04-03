@@ -22,7 +22,7 @@ export const BUTTON_FUNC = (props) => {
     Icon = false,
   } = props;
 
-  return (
+  return ( 
     <Button
       variant={variant}
       leftIcon={Icon}

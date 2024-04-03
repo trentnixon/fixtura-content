@@ -15,6 +15,7 @@ import { FixturaGroup } from "@/components/containers/Group";
 import { FixturaBox } from "@/components/containers/boxes";
 import { P, S } from "@/components/Type/Paragraph";
 import { H } from "@/components/Type/Headers";
+import { FixturaPaper } from "@/components/containers/paper";
 
 const Header = () => (
   <FixturaGroup position={"apart"} my={5} py={5}>
@@ -86,11 +87,12 @@ const MainContent = ({
   const dayOfWeek = new Date()
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
-  const allowedDays = ["thursday", "friday", "saturday"];
+  const allowedDays = ["thursday", "friday", "saturday","sunday","monday"];
   const isButtonAccessible = allowedDays.includes(dayOfWeek);
 
   return (
     <>
+    {!hasRosters && !requestInitiated && <InitialBox />}
       {!requestInitiated &&
         isButtonAccessible &&
         (hasRosters ? (
@@ -102,22 +104,22 @@ const MainContent = ({
             error={error}
           />
         ))}
-      {!hasRosters && !requestInitiated && <InitialBox />}
+      
       {requestInitiated && <ProcessingBox />}
     </>
   );
 };
 
 const InitialBox = () => (
-  <>
-    <P fw={800} c={"gray.8"} ta={`left`}>
+  <FixturaPaper c={1} shadow={"none"} my={10}>
+    <P c={"gray.8"} ta={`left`}>
       Create sleek team roster graphics for every team in the club.
     </P>
     <P c={"gray.8"} ta={`left`}>
       This service is only available once per week/bundle. We&apos;ll notify you
       when they&apos;re ready for showcase.
     </P>
-  </>
+  </FixturaPaper>
 );
 
 const ProcessingBox = () => (
@@ -184,20 +186,23 @@ const RequestButtonBox = ({ handleRequestClick, requestStatus, error }) => (
 );
 
 const FooterNote = () => (
-  <S c={"gray.7"} ta={"left"} my={15}>
+  <FixturaPaper c={0} shadow={"none"} mx={30}>
+  <P c={"gray.7"} ta={"center"} my={15}>
     This feature is currently in Beta, meaning some things may not always appear
     or work as expected. Should you run into any issues, please contact us on
     Facebook for assistance.
-  </S>
+  </P>
+  </FixturaPaper>
 );
 
 export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const { requestStatus, error, requestTeamRoster } = useRequestTeamRoster();
   const [requestInitiated, setRequestInitiated] = useState(false);
   const hasRosters = CompleteRender.attributes.hasTeamRosters;
-
+  localStorage.removeItem(`requestInitiated-${Render}`);
   useEffect(() => {
     const storedState = localStorage.getItem(`requestInitiated-${Render}`);
+    console.log("storedState ", storedState)
     if (storedState === "true") {
       setRequestInitiated(true);
     } 

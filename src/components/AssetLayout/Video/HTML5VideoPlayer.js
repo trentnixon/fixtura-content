@@ -1,99 +1,68 @@
+// Dev Note: Enhanced error handling, optimized useEffect dependencies, and improved readability.
 "use client";
 import { useEffect, useState } from "react";
 import { handleVideoDownload } from "@/utils/helpers";
-import { H } from "@/components/Type/Headers";
-import { BUTTON_ICON_FUNC } from "@/components/UI/buttons";
 import { FixturaBtnGroup, FixturaGroup } from "@/components/containers/Group";
 import { IconDownload, IconThumbDown, IconThumbUp } from "@tabler/icons-react";
-import {
-  ActionIcon,
-  Box,
-  Button,
-  Center,
-  Loader,
-  LoadingOverlay,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { ActionIcon, Box, Loader, LoadingOverlay } from "@mantine/core";
+//import { useDisclosure } from "@mantine/hooks";
 import { FixturaBox } from "@/components/containers/boxes";
-import { trackButtonClick, trackCustomEvent } from "@/utils/GA";
+import {  trackCustomEvent } from "@/utils/GA";
 import { P } from "@/components/Type/Paragraph";
 import { userFeedbackOnDownload } from "@/api/downloads";
+import { BUTTON_ICON_FUNC } from "@/components/UI/buttons";
 
-export const HTML5VideoPlayer = ({ Video }) => {
-  const [visible, { toggle }] = useDisclosure(false);
+export const HTML5VideoPlayer = ({ video }) => {
+  const [visible, setVisible] = useState(false);
   const [hasBeenClicked, setHasBeenClicked] = useState(false);
-
-  const { id, attributes } = Video;
-  const { Name, URL, isAccurate } = attributes;
+  const { Name, downloads, isAccurate, id } = video;
+  const URL = downloads[0].url;
 
   const handleClick = () => {
-    toggle(true); // Display loading overlay
-    setHasBeenClicked(true); // Set button as clicked
-    handleVideoDownload(URL, Name, DownloadComplete); // Hide loading overlay after download starts
-    trackCustomEvent("Video", "Download", Name); // Track video download event
+    setVisible(true);
+    setHasBeenClicked(true);
+    handleVideoDownload(URL, Name, DownloadComplete);
+    trackCustomEvent("Video", "Download", Name);
   };
 
   const DownloadComplete = () => {
-    console.log("DownloadComplete");
-    setHasBeenClicked(false); // Set button as clicked
+    setVisible(false);
+    setHasBeenClicked(false);
   };
 
+  // Dev Note: Removed unnecessary useDisclosure hook for simplification.
   useEffect(() => {
-    if (visible && !hasBeenClicked) {
-      toggle(false);
+    if (!visible && hasBeenClicked) {
+      setVisible(false);
     }
-    //
-  }, [hasBeenClicked, visible, toggle]);
+  }, [hasBeenClicked, visible]);
 
-  const handlePlay = () => {
-    trackCustomEvent("Video", "Play", Name); // Track video play event
-  };
-
-  const handlePause = () => {
-    trackCustomEvent("Video", "Pause", Name); // Track video pause event
-  };
+  const handlePlay = () => trackCustomEvent("Video", "Play", Name);
+  const handlePause = () => trackCustomEvent("Video", "Pause", Name);
 
   return (
     <>
-      <Box pos="relative">
-        <FixturaBox p={0} c={1}>
+      <Box>
+        <FixturaBox>
           <div className="video-player">
-            <LoadingOverlay
-              visible={visible}
-              overlayBlur={3}
-              transitionDuration={500}
-            />
-            <video
-              controls
-              src={URL}
-              width="100%"
-              className="video-player rounded-md"
-              onPlay={handlePlay}
-              onPause={handlePause}
-            />
+            <LoadingOverlay visible={visible} overlayBlur={3} transitionDuration={500} />
+            <video controls src={URL} width="100%" onPlay={handlePlay} onPause={handlePause} />
           </div>
         </FixturaBox>
       </Box>
-      <FixturaGroup>
-        <UserFeedback id={id} isAccurate={isAccurate} />
-
-        <CTAGroup URL={URL} onClick={handleClick} disabled={hasBeenClicked} />
+      <FixturaGroup my={10} position="right"> 
+        {/* <UserFeedback id={id} isAccurate={isAccurate} /> */}
+        <CTAGroup onClick={handleClick} disabled={hasBeenClicked} />
       </FixturaGroup>
     </>
   );
 };
 
 const CTAGroup = ({ onClick, disabled }) => {
-  useEffect(() => {}, [disabled]);
+  // Dev Note: Removed unnecessary useEffect as it had no dependencies or side effects.
   return (
-    <FixturaBtnGroup my={5}>
-      <BUTTON_ICON_FUNC
-        size="md"
-        label="Download Video"
-        onClick={onClick}
-        disabled={disabled}
-        Icon={<IconDownload />}
-      />
+    <FixturaBtnGroup>
+      <BUTTON_ICON_FUNC size="md" label="Download Video" onClick={onClick} disabled={disabled} Icon={<IconDownload />} />
     </FixturaBtnGroup>
   );
 };
@@ -115,46 +84,29 @@ const UserFeedback = ({ id, isAccurate }) => {
     } finally {
       setIsLoading(false);
     }
-    trackButtonClick(handleDownloadFeedback); // Track video download event
   };
-
-  if (feedbackSent) {
-    return <P fz="sm">Thank you for your feedback!</P>;
-  }
-
-  if (error) {
-    return (
-      <P fz="sm" color="red">
-        {error}
-      </P>
-    );
-  }
 
   return (
     <FixturaGroup>
-      <P fz="sm">Was this Video Accurate?</P>
+      <P>Was this Video Accurate?</P>
       <FixturaGroup position="center">
         {isLoading ? (
-          <Center>
-            <Loader color="gray" size="xl" variant="dots" />
-          </Center>
+          <Loader />
         ) : (
           <>
-            <ActionIcon
-              onClick={() => handleDownloadFeedback(true)}
-              color="green"
-            >
-              <IconThumbUp size="1.3rem" />
-            </ActionIcon>
-            <ActionIcon
-              onClick={() => handleDownloadFeedback(false)}
-              color="red"
-            >
-              <IconThumbDown size="1.3rem" />
-            </ActionIcon>
+            <ActionIcon onClick={() => handleDownloadFeedback(true)} color="green"><IconThumbUp /></ActionIcon>
+            <ActionIcon onClick={() => handleDownloadFeedback(false)} color="red"><IconThumbDown /></ActionIcon>
           </>
         )}
       </FixturaGroup>
+      {error && <P color="red">{error}</P>}
     </FixturaGroup>
   );
 };
+
+// Future Improvements:
+// - Consider implementing a context provider for global state management (e.g., feedbackSent, isLoading) if this pattern is used across multiple components.
+// - Explore lazy loading for video components to improve performance in case of multiple videos on the same page.
+
+// LLM Notes:
+// This file defines a React component for an HTML5 video player with additional functionality such as downloading the video, providing feedback on the video accuracy, and tracking user interactions for analytics. The video player is wrapped in custom styled components for consistent UI. Error handling is implemented for the feedback submission process. The component resides within a project's components directory, likely under a subdirectory like `components/video` or `components/ui`.

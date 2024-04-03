@@ -15,7 +15,7 @@ import {
   sortRenders,
 } from "@/utils/actions";
 import { getSchedulerFromAccount } from "@/api/scheduler";
-import { NewTemplatePromo } from "@/components/Promotions/NewTemplatePromotion";
+//import { NewTemplatePromo } from "@/components/Promotions/NewTemplatePromotion";
 import { CNSWTemplateNewLayout } from "@/components/Promotions/CNSWTemplateNewLayout";
 
 export default async function Account({ params, searchParams }) {
@@ -45,7 +45,7 @@ export default async function Account({ params, searchParams }) {
             subTitle={""}
             Icon={`ICO_HEADER_ACCOUNT`}
           >
-            <DisplayAccountRenders OBJ={OBJ} />
+            <DisplayAccountRenders OBJ={OBJ} /> 
           </FixturaSection>
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={12}>

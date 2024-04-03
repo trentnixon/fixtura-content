@@ -1,24 +1,31 @@
 import { FixturaContainer } from "@/components/containers/containers";
 import { PageTitleAndCreated } from "@/components/Type/Headers";
-import { getRenderFields, getRenders } from "@/api/renders";
+import { getRenderFields } from "@/api/renders";
 import AssetLayout from "@/components/AssetLayout/AssetLayout";
-import { createDataSet } from "@/utils/CreateAssetDataForUI";
 import { getAccount, getAccountFields } from "@/api/accounts";
 import { FindAccountLabel } from "@/utils/actions";
+import { createAssetDataFromFilters } from "@/utils/CreateAssetDataFromFilters";
 
-export default async function Upage({ params }) {
-  console.log("Page.js - Upage");
-  const Render = await getRenders(params.render);
+export default async function displayTop5BattingList({ params }) {
+  const useCompositionID = "Top5BattingList";
+  console.log("Page.js - displayTop5BattingList");
   const account = await getAccount(params.id);
   const renderData = await getRenderFields(params.render, [
     "downloads",
-    "downloads.asset_type",
-    "downloads.asset",
     "downloads.asset_category",
-    "game_results_in_renders",
-    "gtp_3_reports",
-    "gtp_3_reports.asset",
+    "downloads.asset",
+    "ai_articles",
+    "ai_articles.asset",
+    "ai_articles.asset_category",
   ]);
+
+    // Use the new utility function to create asset data from the filters
+    const ASSETDATA = createAssetDataFromFilters(
+      renderData.attributes.downloads.data,
+      renderData.attributes.ai_articles.data,
+      useCompositionID,
+      decodeURIComponent(params.key)
+    );
 
   const AssetMetaData = {
     AssetName: "Top 5 Run Scorers",
@@ -33,9 +40,9 @@ export default async function Upage({ params }) {
 
   const OBJ = {
     AssetMetaData: AssetMetaData,
-    createdAt: Render.attributes.createdAt,
+    createdAt: renderData.attributes.createdAt,
     decodeURIComponent: decodeURIComponent(params.key),
-    ASSETDATA: createDataSet(renderData.attributes, AssetMetaData),
+    ASSETDATA: ASSETDATA[0],
     Sport: account.attributes?.Sport
       ? account.attributes?.Sport.toLowerCase()
       : "cricket",

@@ -1,7 +1,7 @@
 // APIS
 import { getAccount, getAccountFields } from "@/api/accounts";
 import { RenderCount, getRenders } from "@/api/renders";
-
+ 
 // Structure
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 // Components
@@ -23,6 +23,10 @@ import { FixturaPaper } from "@/components/containers/paper";
 export default async function Render({ params }) {
   const account = await getAccount(params.id);
   const AccountType = FindAccountType(account);
+
+  const getRenderCount = await RenderCount(params.render)
+  console.log("RenderCount(params.render)", getRenderCount)
+
   const OBJ = {
     Count: await RenderCount(params.render),
     CompleteRender: await getRenders(params.render),

@@ -16,12 +16,12 @@ export const ArticleActionButtonsContainer = (props) => {
   return (
     <Container p={0} mt={10}>
       <Group position="right">
-        <BTN_Copy_Article_Content Article={props.selectedArticle} />
-        <BTN_Article_Rewrite
+         <BTN_Copy_Article_Content Article={props.selectedArticle} />
+      {/*  <BTN_Article_Rewrite
           Article={props.ArticleBOJ}
           setLoadingState={props.setLoadingState}
           setArticleRewrite={props.setArticleRewrite}
-        />
+        /> */}
       </Group>
     </Container>
   );

@@ -10,72 +10,66 @@ import { Box, Group, ScrollArea, Select } from "@mantine/core";
 import { FixturaPaper } from "@/components/containers/paper";
 import { DefaultHeader } from "@/components/AssetLayout/AssetLayout";
 import { useState } from "react";
+import { NoDataFound } from "@/components/errors/NoDataFound";
+import { AssetHasError } from "@/components/errors/AssetHasError";
 
 export function SingleFixtureLayout({ OBJ }) {
-  if (!OBJ || typeof OBJ !== "object") {
-    // Dev notes: Added error handling for invalid OBJ input to improve debugging
-    console.error("Invalid OBJ provided to AssetLayoutFixtures");
-    return null; // Consider providing a fallback UI or error message here
-  }
+  console.log("OBJ.ASSETDATA ", OBJ.ASSETDATA);
 
+  if (OBJ.ASSETDATA.length === 0) return <NoDataFound />;
+
+  if (OBJ.ASSETDATA.graphics[0].hasError) {
+    return (
+      <AssetHasError
+        errorType={OBJ.ASSETDATA.graphics[0].errorHandler.Type}
+        errorMsg={OBJ.ASSETDATA.graphics[0].errorHandler.Message}
+        assetID={OBJ.ASSETDATA.graphics[0].id}
+      />
+    );
+  }
   return (
     <FixturaComponent>
       <DefaultHeader OBJ={OBJ} />
-      {OBJ.FixturesToDisplay.map((Fixture, index) => {
-        if (Fixture.game_meta_data.length !== 0) {
-          console.log(Fixture, Fixture?.game_meta_data[0]?.gtp_3_reports);
-          return (
-            <Box my={50} key={index}>
-              <MatchDetails FixtureDetails={Fixture.game_meta_data[0]} />
-
-              <FixturaGRIDOUTER>
-                <FixturaGRIDCOL span={5}>
-                  <SingleImageWithDownload URL={Fixture.URL} key={index} />
-                </FixturaGRIDCOL>
-                <FixturaGRIDCOL span={7}>
-                  <FixturaPaper key={index}>
-                    <SelectedArticle gameMetaData={Fixture.game_meta_data} />
-                    {/* <ScrollArea height={450}>
-                      {Fixture.game_meta_data.length > 0 ? (
-                        <SelectedWriteup
-                          selectedArticle={
-                            Fixture.game_meta_data[0].gtp_3_reports[0]
-                              ?.EditorsArticle
-                          }
-                        />
-                      ) : (
-                        <NoArticleMessage />
-                      )}
-                    </ScrollArea> */}
-                  </FixturaPaper>
-                </FixturaGRIDCOL>
-              </FixturaGRIDOUTER>
-            </Box>
-          );
-        }
+      {OBJ.ASSETDATA.graphics[0].downloads.map((dl, i) => {
+        return (
+          <Box my={50} key={i}>
+            {/* <MatchDetails FixtureDetails={Fixture.game_meta_data[0]} /> */}
+            <FixturaGRIDOUTER>
+              <FixturaGRIDCOL span={5}>
+                <SingleImageWithDownload URL={dl} key={i} />
+              </FixturaGRIDCOL>
+              <FixturaGRIDCOL span={7}>
+                <FixturaPaper key={i}>
+                  <SelectedArticle gameMetaData={OBJ.ASSETDATA.articles[i]} />
+                </FixturaPaper>
+              </FixturaGRIDCOL>
+            </FixturaGRIDOUTER>
+          </Box>
+        );
       })}
     </FixturaComponent>
   );
 }
 
 const SelectedArticle = ({ gameMetaData }) => {
+  // Prepare options for the Select component
+  console.log("gameMetaData", gameMetaData);
+
   // Initial state is the first article's EditorsArticle, if available
   const [selectedArticle, setSelectedArticle] = useState(
-    gameMetaData[0]?.gtp_3_reports[0]?.EditorsArticle || ""
+    gameMetaData?.ArticleJournalist || ""
   );
 
-  // Prepare options for the Select component
-  console.log("gameMetaData[0]?.gtp_3_reports", gameMetaData[0]?.gtp_3_reports);
-  const articleOptions = gameMetaData[0]?.gtp_3_reports.map(
+  /* const articleOptions = gameMetaData[0]?.gtp_3_reports.map(
     (report, index) => ({
       value: report.EditorsArticle,
       label: report.CompositionID || `Article ${index + 1}`, // Fallback to a default name if no name is available
     })
-  );
+  ); */
 
-  const handleChange = (value) => {
+  /* const handleChange = (value) => {
     setSelectedArticle(value);
-  };
+  }; */
 
   return (
     <Box>
@@ -86,7 +80,7 @@ const SelectedArticle = ({ gameMetaData }) => {
           <NoArticleMessage />
         )}
       </ScrollArea>
-      {gameMetaData[0]?.gtp_3_reports.length === 1 ? (
+      {/*  {gameMetaData[0]?.gtp_3_reports.length === 1 ? (
         false
       ) : (
         <Select
@@ -97,7 +91,7 @@ const SelectedArticle = ({ gameMetaData }) => {
           value={selectedArticle}
           mt={30}
         />
-      )}
+      )} */}
     </Box>
   );
 };

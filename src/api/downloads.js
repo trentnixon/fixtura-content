@@ -38,3 +38,16 @@ export async function userFeedbackOnDownload(ID,CONTEXT) {
     //console.log(res.data);
     return res.data;
   }
+
+
+  export async function userForceAssetRerender(ID) {
+    console.log(ID)
+    //api/download/ForceAssetRerender
+    const res = await fetcher({
+      PATH: `download/ForceAssetRerender`,  
+      method:`POST`,
+      body:{data:{RerenderID:ID}},
+      nextConfig: { cache: 'no-store' },
+    });
+    return res.data; 
+  }

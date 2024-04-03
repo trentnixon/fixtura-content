@@ -138,7 +138,8 @@ export const handleDownloadAllFromArray = async (items) => {
 
   // Download all images and add them to the zip file
   const downloads = items.map(async (item, i) => {
-    const response = await fetch(item, {
+    console.log("itemitemitem", item)
+    const response = await fetch(item.url, {
       headers: {
         "Cache-Control": "no-cache",
       },
@@ -146,7 +147,7 @@ export const handleDownloadAllFromArray = async (items) => {
     const blob = await response.blob();
 
     // Get the filename from the URL
-    const urlObject = new URL(item);
+    const urlObject = new URL(item.url);
     const filename = urlObject.pathname.split("/").pop();
 
     zip.file(filename, blob);
@@ -155,7 +156,7 @@ export const handleDownloadAllFromArray = async (items) => {
   await Promise.all(downloads);
 
   // Extract common part of filename for the zip filename
-  const firstUrlObject = new URL(items[0]);
+  const firstUrlObject = new URL(items[0].url);
   const firstFilename = firstUrlObject.pathname.split("/").pop();
   const zipFilename = firstFilename.split("_").slice(0, -1).join("_") + ".zip";
 

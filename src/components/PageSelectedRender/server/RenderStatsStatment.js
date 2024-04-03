@@ -3,7 +3,7 @@ import { FixturaContainer } from "@/components/containers/containers";
 import { H } from "@/components/Type/Headers";
 
 export async function SelectedStatsStatment({ Count }) {
- 
+
   return (
     <FixturaContainer my={5} mx={"2%"}>
       <H size={"h3"} align="right" weight={400}>
@@ -14,7 +14,7 @@ export async function SelectedStatsStatment({ Count }) {
         <Bold>{Count?.GameCount.Upcoming}</Bold> Upcoming fixtures.
       </H>
       <H size={"h3"} align="right" weight={400}>
-        A total of <Bold>{Count?.downloads + Count?.gtp_3_reports}</Bold> assets
+        A total of <Bold>{Count?.downloads + Count?.aiReports}</Bold> assets
         were created this week.
       </H>
     </FixturaContainer>

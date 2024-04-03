@@ -24,6 +24,7 @@ export const RendersTableof = async (props) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const theme = useMantineTheme();
 
+  console.log(OBJ)
   return (
     <>
       <FixturaPaper c={0}>
@@ -91,7 +92,7 @@ export const RendersTableof = async (props) => {
                         <P c="gray.9">{render.count?.GameCount.Total}</P>
                       </td>
                       <td>
-                        <P c="gray.9">{render.count?.gtp_3_reports}</P>
+                        <P c="gray.9">{render.count?.aiReports}</P>
                       </td>
                     </>
                   )}

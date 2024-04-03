@@ -15,6 +15,8 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export const SupportingArticleClient = (props) => {
   const { ITEMS } = props;
+
+
   return (
     <FixturaContainer>
       {ITEMS.map((article, i) => {
@@ -28,7 +30,8 @@ export const SupportingArticleClientWithScroll = (props) => {
   const [loadingState, setLoadingState] = useState(false);
   const [ArticleRewrite, setArticleRewrite] = useState(false)
   const { ITEMS } = props;
-  console.log("SupportingArticleClientWithScroll === ", ITEMS)
+
+  //console.log("SupportingArticleClientWithScroll === ", ITEMS)
   return (
     <FixturaContainer>
       <FixturaPaper c={1} shadow={"none"} p={5} my={10}>

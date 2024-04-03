@@ -10,8 +10,7 @@ import { P } from "@/components/Type/Paragraph";
 export default async function Upage({ params }) {
   const { id, render, key } = params;
   console.log("Page.js - Upage");
-  /* const Render = await getRenders(render);
-  const account = await getAccount(params.id); */
+
   return (
     <>
       <FixturaContainer>

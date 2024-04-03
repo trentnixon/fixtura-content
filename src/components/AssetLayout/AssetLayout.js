@@ -7,38 +7,42 @@ import { SupportingArticleClientWithScroll } from "@/components/AssetLayout/Arti
 import { P } from "@/components/Type/Paragraph";
 import { FixturaPaper } from "@/components/containers/paper";
 import { H } from "@/components/Type/Headers";
+import { NoDataFound } from "@/components/errors/NoDataFound";
 
-export const DefaultHeader = ({ OBJ }) => {
-  console.log("OBJ", OBJ)
-  return (
-    <FixturaPaper c={1} shadow={"none"} mb={20}>
-      <H>{OBJ?.AssetMetaData?.AssetName}</H>
-      <P>{OBJ?.decodeURIComponent}</P>
-    </FixturaPaper>
-  );
-};
 
+ 
 export default function AssetLayout({ OBJ }) {
+
+  if (OBJ.ASSETDATA?.length === 0 || OBJ?.ASSETDATA===undefined) return <NoDataFound />;
   return (
     <FixturaComponent>
       <DefaultHeader OBJ={OBJ} />
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={5}>
-          <DisplayVideoAsset OBJ={OBJ} />
+          <DisplayVideoAsset OBJ={OBJ.ASSETDATA.videos} /> 
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={7}>
-          <SupportingArticleClientWithScroll ITEMS={OBJ.ASSETDATA.Articles} />
+          <SupportingArticleClientWithScroll ITEMS={OBJ.ASSETDATA?.articles} />
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={12}>
-          <ImageGalleryForAssets OBJ={OBJ} />
+          <ImageGalleryForAssets OBJ={OBJ.ASSETDATA.graphics} />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </FixturaComponent>
   );
 }
 
+export const DefaultHeader = ({ OBJ }) => {
+  
+  return (
+    <FixturaPaper c={1} shadow={"none"} mb={20}>
+      <H>{OBJ?.AssetMetaData?.AssetName}</H>
+      <P>{OBJ?.decodeURIComponent}</P>
+    </FixturaPaper>
+  ); 
+};
+
 export function AssetLayoutImagesOnly({ OBJ }) {
- 
   return (
     <FixturaComponent>
       <DefaultHeader OBJ={OBJ} />

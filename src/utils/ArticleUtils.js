@@ -5,12 +5,12 @@
  * @returns {string} - The selected article content.
  */
 export function selectArticle(articleData) {
-    const { EditorsArticle, rewriteCount, article } = articleData.attributes;
+    const { ArticleEditor, rewriteCount, ArticleJournalist } = articleData;
 
     // Show article if EditorsArticle is null or if rewriteCount is a number.
-    if (EditorsArticle === null || typeof rewriteCount === "number") {
-        return article;
+    if (ArticleEditor === null || typeof rewriteCount === "number") {
+        return ArticleJournalist;
     }
     // Otherwise, return EditorsArticle.
-    return EditorsArticle;
+    return ArticleEditor;
 }

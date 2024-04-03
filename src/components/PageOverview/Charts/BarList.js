@@ -29,7 +29,7 @@ export const BarListAssetBreakDown = (props) => {
     },
     {
       name: "Writeups",
-      value: renders.gtp_3_reports ?? 0,
+      value: renders.aiReports ?? 0,
     },
   ];
 
