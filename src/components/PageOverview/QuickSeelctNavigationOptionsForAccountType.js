@@ -9,7 +9,7 @@ export function QuickSelectNavigationOptionsForAccountType() {
   const AccountContext = useContext(AccountSettings);
   const params = useParams();
   const router = useRouter();
-  if (!AccountContext) return;
+
   const { account } = AccountContext;
   const [renders, setRenders] = useState(null);
 
@@ -38,7 +38,8 @@ export function QuickSelectNavigationOptionsForAccountType() {
     ...Object.keys(renders.assetGrouping).map((key) => key.length)
   );
   const dynamicWidth = Math.min(maxLength * 2 * 10, 400); // Assuming average character width of 10px, max at 600px
-  console.log("maxLength", maxLength, dynamicWidth);
+
+  if (!AccountContext) return;
   return (
     <>
       <FixturaContainer mx={10}>

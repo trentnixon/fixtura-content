@@ -9,10 +9,10 @@ import { FixturaPaper } from "@/components/containers/paper";
 import { H } from "@/components/Type/Headers";
 import { NoDataFound } from "@/components/errors/NoDataFound";
 
-import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
+import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 export default async function AssetLayout() {
-  const useAssetType = await getActiveAssetType();
+  const useAssetType = await GetActiveAssetType();
 
   if (
     useAssetType?.useAssetData?.length === 0 ||
@@ -38,7 +38,7 @@ export default async function AssetLayout() {
 }
 
 export const DefaultHeader = async () => {
-  const useAssetType = await getActiveAssetType();
+  const useAssetType = await GetActiveAssetType();
   return (
     <FixturaPaper c={1} shadow={"none"} mb={20}>
       <H>{useAssetType?.AssetMetaData?.AssetName}</H>

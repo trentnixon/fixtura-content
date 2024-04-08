@@ -8,7 +8,7 @@ import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaContainer } from "@/components/containers/containers";
 import { FixturaPaper } from "@/components/containers/paper";
 import { selectArticle } from "@/utils/ArticleUtils";
-import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
+import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 import { Box, ScrollArea } from "@mantine/core";
 import { IconArticle } from "@tabler/icons-react";
 import { useState } from "react";
@@ -30,7 +30,7 @@ export const SupportingArticleClientWithScroll = async () => {
   const [loadingState, setLoadingState] = useState(false);
   const [ArticleRewrite, setArticleRewrite] = useState(false);
 
-  const useAssetType = await getActiveAssetType();
+  const useAssetType = await GetActiveAssetType();
   const useArticles = useAssetType.useAssetData.articles;
 
   console.log("SupportingArticleClientWithScroll === ", useArticles);

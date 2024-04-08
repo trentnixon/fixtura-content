@@ -20,14 +20,14 @@ import {
   IconLoader,
   IconPhotoAi,
 } from "@tabler/icons-react";
-import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
+import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 // Dev notes: Refactored to improve readability and error handling
 // Future improvement: Consider abstracting modal logic into a reusable component
 
 export const ImageGalleryForAssets = async ({ OBJ }) => {
   const [isBulkDownloading, setIsBulkDownloading] = useState(false);
-  const useAssetType = await getActiveAssetType();
+  const useAssetType = await GetActiveAssetType();
   const useImages = useAssetType.useAssetData.graphics;
   // Improved error checking and removed unnecessary console log
   if (!useImages || !useImages[0] || useImages[0].hasError) {

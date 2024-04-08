@@ -8,11 +8,11 @@ import { FixturaPaper } from "@/components/containers/paper";
 import { FixturaGroup } from "@/components/containers/Group";
 import { IconVideo } from "@tabler/icons-react";
 import { AssetHasError } from "@/components/errors/AssetHasError";
-import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
+import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 // DisplayVideoAsset function component for displaying video assets
 export async function DisplayVideoAsset() {
-  const useAssetType = await getActiveAssetType();
+  const useAssetType = await GetActiveAssetType();
   const useVideos = useAssetType.useAssetData.videos;
   // Validation: Check for empty or invalid input to prevent runtime errors
   if (!useVideos || !Array.isArray(useVideos) || useVideos.length === 0) {
