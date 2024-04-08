@@ -35,7 +35,7 @@ export default async function Render({ params }) {
     params: params,
     Sport: account.attributes?.Sport
       ? account.attributes?.Sport.toLowerCase()
-      : "cricket",
+      : "afl",
   };
 
   return (

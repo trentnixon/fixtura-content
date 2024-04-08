@@ -1,5 +1,6 @@
 "use client";
 
+import { AccountSettings } from "@/context/ContextAccountSettings";
 import {
   BarList,
   DonutChart,
@@ -9,11 +10,12 @@ import {
   Text,
   Title,
 } from "@tremor/react";
+import { useContext } from "react";
 
-export const BarListAssetBreakDown = (props) => {
-  const { OBJ } = props;
-  const renders = OBJ.Count;
-
+export const BarListAssetBreakDown = () => {
+  const AccountContext = useContext(AccountSettings);
+  const { stats } = AccountContext;
+  const renders = stats.Count;
   const data = [
     {
       name: "Total",
@@ -33,7 +35,6 @@ export const BarListAssetBreakDown = (props) => {
     },
   ];
 
-  console.log(data);
   return (
     <Card className="max-w-md">
       <Title>Media Types</Title>
@@ -50,9 +51,10 @@ export const BarListAssetBreakDown = (props) => {
   );
 };
 
-export const PieAssetDivide = (props) => {
-  const { OBJ } = props;
-  const renders = OBJ.Count;
+export const PieAssetDivide = () => {
+  const AccountContext = useContext(AccountSettings);
+  const { stats } = AccountContext;
+  const renders = stats.Count;
 
   const ARR = [];
   Object.keys(renders.assetGrouping).map((key, i) => {

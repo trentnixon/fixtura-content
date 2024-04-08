@@ -20,22 +20,24 @@ import {
   IconLoader,
   IconPhotoAi,
 } from "@tabler/icons-react";
+import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 // Dev notes: Refactored to improve readability and error handling
 // Future improvement: Consider abstracting modal logic into a reusable component
 
-export const ImageGalleryForAssets = ({ OBJ }) => {
+export const ImageGalleryForAssets = async ({ OBJ }) => {
   const [isBulkDownloading, setIsBulkDownloading] = useState(false);
-
+  const useAssetType = await getActiveAssetType();
+  const useImages = useAssetType.useAssetData.graphics;
   // Improved error checking and removed unnecessary console log
-  if (!OBJ || !OBJ[0] || OBJ[0].hasError) {
-    return <AssetHasError assetID={OBJ?.[0]?.id} />;
+  if (!useImages || !useImages[0] || useImages[0].hasError) {
+    return <AssetHasError assetID={useImages?.[0]?.id} />;
   }
-  console.log(OBJ[0].downloads)
+ 
   const handleBulkDownload = async () => {
     setIsBulkDownloading(true);
     try {
-      await handleDownloadAllFromArray(OBJ[0].downloads);
+      await handleDownloadAllFromArray(useImages[0].downloads);
     } catch (error) {
       console.error("Error in bulk download:", error);
     } finally {
@@ -63,14 +65,14 @@ export const ImageGalleryForAssets = ({ OBJ }) => {
           { minWidth: 1200, cols: 4 }, // Adjusted for better layout
         ]}
       >
-        {OBJ[0].downloads.map((url, index) => (
+        {useImages[0].downloads.map((url, index) => (
           <SingleImageWithDownload key={index} URL={url} />
         ))}
       </SimpleGrid>
       <FixturaGroup position="right" my={10}>
         <BUTTON_FUNC
           Label={
-            isBulkDownloading ? "Downloading..." : `Download All (${OBJ[0].downloads.length})`
+            isBulkDownloading ? "Downloading..." : `Download All (${useImages[0].downloads.length})`
           }
           onClick={handleBulkDownload}
           disabled={isBulkDownloading}

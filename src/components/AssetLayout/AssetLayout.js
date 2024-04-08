@@ -9,37 +9,42 @@ import { FixturaPaper } from "@/components/containers/paper";
 import { H } from "@/components/Type/Headers";
 import { NoDataFound } from "@/components/errors/NoDataFound";
 
+import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
- 
-export default function AssetLayout({ OBJ }) {
+export default async function AssetLayout() {
+  const useAssetType = await getActiveAssetType();
 
-  if (OBJ.ASSETDATA?.length === 0 || OBJ?.ASSETDATA===undefined) return <NoDataFound />;
+  if (
+    useAssetType?.useAssetData?.length === 0 ||
+    useAssetType?.useAssetData === undefined
+  )
+    return <NoDataFound />;
   return (
     <FixturaComponent>
-      <DefaultHeader OBJ={OBJ} />
+      <DefaultHeader />
       <FixturaGRIDOUTER>
         <FixturaGRIDCOL span={5}>
-          <DisplayVideoAsset OBJ={OBJ.ASSETDATA.videos} /> 
+          <DisplayVideoAsset />
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={7}>
-          <SupportingArticleClientWithScroll ITEMS={OBJ.ASSETDATA?.articles} />
+          <SupportingArticleClientWithScroll />
         </FixturaGRIDCOL>
         <FixturaGRIDCOL span={12}>
-          <ImageGalleryForAssets OBJ={OBJ.ASSETDATA.graphics} />
+          <ImageGalleryForAssets />
         </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </FixturaComponent>
   );
 }
 
-export const DefaultHeader = ({ OBJ }) => {
-  
+export const DefaultHeader = async () => {
+  const useAssetType = await getActiveAssetType();
   return (
     <FixturaPaper c={1} shadow={"none"} mb={20}>
-      <H>{OBJ?.AssetMetaData?.AssetName}</H>
-      <P>{OBJ?.decodeURIComponent}</P>
+      <H>{useAssetType?.AssetMetaData?.AssetName}</H>
+      <P>{useAssetType?.decodeURIComponent}</P>
     </FixturaPaper>
-  ); 
+  );
 };
 
 export function AssetLayoutImagesOnly({ OBJ }) {

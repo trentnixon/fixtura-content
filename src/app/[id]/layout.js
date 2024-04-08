@@ -3,14 +3,13 @@ import { ContentShell } from "@/layouts/AppShell";
 import { CookieCutter } from "@/utils/cookiecutter";
 
 export default async function RootLayout({ children, params }) {
-
   const accountBasic = await getAccount(params.id, [
     "account_type",
     "clubs",
     "associations",
     "sponsors",
     "subscription_tier",
-  ]);
+  ]); 
 
   const trialDaysRemaining = calculateRemainingDays(
     accountBasic?.attributes?.trial_instance?.data?.attributes.endDate
@@ -30,7 +29,7 @@ export default async function RootLayout({ children, params }) {
       <CookieCutter>
         <main>{children}</main>
       </CookieCutter>
-    </ContentShell>
+    </ContentShell> 
   );
 }
 

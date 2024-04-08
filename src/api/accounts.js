@@ -4,8 +4,9 @@ const qs = require("qs");
 
 /* 
   All this ACCOUNT 
-  Here are a buch of Account API routes for different circumstances
+  Here are a bunch of Account API routes for different circumstances
 */
+
 
 export async function getAllAccount() {
   const queryParams = qs.stringify(

@@ -1,6 +1,6 @@
 "use client";
 // Dev notes: Refactored for improved readability, efficiency, and error handling. Recommendations for future improvements include considering a more modular approach to handle data processing and UI component rendering separately, and integrating TypeScript for type safety.
-
+import { useState } from "react";
 import { FixturaComponent } from "@/components/containers/containers";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { SingleImageWithDownload } from "@/components/AssetLayout/Image/createImages";
@@ -9,28 +9,32 @@ import { P } from "@/components/Type/Paragraph";
 import { Box, Group, ScrollArea, Select } from "@mantine/core";
 import { FixturaPaper } from "@/components/containers/paper";
 import { DefaultHeader } from "@/components/AssetLayout/AssetLayout";
-import { useState } from "react";
+
 import { NoDataFound } from "@/components/errors/NoDataFound";
 import { AssetHasError } from "@/components/errors/AssetHasError";
+import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
-export function SingleFixtureLayout({ OBJ }) {
-  console.log("OBJ.ASSETDATA ", OBJ.ASSETDATA);
+export async function SingleFixtureLayout(props) {
+  const useAssetType = await getActiveAssetType();
+  
+  if (!useAssetType) return <NoDataFound />;
 
-  if (OBJ.ASSETDATA.length === 0) return <NoDataFound />;
+  const Graphics = useAssetType.useAssetData.graphics[0];
+  if (useAssetType.useAssetData.graphics.length === 0) return <NoDataFound />;
 
-  if (OBJ.ASSETDATA.graphics[0].hasError) {
+  if (Graphics.hasError) {
     return (
       <AssetHasError
-        errorType={OBJ.ASSETDATA.graphics[0].errorHandler.Type}
-        errorMsg={OBJ.ASSETDATA.graphics[0].errorHandler.Message}
-        assetID={OBJ.ASSETDATA.graphics[0].id}
+        errorType={Graphics.errorHandler.Type}
+        errorMsg={Graphics.errorHandler.Message}
+        assetID={Graphics.id}
       />
     );
   }
   return (
     <FixturaComponent>
-      <DefaultHeader OBJ={OBJ} />
-      {OBJ.ASSETDATA.graphics[0].downloads.map((dl, i) => {
+      <DefaultHeader {...props} />
+      {Graphics.downloads.map((dl, i) => {
         return (
           <Box my={50} key={i}>
             {/* <MatchDetails FixtureDetails={Fixture.game_meta_data[0]} /> */}
@@ -40,7 +44,9 @@ export function SingleFixtureLayout({ OBJ }) {
               </FixturaGRIDCOL>
               <FixturaGRIDCOL span={7}>
                 <FixturaPaper key={i}>
-                  <SelectedArticle gameMetaData={OBJ.ASSETDATA.articles[i]} />
+                  <SelectedArticle
+                    gameMetaData={useAssetType.useAssetData.articles[i]}
+                  />
                 </FixturaPaper>
               </FixturaGRIDCOL>
             </FixturaGRIDOUTER>

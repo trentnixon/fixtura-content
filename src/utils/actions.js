@@ -1,7 +1,7 @@
 export const FindAccountLabel = (account) => {
   if (!FindAccountType(account)) {
     return "Undefined";
-  } 
+  }
 
   return FindAccountType(account) === "Association"
     ? account.attributes.associations.data[0]?.attributes?.Name
@@ -24,9 +24,11 @@ export const FindAccountType = (account) => {
   return account?.attributes?.account_type?.data?.attributes?.Name;
 };
 
+export const FindAccountSport = (account) => {
+  return account?.attributes.Sport.toLowerCase();
+};
+
 export const FindAccountWriteupID = (account) => {
-  const AccountType = FindAccountType(account);
-  //console.log(AccountType);
   return FindAccountType(account) === "Association"
     ? 0
     : account.attributes.clubs.data[0]?.id;
@@ -34,14 +36,18 @@ export const FindAccountWriteupID = (account) => {
 
 export const isSponsorsActive = (accountBasic) => {
   //console.log("isSponsorsActive");
-  const includeSponsors = accountBasic?.attributes?.subscription_tier?.data?.attributes?.includeSponsors;
+  const includeSponsors =
+    accountBasic?.attributes?.subscription_tier?.data?.attributes
+      ?.includeSponsors;
   //console.log(includeSponsors);
   const sponsorsData = accountBasic?.attributes?.sponsors?.data;
   //console.log(sponsorsData);
 
   if (includeSponsors) {
     // Filter out sponsors whose isArticle is set to false
-    const activeSponsors = sponsorsData.filter((sponsor) => sponsor.attributes.isArticle === true);
+    const activeSponsors = sponsorsData.filter(
+      (sponsor) => sponsor.attributes.isArticle === true
+    );
     return activeSponsors;
   } else {
     return [];
@@ -272,10 +278,6 @@ export const GetTheLot = (account, render) => {
   };
 };
 
-
-
 export const sortRenders = (a, b) => {
-  return (
-    new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt)
-  );
+  return new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt);
 };

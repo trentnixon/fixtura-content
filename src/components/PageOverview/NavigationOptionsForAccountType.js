@@ -1,11 +1,16 @@
-"use client";
+"use client"
 // APIS
 import { DashBoardGalleryItems } from "@/components/PageOverview/client/CardLayout";
 import { FixturaComponent } from "@/components/containers/containers";
+import { AccountSettings } from "@/context/ContextAccountSettings";
 import { SimpleGrid } from "@mantine/core";
+import { useContext } from "react";
 
-export default async function NavigationOptionsForAccountType(props) {
-  const { OBJ } = props;
+
+export default function NavigationOptionsForAccountType() {
+  const AccountContext = useContext(AccountSettings);
+  const {stats}=AccountContext
+  console.log("AccountContext ", AccountContext)
   return (
     <FixturaComponent>
       <SimpleGrid
@@ -17,15 +22,8 @@ export default async function NavigationOptionsForAccountType(props) {
           { minWidth: 1200, cols: 3 },
         ]}
       >
-        {Object.keys(OBJ.Count.assetGrouping).map((key, i) => (
-          <DashBoardGalleryItems
-            DATA={key}
-            assetGrouping={OBJ.Count.assetGrouping}
-            accountBasic={OBJ.accountBasic}
-            Sport={OBJ.Sport}
-            params={OBJ.params}
-            key={i}
-          />
+        {Object.keys(stats.Count.assetGrouping).map((key, i) => (
+          <DashBoardGalleryItems DATA={key} key={i} />
         ))}
       </SimpleGrid>
     </FixturaComponent>

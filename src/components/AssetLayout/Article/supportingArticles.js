@@ -8,6 +8,7 @@ import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaContainer } from "@/components/containers/containers";
 import { FixturaPaper } from "@/components/containers/paper";
 import { selectArticle } from "@/utils/ArticleUtils";
+import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
 import { Box, ScrollArea } from "@mantine/core";
 import { IconArticle } from "@tabler/icons-react";
 import { useState } from "react";
@@ -15,7 +16,6 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export const SupportingArticleClient = (props) => {
   const { ITEMS } = props;
-
 
   return (
     <FixturaContainer>
@@ -26,12 +26,14 @@ export const SupportingArticleClient = (props) => {
   );
 };
 
-export const SupportingArticleClientWithScroll = (props) => {
+export const SupportingArticleClientWithScroll = async () => {
   const [loadingState, setLoadingState] = useState(false);
-  const [ArticleRewrite, setArticleRewrite] = useState(false)
-  const { ITEMS } = props;
+  const [ArticleRewrite, setArticleRewrite] = useState(false);
 
-  //console.log("SupportingArticleClientWithScroll === ", ITEMS)
+  const useAssetType = await getActiveAssetType();
+  const useArticles = useAssetType.useAssetData.articles;
+
+  console.log("SupportingArticleClientWithScroll === ", useArticles);
   return (
     <FixturaContainer>
       <FixturaPaper c={1} shadow={"none"} p={5} my={10}>
@@ -43,8 +45,10 @@ export const SupportingArticleClientWithScroll = (props) => {
         </FixturaGroup>
       </FixturaPaper>
 
-      {ITEMS.map((article, i) => {
-        const selectedArticle = ArticleRewrite ?ArticleRewrite:selectArticle(article);
+      {useArticles.map((article, i) => {
+        const selectedArticle = ArticleRewrite
+          ? ArticleRewrite
+          : selectArticle(article);
         return (
           <Box key={i} my="md" mx="md">
             <ScrollArea h={480}>
@@ -75,7 +79,7 @@ export const SupportingArticleClientWithScroll = (props) => {
 };
 
 export const SelectedWriteup = ({ selectedArticle }) => {
- /*  console.log("selectedArticle", selectedArticle); */
+  /*  console.log("selectedArticle", selectedArticle); */
   if (selectedArticle === null) return; // need a handler for no article
   return <ReactMarkdown className="markdown">{selectedArticle}</ReactMarkdown>;
 };

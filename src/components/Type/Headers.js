@@ -1,6 +1,7 @@
 "use client";
 import { NavigationSelect } from "@/components/PageKey/client/RenderCategorySelect";
 import { FixturaGroup } from "@/components/containers/Group";
+import { FixturaContainer } from "@/components/containers/containers";
 import { Title } from "@mantine/core";
 
 export const H = (props) => {
@@ -33,10 +34,12 @@ export const H = (props) => {
   );
 };
 
-export const PageTitleAndCreated = (props) => {
+export const PageTitleAndCreated = () => {
   return (
-    <FixturaGroup position="right">
-      <NavigationSelect {...props} />
-    </FixturaGroup>
+    <FixturaContainer>
+      <FixturaGroup position="right">
+        <NavigationSelect />
+      </FixturaGroup>
+    </FixturaContainer>
   );
 };

@@ -4,7 +4,7 @@
 import { H } from "@/components/Type/Headers";
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaStack } from "@/components/containers/stack";
-import { SideNavSelectedCategory } from "@/layouts/Navigation/SideNav/client/SideNavSelectedCategory";
+import { SideNavSelectedCategory } from "@/layouts/Navigation/SideNav/client/OLD/SideNavSelectedCategory";
 
 export default async function SideNav_SelectedCategory(props) {
   const { params, Path } = props;

@@ -1,9 +1,13 @@
 // APIS
 import { FixturaContainer } from "@/components/containers/containers";
 import { H } from "@/components/Type/Headers";
+import { AccountSettings } from "@/context/ContextAccountSettings";
+import { useContext } from "react";
 
-export async function SelectedStatsStatment({ Count }) {
-
+export function SelectedStatsStatement() {
+  const AccountContext = useContext(AccountSettings);
+  const { stats } = AccountContext;
+  const { Count } = stats;
   return (
     <FixturaContainer my={5} mx={"2%"}>
       <H size={"h3"} align="right" weight={400}>

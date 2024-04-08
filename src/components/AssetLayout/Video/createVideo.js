@@ -8,11 +8,14 @@ import { FixturaPaper } from "@/components/containers/paper";
 import { FixturaGroup } from "@/components/containers/Group";
 import { IconVideo } from "@tabler/icons-react";
 import { AssetHasError } from "@/components/errors/AssetHasError";
+import { getActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 // DisplayVideoAsset function component for displaying video assets
-export function DisplayVideoAsset({ OBJ }) {
+export async function DisplayVideoAsset() {
+  const useAssetType = await getActiveAssetType();
+  const useVideos = useAssetType.useAssetData.videos;
   // Validation: Check for empty or invalid input to prevent runtime errors
-  if (!OBJ || !Array.isArray(OBJ) || OBJ.length === 0) {
+  if (!useVideos || !Array.isArray(useVideos) || useVideos.length === 0) {
     // Logging for debugging and future reference
     console.error("DisplayVideoAsset: Invalid or empty OBJ array.");
     // Render error state if OBJ is invalid or empty
@@ -20,7 +23,7 @@ export function DisplayVideoAsset({ OBJ }) {
   }
 
   // Extracting the first item for error handling checks
-  const firstItem = OBJ[0];
+  const firstItem = useVideos[0];
 
   // Check for error state in the first item of the OBJ array
   if (firstItem.hasError) {
@@ -44,7 +47,7 @@ export function DisplayVideoAsset({ OBJ }) {
           <IconVideo />
         </FixturaGroup>
       </FixturaPaper>
-      {OBJ.map((video, i) => (
+      {useVideos.map((video, i) => (
         <HTML5VideoPlayer key={i} video={video} />
       ))}
     </>

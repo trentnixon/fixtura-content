@@ -7,7 +7,7 @@ import { GetTheLot } from "@/utils/actions";
 import { H } from "@/components/Type/Headers";
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaStack } from "@/components/containers/stack";
-import { SideNavSelectedRender } from "@/layouts/Navigation/SideNav/client/SideNavSelectedRender";
+import { SideNavSelectedRender } from "@/layouts/Navigation/SideNav/client/OLD/SideNavSelectedRender";
 
 export default async function SideNav_SelectedRender({ params }) {
   const account = await getAccount(params.id);

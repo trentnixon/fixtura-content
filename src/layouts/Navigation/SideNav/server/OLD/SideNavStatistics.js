@@ -5,7 +5,7 @@ import { getRenderFields } from "@/api/renders";
 import { H } from "@/components/Type/Headers";
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaStack } from "@/components/containers/stack";
-import { SideNavSelectedCategory } from "@/layouts/Navigation/SideNav/client/SideNavSelectedStatistics";
+import { SideNavSelectedCategory } from "@/layouts/Navigation/SideNav/client/OLD/SideNavSelectedStatistics";
 import { filterDownloads } from "@/utils/helpers";
 
 export default async function SideNav_SelectedStatistics(props) {

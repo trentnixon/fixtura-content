@@ -14,6 +14,7 @@ export const createAssetDataFromFilters = (
   );
  
 
+  console.log("ai_articles ", ai_articles[0].attributes.asset.data.attributes.CompositionID,useCompositionID )
   const filteredAiArticles = ai_articles.filter(
     (item) =>
       item.attributes.asset.data.attributes.CompositionID === useCompositionID &&
