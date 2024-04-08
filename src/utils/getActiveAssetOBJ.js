@@ -2,7 +2,7 @@ import { AssetContext } from "@/context/ContextAssetSettings";
 import { FixturaSettings } from "@/context/ContextFixturaSettings";
 import { useContext } from "react";
 
-export const getActiveAssetType = () => {
+export const getActiveAssetType = async () => {
     const assetContext = useContext(AssetContext);
     const { compositionID } = useContext(FixturaSettings);
     if (!assetContext || !compositionID) {

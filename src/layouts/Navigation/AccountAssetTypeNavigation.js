@@ -9,27 +9,23 @@ import { RenderButtonGroup } from "@/layouts/Navigation/components/RenderButtonG
 // UserDetailsCard Component
 export function AccountAssetTypeNavigation({ OBJ }) {
   const { accountBasic, URLParams, Sport } = OBJ ?? {};
+  const theme = useMantineTheme();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [showButtonGroup, setShowButtonGroup] = useState(false);
+  useEffect(() => {
+    if (pathname == null) {
+      console.error("[AccountAssetTypeNavigation] pathname is null");
+      return;
+    }
+    setShowButtonGroup(pathname.includes("/a/"));
+  }, [pathname]);
+
 
   if (!accountBasic) {
     console.error("[AccountAssetTypeNavigation] accountBasic is null");
     return null;
   }
-
-  const theme = useMantineTheme();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const [showButtonGroup, setShowButtonGroup] = useState(false);
-
-  useEffect(() => {
-    if (pathname == null) {
-      console.error(
-        "[AccountAssetTypeNavigation] pathname is null"
-      );
-      return;
-    }
-    setShowButtonGroup(pathname.includes("/a/"));
-  }, [pathname]);
 
   const handleButtonClick = (extension) => {
     if (URLParams == null || Sport == null || extension == null) {
@@ -42,9 +38,7 @@ export function AccountAssetTypeNavigation({ OBJ }) {
     const newPath = `/${URLParams.id}/${Sport}/${URLParams.render}/${URLParams.key}/a/${extension}`;
 
     if (router == null) {
-      console.error(
-        "[AccountAssetTypeNavigation] router is null"
-      );
+      console.error("[AccountAssetTypeNavigation] router is null");
       return;
     }
 

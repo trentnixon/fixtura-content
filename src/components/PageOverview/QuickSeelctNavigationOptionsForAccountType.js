@@ -7,10 +7,10 @@ import { Select } from "@mantine/core";
 import { AccountSettings } from "@/context/ContextAccountSettings";
 export function QuickSelectNavigationOptionsForAccountType() {
   const AccountContext = useContext(AccountSettings);
-  if (!AccountContext) return;
-  const { account } = AccountContext;
   const params = useParams();
   const router = useRouter();
+  if (!AccountContext) return;
+  const { account } = AccountContext;
   const [renders, setRenders] = useState(null);
 
   useEffect(() => {

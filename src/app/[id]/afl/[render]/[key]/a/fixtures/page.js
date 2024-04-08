@@ -3,7 +3,7 @@ import { SingleFixtureLayout } from "@/components/AssetLayout/SingleFixtureLayou
 import { FixturaSettings } from "@/context/ContextFixturaSettings";
 import { useContext, useEffect } from "react";
 
-export default function displayAFLFixtures() {
+export default async function displayAFLFixtures() {
   const { setCompositionID, compositionID } = useContext(FixturaSettings);
   const assetCompositionID = "WeekendSingleGameResultAFL";
   useEffect(() => {

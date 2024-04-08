@@ -6,7 +6,7 @@ import { RenderCount, getRenders } from "@/api/renders";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 // Components
 import { FixturaSection } from "@/components/containers/Section";
-import { SelectedStatsStatment } from "@/components/PageSelectedRender/server/RenderStatsStatment";
+import { SelectedStatsStatement } from "@/components/PageSelectedRender/server/RenderStatsStatment";
 import NavigationOptionsForAccountType from "@/components/PageOverview/NavigationOptionsForAccountType";
 //import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
 import { FindAccountLabel, FindAccountType } from "@/utils/actions";
@@ -48,7 +48,7 @@ export default async function Render({ params }) {
           subTitle={``}
           Icon={`ICO_HEADER_ARTICLE`}
         >
-          <SelectedStatsStatment Count={OBJ.Count} />
+          <SelectedStatsStatement Count={OBJ.Count} />
         </FixturaSection>
       </FixturaGRIDCOL>
       <FixturaGRIDCOL span={12}>
