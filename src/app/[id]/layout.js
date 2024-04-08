@@ -14,7 +14,7 @@ export default async function RootLayout({ children, params }) {
   const trialDaysRemaining = calculateRemainingDays(
     accountBasic?.attributes?.trial_instance?.data?.attributes.endDate
   );
-
+ 
   const OBJ = {
     accountBasic: accountBasic, 
     params: params,

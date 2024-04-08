@@ -1,6 +1,4 @@
 "use client";
-import { getAccountFields } from "@/api/accounts";
-import { FindAccountLabel } from "@/utils/actions";
 import { SingleFixtureLayout } from "@/components/AssetLayout/SingleFixtureLayout";
 import { FixturaSettings } from "@/context/ContextFixturaSettings";
 import { useContext, useEffect } from "react";
@@ -20,17 +18,3 @@ export default async function DisplayWeekendSingleGameResult() {
   if (!compositionID) return null;
   return <SingleFixtureLayout />;
 }
-
-// UTILS FUNC
-export const generateMetadata = async ({ params }) => {
-  const accountBasic = await getAccountFields(params.id, [
-    "account_type",
-    "clubs",
-    "associations",
-  ]);
-  return {
-    title: `Matchday Fixtures | ${FindAccountLabel(accountBasic)} | ${
-      accountBasic.attributes.Sport
-    }`,
-  };
-};
