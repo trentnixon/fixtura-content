@@ -1,9 +1,8 @@
 import { getAccountFields } from "@/api/accounts";
 import { FindAccountLabel } from "@/utils/actions";
-export default async function RootLayout({ children, params }) {
+export default async function BundleLayout({ children }) {
   return children;
 }
-
 export const generateMetadata = async ({ params }) => {
   const accountBasic = await getAccountFields(params.id, [
     "account_type",
@@ -11,8 +10,9 @@ export const generateMetadata = async ({ params }) => {
     "associations",
   ]);
   return {
-    title: `Bundle ${params.render} Selected | ${FindAccountLabel(
-      accountBasic
-    )} | ${accountBasic.attributes.Sport}`,
+    title: `Netball Bundles | ${FindAccountLabel(accountBasic)} | ${
+      accountBasic.attributes.Sport
+    }`,
   };
 };
+
