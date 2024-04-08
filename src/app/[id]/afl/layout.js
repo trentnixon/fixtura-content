@@ -10,7 +10,7 @@ export const generateMetadata = async ({ params }) => {
     "associations",
   ]);
   return {
-    title: `Netball Bundles | ${FindAccountLabel(accountBasic)} | ${
+    title: `AFL Bundles | ${FindAccountLabel(accountBasic)} | ${
       accountBasic.attributes.Sport
     }`,
   };
