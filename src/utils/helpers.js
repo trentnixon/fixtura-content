@@ -71,9 +71,6 @@ export const filterDownloads = (
     const assetType = asset.attributes.asset.data.attributes.Name;
     const grouping_category = asset.attributes?.grouping_category;
 
-    /* console.log("Selected_Category", Selected_Category);
-    console.log("grouping_category", grouping_category); */
-
     return (
       assetCategoryName === AssetCategory &&
       assetTypeName === Type &&
@@ -88,10 +85,6 @@ export const filterWriteUps = (writeUps, name = "Name", Selected_Category) => {
   return writeUps.filter((writeUp) => {
     const AssetName = writeUp.attributes.asset.data.attributes.Name;
     const grouping_category = writeUp.attributes?.grouping_category;
-
-    /*console.log("AssetName", AssetName, name);
-    console.log("grouping_category", grouping_category, Selected_Category); */
-
     return AssetName === name && grouping_category === Selected_Category;
   });
 };
@@ -138,7 +131,6 @@ export const handleDownloadAllFromArray = async (items) => {
 
   // Download all images and add them to the zip file
   const downloads = items.map(async (item, i) => {
-    console.log("itemitemitem", item)
     const response = await fetch(item.url, {
       headers: {
         "Cache-Control": "no-cache",

@@ -15,7 +15,7 @@ import { useContext } from "react";
 export const BarListAssetBreakDown = () => {
   const AccountContext = useContext(AccountSettings);
   const { stats } = AccountContext;
-  const renders = stats.Count;
+  const renders = stats.Count; 
   const data = [
     {
       name: "Total",

@@ -2,34 +2,28 @@
 const { HeaderMantine } = require("@/layouts/HeaderMantine");
 const { AppShell, Container, Grid, Text, Group } = require("@mantine/core");
 import withMobileWarning from "@/layouts/withMobileWarning";
-import { useParams } from "next/navigation";
 import { AccountAssetTypeNavigation } from "@/layouts/Navigation/AccountAssetTypeNavigation";
 import { IconCalendarEvent } from "@tabler/icons-react";
-import { useMediaQuery } from "@mantine/hooks";
 import { UserFeedback } from "@/components/PageSelectedRender/client/ContactUsFeedBack";
 import { FixturaPaper } from "@/components/containers/paper";
 // Context Providers
-import { FixturaSettingsProvider } from "@/context/ContextFixturaSettings";
-import { AccountSettingsProvider } from "@/context/ContextAccountSettings";
+import {
+  FixturaSettings,
+  FixturaSettingsProvider,
+} from "@/context/ContextFixturaSettings";
+import {
+  AccountSettings,
+  AccountSettingsProvider,
+} from "@/context/ContextAccountSettings";
+import { useContext } from "react";
 
-export const FixturaAppShell = (props) => {
-  const { OBJ } = props;
-  const { params, isActive } = OBJ;
-  const URLParams = useParams();
-  OBJ.URLParams = URLParams;
+export const FixturaAppShell = ({ children }) => {
   const Content = withMobileWarning(() => (
     <FixturaSettingsProvider>
-      <AccountSettingsProvider {...props}>
-        <AppShell 
+      <AccountSettingsProvider>
+        <AppShell
           padding={0}
-          header={
-            <HeaderMantine
-              params={params}
-              URLParams={URLParams}
-              isActive={isActive}
-              {...props}
-            />
-          }
+          header={<HeaderMantine />}
           styles={(theme) => ({
             main: {
               backgroundColor:
@@ -42,12 +36,12 @@ export const FixturaAppShell = (props) => {
           <Container size={"xl"}>
             <Grid>
               <Grid.Col span={12} sm={4} md={3}>
-                <AccountAssetTypeNavigation {...props} />
-                <TrialStatus {...props} />
+                <AccountAssetTypeNavigation />
+                <TrialStatus />
                 <UserFeedback />
               </Grid.Col>
               <Grid.Col span={12} sm={8} md={9}>
-                <main>{props.children}</main>
+                <main>{children}</main>
               </Grid.Col>
             </Grid>
           </Container>
@@ -59,12 +53,16 @@ export const FixturaAppShell = (props) => {
   return <Content />;
 };
 
-const TrialStatus = (props) => {
-  const { OBJ } = props;
-  const isMobile = useMediaQuery("(max-width: 768px)");
-  const textAlign = isMobile ? "center" : "left";
-  const isActive = OBJ.isActive;
-  const trialDaysRemaining = OBJ.trialDaysRemaining;
+const TrialStatus = () => {
+  const useAccountSettings = useContext(AccountSettings);
+  const useFixturaSettings = useContext(FixturaSettings);
+  /* console.log("useFixturaSettings ", useFixturaSettings) */
+  const { trial_instance } = useAccountSettings;
+  const { UI } = useFixturaSettings;
+
+  const textAlign = UI.isMobile ? "center" : "left";
+  const isActive = trial_instance.isActive;
+  const trialDaysRemaining = trial_instance.trialDaysRemaining;
 
   if (!isActive) {
     return null;

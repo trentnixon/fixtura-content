@@ -1,11 +1,10 @@
 import { FixturaAppShell } from "@/components/containers/AppShell";
 
 export const ContentShell = (props) => {
-  const { children, OBJ } = props;
+  const { children } = props;
   return (
-    <FixturaAppShell OBJ={OBJ}>
+    <FixturaAppShell>
       <main>{children}</main>
     </FixturaAppShell>
   );
 };
- 

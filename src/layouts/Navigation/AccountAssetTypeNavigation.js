@@ -1,14 +1,16 @@
 // Import React, Next.js, and Mantine UI components
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Card, useMantineTheme, Container } from "@mantine/core";
 // Import utility functions and components
 import { AccountDetails } from "@/layouts/Navigation/components/UserDetails";
 import { RenderButtonGroup } from "@/layouts/Navigation/components/RenderButtonGroup";
+import { AccountSettings } from "@/context/ContextAccountSettings";
 
 // UserDetailsCard Component
-export function AccountAssetTypeNavigation({ OBJ }) {
-  const { accountBasic, URLParams, Sport } = OBJ ?? {};
+export function AccountAssetTypeNavigation() {
+  const useAccountSettings = useContext(AccountSettings);
+  const { account, URLParams } = useAccountSettings;
   const theme = useMantineTheme();
   const router = useRouter();
   const pathname = usePathname();
@@ -21,21 +23,21 @@ export function AccountAssetTypeNavigation({ OBJ }) {
     setShowButtonGroup(pathname.includes("/a/"));
   }, [pathname]);
 
-
-  if (!accountBasic) {
-    console.error("[AccountAssetTypeNavigation] accountBasic is null");
+  if (!account) {
+    console.error("[AccountAssetTypeNavigation] account is null");
     return null;
   }
 
   const handleButtonClick = (extension) => {
-    if (URLParams == null || Sport == null || extension == null) {
+    console.log(URLParams.key)
+    if (URLParams == null || account.sport == null || extension == null) {
       console.error(
         "[AccountAssetTypeNavigation] handleButtonClick arguments are null"
       );
       return;
     }
 
-    const newPath = `/${URLParams.id}/${Sport}/${URLParams.render}/${URLParams.key}/a/${extension}`;
+    const newPath = `/${URLParams.id}/${account.sport}/${URLParams.render}/${URLParams.key}/a/${extension}`;
 
     if (router == null) {
       console.error("[AccountAssetTypeNavigation] router is null");
@@ -52,18 +54,18 @@ export function AccountAssetTypeNavigation({ OBJ }) {
           sx={{
             background: theme.fn.linearGradient(
               45,
-              accountBasic.attributes.theme.data.attributes.Theme.primary,
-              accountBasic.attributes.theme.data.attributes.Theme.secondary
+              useAccountSettings.theme.primary,
+              useAccountSettings.theme.secondary
             ),
             height: 50,
             "@media (max-width: 768px)": { height: 30 },
           }}
         />
-        <AccountDetails accountBasic={accountBasic} />
+        <AccountDetails accountBasic={account} />
         {showButtonGroup && (
           <RenderButtonGroup
             onButtonClick={handleButtonClick}
-            accountBasic={accountBasic}
+            accountBasic={account}
           />
         )}
       </Card>

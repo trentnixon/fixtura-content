@@ -14,7 +14,7 @@ export const GetActiveAssetType = async () => {
         console.error("compositionID not found in asset context", compositionID);
         return null;
     }
-    console.log("useAssetContext ", activeAssetType);
+    //console.log("useAssetContext ", activeAssetType);
     return activeAssetType;
 }
 

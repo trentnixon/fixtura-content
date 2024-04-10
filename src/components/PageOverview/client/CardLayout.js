@@ -20,7 +20,7 @@ export const DashBoardGalleryItems = ({ DATA, assetGrouping }) => {
   const AccountContext = useContext(AccountSettings);
 
   const { stats } = AccountContext;
-  console.log("AccountContext ", AccountContext);
+  //console.log("AccountContext ", AccountContext);
   const { URLParams, account } = AccountContext;
   const { Count } = stats;
   const { id, render } = URLParams;

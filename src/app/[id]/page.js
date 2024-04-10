@@ -16,7 +16,7 @@ export default async function Account({ params }) {
   // Define page-specific metadata
   const accountBasic = await getAccountFields(params.id, []);
   return (
-    <>
+    <> 
       <FixturaSection
         shade={0}
         Title={"Bundle Hub"}

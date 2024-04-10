@@ -1,5 +1,7 @@
 import { getAccountFields } from "@/api/accounts";
 import { FindAccountLabel } from "@/utils/actions";
+
+// add a slug checker to make sure it is no undefined!!!
 export default async function RootLayout({ children, params }) {
   return children;
 }
@@ -16,3 +18,4 @@ export const generateMetadata = async ({ params }) => {
     )} | ${accountBasic.attributes.Sport}`,
   };
 };
+ 

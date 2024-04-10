@@ -87,12 +87,12 @@ const MainContent = ({
   const dayOfWeek = new Date()
     .toLocaleDateString("en-US", { weekday: "long" })
     .toLowerCase();
-  const allowedDays = ["thursday", "friday", "saturday","sunday","monday"];
+  const allowedDays = ["thursday", "friday", "saturday", "sunday", "monday"];
   const isButtonAccessible = allowedDays.includes(dayOfWeek);
 
   return (
     <>
-    {!hasRosters && !requestInitiated && <InitialBox />}
+      {!hasRosters && !requestInitiated && <InitialBox />}
       {!requestInitiated &&
         isButtonAccessible &&
         (hasRosters ? (
@@ -104,7 +104,7 @@ const MainContent = ({
             error={error}
           />
         ))}
-      
+
       {requestInitiated && <ProcessingBox />}
     </>
   );
@@ -187,11 +187,11 @@ const RequestButtonBox = ({ handleRequestClick, requestStatus, error }) => (
 
 const FooterNote = () => (
   <FixturaPaper c={0} shadow={"none"} mx={30}>
-  <P c={"gray.7"} ta={"center"} my={15}>
-    This feature is currently in Beta, meaning some things may not always appear
-    or work as expected. Should you run into any issues, please contact us on
-    Facebook for assistance.
-  </P>
+    <P c={"gray.7"} ta={"center"} my={15}>
+      This feature is currently in Beta, meaning some things may not always
+      appear or work as expected. Should you run into any issues, please contact
+      us on Facebook for assistance.
+    </P>
   </FixturaPaper>
 );
 
@@ -202,10 +202,10 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   localStorage.removeItem(`requestInitiated-${Render}`);
   useEffect(() => {
     const storedState = localStorage.getItem(`requestInitiated-${Render}`);
-    console.log("storedState ", storedState)
+    //console.log("storedState ", storedState)
     if (storedState === "true") {
       setRequestInitiated(true);
-    } 
+    }
   }, [Render]);
 
   useEffect(() => {

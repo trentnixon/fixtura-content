@@ -9,10 +9,10 @@ import { SideNavSelectedCategory } from "@/layouts/Navigation/SideNav/client/OLD
 import { filterDownloads } from "@/utils/helpers";
 
 export default async function SideNav_SelectedStatistics(props) {
-  const { params, Path,Type,Category } = props;
-  const LINKPREPATH = `/${params.id}/${params.render}/${Path}`;
   console.log("Page.js - SideNav_SelectedStatistics");
- 
+  const { params, Path, Type, Category } = props;
+  const LINKPREPATH = `/${params.id}/${params.render}/${Path}`;
+
   const renderData = await getRenderFields(params.render, [
     "downloads",
     "downloads.asset_type",
@@ -26,8 +26,6 @@ export default async function SideNav_SelectedStatistics(props) {
     Type
   );
 
-
-
   return (
     <>
       <FixturaStack>
@@ -36,7 +34,11 @@ export default async function SideNav_SelectedStatistics(props) {
             OPTIONS
           </H>
         </FixturaBox>
-        <SideNavSelectedCategory LINKPREPATH={LINKPREPATH} {...props} ITEMS={filteredDownloads}/>
+        <SideNavSelectedCategory
+          LINKPREPATH={LINKPREPATH}
+          {...props}
+          ITEMS={filteredDownloads}
+        />
       </FixturaStack>
     </>
   );

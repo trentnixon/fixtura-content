@@ -33,7 +33,7 @@ export const SupportingArticleClientWithScroll = async () => {
   const useAssetType = await GetActiveAssetType();
   const useArticles = useAssetType.useAssetData.articles;
 
-  console.log("SupportingArticleClientWithScroll === ", useArticles);
+  //console.log("SupportingArticleClientWithScroll === ", useArticles);
   return (
     <FixturaContainer>
       <FixturaPaper c={1} shadow={"none"} p={5} my={10}>
@@ -79,7 +79,6 @@ export const SupportingArticleClientWithScroll = async () => {
 };
 
 export const SelectedWriteup = ({ selectedArticle }) => {
-  /*  console.log("selectedArticle", selectedArticle); */
   if (selectedArticle === null) return; // need a handler for no article
   return <ReactMarkdown className="markdown">{selectedArticle}</ReactMarkdown>;
 };

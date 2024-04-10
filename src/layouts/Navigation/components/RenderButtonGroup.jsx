@@ -8,9 +8,9 @@ export const RenderButtonGroup = ({ accountBasic, onButtonClick }) => {
   if (!accountBasic) {
     return null;
   }
-
-  const accountType = FindAccountType(accountBasic);
-  const accountSport = FindAccountSport(accountBasic);
+  const { sport, account_type } = accountBasic;
+  const accountType = account_type;
+  const accountSport = sport;
 
   if (!accountType || !accountSport) {
     return null;

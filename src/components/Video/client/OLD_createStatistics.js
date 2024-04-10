@@ -51,7 +51,6 @@ export function CreateStatisticsClient(props) {
     hasSponsors,
     display,
   } = props;
- /*  console.log("description ", description); */
 
   /* if (!assetTypes?.IMAGE) return false; */
   if (display === "IMAGE")

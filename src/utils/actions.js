@@ -146,6 +146,13 @@ export const groupByCategoryAndGameId = (data) => {
   }, {});
 };
 
+export const calculateRemainingDays = (endDate) => {
+  const today = new Date();
+  const end = new Date(endDate);
+  return Math.ceil((end - today) / (1000 * 60 * 60 * 24));
+};
+
+
 // COMPLIE ACCOUNT DATA
 
 export const CompileAccountData = (DATA) => {

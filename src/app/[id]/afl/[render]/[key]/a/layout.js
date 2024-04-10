@@ -3,7 +3,7 @@ import { createAssetOBJ } from "@/utils/AssetOBJSetup";
 import { AssetProvider } from "@/context/ContextAssetSettings";
 import { PageTitleAndCreated } from "@/components/Type/Headers";
 export default async function RootLayout({ children, params }) {
-  console.log("params ", params);
+ 
   const account = await getAccount(params.id);
   // Construct your dynamic config here based on props or state
   const assetMetaConfig = {

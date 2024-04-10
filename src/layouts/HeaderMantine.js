@@ -34,6 +34,8 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { AccountSettings } from "@/context/ContextAccountSettings";
+import { useContext } from "react";
 const HEADER_HEIGHT = rem(60);
 
 const useStyles = createStyles((theme) => ({
@@ -94,13 +96,13 @@ const LINKS = [
 ];
 
 export function HeaderMantine(props) {
-  const { params, URLParams, isActive, OBJ } = props;
-  const { id } = params;
-  const { Sport } = OBJ;
-
+  const useAccountSettings = useContext(AccountSettings);
+  //console.log("useAccountSettings ", useAccountSettings);
+  const { sport, trial_instance, URLParams } = useAccountSettings;
+  const { id } = URLParams;
   const { classes } = useStyles();
   const [opened, { close, toggle }] = useDisclosure(false);
-  //console.log("render", URLParams.render);
+
   const theme = useMantineTheme();
   const closeDrawer = () => {
     close();
@@ -131,7 +133,7 @@ export function HeaderMantine(props) {
             height={12}
             priority
           />
-          {isActive ? <Badge>Free Trial</Badge> : false}
+          {trial_instance.isActive ? <Badge>Free Trial</Badge> : false}
         </Group>
         <Group spacing="xs" className={classes.links}>
           <Tooltip
@@ -140,7 +142,7 @@ export function HeaderMantine(props) {
             transitionProps={{ duration: 0 }}
           >
             <UnstyledButton>
-              <Link href={`/${id}/${Sport}`}>
+              <Link href={`/${id}/${sport}`}>
                 <IconDownload size="1.2rem" stroke={1.5} color="white" />
               </Link>
             </UnstyledButton>

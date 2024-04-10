@@ -19,10 +19,7 @@ export default async function Upage({ params }) {
     "ai_articles",
     "ai_articles.asset",
     "ai_articles.asset_category",
-  ]); 
-
-
-  console.log("renderData", renderData)
+  ]);
 
   // Use the new utility function to create asset data from the filters
   const ASSETDATA = createAssetDataFromFilters(

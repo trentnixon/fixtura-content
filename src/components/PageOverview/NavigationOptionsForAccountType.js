@@ -10,7 +10,7 @@ import { useContext } from "react";
 export default function NavigationOptionsForAccountType() {
   const AccountContext = useContext(AccountSettings);
   const {stats}=AccountContext
-  console.log("AccountContext ", AccountContext)
+  //console.log("AccountContext ", AccountContext)
   return (
     <FixturaComponent>
       <SimpleGrid

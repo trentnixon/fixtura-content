@@ -16,7 +16,7 @@ import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 export async function SingleFixtureLayout(props) {
   const useAssetType = await GetActiveAssetType();
-  
+
   if (!useAssetType) return <NoDataFound />;
 
   const Graphics = useAssetType.useAssetData.graphics[0];
@@ -59,7 +59,6 @@ export async function SingleFixtureLayout(props) {
 
 const SelectedArticle = ({ gameMetaData }) => {
   // Prepare options for the Select component
-  console.log("gameMetaData", gameMetaData);
 
   // Initial state is the first article's EditorsArticle, if available
   const [selectedArticle, setSelectedArticle] = useState(

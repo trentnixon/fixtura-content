@@ -78,7 +78,7 @@ export const DisplayArticleSet = ({ SelectedGame, hasSponsors }) => {
   }, [needsRefresh, router]);
 
   useEffect(() => {
-    console.log("router.refresh() TEST, does this run when it does?");
+    //console.log("router.refresh() TEST, does this run when it does?");
     SetIsPending(false);
   }, [ArticleSet]);
 
