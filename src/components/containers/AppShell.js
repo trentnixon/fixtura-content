@@ -20,7 +20,7 @@ import { useContext } from "react";
 export const FixturaAppShell = ({ children }) => {
   const Content = withMobileWarning(() => (
     <FixturaSettingsProvider>
-      <AccountSettingsProvider>
+      <AccountSettingsProvider> 
         <AppShell
           padding={0}
           header={<HeaderMantine />}
