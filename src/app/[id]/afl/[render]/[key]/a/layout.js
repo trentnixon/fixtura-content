@@ -68,7 +68,6 @@ export default async function RootLayout({ children, params }) {
   };
 
   const assetData = await createAssetOBJ(params, account, assetMetaConfig);
-
   if (assetData.data == null) return null;
   return (
     <AssetProvider value={assetData.data}>

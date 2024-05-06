@@ -1,3 +1,4 @@
+'use client';
 // APIS
 import { FixturaContainer } from "@/components/containers/containers";
 import { H } from "@/components/Type/Headers";

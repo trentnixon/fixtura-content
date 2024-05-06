@@ -10,7 +10,7 @@ import DisplayAccountRenders from "@/components/PageAccount/server/DisplayAccoun
 import { getAccountFields } from "@/api/accounts";
 import {
   FindAccountLabel,
-  FindAccountLogo, 
+  FindAccountLogo,
   sortRenders,
 } from "@/utils/actions";
 import { getSchedulerFromAccount } from "@/api/scheduler";

@@ -12,12 +12,14 @@ import { DefaultHeader } from "@/components/AssetLayout/AssetLayout";
 
 import { NoDataFound } from "@/components/errors/NoDataFound";
 import { AssetHasError } from "@/components/errors/AssetHasError";
-import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
+//import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
+import { useActiveAssetType } from "@/Hooks/useActiveAssetType";
 
 export async function SingleFixtureLayout(props) {
-  const useAssetType = await GetActiveAssetType();
-
-  if (!useAssetType) return <NoDataFound />;
+  //const useAssetType = await GetActiveAssetType(); 
+  const useAssetType = useActiveAssetType();
+  console.log("useAssetType ", useAssetType)
+  if (!useAssetType.useAssetData.length) return <NoDataFound />;
 
   const Graphics = useAssetType.useAssetData.graphics[0];
   if (useAssetType.useAssetData.graphics.length === 0) return <NoDataFound />;

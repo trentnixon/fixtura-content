@@ -24,6 +24,7 @@
     "@mantine/prism": "^6.0.13",
     "@mantine/spotlight": "^6.0.13",
     "@mantine/tiptap": "^6.0.13",
+    "@sentry/nextjs": "^7.105.0",
     "@tabler/icons-react": "^2.22.0",
     "@tailwindcss/typography": "^0.5.9",
     "@tiptap/extension-link": "^2.0.3",

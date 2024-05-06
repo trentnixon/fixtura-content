@@ -7,7 +7,7 @@ export default async function RootLayout({ children, params }) {
   const account = await getAccount(params.id);
   // Construct your dynamic config here based on props or state
   const assetMetaConfig = {
-    WeekendSingleGameResultNetball: {
+    WeekendSingleGameResult: {
       AssetName: "Weekend Results",
       AssetType: "results",
       Video_asset_Category: "Video options",
@@ -16,7 +16,7 @@ export default async function RootLayout({ children, params }) {
       Image_Asset_Name: "Game Spotlight",
       Writeup: ["Weekend Results"],
     },
-    NetballLadder: {
+    Ladder: {
       AssetName: "League Tables",
       AssetType: "statistics",
       Video_asset_Category: "Video options",
@@ -25,7 +25,7 @@ export default async function RootLayout({ children, params }) {
       Image_Asset_Name: "League Tables",
       Writeup: "League Tables",
     },
-    WeekendResultsNetball: {
+    WeekendResults: {
       AssetName: "Weekend Results",
       AssetType: "results",
       Video_asset_Category: "Video options",
@@ -42,17 +42,26 @@ export default async function RootLayout({ children, params }) {
       Image_asset_Category: "Image options",
       Image_Asset_Name: "RosterPoster",
       Writeup: "RosterPoster",
-    }, 
-    Top5NetballScorers: {
-      AssetName: "Top 5 Scorers",
+    },
+    Top5BattingList: {
+      AssetName: "Top 5 Run Scorers",
       AssetType: "statistics",
       Video_asset_Category: "Video options",
-      Video_Asset_Name: "Top 5 Scorers",
+      Video_Asset_Name: "Top 5 Run Scorers",
       Image_asset_Category: "Image options",
-      Image_Asset_Name: "Top 5 Scorers",
-      Writeup: "Top 5 Scorers",
+      Image_Asset_Name: "Top 5 Run Scorers",
+      Writeup: "Top 5 Run Scorers",
     },
-    UpComingNetBallFixtures: {
+    Top5BowlingList: {
+      AssetName: "Top 5 Bowlers",
+      AssetType: "statistics",
+      Video_asset_Category: "Video options",
+      Video_Asset_Name: "Top 5 Bowlers",
+      Image_asset_Category: "Image options",
+      Image_Asset_Name: "Top 5 Bowlers",
+      Writeup: "Top 5 Bowlers",
+    },
+    UpComingFixtures: {
       AssetName: "Upcoming Fixtures",
       AssetType: "upcoming",
       Video_asset_Category: "Video options",
@@ -65,7 +74,7 @@ export default async function RootLayout({ children, params }) {
 
   const assetData = await createAssetOBJ(params, account, assetMetaConfig);
 
-  console.log("assetData.data ", assetData.data)
+  console.log("assetData.data ", assetData.data);
   if (assetData.data == null) return null;
   return (
     <AssetProvider value={assetData.data}>

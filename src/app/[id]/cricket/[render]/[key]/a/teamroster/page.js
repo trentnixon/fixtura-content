@@ -1,4 +1,21 @@
-import {
+"use client";
+
+import AssetLayout from "@/components/AssetLayout/AssetLayout";
+import { FixturaSettings } from "@/context/ContextFixturaSettings";
+import { useContext, useEffect } from "react";
+
+export default async function DisplayRosterPoster({ params }) {
+  console.log("Page.js - DisplayRosterPoster");
+  const { setCompositionID, compositionID } = useContext(FixturaSettings);
+  const assetCompositionID = "RosterPoster";
+  useEffect(() => {
+    setCompositionID(assetCompositionID);
+  }, [assetCompositionID, setCompositionID]);
+  if (!compositionID) return null;
+  return <AssetLayout />;
+}
+
+/* import {
   FixturaComponent,
   FixturaContainer,
 } from "@/components/containers/containers";
@@ -82,3 +99,4 @@ export default async function Upage({ params }) {
     </>
   );
 }
+ */

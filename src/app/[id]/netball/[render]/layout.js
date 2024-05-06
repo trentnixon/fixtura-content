@@ -15,3 +15,4 @@ export const generateMetadata = async ({ params }) => {
     }`,
   };
 };
+ 

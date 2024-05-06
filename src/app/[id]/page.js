@@ -19,7 +19,7 @@ export default async function Account({ params }) {
     <> 
       <FixturaSection
         shade={0}
-        Title={"Bundle Hub"}
+        Title={"Bundle Hub."}
         subTitle={""} 
         Icon={`ICO_HEADER_ACCOUNT`}
       >

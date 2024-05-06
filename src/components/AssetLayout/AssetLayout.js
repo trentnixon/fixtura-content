@@ -10,15 +10,21 @@ import { H } from "@/components/Type/Headers";
 import { NoDataFound } from "@/components/errors/NoDataFound";
 
 import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
+import { useActiveAssetType } from "@/Hooks/useActiveAssetType";
 
-export default async function AssetLayout() {
-  const useAssetType = await GetActiveAssetType();
+export default function AssetLayout() { 
 
+  const activeAssetType = useActiveAssetType();
+
+  console.log("activeAssetType ", activeAssetType);
   if (
-    useAssetType?.useAssetData?.length === 0 ||
-    useAssetType?.useAssetData === undefined
-  )
+    !activeAssetType || 
+    activeAssetType?.useAssetData?.length === 0 ||
+    activeAssetType?.useAssetData === undefined
+  ) {
     return <NoDataFound />;
+  }
+
   return (
     <FixturaComponent>
       <DefaultHeader />

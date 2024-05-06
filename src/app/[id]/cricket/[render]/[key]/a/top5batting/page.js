@@ -1,4 +1,20 @@
-import { FixturaContainer } from "@/components/containers/containers";
+"use client";
+
+import AssetLayout from "@/components/AssetLayout/AssetLayout";
+import { FixturaSettings } from "@/context/ContextFixturaSettings";
+import { useContext, useEffect } from "react";
+
+export default async function DisplayTop5BattingList({ params }) {
+  console.log("Page.js - DisplayTop5BattingList");
+  const { setCompositionID, compositionID } = useContext(FixturaSettings);
+  const assetCompositionID = "Top5BattingList";
+  useEffect(() => {
+    setCompositionID(assetCompositionID);
+  }, [assetCompositionID, setCompositionID]);
+  if (!compositionID) return null;
+  return <AssetLayout />;
+}
+/* import { FixturaContainer } from "@/components/containers/containers";
 import { PageTitleAndCreated } from "@/components/Type/Headers";
 import { getRenderFields } from "@/api/renders";
 import AssetLayout from "@/components/AssetLayout/AssetLayout";
@@ -72,3 +88,4 @@ export const generateMetadata = async ({ params }) => {
     }`,
   };
 };
+ */
