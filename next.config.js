@@ -17,7 +17,7 @@ module.exports = withSentryConfig(
     // Suppresses source map uploading logs during build
     silent: true,
     org: "na-g0d",
-    project: "javascript-nextjs",
+    project: "fixtura-content-hub",
   },
   {
     // For all available options, see:
