@@ -9,18 +9,31 @@
 // - Refactored retry logic for clarity and to prevent potential infinite loops.
 // - Removed console.logs for cleaner production code; consider using a more sophisticated logging mechanism for debugging.
 
-export const fetcher = async ({
+const getConfig = (isProduction) => {
+ 
+  return {
+    api: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_API_PROD : process.env.NEXT_PUBLIC_FIXTURA_API,
+    token: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_TOKEN_PROD : process.env.NEXT_PUBLIC_FIXTURA_TOKEN
+  };
+};
+
+export const fetcher = async ({ 
   PATH,
   method = "GET",
   body = {},
   retry = false,
   nextConfig = {},
 }) => {
-  const endpoint = `${process.env.NEXT_PUBLIC_FIXTURA_API}${PATH}`;
+  const isProduction = process.env.NEXT_PUBLIC_NODE_ENV === 'production';
+  const { api, token } = getConfig(isProduction);
+  const endpoint = `${api}${PATH}`;
   const headers = { 
     "Content-Type": "application/json",
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_FIXTURA_TOKEN}`,
+    Authorization: `Bearer ${token}`,
   };
+  
+ 
+
 
   const options = {
     method,
@@ -49,6 +62,7 @@ export const fetcher = async ({
     throw error;
   }
 };
+
 
 // Recommendations for future improvements:
 // - Consider parsing JSON error responses if your API consistently returns errors in JSON format.

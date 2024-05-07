@@ -16,7 +16,7 @@ export default function AssetLayout() {
 
   const activeAssetType = useActiveAssetType();
 
-  console.log("activeAssetType ", activeAssetType);
+  //console.log("activeAssetType ", activeAssetType);
   if (
     !activeAssetType || 
     activeAssetType?.useAssetData?.length === 0 ||
@@ -35,9 +35,9 @@ export default function AssetLayout() {
         <FixturaGRIDCOL span={7}>
           <SupportingArticleClientWithScroll />
         </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={12}>
+     {/*    <FixturaGRIDCOL span={12}>
           <ImageGalleryForAssets />
-        </FixturaGRIDCOL>
+        </FixturaGRIDCOL> */}
       </FixturaGRIDOUTER>
     </FixturaComponent>
   );
