@@ -12,10 +12,10 @@
 const getConfig = (isProduction) => {
  
   return {
-    api: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_API_PROD : process.env.NEXT_PUBLIC_FIXTURA_API,
-    token: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_TOKEN_PROD : process.env.NEXT_PUBLIC_FIXTURA_TOKEN
+    api: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_API : process.env.NEXT_PUBLIC_FIXTURA_API_DEV,
+    token: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_TOKEN : process.env.NEXT_PUBLIC_FIXTURA_TOKEN_DEV
   };
-};
+}; 
 
 export const fetcher = async ({ 
   PATH,
