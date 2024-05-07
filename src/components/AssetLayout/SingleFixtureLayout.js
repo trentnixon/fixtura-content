@@ -18,11 +18,15 @@ import { useActiveAssetType } from "@/Hooks/useActiveAssetType";
 export async function SingleFixtureLayout(props) {
   //const useAssetType = await GetActiveAssetType(); 
   const useAssetType = useActiveAssetType();
-  console.log("useAssetType ", useAssetType)
-  if (!useAssetType.useAssetData.length) return <NoDataFound />;
+  console.log("useAssetType ", useAssetType, useAssetType.useAssetData.length)
+ 
+  //if (!useAssetType.useAssetData.length) return;
 
   const Graphics = useAssetType.useAssetData.graphics[0];
+  console.log("Graphics ", Graphics)
   if (useAssetType.useAssetData.graphics.length === 0) return <NoDataFound />;
+
+ 
 
   if (Graphics.hasError) {
     return (
@@ -48,7 +52,7 @@ export async function SingleFixtureLayout(props) {
                 <FixturaPaper key={i}>
                   <SelectedArticle
                     gameMetaData={useAssetType.useAssetData.articles[i]}
-                  />
+                  /> 
                 </FixturaPaper>
               </FixturaGRIDCOL>
             </FixturaGRIDOUTER>
