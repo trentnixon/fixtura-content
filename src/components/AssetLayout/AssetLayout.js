@@ -35,9 +35,9 @@ export default function AssetLayout() {
         <FixturaGRIDCOL span={7}>
           <SupportingArticleClientWithScroll />
         </FixturaGRIDCOL>
-     {/*    <FixturaGRIDCOL span={12}>
+        <FixturaGRIDCOL span={12}>
           <ImageGalleryForAssets />
-        </FixturaGRIDCOL> */}
+        </FixturaGRIDCOL>
       </FixturaGRIDOUTER>
     </FixturaComponent>
   );
