@@ -3,6 +3,8 @@ import AssetLayout from "@/components/AssetLayout/AssetLayout";
 import { FixturaSettings } from "@/context/ContextFixturaSettings";
 import { useContext, useEffect } from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function DisplayCricketLadder() {
   console.log("Page.js - Ladder");
   const { setCompositionID, compositionID } = useContext(FixturaSettings);
@@ -13,3 +15,4 @@ export default async function DisplayCricketLadder() {
   if (!compositionID) return null;
   return <AssetLayout />;
 }
+   

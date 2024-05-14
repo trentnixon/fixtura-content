@@ -3,7 +3,7 @@
 import AssetLayout from "@/components/AssetLayout/AssetLayout";
 import { FixturaSettings } from "@/context/ContextFixturaSettings";
 import { useContext, useEffect } from "react";
-
+export const dynamic = "force-dynamic";
 export default async function DisplayRosterPoster({ params }) {
   console.log("Page.js - DisplayRosterPoster");
   const { setCompositionID, compositionID } = useContext(FixturaSettings);

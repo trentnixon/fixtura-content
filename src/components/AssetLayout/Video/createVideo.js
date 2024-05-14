@@ -12,7 +12,7 @@ import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 // DisplayVideoAsset function component for displaying video assets
 export async function DisplayVideoAsset() {
-  const useAssetType = await GetActiveAssetType();
+  const useAssetType = await GetActiveAssetType(); 
   const useVideos = useAssetType.useAssetData.videos;
   // Validation: Check for empty or invalid input to prevent runtime errors
   if (!useVideos || !Array.isArray(useVideos) || useVideos.length === 0) {

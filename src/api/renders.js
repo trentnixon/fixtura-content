@@ -45,7 +45,7 @@ export async function getRenderFieldsWithFilters(ID, FIELDS, FILTERS) {
 
   const res = await fetcher({
     PATH: `renders/${ID}?${queryParams}`,
-    nextConfig: {next: { revalidate: 600 } },
+    nextConfig: {next: { revalidate: 0 } },
   });
   //console.log(res.data);
   return res.data;

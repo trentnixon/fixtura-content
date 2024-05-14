@@ -1,7 +1,7 @@
 "use client";
 import { FixturaComponent } from "@/components/containers/containers";
 import { P } from "@/components/Type/Paragraph";
-
+export const dynamic = "force-dynamic";
 export default async function Upage({ params }) {
   console.log("Page.js - Upage");
 

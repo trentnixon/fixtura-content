@@ -34,6 +34,7 @@ export const AccountSettingsProvider = ({ children }) => {
           throw new Error("accountBasic is null");
         }
         const accountBasicAttributes = accountBasic.attributes;
+        console.log("accountBasicAttributes ", accountBasicAttributes)
         if (!accountBasicAttributes) {
           throw new Error("accountBasicAttributes is null");
         }

@@ -33,7 +33,7 @@ export async function userFeedbackOnDownload(ID,CONTEXT) {
   
     const res = await fetcher({
       PATH: `downloads?${queryParams}`,
-      nextConfig: {next: { revalidate: 600 } },
+      nextConfig: {cache: 'no-store' },
     });
     //console.log(res.data);
     return res.data;
