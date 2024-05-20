@@ -39,9 +39,9 @@ export const AccountSettingsProvider = ({ children }) => {
           throw new Error("accountBasicAttributes is null");
         }
         const subscriptionTier =
-          accountBasicAttributes.subscription_tier?.data?.attributes;
+          accountBasicAttributes.subscription_tier;
         if (!subscriptionTier) {
-          throw new Error("subscriptionTier is null");
+          throw new Error("subscriptionTier is null"); 
         }
         const SchedulerOBJ = accountBasicAttributes.scheduler?.data;
         if (!SchedulerOBJ) {
