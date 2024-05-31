@@ -31,9 +31,17 @@ export const SupportingArticleClientWithScroll = async () => {
   const [ArticleRewrite, setArticleRewrite] = useState(false);
 
   const useAssetType = await GetActiveAssetType();
-  const useArticles = useAssetType.useAssetData.articles;
+  let useArticles = useAssetType.useAssetData.articles;
+ 
+  console.log("useAssetType ", useAssetType.AssetMetaData.AssetName);
+  console.log("useArticles ", useArticles)
 
-  //console.log("SupportingArticleClientWithScroll === ", useArticles);
+  console.log("useAssetType ", useAssetType.AssetMetaData.AssetName);
+ 
+if (useAssetType.AssetMetaData.AssetName === "Weekend Results") {
+  useArticles = [mergeArticles(useArticles)];
+}
+
   return (
     <FixturaContainer>
       <FixturaPaper c={1} shadow={"none"} p={5} my={10}>
@@ -51,7 +59,7 @@ export const SupportingArticleClientWithScroll = async () => {
           : selectArticle(article);
         return (
           <Box key={i} my="md" mx="md">
-            <ScrollArea h={480}>
+            <ScrollArea h={450}>
               {loadingState ? (
                 <FixturaBox>
                   <FixturaGroup>
@@ -62,7 +70,10 @@ export const SupportingArticleClientWithScroll = async () => {
               ) : (
                 <SelectedWriteup selectedArticle={selectedArticle} />
               )}
+
+              
             </ScrollArea>
+          
             <Box mt={10}>
               <ArticleActionButtonsContainer
                 ArticleBOJ={article}
@@ -82,3 +93,17 @@ export const SelectedWriteup = ({ selectedArticle }) => {
   if (selectedArticle === null) return; // need a handler for no article
   return <ReactMarkdown className="markdown">{selectedArticle}</ReactMarkdown>;
 };
+const mergeArticles = (articles) => {
+  if (!articles || articles.length === 0) {
+    return null;
+  }
+
+  const mergedArticle = { ...articles[0] };
+  mergedArticle.ArticleJournalist = articles
+    .map(article => article.ArticleJournalist)
+    .join('\n\n');
+
+  return mergedArticle;
+}; 
+
+

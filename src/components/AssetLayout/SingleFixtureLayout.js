@@ -6,7 +6,7 @@ import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { SingleImageWithDownload } from "@/components/AssetLayout/Image/createImages";
 import { SelectedWriteup } from "@/components/AssetLayout/Article/supportingArticles";
 import { P } from "@/components/Type/Paragraph";
-import { Box, Group, ScrollArea, Select } from "@mantine/core";
+import { Box, Group, ScrollArea } from "@mantine/core";
 import { FixturaPaper } from "@/components/containers/paper";
 import { DefaultHeader } from "@/components/AssetLayout/AssetLayout";
 
@@ -16,17 +16,15 @@ import { AssetHasError } from "@/components/errors/AssetHasError";
 import { useActiveAssetType } from "@/Hooks/useActiveAssetType";
 
 export async function SingleFixtureLayout(props) {
-  //const useAssetType = await GetActiveAssetType(); 
+  //const useAssetType = await GetActiveAssetType();
   const useAssetType = useActiveAssetType();
-  console.log("useAssetType ", useAssetType, useAssetType.useAssetData.length)
- 
+  console.log("useAssetType ", useAssetType, useAssetType.useAssetData.length);
+
   //if (!useAssetType.useAssetData.length) return;
 
   const Graphics = useAssetType.useAssetData.graphics[0];
-  console.log("Graphics ", Graphics)
+  console.log("Graphics ", Graphics);
   if (useAssetType.useAssetData.graphics.length === 0) return <NoDataFound />;
-
- 
 
   if (Graphics.hasError) {
     return (
@@ -40,10 +38,12 @@ export async function SingleFixtureLayout(props) {
   return (
     <FixturaComponent>
       <DefaultHeader {...props} />
+
       {Graphics.downloads.map((dl, i) => {
+      
         return (
           <Box my={50} key={i}>
-            {/* <MatchDetails FixtureDetails={Fixture.game_meta_data[0]} /> */}
+           
             <FixturaGRIDOUTER>
               <FixturaGRIDCOL span={5}>
                 <SingleImageWithDownload URL={dl} key={i} />
@@ -52,7 +52,7 @@ export async function SingleFixtureLayout(props) {
                 <FixturaPaper key={i}>
                   <SelectedArticle
                     gameMetaData={useAssetType.useAssetData.articles[i]}
-                  /> 
+                  />
                 </FixturaPaper>
               </FixturaGRIDCOL>
             </FixturaGRIDOUTER>
@@ -71,17 +71,6 @@ const SelectedArticle = ({ gameMetaData }) => {
     gameMetaData?.ArticleJournalist || ""
   );
 
-  /* const articleOptions = gameMetaData[0]?.gtp_3_reports.map(
-    (report, index) => ({
-      value: report.EditorsArticle,
-      label: report.CompositionID || `Article ${index + 1}`, // Fallback to a default name if no name is available
-    })
-  ); */
-
-  /* const handleChange = (value) => {
-    setSelectedArticle(value);
-  }; */
-
   return (
     <Box>
       <ScrollArea style={{ height: 400 }}>
@@ -91,18 +80,6 @@ const SelectedArticle = ({ gameMetaData }) => {
           <NoArticleMessage />
         )}
       </ScrollArea>
-      {/*  {gameMetaData[0]?.gtp_3_reports.length === 1 ? (
-        false
-      ) : (
-        <Select
-          label="Writeup Options"
-          placeholder="Choose a Writeup"
-          data={articleOptions}
-          onChange={handleChange}
-          value={selectedArticle}
-          mt={30}
-        />
-      )} */}
     </Box>
   );
 };

@@ -73,6 +73,6 @@ export default async function RootLayout({ children, params }) {
     <AssetProvider value={assetData.data}>
       <PageTitleAndCreated />
       {children}
-    </AssetProvider>
+    </AssetProvider> 
   );
 }

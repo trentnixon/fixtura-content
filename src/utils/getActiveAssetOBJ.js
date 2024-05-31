@@ -7,7 +7,7 @@ import { FixturaSettings } from "@/context/ContextFixturaSettings";
 export const GetActiveAssetType = () => {
   const assetContext = useContext(AssetContext);
   const { compositionID } = useContext(FixturaSettings);
-
+ 
   if (!assetContext || !compositionID) {
     console.error(
       "Asset context or compositionID is undefined",
