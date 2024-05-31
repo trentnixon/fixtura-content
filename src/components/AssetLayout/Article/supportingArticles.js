@@ -14,7 +14,7 @@ import { IconArticle } from "@tabler/icons-react";
 import { useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
-export const SupportingArticleClient = (props) => {
+export const SupportingArticleClient = (props) => { 
   const { ITEMS } = props;
 
   return (
@@ -54,6 +54,7 @@ if (useAssetType.AssetMetaData.AssetName === "Weekend Results") {
       </FixturaPaper>
 
       {useArticles.map((article, i) => {
+        if(!article) return false
         const selectedArticle = ArticleRewrite
           ? ArticleRewrite
           : selectArticle(article);
