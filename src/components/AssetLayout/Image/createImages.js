@@ -30,7 +30,7 @@ export const ImageGalleryForAssets = async () => {
   const useAssetType = await GetActiveAssetType();
   const useImages = useAssetType.useAssetData.graphics; 
   // Improved error checking and removed unnecessary console log
-  if (!useImages || !useImages[0] || useImages[0].hasError) {
+  if (!useImages || !useImages[0] || useImages[0].hasError || !useImages[0].downloads) {
     return <AssetHasError assetID={useImages?.[0]?.id} />;
   }
  
@@ -44,6 +44,9 @@ export const ImageGalleryForAssets = async () => {
       setIsBulkDownloading(false);
     }
   };
+
+
+  console.log("useImages[0] ", useImages[0])
 
   return (
     <>

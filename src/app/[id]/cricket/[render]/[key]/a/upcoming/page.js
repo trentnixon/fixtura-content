@@ -13,5 +13,5 @@ export default async function DispayCricketUpcomingPage() {
     setCompositionID(assetCompositionID);
   }, [assetCompositionID, setCompositionID]);
   if (!compositionID) return null;
-  return <AssetLayout />;
+  return <AssetLayout />; 
 }
