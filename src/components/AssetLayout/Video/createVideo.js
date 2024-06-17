@@ -12,7 +12,7 @@ import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 
 // DisplayVideoAsset function component for displaying video assets
 export async function DisplayVideoAsset() {
-  const useAssetType = await GetActiveAssetType(); 
+  const useAssetType = await GetActiveAssetType();
   const useVideos = useAssetType.useAssetData.videos;
   // Validation: Check for empty or invalid input to prevent runtime errors
   if (!useVideos || !Array.isArray(useVideos) || useVideos.length === 0) {
@@ -39,14 +39,6 @@ export async function DisplayVideoAsset() {
   // Main render method for DisplayVideoAsset
   return (
     <>
-      <FixturaPaper c={1} shadow={"none"} p={5} my={10}>
-        <FixturaGroup position="right">
-          <P fz="lg" c={"gray.7"} fw={900} ta={"right"} my={7}>
-            Video
-          </P>
-          <IconVideo />
-        </FixturaGroup>
-      </FixturaPaper>
       {useVideos.map((video, i) => (
         <HTML5VideoPlayer key={i} video={video} />
       ))}

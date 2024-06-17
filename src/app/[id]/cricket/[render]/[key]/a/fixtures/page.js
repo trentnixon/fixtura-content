@@ -18,3 +18,4 @@ export default async function DisplayWeekendSingleGameResult() {
   if (!compositionID) return null;
   return <SingleFixtureLayout />;
 }
+ 

@@ -48,3 +48,53 @@ export const FixturaHero = (props) => {
     </Container>
   );
 };
+
+
+const sectionStyles = (theme) => ({
+  backgroundColor: theme.colors.gray[1],
+  fontFamily: theme.fontFamily,
+  borderRadius: '0.5rem',
+  borderBottom: `1px solid ${theme.colors.gray[3]}`,
+  width: '100%',
+});
+
+
+const innerSectionStyles = (theme) => ({
+  backgroundColor: "white",
+  fontFamily: theme.fontFamily,
+  borderRadius: "0.5rem",
+  borderBottom: `1px solid ${theme.colors.gray[3]}`,
+  width: "100%",
+});``
+export const RoundedSectionContainer = (props) => {
+  const { title, topContent, bottomContent } = props;
+
+  return (
+    <>
+      {title}
+      <Container p={3} fluid sx={sectionStyles}>
+      <Container size="xl" p={0}>
+        <Wrapper px="xl">{topContent}</Wrapper>
+        <RoundedBottomSection content={bottomContent} />
+      </Container>
+      </Container>
+    </>
+  );
+};
+
+
+const Wrapper = (props) => {
+  const { px = "sm", py = "xs" } = props;
+  return (
+    <Container size={"lg"} px={px} py={py}>
+      {props.children}
+    </Container>
+  );
+};
+const RoundedBottomSection = ({ content, className }) => (
+  <Container p="xl" fluid sx={innerSectionStyles} className={className}>
+    <Container size="xl" p={0}>
+      {content}
+    </Container>
+  </Container>
+);

@@ -7,7 +7,7 @@ import { IconDownload, IconThumbDown, IconThumbUp } from "@tabler/icons-react";
 import { ActionIcon, Box, Loader, LoadingOverlay } from "@mantine/core";
 //import { useDisclosure } from "@mantine/hooks";
 import { FixturaBox } from "@/components/containers/boxes";
-import {  trackCustomEvent } from "@/utils/GA";
+import { trackCustomEvent } from "@/utils/GA";
 import { P } from "@/components/Type/Paragraph";
 import { userFeedbackOnDownload } from "@/api/downloads";
 import { BUTTON_ICON_FUNC } from "@/components/UI/buttons";
@@ -42,18 +42,28 @@ export const HTML5VideoPlayer = ({ video }) => {
 
   return (
     <>
-      <Box>
-        <FixturaBox>
-          <div className="video-player">
-            <LoadingOverlay visible={visible} overlayBlur={3} transitionDuration={500} />
-            <video controls src={URL} width="100%" onPlay={handlePlay} onPause={handlePause} />
-          </div>
-        </FixturaBox>
-      </Box>
-      <FixturaGroup my={10} position="right"> 
+      <FixturaGroup my={10} position="right">
         {/* <UserFeedback id={id} isAccurate={isAccurate} /> */}
         <CTAGroup onClick={handleClick} disabled={hasBeenClicked} />
       </FixturaGroup>
+      <Box>
+        <FixturaBox p={"xs"} c={1}>
+          <div className="video-player">
+            <LoadingOverlay
+              visible={visible}
+              overlayBlur={3}
+              transitionDuration={500}
+            />
+            <video
+              controls
+              src={URL}
+              width="100%"
+              onPlay={handlePlay}
+              onPause={handlePause}
+            />
+          </div>
+        </FixturaBox>
+      </Box>
     </>
   );
 };
@@ -62,7 +72,13 @@ const CTAGroup = ({ onClick, disabled }) => {
   // Dev Note: Removed unnecessary useEffect as it had no dependencies or side effects.
   return (
     <FixturaBtnGroup>
-      <BUTTON_ICON_FUNC size="md" label="Download Video" onClick={onClick} disabled={disabled} Icon={<IconDownload />} />
+      <BUTTON_ICON_FUNC
+        size="md"
+        label="Download Video"
+        onClick={onClick}
+        disabled={disabled}
+        Icon={<IconDownload />}
+      />
     </FixturaBtnGroup>
   );
 };
@@ -94,8 +110,18 @@ const UserFeedback = ({ id, isAccurate }) => {
           <Loader />
         ) : (
           <>
-            <ActionIcon onClick={() => handleDownloadFeedback(true)} color="green"><IconThumbUp /></ActionIcon>
-            <ActionIcon onClick={() => handleDownloadFeedback(false)} color="red"><IconThumbDown /></ActionIcon>
+            <ActionIcon
+              onClick={() => handleDownloadFeedback(true)}
+              color="green"
+            >
+              <IconThumbUp />
+            </ActionIcon>
+            <ActionIcon
+              onClick={() => handleDownloadFeedback(false)}
+              color="red"
+            >
+              <IconThumbDown />
+            </ActionIcon>
           </>
         )}
       </FixturaGroup>

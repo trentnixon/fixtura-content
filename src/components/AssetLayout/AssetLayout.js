@@ -1,5 +1,8 @@
 "use client";
-import { FixturaComponent } from "@/components/containers/containers";
+import {
+  FixturaComponent,
+  RoundedSectionContainer,
+} from "@/components/containers/containers";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { ImageGalleryForAssets } from "@/components/AssetLayout/Image/createImages";
 import { DisplayVideoAsset } from "@/components/AssetLayout/Video/createVideo";
@@ -11,14 +14,22 @@ import { NoDataFound } from "@/components/errors/NoDataFound";
 
 import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 import { useActiveAssetType } from "@/Hooks/useActiveAssetType";
+import { Space } from "@mantine/core";
+import { FixturaGroup } from "@/components/containers/Group";
+import {
+  IconArticle,
+  IconDownload,
+  IconMapPin,
+  IconPhotoAi,
+  IconVideo,
+} from "@tabler/icons-react";
 
-export default function AssetLayout() { 
-
+export default function AssetLayout() {
   const activeAssetType = useActiveAssetType();
 
   //console.log("activeAssetType ", activeAssetType);
   if (
-    !activeAssetType || 
+    !activeAssetType ||
     activeAssetType?.useAssetData?.length === 0 ||
     activeAssetType?.useAssetData === undefined
   ) {
@@ -27,18 +38,51 @@ export default function AssetLayout() {
 
   return (
     <FixturaComponent>
-      <DefaultHeader />
-      <FixturaGRIDOUTER>
-        <FixturaGRIDCOL span={5}>
-          <DisplayVideoAsset />
-        </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={7}>
-          <SupportingArticleClientWithScroll />
-        </FixturaGRIDCOL>
-        <FixturaGRIDCOL span={12}>
-          <ImageGalleryForAssets />
-        </FixturaGRIDCOL>
-      </FixturaGRIDOUTER>
+      <RoundedSectionContainer
+        title={<DefaultHeader />}
+        topContent={
+          <FixturaGroup>
+            <P fw={600} tt={"uppercase"}>
+              Video and Write up
+            </P>
+            <FixturaGroup>
+              <IconVideo />
+              <IconArticle />
+            </FixturaGroup>
+          </FixturaGroup>
+        }
+        bottomContent={
+          <FixturaGRIDOUTER>
+            <FixturaGRIDCOL span={5}>
+              <DisplayVideoAsset />
+            </FixturaGRIDCOL>
+            <FixturaGRIDCOL span={7}>
+              <SupportingArticleClientWithScroll />
+            </FixturaGRIDCOL>
+          </FixturaGRIDOUTER>
+        }
+      />
+      <Space h={50} />
+      <RoundedSectionContainer
+        title={""}
+        topContent={
+          <FixturaGroup>
+            <P fw={600} tt={"uppercase"}>
+              Images
+            </P>
+            <FixturaGroup>
+              <IconPhotoAi />
+            </FixturaGroup>
+          </FixturaGroup>
+        }
+        bottomContent={
+          <FixturaGRIDOUTER>
+            <FixturaGRIDCOL span={12}>
+              <ImageGalleryForAssets />
+            </FixturaGRIDCOL>
+          </FixturaGRIDOUTER>
+        }
+      />
     </FixturaComponent>
   );
 }
@@ -46,9 +90,17 @@ export default function AssetLayout() {
 export const DefaultHeader = async () => {
   const useAssetType = await GetActiveAssetType();
   return (
-    <FixturaPaper c={1} shadow={"none"} mb={20}>
-      <H>{useAssetType?.AssetMetaData?.AssetName}</H>
-      <P>{useAssetType?.decodeURIComponent}</P>
+    <FixturaPaper p="0" c={0} shadow={"none"} my={20}>
+      <FixturaGroup>
+        <FixturaGroup>
+          <IconDownload />
+          <H lh={"1.2em"}>{useAssetType?.AssetMetaData?.AssetName}</H>
+        </FixturaGroup>
+        <FixturaGroup>
+          <P lh={1.1}> {useAssetType?.decodeURIComponent}</P>
+          <IconMapPin />
+        </FixturaGroup>
+      </FixturaGroup>
     </FixturaPaper>
   );
 };

@@ -28,12 +28,17 @@ import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 export const ImageGalleryForAssets = async () => {
   const [isBulkDownloading, setIsBulkDownloading] = useState(false);
   const useAssetType = await GetActiveAssetType();
-  const useImages = useAssetType.useAssetData.graphics; 
+  const useImages = useAssetType.useAssetData.graphics;
   // Improved error checking and removed unnecessary console log
-  if (!useImages || !useImages[0] || useImages[0].hasError || !useImages[0].downloads) {
+  if (
+    !useImages ||
+    !useImages[0] ||
+    useImages[0].hasError ||
+    !useImages[0].downloads
+  ) {
     return <AssetHasError assetID={useImages?.[0]?.id} />;
   }
- 
+
   const handleBulkDownload = async () => {
     setIsBulkDownloading(true);
     try {
@@ -45,20 +50,21 @@ export const ImageGalleryForAssets = async () => {
     }
   };
 
-
-  console.log("useImages[0] ", useImages[0])
+  //console.log("useImages[0] ", useImages[0]);
 
   return (
     <>
-      <FixturaPaper c={1} shadow="none" p={5} my={10}>
-        <FixturaGroup position="right">
-          <P fz="lg" c="gray.7" fw={900} ta="right" my={7}>
-            Images
-          </P>
-          <IconPhotoAi />
-        </FixturaGroup>
-      </FixturaPaper>
-
+      <FixturaGroup position="right" my={10}>
+        <BUTTON_FUNC
+          Label={
+            isBulkDownloading
+              ? "Downloading..."
+              : `Download All (${useImages[0].downloads.length})`
+          }
+          onClick={handleBulkDownload}
+          disabled={isBulkDownloading}
+        />
+      </FixturaGroup>
       <SimpleGrid
         spacing="xs"
         verticalSpacing="xs"
@@ -72,21 +78,12 @@ export const ImageGalleryForAssets = async () => {
           <SingleImageWithDownload key={index} URL={url} />
         ))}
       </SimpleGrid>
-      <FixturaGroup position="right" my={10}>
-        <BUTTON_FUNC
-          Label={
-            isBulkDownloading ? "Downloading..." : `Download All (${useImages[0].downloads.length})`
-          }
-          onClick={handleBulkDownload}
-          disabled={isBulkDownloading}
-        />
-      </FixturaGroup>
     </>
   );
 };
 
 export const SingleImageWithDownload = ({ URL }) => {
-  const {url}= URL
+  const { url } = URL;
   const [opened, setOpened] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const theme = useMantineTheme();
@@ -116,7 +113,6 @@ export const SingleImageWithDownload = ({ URL }) => {
         opened={opened}
         onClose={() => setOpened(false)}
         size="lg"
-       
       >
         <Image src={selectedImage} alt="Selected" withPlaceholder />
       </Modal>
@@ -150,7 +146,13 @@ const CTAGroup = ({ URL, Modal }) => {
         size="md"
         label={isDownloading ? "Downloading..." : "Download Image"}
         onClick={handleDownloadClick}
-        Icon={isDownloading ? <IconLoader size="1.125rem" /> : <IconDownload size="1.125rem" stroke={2} />}
+        Icon={
+          isDownloading ? (
+            <IconLoader size="1.125rem" />
+          ) : (
+            <IconDownload size="1.125rem" stroke={2} />
+          )
+        }
         disabled={isDownloading}
       />
     </FixturaGroup>
@@ -162,4 +164,3 @@ const CTAGroup = ({ URL, Modal }) => {
 // viewing images in a modal, and error handling for asset errors. The components utilize React hooks,
 // Mantine UI library for UI components, and custom components for styling and functionality.
 // It's part of a larger project structure, located under the components directory for the image gallery feature.
-
