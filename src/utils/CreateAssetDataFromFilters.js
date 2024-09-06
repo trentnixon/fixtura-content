@@ -1,23 +1,22 @@
 export const createAssetDataFromFilters = (
-    downloads,
-    ai_articles,
-    useCompositionID,
-    grouping_category
+  downloads,
+  ai_articles,
+  useCompositionID,
+  grouping_category
 ) => {
-
-
-    // Filter both downloads and ai_articles by CompositionID and grouping_category
+  // Filter both downloads and ai_articles by CompositionID and grouping_category
   const filteredDownloads = downloads.filter(
     (item) =>
-      item.attributes.asset.data.attributes.CompositionID === useCompositionID &&
+      item.attributes.asset.data.attributes.CompositionID ===
+        useCompositionID &&
       item.attributes.grouping_category === grouping_category
   );
- 
 
   //console.log("ai_articles ", ai_articles[0].attributes.asset.data.attributes.CompositionID,useCompositionID )
   const filteredAiArticles = ai_articles.filter(
     (item) =>
-      item.attributes.asset.data.attributes.CompositionID === useCompositionID &&
+      item.attributes.asset.data.attributes.CompositionID ===
+        useCompositionID &&
       item.attributes.grouping_category === grouping_category
   );
 
@@ -55,30 +54,38 @@ export const createAssetDataFromFilters = (
     forceRerender: article.attributes.forceRerender,
     hasError: article.attributes.hasError,
     errorHandler: article.attributes.errorHandler,
+    structuredOutput: article.attributes.structuredOutput,
   });
 
   // Process downloads
   filteredDownloads.forEach((download) => {
     const assetLinkID = download.attributes.assetLinkID;
-    const assetTypeName = download.attributes.asset_category.data.attributes.Identifier;
+    const assetTypeName =
+      download.attributes.asset_category.data.attributes.Identifier;
 
     initializeAssetTypes(groupedByAssetLinkID, assetLinkID);
-  
+
     if (assetTypeName === "VIDEO") {
-      groupedByAssetLinkID[assetLinkID].videos.push(simplifyDownloadObject(download));
+      groupedByAssetLinkID[assetLinkID].videos.push(
+        simplifyDownloadObject(download)
+      );
     } else if (assetTypeName === "IMAGE") {
-      groupedByAssetLinkID[assetLinkID].graphics.push(simplifyDownloadObject(download));
+      groupedByAssetLinkID[assetLinkID].graphics.push(
+        simplifyDownloadObject(download)
+      );
     }
   });
 
   // Assuming a similar simplification process for articles, if needed
 
-   // Process ai_articles
-   filteredAiArticles.forEach((article) => {
+  // Process ai_articles
+  filteredAiArticles.forEach((article) => {
     const assetLinkID = article.attributes.assetLinkID;
     initializeAssetTypes(groupedByAssetLinkID, assetLinkID);
 
-    groupedByAssetLinkID[assetLinkID].articles.push(simplifyArticleObject(article));
+    groupedByAssetLinkID[assetLinkID].articles.push(
+      simplifyArticleObject(article)
+    );
   });
 
   return Object.keys(groupedByAssetLinkID).map((assetLinkID) => ({

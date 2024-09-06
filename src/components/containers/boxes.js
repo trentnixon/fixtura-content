@@ -2,7 +2,7 @@
 import { Box } from "@mantine/core";
 
 export const FixturaBox = (props) => {
-  const { c = 2, baseColor = "gray", w = "auto", p = "sm" } = props;
+  const { c = 2, baseColor = "gray", w = "auto", m="0", p = "sm" } = props;
   return (
     <Box
       sx={(theme) => ({
@@ -10,6 +10,7 @@ export const FixturaBox = (props) => {
         backgroundColor: theme.colors[baseColor][c],
         textAlign: "left",
         padding: theme.spacing[p],
+        margin: theme.spacing[m],
         borderRadius: theme.radius.sm,
       })}
     >

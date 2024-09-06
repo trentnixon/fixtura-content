@@ -40,10 +40,8 @@ export async function SingleFixtureLayout(props) {
       <DefaultHeader {...props} />
 
       {Graphics.downloads.map((dl, i) => {
-      
         return (
           <Box my={50} key={i}>
-           
             <FixturaGRIDOUTER>
               <FixturaGRIDCOL span={5}>
                 <SingleImageWithDownload URL={dl} key={i} />
@@ -54,6 +52,8 @@ export async function SingleFixtureLayout(props) {
                     gameMetaData={useAssetType.useAssetData.articles[i]}
                   />
                 </FixturaPaper>
+               {/*  Information about game | playHQ link | Data infor was taken |
+                view infor that makes this image */}
               </FixturaGRIDCOL>
             </FixturaGRIDOUTER>
           </Box>

@@ -1,18 +1,44 @@
 "use client";
 
-import AssetLayout from "@/components/AssetLayout/AssetLayout";
+import { getRenders } from "@/api/renders";
 import { FixturaSettings } from "@/context/ContextFixturaSettings";
+import { RequestTeamRosterForRender } from "@/components/AssetLayout/Image/createTeamRoster";
+import { useAccountSettings } from "@/context/ContextAccountSettings";
+
+import { useActiveAssetType } from "@/Hooks/useActiveAssetType";
 import { useContext, useEffect } from "react";
 export const dynamic = "force-dynamic";
-export default async function DisplayRosterPoster({ params }) {
+export default async function DisplayRosterPoster() {
   console.log("Page.js - DisplayRosterPoster");
-  const { setCompositionID, compositionID } = useContext(FixturaSettings);
   const assetCompositionID = "RosterPoster";
-  useEffect(() => {
-    setCompositionID(assetCompositionID);
-  }, [assetCompositionID, setCompositionID]);
+
+  const { setCompositionID, compositionID } = useContext(FixturaSettings);
+  const activeAssetType = useActiveAssetType();
+  const AccountSettings = useAccountSettings();
+
+  console.log("AccountSettings ", AccountSettings);
+  console.log("DisplayRosterPoster activeAssetType ", activeAssetType);
+  const CompleteRender = await getRenders(AccountSettings.URLParams.render);
+  setCompositionID(assetCompositionID);
+  console.log("CompleteRender ", CompleteRender);
+  /*   useEffect(() => {
+    //setCompositionID(assetCompositionID);
+    console.log("compositionID ", compositionID);
+  }, [assetCompositionID, setCompositionID]); */
   if (!compositionID) return null;
-  return <AssetLayout />;
+  return (
+    <>
+      TEAM ROSTER
+      {activeAssetType.AssetMetaData.AccountType === "Club" ? (
+        <RequestTeamRosterForRender
+          Render={AccountSettings.URLParams.render}
+          CompleteRender={CompleteRender}
+        />
+      ) : (
+        false
+      )}
+    </>
+  );
 }
 
 /* import {
@@ -41,7 +67,7 @@ export default async function Upage({ params }) {
     "ai_articles.asset",
     "ai_articles.asset_category",
   ]);
-  
+
 
   // Use the new utility function to create asset data from the filters
   const ASSETDATA = createAssetDataFromFilters(
@@ -60,7 +86,7 @@ export default async function Upage({ params }) {
     Writeup: "RosterPoster",
     Category: decodeURIComponent(params.key),
   };
- 
+
   const OBJ = {
     AssetMetaData: AssetMetaData,
     CompleteRender: renderData,
@@ -90,7 +116,7 @@ export default async function Upage({ params }) {
             <RequestTeamRosterForRender
               Render={OBJ.params.render}
               CompleteRender={OBJ.CompleteRender}
-            />  
+            />
           ) : (
             false
           )}

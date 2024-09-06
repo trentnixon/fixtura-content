@@ -1,17 +1,22 @@
 "use client";
 
 import { ArticleActionButtonsContainer } from "@/components/AssetLayout/Article/ArticleButtons";
+import { H } from "@/components/Type/Headers";
 import { P } from "@/components/Type/Paragraph";
 import { ProcessingLoader } from "@/components/UI/Loader";
 import { FixturaGroup } from "@/components/containers/Group";
 import { FixturaBox } from "@/components/containers/boxes";
 import { FixturaContainer } from "@/components/containers/containers";
 import { FixturaPaper } from "@/components/containers/paper";
+import {
+  FixturaSettings,
+  FixturaSettingsProvider,
+} from "@/context/ContextFixturaSettings";
 import { selectArticle } from "@/utils/ArticleUtils";
 import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 import { Box, ScrollArea } from "@mantine/core";
 import { IconArticle } from "@tabler/icons-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export const SupportingArticleClient = (props) => {
@@ -44,16 +49,6 @@ export const SupportingArticleClientWithScroll = async () => {
 
   return (
     <FixturaContainer>
-      {/*  <FixturaGroup position="right">
-        <P fz="lg" c={"gray.7"} fw={600} ta={"right"} my={7}>
-          Article
-        </P>
-        <IconArticle />
-      </FixturaGroup> */}
-      {/*  <FixturaPaper c={1} shadow={"none"} p={5} my={10}>
-        
-      </FixturaPaper> */}
-
       {useArticles.map((article, i) => {
         if (!article) return false;
         const selectedArticle = ArticleRewrite
@@ -89,8 +84,19 @@ export const SupportingArticleClientWithScroll = async () => {
 };
 
 export const SelectedWriteup = ({ selectedArticle }) => {
+  const { compositionID } = useContext(FixturaSettings);
+  console.log("compositionID ", compositionID);
+
   if (selectedArticle === null) return; // need a handler for no article
-  return <ReactMarkdown className="markdown">{selectedArticle}</ReactMarkdown>;
+  console.log("selectedArticle ", selectedArticle);
+
+  const selectArticleFormat = {
+    Top5BattingList: <Top5Listicle selectedArticle={selectedArticle} />,
+    Top5BowlingList: <Top5Listicle selectedArticle={selectedArticle} />,
+  };
+
+  // <ReactMarkdown className="markdown">{selectedArticle.title}</ReactMarkdown>
+  return <>{selectArticleFormat[compositionID]}</>;
 };
 const mergeArticles = (articles) => {
   if (!articles || articles.length === 0) {
@@ -103,4 +109,25 @@ const mergeArticles = (articles) => {
     .join("\n\n");
 
   return mergedArticle;
+};
+
+const Top5Listicle = ({ selectedArticle }) => {
+  return (
+    <>
+      <H size="h3">{selectedArticle.title}</H>
+      <H size="h5">{selectedArticle.subtitle}</H>
+
+      {selectedArticle.top_scorers.map((article, i) => {
+        return (
+          <div key={article.player_name}>
+            <H size="h6">
+              {article.player_name} {article.runs}
+            </H>
+            <P>{article.highlights}</P>
+            <P>{article.article_body}</P>
+          </div>
+        );
+      })}
+    </>
+  );
 };

@@ -22,7 +22,7 @@ export const BUTTON_FUNC = (props) => {
     Icon = false,
   } = props;
 
-  return ( 
+  return (
     <Button
       variant={variant}
       leftIcon={Icon}
@@ -30,7 +30,7 @@ export const BUTTON_FUNC = (props) => {
       size={size}
       onClick={onClick}
       uppercase
-      radius="md" 
+      radius="md"
     >
       {Label}
     </Button>
@@ -73,7 +73,7 @@ export const BUTTON_LINK = (props) => {
             borderColor: theme.colors.blue[6],
           },
         })}
->
+      >
         {Label}
       </Button>
     </Link>
@@ -155,9 +155,8 @@ export const NavLinkWithIcon = (props) => {
   );
 };
 
-export const BUTTON_ICON_FUNC = (props) => { 
+export const BUTTON_ICON_FUNC = (props) => {
   const {
- 
     Color = "cyan",
     size = "xl",
     variant = "outline",

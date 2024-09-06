@@ -41,7 +41,7 @@ export const AccountSettingsProvider = ({ children }) => {
         const subscriptionTier =
           accountBasicAttributes.subscription_tier;
         if (!subscriptionTier) {
-          throw new Error("subscriptionTier is null"); 
+          throw new Error("subscriptionTier is null");
         }
         const SchedulerOBJ = accountBasicAttributes.scheduler?.data;
         if (!SchedulerOBJ) {
@@ -50,7 +50,7 @@ export const AccountSettingsProvider = ({ children }) => {
         const trialInstanceOBJ =
           accountBasicAttributes.trial_instance?.data?.attributes;
         if (!trialInstanceOBJ) {
-          throw new Error("trialInstanceOBJ is null");
+          //throw new Error("trialInstanceOBJ is null");
         }
 
         // Build the settings object with fetched and existing data
@@ -84,11 +84,11 @@ export const AccountSettingsProvider = ({ children }) => {
             accountBasicAttributes.theme?.data?.attributes?.Theme ?? "",
           trial_instance: {
             trialDaysRemaining: calculateRemainingDays(
-              trialInstanceOBJ.endDate
+              trialInstanceOBJ?.endDate
             ),
-            isActive: trialInstanceOBJ.isActive,
-            startDate: trialInstanceOBJ.startDate,
-            endDate: trialInstanceOBJ.endDate,
+            isActive: trialInstanceOBJ?.isActive,
+            startDate: trialInstanceOBJ?.startDate,
+            endDate: trialInstanceOBJ?.endDate,
           },
           stats: {
             Count,

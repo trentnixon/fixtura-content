@@ -12,4 +12,4 @@ export default async function DisplayWeekendResults() {
   }, [assetCompositionID, setCompositionID]);
   if (!compositionID) return null;
   return <AssetLayout />;
-}  
+}

@@ -136,6 +136,7 @@ const CTAGroup = ({ URL, Modal }) => {
 
   return (
     <FixturaGroup position="right" my={5} py={5}>
+
       <BUTTON_ICON_FUNC
         size="md"
         label="View Image"

@@ -8,8 +8,8 @@ export const useActiveAssetType = () => {
   const assetContext = useContext(AssetContext);
   const { compositionID } = useContext(FixturaSettings);
 
-  console.log("compositionID ", compositionID)
-  console.log("assetContext ", assetContext)
+/*   console.log("compositionID ", compositionID)
+  console.log("assetContext ", assetContext) */
 
   if (!assetContext || !compositionID) {
     console.error(
@@ -20,12 +20,12 @@ export const useActiveAssetType = () => {
     return null;
   }
 
-  
+
   const activeAssetType = assetContext[compositionID];
   if (!activeAssetType) {
     console.error("compositionID not found in asset context", compositionID);
     return null;
   }
- 
-  return activeAssetType; 
-}; 
+
+  return activeAssetType;
+};
