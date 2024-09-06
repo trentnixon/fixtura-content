@@ -74,7 +74,7 @@ export const HTML5VideoPlayer = ({ video }) => {
         {showIframeCode && (
           <Box>
             <P fw="800">Embed Video</P>
-            <P>Copy the code below and paste it into your website's HTML.</P>
+            <P>Copy the code below and paste it into your website&rsquo;s HTML.</P>
             <FixturaBox p={"xs"} m={"xs"} c={1}>
               <pre
                 style={{
