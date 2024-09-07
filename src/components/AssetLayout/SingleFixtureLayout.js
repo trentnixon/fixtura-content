@@ -1,29 +1,30 @@
 "use client";
-// Dev notes: Refactored for improved readability, efficiency, and error handling. Recommendations for future improvements include considering a more modular approach to handle data processing and UI component rendering separately, and integrating TypeScript for type safety.
 import { useState } from "react";
-import { FixturaComponent } from "@/components/containers/containers";
+import {
+  FixturaComponent,
+  RoundedSectionContainer,
+} from "@/components/containers/containers";
 import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 import { SingleImageWithDownload } from "@/components/AssetLayout/Image/createImages";
 import { SelectedWriteup } from "@/components/AssetLayout/Article/supportingArticles";
 import { P } from "@/components/Type/Paragraph";
-import { Box, Group, ScrollArea } from "@mantine/core";
+import { Input, Box, Group } from "@mantine/core";
 import { FixturaPaper } from "@/components/containers/paper";
 import { DefaultHeader } from "@/components/AssetLayout/AssetLayout";
-
 import { NoDataFound } from "@/components/errors/NoDataFound";
 import { AssetHasError } from "@/components/errors/AssetHasError";
-//import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
 import { useActiveAssetType } from "@/Hooks/useActiveAssetType";
+import SingleFixtureResultTable from "@/components/AssetLayout/Table/SingleFixtureResultTable";
+import { BUTTON_FUNC } from "@/components/UI/buttons";
+import { ArticleActionButtonsContainer } from "@/components/AssetLayout/Article/ArticleButtons";
+import { H } from "@/components/Type/Headers";
+import { FixturaBox } from "@/components/containers/boxes";
 
-export async function SingleFixtureLayout(props) {
-  //const useAssetType = await GetActiveAssetType();
+export function SingleFixtureLayout(props) {
+  const [selectedFixture, setSelectedFixture] = useState(null); // Track selected fixture
   const useAssetType = useActiveAssetType();
-  console.log("useAssetType ", useAssetType, useAssetType.useAssetData.length);
-
-  //if (!useAssetType.useAssetData.length) return;
-
   const Graphics = useAssetType.useAssetData.graphics[0];
-  console.log("Graphics ", Graphics);
+
   if (useAssetType.useAssetData.graphics.length === 0) return <NoDataFound />;
 
   if (Graphics.hasError) {
@@ -35,82 +36,153 @@ export async function SingleFixtureLayout(props) {
       />
     );
   }
+
+  // Step 1: Format the data by combining graphics with articles (no memoization)
+  const formattedAssets = Graphics.downloads.map((graphic, index) => {
+    const correspondingArticle =
+      useAssetType.useAssetData.articles[index] || {};
+    return {
+      id: correspondingArticle.id,
+      name: correspondingArticle.Name,
+      url: graphic.url,
+      structuredOutput: correspondingArticle.structuredOutput || {},
+      hasError: correspondingArticle.hasError,
+      hasCompleted: correspondingArticle.hasCompleted,
+      errorHandler: correspondingArticle.errorHandler,
+    };
+  });
+
+  // Step 2: Function to handle fixture selection by finding the correct item using the ID
+  const handleFixtureSelect = (fixtureId) => {
+    const selectedFixture = Graphics.downloads.find(
+      (_, index) => useAssetType.useAssetData.articles[index].id === fixtureId
+    );
+    setSelectedFixture(selectedFixture);
+  };
+
+  // Function to go back to the table
+  const handleBackToTable = () => {
+    setSelectedFixture(null); // Reset the selected fixture
+  };
+
   return (
     <FixturaComponent>
       <DefaultHeader {...props} />
-
-      {Graphics.downloads.map((dl, i) => {
-        return (
-          <Box my={50} key={i}>
-            <FixturaGRIDOUTER>
-              <FixturaGRIDCOL span={5}>
-                <SingleImageWithDownload URL={dl} key={i} />
-              </FixturaGRIDCOL>
-              <FixturaGRIDCOL span={7}>
-                <FixturaPaper key={i}>
-                  <SelectedArticle
-                    gameMetaData={useAssetType.useAssetData.articles[i]}
-                  />
-                </FixturaPaper>
-               {/*  Information about game | playHQ link | Data infor was taken |
-                view infor that makes this image */}
-              </FixturaGRIDCOL>
-            </FixturaGRIDOUTER>
-          </Box>
-        );
-      })}
+      <P my={20}>
+        The Weekend Results provide a graphic overview and multiple write-up
+        options for each game. Search or select a fixture below to view the
+        available assets
+      </P>
+      {selectedFixture === null ? (
+        <>
+          <LocalFilterTable
+            formattedAssets={formattedAssets}
+            onSelectFixture={handleFixtureSelect} // Pass the fixture selection by ID
+          />
+        </>
+      ) : (
+        // Show the selected fixture if one is selected
+        <Box my={50}>
+          <RoundedSectionContainer
+            title={""}
+            topContent={
+              <Group position="right">
+                <BUTTON_FUNC
+                  Label="Back to Fixtures"
+                  onClick={handleBackToTable}
+                  size="xs"
+                  Color="green"
+                  variant="subtle"
+                />
+              </Group>
+            }
+            bottomContent={
+              <FixturaGRIDOUTER>
+                <FixturaGRIDCOL span={5}>
+                  <SingleImageWithDownload URL={selectedFixture} />
+                </FixturaGRIDCOL>
+                <FixturaGRIDCOL span={7}>
+                  <FixturaBox baseColor="gray" c={0} p={0}>
+                    <ArticleActionButtonsContainer copyID={`copy_selected`} />
+                    <FixturaBox p="xs" baseColor="gray" c={1}>
+                      <DisplayFixtureArticle
+                        gameMetaData={
+                          useAssetType.useAssetData.articles[
+                            Graphics.downloads.indexOf(selectedFixture)
+                          ].structuredOutput
+                        }
+                        copyID={`copy_selected`}
+                      />
+                    </FixturaBox>
+                  </FixturaBox>
+                </FixturaGRIDCOL>
+              </FixturaGRIDOUTER>
+            }
+          />
+        </Box>
+      )}
     </FixturaComponent>
   );
 }
 
-const SelectedArticle = ({ gameMetaData }) => {
-  // Prepare options for the Select component
+/* ------------------------------------------------------------------- */
+// This component handles the local filter input and filters without causing unnecessary re-renders.
+const LocalFilterTable = ({ formattedAssets, onSelectFixture }) => {
+  const [filterInput, setFilterInput] = useState(""); // Local state for filter input
 
-  // Initial state is the first article's EditorsArticle, if available
-  const [selectedArticle, setSelectedArticle] = useState(
-    gameMetaData?.ArticleJournalist || ""
-  );
+  // Step 3: Filter the data based on user input
+  const filteredAssets = formattedAssets.filter((asset) => {
+    const { structuredOutput } = asset;
+    const searchStr = filterInput.toLowerCase();
+
+    return (
+      structuredOutput.match_identifier?.toLowerCase().includes(searchStr) ||
+      structuredOutput.team1?.toLowerCase().includes(searchStr) ||
+      structuredOutput.team2?.toLowerCase().includes(searchStr)
+    );
+  });
 
   return (
-    <Box>
-      <ScrollArea style={{ height: 400 }}>
-        {selectedArticle ? (
-          <SelectedWriteup selectedArticle={selectedArticle} />
-        ) : (
-          <NoArticleMessage />
-        )}
-      </ScrollArea>
-    </Box>
+    <>
+      <RoundedSectionContainer
+        title={""}
+        topContent={
+          <Group position="apart">
+            <Box>
+              <H size="h6">Select a Fixture</H>
+            </Box>
+
+            <Input
+              placeholder="Filter by Team Name"
+              value={filterInput}
+              onChange={(event) => setFilterInput(event.currentTarget.value)}
+              mb="md"
+              style={{
+                marginBottom: 0,
+              }}
+            />
+          </Group>
+        }
+        bottomContent={
+          <SingleFixtureResultTable
+            filteredAssets={filteredAssets}
+            onSelectFixture={onSelectFixture}
+          />
+        }
+      />
+    </>
   );
 };
 
-const MatchDetails = ({ FixtureDetails }) => {
+/* ------------------------------------------------------------------- */
+const DisplayFixtureArticle = ({ gameMetaData, copyID }) => {
   return (
-    <Box mb={0}>
-      <Group position="apart">
-        <P fw={400} fz=".8em" c="gray.8">
-          {FixtureDetails?.round}
-        </P>
-        <P fw={400} fz=".8em" c="gray.8">
-          {FixtureDetails?.ground}
-        </P>
-      </Group>
-      <Group position="apart">
-        <P fw={600} fz="1.1em" c="gray.8">
-          {FixtureDetails.teamHome} {FixtureDetails.Homescores}{" "}
-          {FixtureDetails.HomeOvers}
-        </P>
-        <P fw={400} fz=".8em" c="gray.8">
-          VS
-        </P>
-        <P fw={600} fz="1.1em" c="gray.8">
-          {FixtureDetails.Awayscores} {FixtureDetails.AwayOvers}{" "}
-          {FixtureDetails.teamAway}
-        </P>
-      </Group>
-      <P ta="center" fw={400} fz=".8em" c="gray.8" my={10}>
-        {FixtureDetails?.ResultStatement}
-      </P>
+    <Box>
+      {gameMetaData ? (
+        <SelectedWriteup selectedArticle={gameMetaData} copyID={copyID} />
+      ) : (
+        <NoArticleMessage />
+      )}
     </Box>
   );
 };

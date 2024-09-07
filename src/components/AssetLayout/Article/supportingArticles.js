@@ -19,6 +19,13 @@ import { IconArticle } from "@tabler/icons-react";
 import { useContext, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
+// articles
+import { Top5Listicle } from "@/components/AssetLayout/Article/ArticleTypes/Top5Listicle";
+import { LadderSummary } from "@/components/AssetLayout/Article/ArticleTypes/LadderSummary";
+import { SingleResultArticles } from "@/components/AssetLayout/Article/ArticleTypes/SingleResultArticles";
+import { UpComingFixtures } from "@/components/AssetLayout/Article/ArticleTypes/UpComingFixtures";
+import { WeekendWrapUp } from "@/components/AssetLayout/Article/ArticleTypes/WeekendWrapUp";
+
 export const SupportingArticleClient = (props) => {
   const { ITEMS } = props;
 
@@ -38,30 +45,25 @@ export const SupportingArticleClientWithScroll = async () => {
   const useAssetType = await GetActiveAssetType();
   let useArticles = useAssetType.useAssetData.articles;
 
-  console.log("useAssetType ", useAssetType.AssetMetaData.AssetName);
-  console.log("useArticles ", useArticles);
-
-  console.log("useAssetType ", useAssetType.AssetMetaData.AssetName);
-
+  //console.log("useAssetType ", useAssetType.AssetMetaData.AssetName);
+  //console.log("useArticles ", useArticles);
   if (useAssetType.AssetMetaData.AssetName === "Weekend Results") {
     useArticles = [mergeArticles(useArticles)];
   }
-
+  //console.log("useArticles ", useArticles);
   return (
     <FixturaContainer>
       {useArticles.map((article, i) => {
         if (!article) return false;
-        const selectedArticle = ArticleRewrite
-          ? ArticleRewrite
-          : selectArticle(article);
         return (
           <Box key={i} my="md" mx="md">
             <Box mb={10}>
               <ArticleActionButtonsContainer
                 ArticleBOJ={article}
-                selectedArticle={selectedArticle}
+                selectedArticle={article}
                 setLoadingState={setLoadingState}
                 setArticleRewrite={setArticleRewrite}
+                copyID={`copy_${i}`}
               />
             </Box>
             <ScrollArea h={450}>
@@ -73,7 +75,10 @@ export const SupportingArticleClientWithScroll = async () => {
                   </FixturaGroup>
                 </FixturaBox>
               ) : (
-                <SelectedWriteup selectedArticle={selectedArticle} />
+                <SelectedWriteup
+                  selectedArticle={article}
+                  copyID={`copy_${i}`}
+                />
               )}
             </ScrollArea>
           </Box>
@@ -83,51 +88,54 @@ export const SupportingArticleClientWithScroll = async () => {
   );
 };
 
-export const SelectedWriteup = ({ selectedArticle }) => {
+export const SelectedWriteup = ({ selectedArticle, copyID }) => {
   const { compositionID } = useContext(FixturaSettings);
-  console.log("compositionID ", compositionID);
+  //console.log("compositionID ", compositionID);
 
   if (selectedArticle === null) return; // need a handler for no article
-  console.log("selectedArticle ", selectedArticle);
+  //console.log("selectedArticle ", selectedArticle);
 
   const selectArticleFormat = {
-    Top5BattingList: <Top5Listicle selectedArticle={selectedArticle} />,
-    Top5BowlingList: <Top5Listicle selectedArticle={selectedArticle} />,
+    Top5BattingList: (
+      <Top5Listicle selectedArticle={selectedArticle} copyID={copyID} />
+    ),
+    Top5BowlingList: (
+      <Top5Listicle selectedArticle={selectedArticle} copyID={copyID} />
+    ),
+    LadderSummary: (
+      <LadderSummary selectedArticle={selectedArticle} copyID={copyID} />
+    ),
+    UpComingFixtures: (
+      <UpComingFixtures selectedArticle={selectedArticle} copyID={copyID} />
+    ),
+    WeekendSingleGameResult: (
+      <SingleResultArticles selectedArticle={selectedArticle} copyID={copyID} />
+    ),
+    WeekendResults: (
+      <WeekendWrapUp selectedArticle={selectedArticle} copyID={copyID} />
+    ),
   };
 
   // <ReactMarkdown className="markdown">{selectedArticle.title}</ReactMarkdown>
   return <>{selectArticleFormat[compositionID]}</>;
 };
+
 const mergeArticles = (articles) => {
   if (!articles || articles.length === 0) {
     return null;
   }
 
-  const mergedArticle = { ...articles[0] };
-  mergedArticle.ArticleJournalist = articles
-    .map((article) => article.ArticleJournalist)
-    .join("\n\n");
+  // Initialize a structure for the merged results array
+  const mergedResults = [];
 
-  return mergedArticle;
-};
+  // Loop through all articles and merge their `structuredOutput.results`
+  articles.forEach((article) => {
+    if (article.structuredOutput && article.structuredOutput.results) {
+      // Merge the results from each article into the mergedResults array
+      mergedResults.push(...article.structuredOutput.results);
+    }
+  });
 
-const Top5Listicle = ({ selectedArticle }) => {
-  return (
-    <>
-      <H size="h3">{selectedArticle.title}</H>
-      <H size="h5">{selectedArticle.subtitle}</H>
-
-      {selectedArticle.top_scorers.map((article, i) => {
-        return (
-          <div key={article.player_name}>
-            <H size="h6">
-              {article.player_name} {article.runs}
-            </H>
-            <P>{article.highlights}</P>
-            <P>{article.article_body}</P>
-          </div>
-        );
-      })}
-    </>
-  );
+  // Return only the merged results array
+  return [mergedResults];
 };

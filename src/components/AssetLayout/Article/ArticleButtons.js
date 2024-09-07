@@ -14,16 +14,14 @@ import { useCallback, useEffect, useState } from "react";
 
 export const ArticleActionButtonsContainer = (props) => {
   return (
-    <Container p={0} mt={10}>
-      <Group position="right">
-         <BTN_Copy_Article_Content Article={props.selectedArticle} />
+    <Group position="right" my={5} py={5}>
+      <BTN_Copy_Article_Content copyID={props.copyID} />
       {/*  <BTN_Article_Rewrite
           Article={props.ArticleBOJ}
           setLoadingState={props.setLoadingState}
           setArticleRewrite={props.setArticleRewrite}
         /> */}
-      </Group>
-    </Container>
+    </Group>
   );
 };
 
@@ -101,17 +99,65 @@ const BTN_Article_Rewrite = ({
   );
 };
 
-const BTN_Copy_Article_Content = ({ Article }) => {
+export const BTN_Copy_Article_Content = ({ copyID }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(() => {
+    const articleElement = document.getElementById(`${copyID}`);
+    console.log("[articleElement]", articleElement);
+    if (articleElement) {
+      const articleTextToCopy = articleElement.innerText; // or articleElement.textContent for raw text
+      navigator.clipboard
+        .writeText(articleTextToCopy)
+        .then(() => {
+          setCopied(true);
+        })
+        .catch((err) => {
+          console.error("Could not copy text: ", err);
+        });
+    }
+  }, [copyID]);
+
+  return (
+    <>
+      <Tooltip label={`Copy Article Text`}>
+        <ActionIcon
+          size="md"
+          radius="sm"
+          variant="outline"
+          onClick={handleCopy}
+          sx={(theme) => ({
+            borderColor: theme.colors.cyan[6],
+            color: theme.colors.cyan[6],
+            cursor: "pointer",
+            "&:hover": {
+              background: theme.fn.linearGradient(
+                45,
+                theme.colors.blue[5],
+                theme.colors.cyan[5]
+              ),
+              color: theme.colors.gray[0],
+              borderColor: theme.colors.blue[6],
+            },
+          })}
+        >
+          {copied ? (
+            <IconCircleCheck size="1.125rem" />
+          ) : (
+            <IconCopy size="1.125rem" />
+          )}
+        </ActionIcon>
+      </Tooltip>
+    </>
+  );
+};
+
+/* const BTN_Copy_Article_Content = ({ Article }) => {
   const [copied, setCopied] = useState(false);
   //console.log(Article.attributes.EditorsArticle);
 
   const handleCopy = useCallback(() => {
     let articleTextToCopy = Article;
-    /*  if (hasSponsors && ArticleVersion.asset.ArticleFormats !== "Quick Single") {
-      const sponsorsPlainText = formatSponsorsInPlainText(hasSponsors);
-      articleTextToCopy += sponsorsPlainText;
-    } */
-
     navigator.clipboard
       .writeText(articleTextToCopy)
       .then(() => {
@@ -154,4 +200,4 @@ const BTN_Copy_Article_Content = ({ Article }) => {
       </Tooltip>
     </>
   );
-};
+}; */

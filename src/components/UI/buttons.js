@@ -30,7 +30,7 @@ export const BUTTON_FUNC = (props) => {
       size={size}
       onClick={onClick}
       uppercase
-      radius="md"
+      radius="sm"
     >
       {Label}
     </Button>
@@ -57,7 +57,7 @@ export const BUTTON_LINK = (props) => {
         icon={Icon}
         size={size}
         onClick={onClick}
-        radius="md"
+        radius="sm"
         uppercase
         sx={(theme) => ({
           borderColor: theme.colors[Color][6],
@@ -101,7 +101,7 @@ export const BUTTON_LINK_ICON = (props) => {
         size={size}
         onClick={onClick}
         uppercase
-        radius="md"
+        radius="sm"
         leftIcon={icon}
         sx={(theme) => ({
           borderColor: theme.colors.cyan[6],

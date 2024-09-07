@@ -95,10 +95,11 @@ export const SingleImageWithDownload = ({ URL }) => {
 
   return (
     <FixturaBox baseColor="gray" c={0} p={0}>
+      <CTAGroup URL={url} Modal={handleImageClick} />
       <FixturaBox p="xs">
         <AssetImage URL={url} />
       </FixturaBox>
-      <CTAGroup URL={url} Modal={handleImageClick} />
+
       <Modal
         transitionProps={{
           transition: "fade",
@@ -136,7 +137,6 @@ const CTAGroup = ({ URL, Modal }) => {
 
   return (
     <FixturaGroup position="right" my={5} py={5}>
-
       <BUTTON_ICON_FUNC
         size="md"
         label="View Image"
