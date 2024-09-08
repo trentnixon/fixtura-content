@@ -14,7 +14,7 @@ export async function getWriteupsFields(ID, FIELDS) {
 
   const res = await fetcher({
     PATH: `gtp-3-reports/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
 
   return res.data;
@@ -39,7 +39,7 @@ export async function getWriteupsFieldsWithFilters(FIELDS, FILTERS) {
 
   const res = await fetcher({
     PATH: `gtp-3-reports?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
   //console.log(res.data);
   return res.data;
@@ -51,7 +51,7 @@ export async function getWriteupsFromRender(ID, PATH, TYPE, BiasID) {
     PATH: `render/getRenderWriteups/`,
     method: `POST`,
     body: { ID: ID, PATH: PATH, TYPE: TYPE, BiasID: BiasID },
-    nextConfig: { cache: "no-store" },
+    nextConfig: { next: { revalidate: 0 } },
   });
-  return res.data; 
+  return res.data;
 }

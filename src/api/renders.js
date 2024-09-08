@@ -5,8 +5,8 @@ export async function getAllRenders() {
   //const res = await fetcher(`renders`);
   const res = await fetcher({
     PATH: `renders`,
-    nextConfig: { next: { revalidate: 600 }},
-  }); 
+    nextConfig: { next: { revalidate: 0 } },
+  });
   return res.data;
 }
 
@@ -23,7 +23,7 @@ export async function getRenderFields(ID, FIELDS) {
   //const res = await fetcher(`accounts/${ID}?${queryParams}`);
   const res = await fetcher({
     PATH: `renders/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
   //console.log(res.data)
   return res.data;
@@ -45,7 +45,7 @@ export async function getRenderFieldsWithFilters(ID, FIELDS, FILTERS) {
 
   const res = await fetcher({
     PATH: `renders/${ID}?${queryParams}`,
-    nextConfig: {next: { revalidate: 0 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
   //console.log(res.data);
   return res.data;
@@ -75,7 +75,7 @@ export async function getRenders(ID) {
   //const res = await fetcher(`renders/${ID}?${queryParams}`);
   const res = await fetcher({
     PATH: `renders/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 60 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
   //console.log("res.data", res.data);
   return res.data;
@@ -86,8 +86,8 @@ export async function RenderCount(ID) {
   const res = await fetcher({
     PATH: `render/AssetCount`,
     method: "POST",
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 0 } },
     body: { ID: ID },
-  }); 
+  });
   return res.data;
 }

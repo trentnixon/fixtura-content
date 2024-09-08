@@ -1,12 +1,10 @@
 import { fetcher } from "@/utils/fetcher";
 const qs = require("qs");
 
-
-/* 
-  All this ACCOUNT 
+/*
+  All this ACCOUNT
   Here are a bunch of Account API routes for different circumstances
 */
-
 
 export async function getAllAccount() {
   const queryParams = qs.stringify(
@@ -20,7 +18,7 @@ export async function getAllAccount() {
   //const res = await fetcher(`accounts?${queryParams}`);
   const res = await fetcher({
     PATH: `accounts?${queryParams}`,
-    nextConfig: {next: { revalidate: 600 }},
+    nextConfig: { next: { revalidate: 0 } },
   });
 
   //console.log(res.data)
@@ -39,7 +37,7 @@ export async function getAccount(ID) {
         "associations.Logo",
         "scheduler",
         "theme",
-        "trial_instance"
+        "trial_instance",
       ],
     },
     {
@@ -50,7 +48,7 @@ export async function getAccount(ID) {
   //const res = await fetcher(`accounts/${ID}?${queryParams}`);
   const res = await fetcher({
     PATH: `accounts/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 }},
+    nextConfig: { next: { revalidate: 0 } },
   });
   return res.data;
 }
@@ -88,7 +86,7 @@ export async function getFullAccount(ID) {
   //const res = await fetcher(`accounts/${ID}?${queryParams}`);
   const res = await fetcher({
     PATH: `accounts/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
   return res.data;
 }
@@ -106,7 +104,7 @@ export async function getAccountFields(ID, FIELDS) {
   //const res = await fetcher(`accounts/${ID}?${queryParams}`);
   const res = await fetcher({
     PATH: `accounts/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
   //console.log(res.data)
   return res.data;

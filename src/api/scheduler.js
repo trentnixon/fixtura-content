@@ -14,14 +14,14 @@ export async function getScheduler(ID) {
 
   const res = await fetcher({
     PATH: `schedulers/${ID}?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 }}
+    nextConfig: { next: { revalidate: 0 } },
   });
   return res.data;
 }
 
-export async function getSchedulerFromAccount(ID) {  
+export async function getSchedulerFromAccount(ID) {
   //getAccountFields
-  const ACC = await getAccountFields(ID, ["scheduler", "scheduler.renders"]); 
+  const ACC = await getAccountFields(ID, ["scheduler", "scheduler.renders"]);
   //console.log("getSchedulerFromAccount ", ACC.attributes.scheduler.data.id);
   return await getScheduler(ACC.attributes.scheduler.data.id);
 }

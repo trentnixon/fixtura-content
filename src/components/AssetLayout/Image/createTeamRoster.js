@@ -16,6 +16,9 @@ import { FixturaBox } from "@/components/containers/boxes";
 import { P, S } from "@/components/Type/Paragraph";
 import { H } from "@/components/Type/Headers";
 import { FixturaPaper } from "@/components/containers/paper";
+import { ImageGalleryForAssets } from "@/components/AssetLayout/Image/createImages";
+import { RoundedSectionContainer } from "@/components/containers/containers";
+import { FixturaGRIDCOL, FixturaGRIDOUTER } from "@/layouts/Grids/grid";
 
 const Header = () => (
   <FixturaGroup position={"apart"} my={5} py={5}>
@@ -79,6 +82,7 @@ const RequestButtonWithConfirmation = ({ onConfirm, disabled, isLoading }) => {
 
 const MainContent = ({
   hasRosters,
+  hasTeamRosterRequest,
   requestInitiated,
   handleRequestClick,
   requestStatus,
@@ -90,18 +94,37 @@ const MainContent = ({
   const allowedDays = ["thursday", "friday", "saturday", "sunday", "monday"];
   const isButtonAccessible = allowedDays.includes(dayOfWeek);
 
+  if(hasTeamRosterRequest && !hasRosters)
+      return(
+        <>We are currently processing your Team Rosters, Please check back later.</>
+      )
   return (
     <>
+
       {!hasRosters && !requestInitiated && <InitialBox />}
       {!requestInitiated &&
         isButtonAccessible &&
         (hasRosters ? (
-          <RostersCreatedBox />
+          <>
+            <RoundedSectionContainer
+              title={""}
+              topContent={<RostersCreatedBox />}
+              bottomContent={
+                <FixturaGRIDOUTER>
+                  <FixturaGRIDCOL span={12}>
+                    <ImageGalleryForAssets />
+                  </FixturaGRIDCOL>
+                </FixturaGRIDOUTER>
+              }
+            />
+          </>
         ) : (
           <RequestButtonBox
             handleRequestClick={handleRequestClick}
             requestStatus={requestStatus}
             error={error}
+            hasRosters={hasRosters}
+            requestInitiated={requestInitiated}
           />
         ))}
 
@@ -111,15 +134,14 @@ const MainContent = ({
 };
 
 const InitialBox = () => (
-  <FixturaPaper c={1} shadow={"none"} my={10}>
-    <P c={"gray.8"} ta={`left`}>
+  <>
+    <P c={"gray.8"} ta={`left`} my={"sm"}>
       Create sleek team roster graphics for every team in the club.
     </P>
-    <P c={"gray.8"} ta={`left`}>
-      This service is only available once per week/bundle. We&apos;ll notify you
-      when they&apos;re ready for showcase.
+    <P c={"gray.8"} ta={`left`} my={"sm"}>
+      This service is only available once per week/bundle.
     </P>
-  </FixturaPaper>
+  </>
 );
 
 const ProcessingBox = () => (
@@ -155,34 +177,34 @@ const ProcessingBox = () => (
 );
 
 const RostersCreatedBox = () => (
-  <FixturaGroup position={"center"} my={5} py={5}>
+  <FixturaGroup position={"left"} my={5} py={5}>
     <IconCheck size={50} stroke={2} color={"#3ba776"} />
     <Stack justify="flex-start" spacing={0}>
-      <H size={"h3"} color={"green.7"} ta={`left`}>
+      <H size={"h5"} color={"green.7"} ta={`left`}>
         Rosters created!
       </H>
-      <P c={"gray.8"} ta={`left`}>
-        Select the upcoming option under the Age group you wish to find, and
-        then go to Images to find the rosters.
-      </P>
     </Stack>
   </FixturaGroup>
 );
 
-const RequestButtonBox = ({ handleRequestClick, requestStatus, error }) => (
-  <FixturaGroup position={"center"} my={5} py={5}>
-    <Stack>
+const RequestButtonBox = ({ handleRequestClick, requestStatus }) => (
+  <RoundedSectionContainer
+    title={""}
+    topContent={
+      <FixturaGroup position={"Left"} my={5} py={5}>
+        <H size={"h5"} ta={`left`}>
+          Create Weekly Team Rosters
+        </H>
+      </FixturaGroup>
+    }
+    bottomContent={
       <RequestButtonWithConfirmation
         onConfirm={handleRequestClick}
         disabled={requestStatus !== null}
         isLoading={requestStatus === "pending"}
       />
-      <div>
-        {error && <P c={"red.5"}>Error: {error}</P>}
-        {requestStatus === "success" && <P>Request sent successfully!</P>}
-      </div>
-    </Stack>
-  </FixturaGroup>
+    }
+  />
 );
 
 const FooterNote = () => (
@@ -199,6 +221,7 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
   const { requestStatus, error, requestTeamRoster } = useRequestTeamRoster();
   const [requestInitiated, setRequestInitiated] = useState(false);
   const hasRosters = CompleteRender.attributes.hasTeamRosters;
+  const hasTeamRosterRequest = CompleteRender.attributes.hasTeamRosterRequest;
   localStorage.removeItem(`requestInitiated-${Render}`);
   useEffect(() => {
     const storedState = localStorage.getItem(`requestInitiated-${Render}`);
@@ -226,6 +249,7 @@ export const RequestTeamRosterForRender = ({ Render, CompleteRender }) => {
       <Header />
       <MainContent
         hasRosters={hasRosters}
+        hasTeamRosterRequest={hasTeamRosterRequest}
         requestInitiated={requestInitiated}
         handleRequestClick={handleRequestClick}
         requestStatus={requestStatus}

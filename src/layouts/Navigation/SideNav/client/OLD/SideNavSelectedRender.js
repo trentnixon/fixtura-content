@@ -26,7 +26,7 @@ export const SideNavSelectedRender = ({ DATAOBJ, LINKPREPATH }) => {
       />
       <NavLinkWithIcon
         label="RESULTS"
-        description={`${ 
+        description={`${
           DATAOBJ.INT.Results.w + DATAOBJ.INT.Results.dl
         } Items relating to the previoud 7 days `}
         Icon={<ICO_SCOREBOARD />}

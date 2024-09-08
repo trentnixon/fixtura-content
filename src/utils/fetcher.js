@@ -10,14 +10,14 @@
 // - Removed console.logs for cleaner production code; consider using a more sophisticated logging mechanism for debugging.
 
 const getConfig = (isProduction) => {
- 
+
   return {
     api: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_API : process.env.NEXT_PUBLIC_FIXTURA_API_DEV,
     token: isProduction ? process.env.NEXT_PUBLIC_FIXTURA_TOKEN : process.env.NEXT_PUBLIC_FIXTURA_TOKEN_DEV
   };
-}; 
+};
 
-export const fetcher = async ({ 
+export const fetcher = async ({
   PATH,
   method = "GET",
   body = {},
@@ -27,12 +27,12 @@ export const fetcher = async ({
   const isProduction = process.env.NEXT_PUBLIC_NODE_ENV === 'production';
   const { api, token } = getConfig(isProduction);
   const endpoint = `${api}${PATH}`;
-  const headers = { 
+  const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
-  
- 
+
+
 
 
   const options = {

@@ -21,7 +21,7 @@ export async function withTokenValidation(token) {
   //const res = await fetcher(`assets?${queryParams}`);
   const res = await fetcher({
     PATH: `render-tokens?${queryParams}`,
-    nextConfig: { next: { revalidate: 600 } },
+    nextConfig: { next: { revalidate: 0 } },
   });
   //console.log("Token Response, ", res.data.length);
 

@@ -10,7 +10,7 @@ export const UpComingFixtures = ({ selectedArticle, copyID }) => {
       {displayArticle.fixtures.map((article, i) => {
         return (
           <div key={article.match}>
-            <H size="h4" lh="1.1" my="md">
+            <H size="h4" lh="1.1" mb="md">
               {article.match}
             </H>
             <P my="md" lh="1.3">
