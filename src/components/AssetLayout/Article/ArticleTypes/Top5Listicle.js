@@ -4,6 +4,8 @@ import { selectArticle } from "@/utils/ArticleUtils";
 import { Divider } from "@mantine/core";
 export const Top5Listicle = ({ selectedArticle, copyID }) => {
   const displayArticle = selectArticle(selectedArticle);
+  console.log("[displayArticle] ", displayArticle);
+  if (!displayArticle) return null;
   return (
     <div id={copyID}>
       <H size="h4" lh="1.2" mb="md">

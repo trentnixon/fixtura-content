@@ -45,12 +45,10 @@ export const SupportingArticleClientWithScroll = async () => {
   const useAssetType = await GetActiveAssetType();
   let useArticles = useAssetType.useAssetData.articles;
 
-  //console.log("useAssetType ", useAssetType.AssetMetaData.AssetName);
-  //console.log("useArticles ", useArticles);
   if (useAssetType.AssetMetaData.AssetName === "Weekend Results") {
     useArticles = [mergeArticles(useArticles)];
   }
-  //console.log("useArticles ", useArticles);
+
   return (
     <FixturaContainer>
       {useArticles.map((article, i) => {

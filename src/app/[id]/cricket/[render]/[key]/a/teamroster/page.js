@@ -16,7 +16,7 @@ export default async function DisplayRosterPoster() {
   const activeAssetType = useActiveAssetType();
   const AccountSettings = useAccountSettings();
 
-/*   console.log("AccountSettings ", AccountSettings);
+  /*   console.log("AccountSettings ", AccountSettings);
   console.log("DisplayRosterPoster activeAssetType ", activeAssetType);
   console.log("graphics ", activeAssetType?.useAssetData?.graphics); */
   const CompleteRender = await getRenders(AccountSettings.URLParams.render);
