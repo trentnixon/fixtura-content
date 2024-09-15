@@ -21,6 +21,7 @@ import {
   IconPhotoAi,
 } from "@tabler/icons-react";
 import { GetActiveAssetType } from "@/utils/getActiveAssetOBJ";
+import { H } from "@/components/Type/Headers";
 
 // Dev notes: Refactored to improve readability and error handling
 // Future improvement: Consider abstracting modal logic into a reusable component
@@ -30,13 +31,11 @@ export const ImageGalleryForAssets = async () => {
   const useAssetType = await GetActiveAssetType();
   const useImages = useAssetType.useAssetData.graphics;
   // Improved error checking and removed unnecessary console log
-  if (
-    !useImages ||
-    !useImages[0] ||
-    useImages[0].hasError ||
-    !useImages[0].downloads
-  ) {
+  if (useImages[0].hasError) {
     return <AssetHasError assetID={useImages?.[0]?.id} />;
+  }
+  if (useImages[0].hasBeenProcessed && !useImages[0].downloads) {
+    return <RosterImagesFinishingUp assetID={useImages?.[0]?.id} />;
   }
 
   const handleBulkDownload = async () => {
@@ -72,8 +71,7 @@ export const ImageGalleryForAssets = async () => {
           { minWidth: "sm", cols: 2 },
           { minWidth: "md", cols: 3 },
           { minWidth: 1200, cols: 4 }, // Adjusted for better layout
-        ]}
-      >
+        ]}>
         {useImages[0].downloads.map((url, index) => (
           <SingleImageWithDownload key={index} URL={url} />
         ))}
@@ -113,8 +111,7 @@ export const SingleImageWithDownload = ({ URL }) => {
         }}
         opened={opened}
         onClose={() => setOpened(false)}
-        size="lg"
-      >
+        size="lg">
         <Image src={selectedImage} alt="Selected" withPlaceholder />
       </Modal>
     </FixturaBox>
@@ -157,6 +154,27 @@ const CTAGroup = ({ URL, Modal }) => {
         disabled={isDownloading}
       />
     </FixturaGroup>
+  );
+};
+
+const RosterImagesFinishingUp = () => {
+  return (
+    <>
+      <FixturaGroup position="apart" my={10}>
+        <H size="h5">Finishing Up</H>
+        <BUTTON_FUNC
+          Label="View Results"
+          onClick={() => {
+            // window/ component refresh
+            window.location.reload();
+          }}
+        />
+      </FixturaGroup>
+
+      <P>
+        This weeks Rosters are almost done, use the button to check the results
+      </P>
+    </>
   );
 };
 

@@ -13,12 +13,16 @@ export const AssetHasError = ({ assetID, forceRerender, hasBeenProcessed }) => {
   const { rerenderAsset, status, message } = useAssetRerender(assetID);
 
   // Function to trigger asset re-render
-  const handleRerender = () => rerenderAsset(); 
+  const handleRerender = () => rerenderAsset();
 
   // Conditional rendering based on forceRerender and hasBeenProcessed flags
   let content;
   if (forceRerender) {
-    content = hasBeenProcessed ? <PersistentErrorNotice /> : <ProcessingForcedRender />;
+    content = hasBeenProcessed ? (
+      <PersistentErrorNotice />
+    ) : (
+      <ProcessingForcedRender />
+    );
   } else {
     content = (
       <RetryRenderNotice
@@ -53,11 +57,14 @@ const RetryRenderNotice = ({ status, message, handleRerender, assetID }) => (
 const IdleStatusMessage = ({ assetID, handleRerender }) => (
   <>
     <FixturaPaper c={1} shadow="none" my={10}>
-      <P>An issue has prevented your asset (ID: {assetID}) from rendering correctly. You can attempt to re-render the asset to resolve this issue.</P>
+      <P>
+        An issue has prevented your asset (ID: {assetID}) from rendering
+        correctly. Please contact us to resolve this issue.a
+      </P>
     </FixturaPaper>
-    <FixturaPaper c={0} shadow="none" my={20}>
+    {/*  <FixturaPaper c={0} shadow="none" my={20}>
       <ReRenderButton handleRerender={handleRerender} />
-    </FixturaPaper>
+    </FixturaPaper> */}
   </>
 );
 
@@ -66,7 +73,9 @@ const NonIdleStatusMessage = ({ status, message }) => (
   <Group position="apart">
     {status === "loading" && <P tt="uppercase">Re-rendering your asset...</P>}
     {status === "success" && <P>{message}</P>}
-    {status === "error" && <P>An error occurred during re-rendering. Please try again.</P>}
+    {status === "error" && (
+      <P>An error occurred during re-rendering. Please try again.</P>
+    )}
     {status === "loading" && <ProcessingLoader />}
   </Group>
 );
@@ -75,7 +84,9 @@ const NonIdleStatusMessage = ({ status, message }) => (
 const ProcessingForcedRender = () => (
   <FixturaPaper c={3} shadow="none" my={10}>
     <Group position="apart">
-      <P tt="uppercase" my={10}>Processing New Asset ... </P>
+      <P tt="uppercase" my={10}>
+        Processing New Asset ...{" "}
+      </P>
       <ProcessingLoader />
     </Group>
   </FixturaPaper>
@@ -83,7 +94,10 @@ const ProcessingForcedRender = () => (
 
 const PersistentErrorNotice = () => (
   <FixturaPaper c={8} shadow="none" my={10}>
-    <P c="white" my={10}>The asset failed to render correctly after multiple attempts. Please contact support for further assistance.</P>
+    <P c="white" my={10}>
+      The asset failed to render correctly after multiple attempts. Please
+      contact support for further assistance.
+    </P>
   </FixturaPaper>
 );
 
@@ -94,7 +108,7 @@ const ReRenderButton = ({ handleRerender }) => (
   </Group>
 );
 
-// Dev notes for an LLM: This file defines components for handling asset rendering errors in a React application. 
+// Dev notes for an LLM: This file defines components for handling asset rendering errors in a React application.
 // The components display different messages and options based on the asset's rendering status, such as idle, loading, success, or error.
 // This file is part of the UI layer, specifically within the components directory related to error handling and user feedback.
 // Future improvements could include enhancing the error handling mechanism and integrating TypeScript for type safety.
